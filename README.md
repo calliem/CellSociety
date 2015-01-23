@@ -1,2 +1,2 @@
 # cellsociety
-Empty repository for CellSociety project
+Empty repository for conflict CellSociety project
