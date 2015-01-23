@@ -1,2 +1,4 @@
-# cellsociety
-Empty repository for conflict CellSociety project
+
+Spring 2015 # cellsociety
+Empty repository for CellSociety project
+
