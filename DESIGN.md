@@ -79,8 +79,6 @@ Design Details
 ----
 A broader overview of the classes outlined in the Overview is given below.
 
-Given that there could be updated requirements to this CellSociety project, our number one goal is to make this code extensible so that new changes can be implemented easily. For example, adding a new CA simulation with a new set of rules should be an incredibly easy fix to the program. Likewise, other possible additions like possibly running multiple simulations at once should be very easily implemented. In the design of the SimController class for example, our flexibility can be seen because attention is given to making sure that each individual controller subclass is able to extend the SimController superclass, rather than create separate methods or long "if" trees in order to specify behavior. The FireController, WaTorController, SegController, and LifeController all extend the SimController, which is soemthing that we believe to be good code design.
-
 * **CellSociety**
 	The CellSociety class functions as the view of the entire simulation. 
 * **Grid**
@@ -128,32 +126,32 @@ The XMLParser will parse through the file and call constructors/methods from cel
 	* setCell
 * **GameManager**
 GameManager will contain the following methods:
-* init(File file){
+	* init(File file){
 	//this method will initialize the game scene by 
 	calling createControllers();
 	calling createGrid();
 };
 
-createControllers(){
+	* createControllers(){
 	//this method will interact with the XMLParser class to parse the XML file and set the properties to the revelvant controller
 }	
 
-createGrid(){
+	* createGrid(){
 	//this method will create the grid by interacting with the Grid class which holds all specfications for the grid’s attributes and properties
 };
 
-updateGrid(){
+	* updateGrid(){
 	//this method will use setter methods in the Grid class to reset its state based on the results of running the current algorithms. It will need to have access to the SimController and/or the specific controller subclass in order to determine what changes need to be made. 
 
-private void pause(){
+	* private void pause(){
 	//this method will pause the simulation and stop receiving updates from the SimController. This method will need to interact with the Button class to determine when they have been pressed.
 }
 
-private void step(){
+	* private void step(){
 	//this method will only step through and play one frame of the simulation before pausing it once again. This method will need to interact with the Button class to determine when they have been pressed.
 }
 	
-uploadXML(File file){
+	* uploadXML(File file){
 	//this method will need to interact with the UI Elements and buttons to determine when the Upload XML document has been selected and what filepath has been selected. The buttons will call uploadXML(). This method will then interact with XMLParser and call init with the new file passed in as a parameter}
 
 * **SimController**
@@ -170,7 +168,7 @@ else return “ash”
 		* getHoodState(hood) returns array containing any combination of [“shark”,”fish”, “vacant”] if at least one cell in the neighborhood has the corresponding state.
 		* newState(cellState, hoodState): 
 		if cellState[0] = “Shark”: (cellState = [“Shark”, surviveCount, energyCount]
-			if hoodState contains “Fish” or “vacant”:
+		if hoodState contains “Fish” or “vacant”:
 			if cellState[1] == reproduceParam:
 				return [“Shark”, 0, startingEnergy]
 			else:
@@ -214,3 +212,18 @@ else return “ash”
 		else:
 			return vacant
 
+Given that there could be updated requirements to this CellSociety project, our number one goal is to make this code extensible so that new changes can be implemented easily. For example, adding a new CA simulation with a new set of rules should be an incredibly easy fix to the program. Likewise, other possible additions like possibly running multiple simulations at once should be very easily implemented. In the design of the SimController class for example, our flexibility can be seen because attention is given to making sure that each individual controller subclass is able to extend the SimController superclass, rather than create separate methods or long "if" trees in order to specify behavior. The FireController, WaTorController, SegController, and LifeController all extend the SimController, which is soemthing that we believe to be good code design.
+
+Design Considerations
+---
+
+A number of design considerations were discussed at length. First of all, it was necessary to decide whether the Cell object would contain information regarding its neighbors or not. The advantage to this is that the SimController would not need the getHood() method as this would be intrinsic to the Cell. We decided, however to not have the Cell hold information on its neighboring cells though because, the SimController is dependent on the grid regardless (in order to iterate through every cell) and it would just be extraneous information in the Cell object.
+
+Another consideration was whether to parse the XML file in a separate class or within the GameManger class. Putting it in the GameManager class was considered because originally the GameManager had little functionality other than parsing the XML file and calling SimControllers. It made more sense to have GameManager handle all the logic involved with the flow of the game (start, pause, step) and thus it made more sense to parse the XML with a separate XMLParser object.
+
+An additional consideration was where to store the algorithm/rules for changing cell states. One option we considered was placing the code for determining a cell’s state directly within the cell class itself. The class could call update() on itself in order to determine its next state and update its state within the same class. However, several issues arose: the cell would need access to adjacent cells, and each cell would need a unique forms of the algorithms. A TreeCell would have to have an algorithm differentiated from a FireCell, and would require specific algorithms to first be hardcoded into each class before the parameters could be passed in. Instead, we decided a separate group of Controller classes could keep access to adjacent cell within the Grid and GameManager classes (reducing the amount that Cell can access) and also by allowing more generalities (and thus extendable functionality) within the Controllers. 
+
+Team Responsibilities
+---
+
+Kevin’s primary responsibility will be simulation with his secondary responsibility being visualization. Callie’s primary responsibility will be configuration with her secondary responsibility being simulation. Le’s primary responsibility will be visualization with his secondary responsibility being configuration. At a high level, the team will do as much of it coding as it can together, even if different members of the team are each working on separate parts. Pair programming will be experimented with extensively.
