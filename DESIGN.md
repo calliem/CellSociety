@@ -79,22 +79,19 @@ Design Details
 ----
 A broader overview of the classes outlined in the Overview is given below.
 
-* **CellSociety**
-	The CellSociety class functions as the view of the entire simulation. 
-* **Grid**
-* **Cell**
+* **CellSociety** The CellSociety class functions as the view of the entire simulation. 
+* **Grid** (Fully detailed in Overview)
+* **Cell** (Fully detailed in Overview)
 * **CellState**
-* **FishState**
-Has field reproductionTime
-* **SharkState**
-Extends FishState, has field energy
+	* **FishState** Has field reproductionTime
+		* **SharkState** Extends FishState, has field energy
 * **UI elements**
-* **Speed** (slider or text input) - a text input will exist to allow the user to select the frames/second to play the animation/simulation at. Doing so will access the CellSociety class and update the frames per second that the animation will play at. 
-* **Upload new XML** - selecting this option pulls up a screen that allows the user to select a different XML file. Doing so will stop the current game, reinitialize it with the new parameters, and play the game once again
-* **Button**
-	* Start - Start the animation and allow the CA to progress 
-	* Pause - Stop by the CA but maintain all current features/states
-	* Step - This button will allow the user to progress through the CA frame by frame. Each click will advance the animation by one frame. 
+	* **Speed** (slider or text input) - a text input will exist to allow the user to select the frames/second to play the animation/simulation at. Doing so will access the CellSociety class and update the frames per second that the animation will play at. 
+	* **Upload new XML** - selecting this option pulls up a screen that allows the user to select a different XML file. Doing so will stop the current game, reinitialize it with the new parameters, and play the game once again
+	* **Button**
+		* Start - Start the animation and allow the CA to progress 
+		* Pause - Stop by the CA but maintain all current features/states
+		* Step - This button will allow the user to progress through the CA frame by frame. Each click will advance the animation by one frame. 
 * **XMLParser**
 The XML Parser will read in elements from the XML file and set constructors to the controllers with the specified parameters. The XML file will be passed in in a format similar to the below with specific rules to be implemented later on:
 
