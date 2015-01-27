@@ -77,6 +77,10 @@ If the initial XML file does not follow the format that we specify, a message sh
 
 Design Details 
 ----
+A broader overview of the classes outlined in the Overview is given below.
+
+Given that there could be updated requirements to this CellSociety project, our number one goal is to make this code extensible so that new changes can be implemented easily. For example, adding a new CA simulation with a new set of rules should be an incredibly easy fix to the program. Likewise, other possible additions like possibly running multiple simulations at once should be very easily implemented. In the design of the SimController class for example, our flexibility can be seen because attention is given to making sure that each individual controller subclass is able to extend the SimController superclass, rather than create separate methods or long "if" trees in order to specify behavior. The FireController, WaTorController, SegController, and LifeController all extend the SimController, which is soemthing that we believe to be good code design.
+
 * **CellSociety**
 	The CellSociety class functions as the view of the entire simulation. 
 * **Grid**
