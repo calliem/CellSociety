@@ -18,7 +18,7 @@ Overview
 
 The following chart depicts the relationship between our classes:
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+![Design Overview](http://i.imgur.com/B5Hy8xJ.jpg)
 
 The following components will be used to build our program:
 
