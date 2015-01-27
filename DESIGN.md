@@ -125,37 +125,37 @@ The XMLParser will parse through the file and call constructors/methods from cel
 
 
 * **GameManager**
-GameManager will contain the following methods
-    	* init(File file){
+	GameManager will contain the following methods
+    	*init(File file){
     	//this method will initialize the game scene by 
 calling createControllers();
 calling createGrid();
     };
 
 	*createControllers(){
-    //this method will interact with the XMLParser class to parse the XML file and set the properties to the revelvant controller
+    	//this method will interact with the XMLParser class to parse the XML file and set the properties to the revelvant controller
 }    
 
 	*createGrid(){
-//this method will create the grid by interacting with the Grid class which holds all specfications for the grid’s attributes and properties
+	//this method will create the grid by interacting with the Grid class which holds all specfications for the grid’s attributes and properties
 };
 
     	*updateGrid(){
-    //this method will use setter methods in the Grid class to reset its state based on the results of running the current algorithms. It will need to have access to the SimController and/or the specific controller subclass in order to determine what changes need to be made. 
+   	//this method will use setter methods in the Grid class to reset its state based on the results of running the current algorithms. It will need to have access to the SimController and/or the specific controller subclass in order to determine what changes need to be made. 
 
     	*private void pause(){
-    //this method will pause the simulation and stop receiving updates from the SimController. This method will need to interact with the Button class to determine when they have been pressed.
+    	//this method will pause the simulation and stop receiving updates from the SimController. This method will need to interact with the Button class to determine when they have been pressed.
 }
 
     	*private void step(){
-    //this method will only step through and play one frame of the simulation before pausing it once again. This method will need to interact with the Button class to determine when they have been pressed.
+    	//this method will only step through and play one frame of the simulation before pausing it once again. This method will need to interact with the Button class to determine when they have been pressed.
 }
     
     	*uploadXML(File file){
-    //this method will need to interact with the UI Elements and buttons to determine when the Upload XML document has been selected and what filepath has been selected. The buttons will call uploadXML(). This method will then interact with XMLParser and call init with the new file passed in as a parameter}
+    	//this method will need to interact with the UI Elements and buttons to determine when the Upload XML document has been selected and what filepath has been selected. The buttons will call uploadXML(). This method will then interact with XMLParser and call init with the new file passed in as a parameter}
 
 * **SimController**
-    The SimController class will be an abstract class as detailed in “Overview”. 
+    	The SimController class will be an abstract class as detailed in “Overview”. 
 	*FireController
 FireController class extends SimController and implements its abstract methods as follows:
 		*getHoodState(hood) returns “fire” if the state of any of the cells in hood are fire and returns “notfire” otherwise.
