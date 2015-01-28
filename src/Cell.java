@@ -1,6 +1,11 @@
+import javafx.scene.paint.Color;
 
-class Cell {
-
-     }
-
+public class Cell {
+	
+	private Color color;
+	
+	public Cell() {
+		
+	}
+	
 }
