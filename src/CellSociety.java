@@ -61,7 +61,12 @@ public class CellSociety extends Application {
 		TextField speedText = new TextField();
 		Button xmlButton = new Button("Upload XML");
 		
+		Text errorMsg = new Text("[Error message]");
+		errorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+		errorMsg.setFill(Color.RED);
+		
 		HBox topRow = new HBox(10);
+		HBox middleRow = new HBox(10);
 		HBox bottomRow = new HBox(10);
 		
 		topRow.setAlignment(Pos.CENTER);
@@ -71,13 +76,18 @@ public class CellSociety extends Application {
 		topRow.getChildren().add(xmlButton);
 		topRow.setPadding(new Insets(0, 25, 5, 25));
 		
-		bottomRow.setAlignment(Pos.CENTER);
-		bottomRow.getChildren().add(speedLabel);
-		bottomRow.getChildren().add(speedText);
-		bottomRow.setPadding(new Insets(0, 25, 25, 25));
+		middleRow.setAlignment(Pos.CENTER);
+		middleRow.getChildren().add(speedLabel);
+		middleRow.getChildren().add(speedText);
+		middleRow.setPadding(new Insets(0, 25, 5, 25));
 		
+		bottomRow.setAlignment(Pos.TOP_CENTER);
+		bottomRow.getChildren().add(errorMsg);
+		bottomRow.setPadding(new Insets(0, 25, 15, 25));
+
 		mainGrid.add(topRow, 0, 2);
-		mainGrid.add(bottomRow, 0, 3);
+		mainGrid.add(middleRow, 0, 3);
+		mainGrid.add(bottomRow, 0, 4);
 		
 		Scene scene = new Scene(mainGrid);
 		stage.setScene(scene);
