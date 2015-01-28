@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simulation>
-    <gridSetup>
+    <gridParam>
     	<simName>Fire</simName>
     	<author>Author</author>
-    </gridSetup> 
+		<xRows>10</xRows>
+		<yRows>20</yRows>
+	</gridParam>
+    <cellParam>
+        <probCatch>90</probCatch>
+    </cellParam>
 </simulation>
 
 
