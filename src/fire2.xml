@@ -3,8 +3,8 @@
     <gridParam>
     	<simName>Fire</simName>
     	<author>Author</author>
-		<xRows>30</xRows>
-		<yCols>30</yCols>
+		<xRows>10</xRows>
+		<yCols>20</yCols>
 	</gridParam>
     <cellParam>
         <probCatch>90</probCatch>

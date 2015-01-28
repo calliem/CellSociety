@@ -45,13 +45,12 @@ public class CellSociety extends Application {
 		simGrid.setHgap(1);
 		simGrid.setVgap(1);
         simGrid.setPadding(new Insets(0, 25, 5, 25));
-
+        simGrid.setAlignment(Pos.CENTER);
         
         //NOTE: the parser may not belong in this class, but this is an example of how the XMLParser
         //will update the other classes. Unsure right now whether specifically searching for the
         //string "yCols" is bad design, although we can ask when we meet with our TA
         
-        //is there any way to center the grid?
         XMLParser parser = new XMLParser();
 		parser.parseXMLFile(new File("src/fire2.xml"));
 		Map<String, String> map = parser.getGridParamMap();
@@ -108,11 +107,6 @@ public class CellSociety extends Application {
 		Scene scene = new Scene(mainGrid);
 		stage.setScene(scene);
 		stage.show();
-	}
-
-	private int parseInt(String string) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }
