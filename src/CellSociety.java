@@ -1,4 +1,7 @@
 
+import java.io.File;
+import java.util.Map;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -43,8 +46,18 @@ public class CellSociety extends Application {
 		simGrid.setVgap(1);
         simGrid.setPadding(new Insets(0, 25, 5, 25));
 
-		for (int i = 0; i < 50; i++) {
-			for (int j = 0; j < 50; j++) {
+        
+        //NOTE: the parser may not belong in this class, but this is an example of how the XMLParser
+        //will update the other classes. Unsure right now whether specifically searching for the
+        //string "yCols" is bad design, although we can ask when we meet with our TA
+        XMLParser parser = new XMLParser();
+		parser.parseXMLFile(new File("src/fire2.xml"));
+		Map<String, String> map = parser.getGridParamMap();
+		
+		int yCols = Integer.parseInt(map.get("yCols"));
+		int xRows = Integer.parseInt(map.get("xRows"));
+		for (int i = 0; i < xRows; i++) {
+			for (int j = 0; j < yCols; j++) {
 				Rectangle r = new Rectangle(5, 5, Color.CYAN);
 				simGrid.add(r, i, j);
 			}
@@ -92,6 +105,11 @@ public class CellSociety extends Application {
 		Scene scene = new Scene(mainGrid);
 		stage.setScene(scene);
 		stage.show();
+	}
+
+	private int parseInt(String string) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -1,4 +1,5 @@
 
+//REMOVE #TEXT NODES
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -63,6 +64,7 @@ public class XMLParser {
 			paramMap.put(paramName,content);
 		}
    
+		//for debugging purposes
 		System.out.println("print paramMap");
 		for (String string : paramMap.keySet()){
 			System.out.print(string + ": ");
