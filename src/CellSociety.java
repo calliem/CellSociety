@@ -50,6 +50,8 @@ public class CellSociety extends Application {
         //NOTE: the parser may not belong in this class, but this is an example of how the XMLParser
         //will update the other classes. Unsure right now whether specifically searching for the
         //string "yCols" is bad design, although we can ask when we meet with our TA
+        
+        //is there any way to center the grid?
         XMLParser parser = new XMLParser();
 		parser.parseXMLFile(new File("src/fire2.xml"));
 		Map<String, String> map = parser.getGridParamMap();
@@ -58,7 +60,7 @@ public class CellSociety extends Application {
 		int xRows = Integer.parseInt(map.get("xRows"));
 		for (int i = 0; i < xRows; i++) {
 			for (int j = 0; j < yCols; j++) {
-				Rectangle r = new Rectangle(5, 5, Color.CYAN);
+				Rectangle r = new Rectangle(10, 10, Color.CYAN);
 				simGrid.add(r, i, j);
 			}
 		}

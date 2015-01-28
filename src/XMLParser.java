@@ -81,74 +81,10 @@ public class XMLParser {
 		return myCellParamMap;
 	}
 		
-	}
-
-	/*
-	
-	private void makeGridParamMap(){
-		myGridParamMap = new HashMap<String, String>();
-		for (int j = 0; j < myGridParamList.getLength(); j++) {
-			Node gridParamNode = myGridParamList.item(j);
-           //   if (cNode instanceof Element) {
-			String paramName = gridParamNode.getNodeName();
-			String content = gridParamNode.getTextContent();
-			myGridParamMap.put(paramName,content);
-		}
-   
-		System.out.println("print gridparammap");
-		for (String string : myGridParamMap.keySet()){
-			System.out.print(string + ": ");
-			System.out.println(myGridParamMap.get(string));
-		}
-	}
-	
-	private void makeCellParamMap(){
-		myCellParamMap = new HashMap<String, String>();
-		for (int j = 0; j < myCellParamList.getLength(); j++) {
-			Node cellParamNode = myCellParamList.item(j);
-           //   if (cNode instanceof Element) {
-			String paramName = cellParamNode.getNodeName();
-			String content = cellParamNode.getTextContent();
-			myCellParamMap.put(paramName,content);
-		}
-		
-		System.out.println("print cellparammap");
-		for (String string : myCellParamMap.keySet()){
-			System.out.print(string + ": ");
-			System.out.println(myCellParamMap.get(string));
-		}
-	}
-	
-	
-	
-	
 }
+
 	
 
-//http://stackoverflow.com/questions/978810/how-to-strip-whitespace-only-text-nodes-from-a-dom-before-serialization
-/*try {
-    DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-
-    Document doc = builder.parse(input);
-    doc.getDocumentElement().normalize();   //added in since the edit
-    NodeList nodd = doc.getElementsByTagName("grandparent");
-    for (int x = 0; x < nodd.getLength(); x++){
-        Node node = nodd.item(x);
-        NodeList nodes = node.getChildNodes();
-        for(int y = 0; y < nodes.getLength(); y++){
-            Node n = nodes.item(y);
-            System.out.println(n.getNodeName());
-        }
-    }
-}*/
-
-/*File fXmlFile = new File(filepath);
-DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-Document doc = dBuilder.parse(fXmlFile);
-doc.getDocumentElement().normalize();
-NodeList nList = doc.getElementsByTagName("info");*/
-	
 
    
  
