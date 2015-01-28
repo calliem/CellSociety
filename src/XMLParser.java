@@ -11,15 +11,15 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
  
 public class XMLParser {
 	private NodeList myNodeList;
-	private NodeList myNodeList2;
 	private NodeList myGridSetupList;
 	//private Map<String, Integer> myNodeMap; //using a map prevents the use of if/switch statements
 
-	public XMLParser(File xmlFile) throws ParserConfigurationException,
+	/*public XMLParser(File xmlFile) throws ParserConfigurationException,
         SAXException, IOException {
 
 	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -28,7 +28,17 @@ public class XMLParser {
     
     //input data into nodes
     myNodeList = doc.getDocumentElement().getChildNodes();
-   // parseInitialObjects();
+	}*/
+	
+	public void parseXMLFile(File xmlFile) throws ParserConfigurationException,
+    SAXException, IOException {
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	    Document doc = dBuilder.parse(xmlFile);
+	    
+	    //input data into nodes
+	    myNodeList = doc.getDocumentElement().getChildNodes();
+	    parseInitialTags();
 	}
 	
 	public void parseInitialTags(){
@@ -36,27 +46,29 @@ public class XMLParser {
 			//<gridSetup tag>
              Node node = myNodeList.item(i);
              if (node instanceof Element) {
-                 NodeList childNodes = node.getChildNodes();    
-                 for (int j = 0; j < childNodes.getLength(); j++) {
-                     Node cNode = childNodes.item(j);
-
-                     //Identifying the child tag of gridSetup encountered. 
-                     if (cNode instanceof Element) {
-                       String content = cNode.getTextContent();
-                       switch (cNode.getNodeName()) {
-                         case "simName":
-                           System.out.println(content);
-                           break;
-                         case "author":
-                        	 System.out.println(cNode.getNodeValue());
-                           break;
-                    
-                       }
-
-	             }
-             }
+                 myGridSetupList = node.getChildNodes();                  
              }
 		}
+		setupGrid();
+	}
+	
+	public Map<String, Integer> setupGrid(){
+		Map<String, Integer> grid = new HashMap<String, Integer>();
+		  for (int j = 0; j < myGridSetupList.getLength(); j++) {
+              Node cNode = myGridSetupList.item(j);
+              if (cNode instanceof Element) {
+                String content = cNode.getTextContent();
+                switch (cNode.getNodeName()) {
+                  case "simName":
+                    System.out.println(content);
+                    break;
+                  case "author":
+                 	 System.out.println(cNode.getNodeValue());
+                    break;           
+                }
+          }
+      }
+		return grid;
 	}
 }
 		//}
