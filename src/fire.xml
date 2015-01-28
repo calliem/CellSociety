@@ -25,3 +25,28 @@
           <Salary>2250</Salary>
      </Employee>
 </Employees>
+
+
+        <cell type=1>red</cell>
+        <cell type=2>brown</cell>
+        <cell type=3>white</cell>
+        
+        
+        
+        
+    <cells>
+        <state type=0>
+            <color>white</color>
+            <coord x="1" y="10" />
+        </state>
+        <state type=2>
+            <color>red</color>
+            <coord x="2" y="20" />
+        </state>
+        <state type=3>
+            <color>green</color>
+            <coord x="1" y="5" />
+        </state>
+    </cells>
+    
+    or put coord in a differnt column

@@ -16,8 +16,6 @@ import java.util.Map;
  
 public class XMLParser {
 	private NodeList myNodeList;
-	private NodeList myGridParamList;
-	private NodeList myCellParamList;
 
     private Map<String, String> myGridParamMap;
     private Map<String, String> myCellParamMap;
@@ -41,23 +39,50 @@ public class XMLParser {
              if (node instanceof Element) {  
             	switch (node.getNodeName()) {
      			case "gridParam":
-                    myGridParamList = node.getChildNodes(); //use instance instead of global?                  
-                    makeGridParamMap(); //somehow pass this in just once later on instead of calling makeParamMap each time
+                    NodeList gridParamList = node.getChildNodes(); //use instance instead of global?                  
+     				myGridParamMap = makeParamMap(gridParamList);
+     				//somehow pass this in just once later on instead of calling makeParamMap each time
                     //maybe just use one myParamList variable and continuously override it?
      				break;
      			case "cellParam":
-     				myCellParamList = node.getChildNodes();
-     				makeCellParamMap();
+     				NodeList cellParamList = node.getChildNodes();
+     				myCellParamMap = makeParamMap(cellParamList);
      				break;  
+            	}
              }
 		}
 	}
+	
+	private Map<String, String> makeParamMap(NodeList paramList){
+		Map<String, String> paramMap = new HashMap<String, String>();
+		for (int j = 0; j < paramList.getLength(); j++) {
+			Node node = paramList.item(j);
+           //   if (cNode instanceof Element) {
+			String paramName = node.getNodeName();
+			String content = node.getTextContent();
+			paramMap.put(paramName,content);
+		}
+   
+		System.out.println("print paramMap");
+		for (String string : paramMap.keySet()){
+			System.out.print(string + ": ");
+			System.out.println(paramMap.get(string));
+		}		
+		return paramMap;
+	}
+		
+	public Map<String, String> getGridParamMap(){
+		return myGridParamMap;
 	}
 	
-	//below methods have duplicated code
-	//fix by passing in parameters 
-	//public HashMap<> makeParamMap(paramList)
-	//and set it equal to other values
+	public Map<String, String> getCellParamMap(){
+		return myCellParamMap;
+	}
+		
+	}
+
+	/*
+	
 	private void makeGridParamMap(){
 		myGridParamMap = new HashMap<String, String>();
 		for (int j = 0; j < myGridParamList.getLength(); j++) {
@@ -92,13 +117,7 @@ public class XMLParser {
 		}
 	}
 	
-	public Map<String, String> getGridParamMap(){
-		return myGridParamMap;
-	}
 	
-	public Map<String, String> getCellParamMap(){
-		return myCellParamMap;
-	}
 	
 	
 }
