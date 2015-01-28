@@ -60,6 +60,7 @@ public class CellSociety extends Application {
 		int xRows = Integer.parseInt(map.get("xRows"));
 		for (int i = 0; i < xRows; i++) {
 			for (int j = 0; j < yCols; j++) {
+				//substitute these with Cell class after the Cell class is completed/updated
 				Rectangle r = new Rectangle(10, 10, Color.CYAN);
 				simGrid.add(r, i, j);
 			}

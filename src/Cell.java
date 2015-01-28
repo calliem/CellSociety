@@ -6,15 +6,13 @@ import javafx.scene.shape.Rectangle;
 
 public class Cell extends Rectangle{
 	
-	private Color myColor;
 	private List<Cell> myNeighbors;
 	
-	public Cell(int width, int height, Map<String,String> parameters, List<Cell> neighbors) {
+	public Cell(int width, int height, List<Cell> neighbors) {
 		super(width, height);
 		//we can randomize this first and worry about exact coordinates later
 		//setX(Integer.parseInt(parameters.get("xCoord"));
 		//setY(Integer.parseInt(parameters.get("yCoord"));
-		myColor = Color.valueOf(parameters.get("color"));
 		myNeighbors = neighbors;
 	}
 	
