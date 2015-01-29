@@ -13,10 +13,6 @@ public class CellState {
 		myLocations = location;		
 	}
 	
-	public String getState(){
-		return myState;
-	}
-	
 	public Color getColor(){
 		return myColor;
 	}
