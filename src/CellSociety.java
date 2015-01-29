@@ -1,5 +1,6 @@
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -8,20 +9,21 @@ import org.xml.sax.SAXException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class CellSociety {
+public class CellSociety{
 
 	private CellSocietyView myView;
 	private XMLParser myParser;
 	private int myFrameRate;
 	private SimController myController;
 	
-	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException {
+	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
 		myView = new CellSocietyView(s);
-		myParser = new XMLParser();
+		//myParser = new XMLParser();
 		configureListeners();
 		
 		// or however it's decided
@@ -35,7 +37,6 @@ public class CellSociety {
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
-		
 	}
 	
 	private void configureListeners() {
@@ -75,4 +76,5 @@ public class CellSociety {
 		
 	}
 	
+
 }

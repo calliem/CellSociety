@@ -1,6 +1,11 @@
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.lang.reflect.*;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,7 +37,11 @@ public class CellSocietyView {
 	private GridPane myRoot;
 	private GridPane myGrid;
 	
-	public CellSocietyView(Stage s) throws ParserConfigurationException, SAXException, IOException {
+	private static final int CELL_SIZE = 10;
+	
+	//using Reflection makes us have a ton of throw errors. Is that okay?
+	
+	public CellSocietyView(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
 		myRoot = new GridPane();
 		
@@ -88,9 +97,16 @@ public class CellSocietyView {
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws ClassNotFoundException 
 	 */
 	private void generateGrid() throws ParserConfigurationException,
-			SAXException, IOException {
+			SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		myGrid = new GridPane();
 		myGrid.setHgap(1);
 		myGrid.setVgap(1);
@@ -105,18 +121,46 @@ public class CellSocietyView {
 		parser.parseXMLFile(new File("src/life.xml"));
 		Map<String, String> map = parser.getGridParamMap();
 		
-		int yCols = Integer.parseInt(map.get("yCols"));
-		int xRows = Integer.parseInt(map.get("xRows"));
-		for (int i = 0; i < xRows; i++) {
-			for (int j = 0; j < yCols; j++) {
-				//substitute these with Cell class after the Cell class is completed/updated
-				Rectangle r = new Rectangle(10, 10, Color.CYAN);
-				myGrid.add(r, i, j);
+		//how to use cols and rows here?
+		
+		int numCols = Integer.parseInt(map.get("yCols"));
+		int numRows = Integer.parseInt(map.get("xRows"));
+	//	List<CellState> list = getCellStateList();
+		int temp = 0;
+
+		List<CellState> cellStates = parser.getCellStateList();
+		for (int i = 0; i < cellStates.size(); i++){
+			CellState state = cellStates.get(i);
+			String stateName = state.toString();
+			int[] locations = state.getLocations();
+			for (int j = 0; j < locations.length; j++){
+				int row = locations[j] / numRows;
+				int col = (locations[j] - 1) % numCols;
+				Cell cell = createCellInstance(stateName);
+				myGrid.add(cell, row, col);
 			}
 		}
-		
 	}
+		
+	/*
+	for (int i = 0; i < xRows; i++) {
+		for (int j = 0; j < yCols; j++) {
+			//substitute these with Cell class after the Cell class is completed/updated
+			Rectangle r = new Rectangle(10, 10, Color.CYAN);
+			String hi = "hi";
+			Cell cell = createCellInstance(hi);
+			myGrid.add(r, i, j);
+			
+		}
+	}*/
 
+		public Cell createCellInstance(String cellState) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException{
+            Class<?> className = Class.forName(cellState);
+            System.out.println(className.toString());
+			Constructor<?> constructor = className.getConstructor(Integer.TYPE, Integer.TYPE);
+			System.out.println(constructor);
+			return (Cell) constructor.newInstance(CELL_SIZE, CELL_SIZE);
+		}
 
 	/**
 	 * @return

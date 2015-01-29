@@ -1,5 +1,4 @@
 
-//REMOVE #TEXT NODES
 import javafx.scene.paint.Color;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -103,7 +102,7 @@ public class XMLParser {
 		//for debugging
 		System.out.println("print cellStateList");
 		for (CellState state : cellStates){
-			System.out.println("statename: " + state.getState());
+			System.out.println("statename: " + state.toString());
 			System.out.println("color: " + state.getColor().toString());
 			//System.out.println("locations: " + state.getState());
 			System.out.println("----------");
@@ -138,6 +137,9 @@ public class XMLParser {
 		return myCellStateList;
 	}
 		
+	
+	//REMOVE #TEXT NODES
+
 }
 
 

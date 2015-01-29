@@ -1,3 +1,5 @@
+import java.util.List;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -10,6 +12,7 @@ public class Cell extends Rectangle{
 		//tell the cell by its name
 		//Color 
 	//	setFill();
+
 	}
 
 	/*public static void setType(String string){
