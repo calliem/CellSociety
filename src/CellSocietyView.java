@@ -47,6 +47,22 @@ public class CellSocietyView {
 		
 	}
 	
+	public Button getPlayElement() {
+		return this.myPlayButton;
+	}
+	
+	public Button getPauseElement() {
+		return this.myPauseButton;
+	}
+	
+	public Button getStepElement() {
+		return this.myStepButton;
+	}
+	
+	public Button getXMLElement() {
+		return this.myXMLButton;
+	}
+	
 	private void configureUI() {
 		myRoot.setAlignment(Pos.CENTER);
 		myRoot.setHgap(10);
