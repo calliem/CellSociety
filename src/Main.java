@@ -3,10 +3,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	CellSociety mySimulation;
+	
 	@Override
 	public void start(Stage s) throws Exception {
-
-		CellSociety cs = new CellSociety(s);
+		mySimulation = new CellSociety(s);
 		
 	}
 	

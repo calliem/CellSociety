@@ -13,7 +13,8 @@ public class LifeController extends SimController{
 	protected String getNeighborsState(ArrayList<Cell> neighbors) {
 		int count = 0;
 		for(Cell c: neighbors){
-			if(c.toString().equals("live")){
+
+			if(c.toString().equals("LiveCell")){
 				count++;
 			}
 		}
@@ -21,9 +22,9 @@ public class LifeController extends SimController{
 			return "two";
 		}
 		else if (count == 3){
-			return "live";
+			return "LiveCell";
 		}
-		return "dead";
+		return "EmptyCell";
 	}
 
 	
@@ -32,14 +33,22 @@ public class LifeController extends SimController{
 	 * Makes a new Cell based on the cell's previous state and
 	 * the state of its neighbors
 	 */
-	
+
 	protected Cell newState(Cell cell, String neighborsState) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		if(neighborsState.equals("two")){
-			//return new Cell(cellState.toString());
+			//return new Cell(cell.myLabel);
+
 			return (Cell) Class.forName(cell.toString()).getConstructor().newInstance();
 		}
 		//return new Cell(neighborsState);
 		return (Cell) Class.forName(neighborsState).getConstructor().newInstance();
 	}
-	
+	/*
+	String className = "LiveCell";
+	Class<?> currentClass = Class.forName(className);
+	System.out.println(currentClass.toString());
+	Constructor<?> constructor = currentClass.getConstructor(Integer.TYPE, Integer.TYPE);
+	System.out.println(constructor);
+	Object o = constructor.newInstance(10,10);
+	*/
 }

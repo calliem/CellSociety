@@ -17,7 +17,11 @@ public class CellState {
 		return myColor;
 	}
 
-	public String toString(){
+	public String toString() {
 		return myState;
+	}
+	
+	public int[] getLocations(){
+		return myLocations;
 	}
 }
