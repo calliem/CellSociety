@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simulation>
-    <gridParam>
-    	<simName>Life</simName>
-    	<author>Author</author>
+	<simParam>
+		<simName>Life</simName>
+		<author>Author</author>
 		<xRows>10</xRows>
-		<yCols>10</yCols>
-	</gridParam>
+		<yCols>2</yCols>
+		<fps>100</fps>
+	</simParam>
     <cellParam>
         <probLife>90</probLife>
     </cellParam>
 	<cellStates>
-	    <cell state="dead" color="white">3 4 6 7 8 9 10 11 12 13 14 16 17 18 19</cell>
-	    <cell state="life" color="black">1 2 5 15 17 20</cell> 
+	    <cell state="EmptyCell" color="white">0 3 4 6 7 8 9 11 12 13 14 16 17 18 19</cell>
+	    <cell state="LiveCell" color="black">1 2 5 10 15 17 </cell> 
     </cellStates>
 </simulation>
 
