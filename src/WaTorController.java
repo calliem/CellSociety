@@ -1,4 +1,4 @@
 
-public class WaTorController {
+public class WaTorController extends SimController{
 
 }

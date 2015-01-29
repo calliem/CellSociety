@@ -15,7 +15,6 @@ public abstract class SimController {
 			}
 		}
 		return newGrid;
-		
 	}
 
 	protected ArrayList<Cell> getNeighbors(Cell[][] grid, int row, int col) {
