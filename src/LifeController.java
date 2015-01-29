@@ -1,3 +1,4 @@
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 
@@ -12,7 +13,7 @@ public class LifeController extends SimController{
 	protected String getNeighborsState(ArrayList<Cell> neighbors) {
 		int count = 0;
 		for(Cell c: neighbors){
-			if(c.getState().toString().equals("live")){
+			if(c.toString().equals("live")){
 				count++;
 			}
 		}
@@ -31,11 +32,14 @@ public class LifeController extends SimController{
 	 * Makes a new Cell based on the cell's previous state and
 	 * the state of its neighbors
 	 */
-	protected Cell newState(CellState cellState, String neighborsState) {
+	
+	protected Cell newState(Cell cell, String neighborsState) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		if(neighborsState.equals("two")){
-			return new Cell(cellState.toString());
+			//return new Cell(cellState.toString());
+			return (Cell) Class.forName(cell.toString()).getConstructor().newInstance();
 		}
-		return new Cell(neighborsState);
+		//return new Cell(neighborsState);
+		return (Cell) Class.forName(neighborsState).getConstructor().newInstance();
 	}
 	
 }

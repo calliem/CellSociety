@@ -1,16 +1,16 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 01b6ed5efbb8ffd1c1e5d6ac88bd24c0390170e6
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Cell extends Rectangle{
 	
+	// Get these from parsed XML data
+	private static int myWidth = 10;
+	private static int myHeight = 10;
 	//private static String myStateName;
 	
-	public Cell(int width, int height) {
-		super(width, height);
+	public Cell() {
+		super(myWidth, myHeight);
 		//tell the cell by its name
 		//Color 
 	//	setFill();
@@ -27,7 +27,4 @@ public class Cell extends Rectangle{
 	
 	
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 01b6ed5efbb8ffd1c1e5d6ac88bd24c0390170e6
