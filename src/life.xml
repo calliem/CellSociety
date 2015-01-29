@@ -3,8 +3,8 @@
     <gridParam>
     	<simName>Life</simName>
     	<author>Author</author>
-		<xRows>30</xRows>
-		<yCols>30</yCols>
+		<xRows>10</xRows>
+		<yCols>10</yCols>
 	</gridParam>
     <cellParam>
         <probLife>90</probLife>

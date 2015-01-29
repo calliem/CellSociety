@@ -64,3 +64,19 @@ myBackButton = makeButton("BackCommand", new EventHandler<ActionEvent>() {</Acti
 	myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE ....)
 	
 	myResources.getString("ErrorTitle") //instead of hardcoding a string
+	
+	
+	
+	
+	
+	
+	
+String className = "LiveCell";
+	            Class<?> currentClass = Class.forName(className);
+	            System.out.println(currentClass.toString());
+				Constructor<?> constructor = currentClass.getConstructor(Integer.TYPE, Integer.TYPE);
+				System.out.println(constructor);
+				Object o = constructor.newInstance(10,10);
+	
+	
+	
