@@ -50,3 +50,17 @@
     </cells>
     
     or put coord in a differnt column
+    
+    
+    
+    
+
+myBackButton = makeButton("BackCommand", new EventHandler<ActionEvent>() {</ActionEvent>)public void handle (ActionEvent event)}
+	back();
+	}
+	
+	makeButton("", event -> home());
+	
+	myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE ....)
+	
+	myResources.getString("ErrorTitle") //instead of hardcoding a string

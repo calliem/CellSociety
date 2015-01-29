@@ -3,14 +3,17 @@
     <gridParam>
     	<simName>Fire</simName>
     	<author>Author</author>
-		<xRows>10</xRows>
-		<yCols>20</yCols>
+		<xRows>30</xRows>
+		<yCols>30</yCols>
 	</gridParam>
     <cellParam>
         <probCatch>90</probCatch>
-
     </cellParam>
-
+	<cellStates>
+	    <cell state="empty" color="white">3 4 6 7 8 9 10 11 12 13 14 16 17 18 19</cell>
+	    <cell state="fire" color="red">1 17 20</cell> 
+	    <cell state="tree" color="black">2 5 15</cell>
+    </cellStates>
 </simulation>
 
 

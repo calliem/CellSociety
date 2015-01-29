@@ -97,13 +97,14 @@ public class CellSociety extends Application {
         //string "yCols" is bad design, although we can ask when we meet with our TA
         
         XMLParser parser = new XMLParser();
-		parser.parseXMLFile(new File("src/fire2.xml"));
+		parser.parseXMLFile(new File("src/life.xml"));
 		Map<String, String> map = parser.getGridParamMap();
 		
 		int yCols = Integer.parseInt(map.get("yCols"));
 		int xRows = Integer.parseInt(map.get("xRows"));
 		for (int i = 0; i < xRows; i++) {
 			for (int j = 0; j < yCols; j++) {
+				//substitute these with Cell class after the Cell class is completed/updated
 				Rectangle r = new Rectangle(10, 10, Color.CYAN);
 				myGrid.add(r, i, j);
 			}
