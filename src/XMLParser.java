@@ -58,6 +58,7 @@ public class XMLParser {
      			case "cellStates":
      				NodeList cellStatesList = node.getChildNodes();
      				myCellStateList = makeCellStateList(cellStatesList);
+     				break;
             	}
              }
 		}
@@ -131,6 +132,10 @@ public class XMLParser {
 	
 	public Map<String, String> getCellParamMap(){
 		return myCellParam;
+	}
+	
+	public List<CellState> getCellStateList(){
+		return myCellStateList;
 	}
 		
 }
