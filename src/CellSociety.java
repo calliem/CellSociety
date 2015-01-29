@@ -1,5 +1,6 @@
 
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.util.Map;
 
 import javafx.application.Application;
@@ -55,6 +56,8 @@ public class CellSociety extends Application {
 		parser.parseXMLFile(new File("src/life.xml"));
 		Map<String, String> map = parser.getGridParamMap();
 		
+	//	parser.getColor();
+		
 		int yCols = Integer.parseInt(map.get("yCols"));
 		int xRows = Integer.parseInt(map.get("xRows"));
 		for (int i = 0; i < xRows; i++) {
@@ -62,6 +65,23 @@ public class CellSociety extends Application {
 				//substitute these with Cell class after the Cell class is completed/updated
 				Rectangle r = new Rectangle(10, 10, Color.CYAN);
 				simGrid.add(r, i, j);
+				System.out.println("h222");
+				//Cell cell= (Cell) Class.forName("LiveCell").newInstance();
+				
+				String className = "LiveCell";
+	            Class<?> currentClass = Class.forName(className);
+	            System.out.println(currentClass.toString());
+				Constructor<?> constructor = currentClass.getConstructor(Integer.TYPE, Integer.TYPE);
+				System.out.println(constructor);
+				Object o = constructor.newInstance(10,10);
+				System.out.println(o.toString());
+				
+				/* Class myClass = Class.forName("carDao");
+				  Constructor<?> cons = myClass.getConstructor(String.class);
+				  Object o = cons.newInstance("MyString");
+				System.out.println("lila " + cell.toString());*/
+				
+				
 			}
 		}
 		
