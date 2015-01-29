@@ -78,5 +78,10 @@ String className = "LiveCell";
 				System.out.println(constructor);
 				Object o = constructor.newInstance(10,10);
 	
+	import javafx.fxml.FXMLLoader;
+	
+	
+	    Parent root = FXMLLoader.load(getClass().getResource("DogFinderFXML.fxml"));
+	
 	
 	

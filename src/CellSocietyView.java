@@ -119,7 +119,7 @@ public class CellSocietyView {
         
         XMLParser parser = new XMLParser();
 		parser.parseXMLFile(new File("src/life.xml"));
-		Map<String, String> map = parser.getGridParamMap();
+		Map<String, String> map = parser.getSimParamMap();
 		
 		//how to use cols and rows here?
 		

@@ -31,6 +31,7 @@ public class CellSociety{
 		
 		/* get FrameRate and initial settings */
 		myFrameRate = 100;	// actually get from XMLParser
+		//parser is instantiated in the cellsocietyview. it will have to be moved here if it is to setup the framrate here. 
 		
 		KeyFrame frame = start(myFrameRate);
 		Timeline animation = new Timeline();

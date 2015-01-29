@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simulation>
-    <gridParam>
+    <simParam>
     	<simName>Fire</simName>
     	<author>Author</author>
+    	<fps>100</fps>
 		<xRows>30</xRows>
 		<yCols>30</yCols>
-	</gridParam>
+	</simParam>
     <cellParam>
         <probCatch>90</probCatch>
     </cellParam>

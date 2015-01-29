@@ -21,7 +21,7 @@ import java.util.Map;
 public class XMLParser {
 	private NodeList myNodeList;
 
-    private Map<String, String> myGridParam;
+    private Map<String, String> mySimParam;
     private Map<String, String> myCellParam;
     private List<CellState> myCellStateList; //state name maps to state color
  //   private List<Integer> myCellStates; //
@@ -44,9 +44,9 @@ public class XMLParser {
              Node node = myNodeList.item(i);
              if (node instanceof Element) {  
             	switch (node.getNodeName()) {
-     			case "gridParam":
-                    NodeList gridParamList = node.getChildNodes(); //use instance instead of global?                  
-     				myGridParam = makeParamMap(gridParamList);
+     			case "simParam":
+                    NodeList simParamList = node.getChildNodes(); //use instance instead of global?                  
+     				mySimParam = makeParamMap(simParamList);
      				//somehow pass this in just once later  on instead of calling makeParamMap each time
                     //maybe just use one myParamList variable and continuously override it?
      				break;
@@ -65,6 +65,7 @@ public class XMLParser {
 	
 	private Map<String, String> makeParamMap(NodeList paramList){
 		Map<String, String> paramMap = new HashMap<String, String>();
+		System.out.println(paramList.getLength());
 		for (int j = 0; j < paramList.getLength(); j++) {
 			Node node = paramList.item(j);
            //   if (cNode instanceof Element) {
@@ -125,8 +126,8 @@ public class XMLParser {
 	}
 				
 		
-	public Map<String, String> getGridParamMap(){
-		return myGridParam;
+	public Map<String, String> getSimParamMap(){
+		return mySimParam;
 	}
 	
 	public Map<String, String> getCellParamMap(){

@@ -1,18 +1,20 @@
+import javafx.scene.paint.Color;
+
 
 public class LiveCell extends Cell{
 	
-	public LiveCell(int width, int height, myCellparameters) {
+	public LiveCell(int width, int height) {
 		super(width, height);
 		//pass mycellparameters earlier on as well
 		
 		//put parameters in cell as well
 		
 		//use parameters to setfill
-		setFill();
+		setFill(Color.valueOf("red"));
 		// TODO Auto-generated constructor stub
 	}
 
 	public String toString(){
-		return "hi";
+		return "I am a live cell";
 	}
 }
