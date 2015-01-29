@@ -132,6 +132,7 @@ public class CellSocietyView {
 		for (int i = 0; i < cellStates.size(); i++){
 			CellState state = cellStates.get(i);
 			String stateName = state.toString();
+			System.out.println("stateName " + stateName);
 			int[] locations = state.getLocations();
 			for (int j = 0; j < locations.length; j++){
 				int row = locations[j] / numRows;
@@ -154,9 +155,9 @@ public class CellSocietyView {
 		}
 	}*/
 
-		public Cell createCellInstance(String cellState) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException{
+		public Cell createCellInstance(String cellState) throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
             Class<?> className = Class.forName(cellState);
-            System.out.println(className.toString());
+            System.out.println("CRRRR " + className.toString());
 			Constructor<?> constructor = className.getConstructor(Integer.TYPE, Integer.TYPE);
 			System.out.println(constructor);
 			return (Cell) constructor.newInstance(CELL_SIZE, CELL_SIZE);
