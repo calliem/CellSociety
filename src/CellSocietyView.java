@@ -129,14 +129,17 @@ public class CellSocietyView {
 		int temp = 0;
 
 		List<CellState> cellStates = parser.getCellStateList();
-		for (int i = 0; i < cellStates.size(); i++){
+		//instantiates cells for all states except for the last one (which will be automatically done)
+		for (int i = 0; i < cellStates.size(); i++){ 
 			CellState state = cellStates.get(i);
 			String stateName = state.toString();
 			System.out.println("stateName " + stateName);
 			int[] locations = state.getLocations();
-			for (int j = 0; j < locations.length; j++){
-				int row = locations[j] / numRows;
-				int col = (locations[j] - 1) % numCols;
+			for (int j = 0; j < locations.length; j++){ 
+				//row* numRows + col = actualValue      col = actualValue - row*numRows
+				int row = locations[j] % numRows;
+				int col = locations[j] % numCols;
+				System.out.println("stateName " + stateName + " location: " + locations[j] + " num: " + j + " row: " + row + " col: " + col);
 				Cell cell = createCellInstance(stateName);
 				myGrid.add(cell, row, col);
 			}
