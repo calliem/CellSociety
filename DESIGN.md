@@ -121,6 +121,7 @@ The XML Parser will read in elements from the XML file and set constructors to t
 The XMLParser will parse through the file and call constructors/methods from cell and the controller classes to set rules and values (ie. method calls similar to createNewCell(parsedColor, parsedState)) or new FireController(parsedRatio1, parsedTreeProbability, parsedFireProbability), etc.). This class is included in the game design in order to allow for specfic updating interactions involved with the initial setup of the simulation scene and simulation rules. It will contain the following methods:
 	* set
 	* setCell
+<<<<<<< HEAD
 * **GameManager**
 GameManager will contain the following methods:
 	* init(File file){
@@ -208,10 +209,85 @@ else return “ash”
 			return vacant
 ```
 
+=======
+
+
+* **GameManager**
+GameManager will contain the following methods
+	
+    	* init(File file){//this method will initialize the game scene by calling createControllers(); calling createGrid();}
+
+	* createControllers(){//this method will interact with the XMLParser class to parse the XML file and set the properties to the revelvant controller}    
+
+	* createGrid(){//this method will create the grid by interacting with the Grid class which holds all specfications for the grid’s attributes and properties}
+
+    	* updateGrid(){//this method will use setter methods in the Grid class to reset its state based on the results of running the current algorithms. It will need to have access to the SimController and/or the specific controller subclass in order to determine what changes need to be made. 
+
+    	* private void pause(){//this method will pause the simulation and stop receiving updates from the SimController. This method will need to interact with the Button class to determine when they have been pressed.}
+
+    	* private void step(){//this method will only step through and play one frame of the simulation before pausing it once again. This method will need to interact with the Button class to determine when they have been pressed.}
+    
+    	* uploadXML(File file){//this method will need to interact with the UI Elements and buttons to determine when the Upload XML document has been selected and what filepath has been selected. The buttons will call uploadXML(). This method will then interact with XMLParser and call init with the new file passed in as a parameter}
+
+* **SimController**
+    	The SimController class will be an abstract class as detailed in “Overview”. 
+	* FireController
+FireController class extends SimController and implements its abstract methods as follows:
+		* getHoodState(hood) returns “fire” if the state of any of the cells in hood are fire and returns “notfire” otherwise.
+		* newState(cellState, hoodState):
+if cellState is “tree”, hoodState is “fire” and Random().nextInt(100) > probCatch:  return “fire”
+else if cellState is “tree” return “tree”
+else return “ash”
+	* WaTorController
+Extends SimController and implements its abstract methods as follows:
+		* getHoodState(hood) returns array containing any combination of [“shark”,”fish”, “vacant”] if at least one cell in the neighborhood has the corresponding state.
+		* newState(cellState, hoodState):
+	
+```pseudocode
+if cellState[0] = “Shark”: (cellState = [“Shark”, surviveCount, energyCount]
+    if hoodState contains “Fish” or “vacant”:
+        if cellState[1] == reproduceParam:
+            return [“Shark”, 0, startingEnergy]
+        else:
+            return [“vacant”, null, null]
+    else:
+        if cellState[2] > 0:
+            return [“Shark, cellState[1]++, cellState[2]--]
+        else:
+            if cellState[1] == reproduceParam:
+                return [“Shark”, 0, startingEnergy]
+            else: 
+                return [“vacant”, null, null]
+if cellState[0] = “Fish”
+    if hoodState contains “Shark”:
+        return [“Shark”, surviveCount++, energyCount++]
+    else if hoodState contains “vacant”:
+        return [“vacant”, null, null]
+    else:
+        return [“Fish”, cellState[1]++, null]
+if cellState[0] = “vacant”
+if hoodState contains “Shark”:
+return  [“Shark”, surviveCount++, enegyCount--]
+else if hoodState contains “Fish”:
+    return [“Fish”, surviveCount++, null]
+else:
+    return [“vacant”, null, null]
+```
+
+SegController
+Extends SimController and implements abstract methods as follows:
+	* getHoodState(hood) returns happy if (number of adjacent cells that are the same as cellState)/(number of occupied adjacent cells) > happyThreshold
+	* newState(cellState, hoodState):
+if(hoodState == happy):
+    return cellState
+else:
+    return vacant
+>>>>>>> 746ef3b572660248f08e1fd27caefec6afe03ca2
 * LifeController
 Extends SimController and implements abstract methods as follows:
 	* getHoodState(hood) returns lively if  number of nonvacant elements within hood are within threshold range. Else it returns deadly
 	* newState(cellState, hoodState):
+<<<<<<< HEAD
 
 ```
 		if(hoodState == lively):
@@ -236,4 +312,11 @@ An additional consideration was where to store the algorithm/rules for changing 
 Team Responsibilities
 ---
 
-Kevin’s primary responsibility will be simulation with his secondary responsibility being visualization. Callie’s primary responsibility will be configuration with her secondary responsibility being simulation. Le’s primary responsibility will be visualization with his secondary responsibility being configuration. At a high level, the team will do as much of it coding as it can together, even if different members of the team are each working on separate parts. Pair programming will be experimented with extensively.
+=======
+    if(hoodState == lively):
+        return life
+    else:
+        return vacant
+
+---
+
