@@ -1,5 +1,7 @@
 
 //REMOVE #TEXT NODES
+import javafx.scene.paint.Color;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,14 +14,18 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
  
 public class XMLParser {
 	private NodeList myNodeList;
 
-    private Map<String, String> myGridParamMap;
-    private Map<String, String> myCellParamMap;
+    private Map<String, String> myGridParam;
+    private Map<String, String> myCellParam;
+    private List<CellState> myCellStateList; //state name maps to state color
+ //   private List<Integer> myCellStates; //
 	
 	public void parseXMLFile(File xmlFile) throws ParserConfigurationException,
     SAXException, IOException {
@@ -41,14 +47,17 @@ public class XMLParser {
             	switch (node.getNodeName()) {
      			case "gridParam":
                     NodeList gridParamList = node.getChildNodes(); //use instance instead of global?                  
-     				myGridParamMap = makeParamMap(gridParamList);
-     				//somehow pass this in just once later on instead of calling makeParamMap each time
+     				myGridParam = makeParamMap(gridParamList);
+     				//somehow pass this in just once later  on instead of calling makeParamMap each time
                     //maybe just use one myParamList variable and continuously override it?
      				break;
      			case "cellParam":
      				NodeList cellParamList = node.getChildNodes();
-     				myCellParamMap = makeParamMap(cellParamList);
-     				break;  
+     				myCellParam = makeParamMap(cellParamList);
+     				break;
+     			case "cellStates":
+     				NodeList cellStatesList = node.getChildNodes();
+     				myCellStateList = makeCellStateList(cellStatesList);
             	}
              }
 		}
@@ -72,13 +81,56 @@ public class XMLParser {
 		}		
 		return paramMap;
 	}
+	
+	private List<CellState> makeCellStateList(NodeList paramList){
+		List<CellState> cellStates = new ArrayList<CellState>();
+		for (int j = 0; j < paramList.getLength(); j++) {		
+			//<cell> tag
+			Node node = paramList.item(j);
+			if (node instanceof Element && node.getNodeName().equals("cell")) { //in case other parameters are added
+                Element element = (Element) node;
+				String stateName = element.getAttribute("state");
+				System.out.println("stname" + stateName);
+				Color color = Color.valueOf(element.getAttribute("color"));
+				int[] locations = stringToIntArray(element.getTextContent());
+				CellState newCell = new CellState(stateName, color, locations); //is this considered "bad" design?
+				cellStates.add(newCell);
+				//cellsociety will take in statename and location. the cell must be be set to the specific color and then never changed again (no set methods)
+			}
+		}
+		
+		//for debugging
+		System.out.println("print cellStateList");
+		for (CellState state : cellStates){
+			System.out.println("statename: " + state.getState());
+			System.out.println("color: " + state.getColor().toString());
+			//System.out.println("locations: " + state.getState());
+			System.out.println("----------");
+
+		}		
+		return cellStates;
+	}
+				
+		//changes a string inputted as integers with spaces		
+	private int[] stringToIntArray(String string){
+		String[] split = string.split(" ");
+		for (String s: split){
+			System.out.println(s);
+		}
+	    int[] intArray = new int[split.length];
+	    for (int i = 0; i < split.length; i++) {
+	        intArray[i] = Integer.parseInt(split[i]);
+	    }
+	    return intArray;	
+	}
+				
 		
 	public Map<String, String> getGridParamMap(){
-		return myGridParamMap;
+		return myGridParam;
 	}
 	
 	public Map<String, String> getCellParamMap(){
-		return myCellParamMap;
+		return myCellParam;
 	}
 		
 }

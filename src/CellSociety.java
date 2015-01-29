@@ -52,7 +52,7 @@ public class CellSociety extends Application {
         //string "yCols" is bad design, although we can ask when we meet with our TA
         
         XMLParser parser = new XMLParser();
-		parser.parseXMLFile(new File("src/fire2.xml"));
+		parser.parseXMLFile(new File("src/life.xml"));
 		Map<String, String> map = parser.getGridParamMap();
 		
 		int yCols = Integer.parseInt(map.get("yCols"));
