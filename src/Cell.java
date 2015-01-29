@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 2248ad8ddc79ce1cb07478e7a624f431890bf07d
-
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-<<<<<<< HEAD
 public class Cell extends Rectangle{
 	
 	private static Color myColor; 
@@ -31,19 +25,3 @@ public class Cell extends Rectangle{
 	
 	
 }
-=======
-
-class Cell extends Rectangle{
-	private CellState myState;
-	
-	public Cell(String state){
-		myState = new CellState(state);
-		setFill(myState.getColor());
-	}
-	
-	public CellState getState(){
-		return myState;
-	}
-}
-
->>>>>>> 2248ad8ddc79ce1cb07478e7a624f431890bf07d
