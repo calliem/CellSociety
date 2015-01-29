@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 01b6ed5efbb8ffd1c1e5d6ac88bd24c0390170e6
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -27,7 +23,3 @@ public class Cell extends Rectangle{
 	
 	
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 01b6ed5efbb8ffd1c1e5d6ac88bd24c0390170e6
