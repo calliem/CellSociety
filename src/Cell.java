@@ -1,16 +1,19 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 01b6ed5efbb8ffd1c1e5d6ac88bd24c0390170e6
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Cell extends Rectangle{
 	
 	//private static String myStateName;
+	private static int myW = 10;
+	private static int myH = 10;
+	public String myLabel;
+	//private Color myColor;
 	
-	public Cell(int width, int height) {
-		super(width, height);
+	public Cell(String s) {
+		super(myW, myH);
+		myLabel = s;
+		//myColor = 
 		//tell the cell by its name
 		//Color 
 	//	setFill();
@@ -27,7 +30,4 @@ public class Cell extends Rectangle{
 	
 	
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 01b6ed5efbb8ffd1c1e5d6ac88bd24c0390170e6

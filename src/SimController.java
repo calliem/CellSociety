@@ -2,7 +2,12 @@ import java.util.ArrayList;
 
 
 public abstract class SimController {
-	
+	//private Cell[][] myGrid;
+	/*
+	public SimController(Cell[][] grid){
+		myGrid = grid;
+	}
+	*/
 	public Cell[][] runOneSim(Cell[][] grid) {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
 		for(int r = 0; r < grid.length; r++){

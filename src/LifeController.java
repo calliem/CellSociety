@@ -12,7 +12,7 @@ public class LifeController extends SimController{
 	protected String getNeighborsState(ArrayList<Cell> neighbors) {
 		int count = 0;
 		for(Cell c: neighbors){
-			if(c.toString().equals("live")){
+			if(c.myLabel.equals("live")){
 				count++;
 			}
 		}
@@ -22,7 +22,7 @@ public class LifeController extends SimController{
 		else if (count == 3){
 			return "live";
 		}
-		return "dead";
+		return "empty";
 	}
 
 	
@@ -33,7 +33,7 @@ public class LifeController extends SimController{
 	 */
 	protected Cell newState(Cell cell, String neighborsState) {
 		if(neighborsState.equals("two")){
-			return new Cell(cell.toString());
+			return new Cell(cell.myLabel);
 		}
 		return new Cell(neighborsState);
 	}
