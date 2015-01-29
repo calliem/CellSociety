@@ -12,7 +12,7 @@ public class LifeController extends SimController{
 	protected String getNeighborsState(ArrayList<Cell> neighbors) {
 		int count = 0;
 		for(Cell c: neighbors){
-			if(c.getState().toString().equals("live")){
+			if(c.toString().equals("live")){
 				count++;
 			}
 		}
@@ -31,9 +31,9 @@ public class LifeController extends SimController{
 	 * Makes a new Cell based on the cell's previous state and
 	 * the state of its neighbors
 	 */
-	protected Cell newState(CellState cellState, String neighborsState) {
+	protected Cell newState(Cell cell, String neighborsState) {
 		if(neighborsState.equals("two")){
-			return new Cell(cellState.toString());
+			return new Cell(cell.toString());
 		}
 		return new Cell(neighborsState);
 	}

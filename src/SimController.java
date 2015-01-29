@@ -7,10 +7,11 @@ public abstract class SimController {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
-				CellState cs = grid[r][c].getState();
+				//String stateName = grid[r][c].toString();
+				Cell curCell = grid[r][c];
 				ArrayList<Cell> neighbors = getNeighbors(grid, r, c);
 				String neighborsState = getNeighborsState(neighbors);
-				Cell newCell = newState(cs, neighborsState);
+				Cell newCell = newState(curCell, neighborsState);
 				newGrid[r][c] = newCell;
 			}
 		}
@@ -41,6 +42,6 @@ public abstract class SimController {
 
 	protected  abstract String getNeighborsState(ArrayList<Cell> neighbors);
 
-	protected abstract Cell newState(CellState cellState, String hoodState);
+	protected abstract Cell newState(Cell cell, String hoodState);
 
 }	
