@@ -1,6 +1,10 @@
-
 import java.io.File;
+import java.io.IOException;
 import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -19,33 +23,74 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class CellSociety extends Application {
+	
+	private Scene myScene;
+	private Button myPlayButton;
+	private Button myPauseButton;
+	private Button myStepButton;
+	private Button myXMLButton;
+	private GridPane myRoot;
+	private GridPane myGrid;
+	
+	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException {
+		
+		myRoot = new GridPane();
+		
+		initializeButtons();
+		generateGrid();
+		configureUI();
+		
+		myScene = new Scene(myRoot);
+		s.setScene(myScene);
+		s.show();
 
-	public static void main(String[] args) {
-		launch(args);
 	}
 
+	/**
+	 * 
+	 */
+	private void configureUI() {
+		myRoot.setAlignment(Pos.CENTER);
+		myRoot.setHgap(10);
+		myRoot.setVgap(10);
+		myRoot.add(createTitle(), 0, 0);
+		myRoot.add(myGrid, 0, 1);
+		myRoot.add(makeButtons(), 0, 2);
+		myRoot.add(makeSpeed(), 0, 3);
+		myRoot.add(createErrorLocation(), 0, 4);
+	}
+	
+	/**
+	 * 
+	 */
+	private void initializeButtons() {
+		myPlayButton = new Button("Play");
+		myPauseButton = new Button("Pause");
+		myStepButton = new Button("Step");
+		myXMLButton = new Button("Upload XML");
+	}
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 				
-		stage.setTitle("CellSociety");
-		
-		HBox titleBox = new HBox(10);		
-		titleBox.setAlignment(Pos.CENTER);
-		Text title = new Text("Cell Society");		
-        title.setFont(Font.font("Helvetica", FontWeight.NORMAL, 32));
-        titleBox.setPadding(new Insets(15, 25, 05, 25));
-		titleBox.getChildren().add(title);
-        
-		GridPane mainGrid = new GridPane();
-		mainGrid.setHgap(10);
-		mainGrid.setVgap(10);
-		
-		GridPane simGrid = new GridPane();
-		mainGrid.setAlignment(Pos.CENTER);
-		simGrid.setHgap(1);
-		simGrid.setVgap(1);
-        simGrid.setPadding(new Insets(0, 25, 5, 25));
-        simGrid.setAlignment(Pos.CENTER);
+		stage.setTitle("CellSociety");		
+		Scene scene = new Scene(myRoot);
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	/**
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
+	private void generateGrid() throws ParserConfigurationException,
+			SAXException, IOException {
+		myGrid = new GridPane();
+		myGrid.setHgap(1);
+		myGrid.setVgap(1);
+        myGrid.setPadding(new Insets(0, 25, 5, 25));
+        myGrid.setAlignment(Pos.CENTER);
         
         //NOTE: the parser may not belong in this class, but this is an example of how the XMLParser
         //will update the other classes. Unsure right now whether specifically searching for the
@@ -60,52 +105,68 @@ public class CellSociety extends Application {
 		for (int i = 0; i < xRows; i++) {
 			for (int j = 0; j < yCols; j++) {
 				Rectangle r = new Rectangle(10, 10, Color.CYAN);
-				simGrid.add(r, i, j);
+				myGrid.add(r, i, j);
 			}
 		}
 		
-		mainGrid.add(titleBox, 0, 0);
-		mainGrid.add(simGrid, 0, 1);
-		
-		Button playButton = new Button("Play");
-		Button pauseButton = new Button("Pause");
-		Button stepButton = new Button("Step");
-		
+	}
+
+
+	/**
+	 * @return
+	 */
+	private HBox createTitle() {
+		HBox titleBox = new HBox(10);		
+		titleBox.setAlignment(Pos.CENTER);
+		Text title = new Text("Cell Society");		
+        title.setFont(Font.font("Helvetica", FontWeight.NORMAL, 32));
+        titleBox.setPadding(new Insets(15, 25, 5, 25));
+		titleBox.getChildren().add(title);
+		return titleBox;
+	}
+
+	/**
+	 * @param topRow
+	 */
+	private HBox makeButtons() {
+		HBox topRow = new HBox(10);
+		topRow.setAlignment(Pos.CENTER);
+		topRow.getChildren().add(myPlayButton);
+		topRow.getChildren().add(myPauseButton);
+		topRow.getChildren().add(myStepButton);
+		topRow.getChildren().add(myXMLButton);
+		topRow.setPadding(new Insets(0, 25, 5, 25));
+		return topRow;
+	}
+	
+	/**
+	 * @param speedLabel
+	 * @param speedText
+	 * @param middleRow
+	 */
+	private HBox makeSpeed() {
+		HBox middleRow = new HBox(10);
 		Label speedLabel = new Label("Speed: ");
 		TextField speedText = new TextField();
-		Button xmlButton = new Button("Upload XML");
-		
-		Text errorMsg = new Text("[Error message]");
-		errorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
-		errorMsg.setFill(Color.RED);
-		
-		HBox topRow = new HBox(10);
-		HBox middleRow = new HBox(10);
-		HBox bottomRow = new HBox(10);
-		
-		topRow.setAlignment(Pos.CENTER);
-		topRow.getChildren().add(playButton);
-		topRow.getChildren().add(pauseButton);
-		topRow.getChildren().add(stepButton);
-		topRow.getChildren().add(xmlButton);
-		topRow.setPadding(new Insets(0, 25, 5, 25));
-		
 		middleRow.setAlignment(Pos.CENTER);
 		middleRow.getChildren().add(speedLabel);
 		middleRow.getChildren().add(speedText);
 		middleRow.setPadding(new Insets(0, 25, 5, 25));
-		
+		return middleRow;
+	}
+	
+	/**
+	 * 
+	 */
+	private HBox createErrorLocation() {
+		HBox bottomRow = new HBox(10);
+		Text errorMsg = new Text("[Error message]");
+		errorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+		errorMsg.setFill(Color.RED);
 		bottomRow.setAlignment(Pos.TOP_CENTER);
 		bottomRow.getChildren().add(errorMsg);
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
-
-		mainGrid.add(topRow, 0, 2);
-		mainGrid.add(middleRow, 0, 3);
-		mainGrid.add(bottomRow, 0, 4);
-		
-		Scene scene = new Scene(mainGrid);
-		stage.setScene(scene);
-		stage.show();
+		return bottomRow;
 	}
 
 }
