@@ -94,7 +94,6 @@ public class CellSociety{
 	
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
 		Map<String, String> map = myParser.getInitParamMap();
-		//use this for setting initial FPS/speed and stuff. Can be used in CellSociety instead; or will have to find a way to utilize it in both
 		
 		int numCols = Integer.parseInt(map.get("yCols"));
 		int numRows = Integer.parseInt(map.get("xRows"));
@@ -107,25 +106,52 @@ public class CellSociety{
 		//here Map = Map instead of Map = Hashmap. Is that okay or should it be changed (in the XMLParser class)?
 		
 		//instantiates cells for all states except for the first one (which will be automatically done)
-		System.out.println(cellStates.size());
-		for (int i = 0; i < cellStates.size(); i++){ 	
+		
+		
+		System.out.println("hohohoho" + cellStates.size());
+		System.out.println("print cellStateList");
+		
+		//iterate through the list of cell states
+		for (int i = 0; i < cellStates.size(); i ++){
 			HashMap<String, String> cellParams = cellStates.get(i);
-			
-			String stateName = cellParams.get("state");
-			System.out.println("stateName " + stateName);
-			
-			Color color = Color.valueOf(cellParams.get("color"));
+			for (String string: cellParams.keySet()){
+				Color color = Color.valueOf(cellParams.get("color"));
+				int[] locations = stringToIntArray(cellParams.get("loc"));
+				for (int j = 0; j < locations.length; j++){ 
+					int row = locations[j] / numCols;
+					int col = locations[j] % numCols;
+					System.out.println("stateName " + cellParams.get("state") + " location: " + cellParams.get("loc") + " num: " + j + " row: " + row + " col: " + col);
+					Cell cell = createCellInstance(cellParams.get("state"), color, cellParams); //this is probably wrong because it creates the instance with the same color multiple times
+					myInitCellArray[row][col] = cell;
+				}
 
+				System.out.println("color" + color);
+				System.out.println(i + " " + string + " " + cellStates.get(i));
+			System.out.println("----------");
+			}
+		}
 			
+		
+		/*	
+			//fix empty hashmaps since they are causing errors all around like here
+			HashMap<String, String> cellParams2 = cellStates.get(1);
+			for (String s : cellParams2.keySet()){
+				System.out.println(s);
+			}
+			
+
+			Color color = Color.valueOf(cellParams2.get("color"));
+
 			int[] locations = stringToIntArray(cellParams.get("loc"));
 			for (int j = 0; j < locations.length; j++){ 
 				int row = locations[j] / numCols;
 				int col = locations[j] % numCols;
-				System.out.println("stateName " + stateName + " location: " + locations[j] + " num: " + j + " row: " + row + " col: " + col);
-				Cell cell = createCellInstance(stateName, color, cellParams); //this is probably wrong because it creates the instance with the same color multiple times
+				System.out.println("stateName " + cellParams2.get("state") + " location: " + cellParams2.get("loc") + " num: " + j + " row: " + row + " col: " + col);
+				Cell cell = createCellInstance(cellParams2.get("state"), color, cellParams2); //this is probably wrong because it creates the instance with the same color multiple times
 				myInitCellArray[row][col] = cell;
-			}
-		}
+			}*/
+
+	
 		
 		//sets all remaining cells
 
@@ -164,7 +190,7 @@ public class CellSociety{
         if (cellParams.size() == 0)
         	 constructor = className.getConstructor(Color.class);           
         else
-        	constructor = className.getConstructor(Color.class, Map.class);       
+        	constructor = className.getConstructor(Color.class);       
 		System.out.println(constructor);
 		return (Cell) constructor.newInstance(color);
 	}

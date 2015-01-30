@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simulation>
 	<initParam>
-		<simName>Life</simName>
+		<simName>
+			<test>Hello</test>
+			<test2>Bye</test2>
+		</simName>
 		<author>Author</author>
 		<xRows>10</xRows>
 		<yCols>2</yCols>
 		<fps>100</fps>
 	</initParam>
-	<cellParam>
-	    <cell state="EmptyCell" color="black" />
-	    <cell state="LiveCell" color="cyan">
+	<cellParam>    
+	    <cell state="EmptyCell" color="Black">
+	    	<loc>0 3 4 6 7 8 9 11 12 13 14 16 18 19</loc>
+	    </cell>
+	    <cell state="LiveCell" color="Cyan">
 	        <loc>1 2 5 10 15 17</loc>
-	        <test>123</test>
-	    </cell> 
+	    </cell>
+	    
     </cellParam>>
 </simulation>
 
