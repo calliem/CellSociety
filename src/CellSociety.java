@@ -25,7 +25,6 @@ public class CellSociety{
 	private int myFrameRate;
 	private SimController myController;
 	private Timeline myTimeline;
-	private Cell[][] myCells;
 	private Cell[][] myInitCellArray;
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
@@ -33,19 +32,17 @@ public class CellSociety{
         myParser = new XMLParser();
 		myParser.parseXMLFile(new File("src/life.xml")); //this should only be called when you click uploadXML
 
-		myInitCellArray = createCellArray();
-		createCellArray();
-		myView = new CellSocietyView(s, myInitCellArray);
-		//myParser = new XMLParser();
+		myFrameRate = 2;	// actually get from XMLParser
+		myInitCellArray = createDummyArray();
+		// myInitCellArray = createCellArray();
+		
+		myView = new CellSocietyView(s, myInitCellArray, myFrameRate);
 		configureListeners();
 		
 		// or however it's decided
-		
 		myController = new LifeController();
-		myView.updateSimGrid(myCells);
 		
 		/* get FrameRate and initial settings */
-		myFrameRate = 100;	// actually get from XMLParser
 		//parser is instantiated in the cellsocietyview. it will have to be moved here if it is to setup the framrate here. 
 		
 		//is starting this here a bit weird?
@@ -56,31 +53,43 @@ public class CellSociety{
 		myTimeline.getKeyFrames().add(frame);
 	}
 	
-	private void configureListeners() {
+	private Cell[][] createDummyArray() {
+		
+		Cell[][] gridCell = new Cell[10][10];
+		
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				gridCell[i][j] = new EmptyCell(Color.WHITE);
+			}
+		}
+		
+		gridCell[2][0] = new LiveCell(Color.BLACK);
+		gridCell[2][1] = new LiveCell(Color.BLACK);
+		gridCell[2][2] = new LiveCell(Color.BLACK);
+		gridCell[1][2] = new LiveCell(Color.BLACK);
+		gridCell[0][1] = new LiveCell(Color.BLACK);
+		
+		return gridCell;
+	}
+	
+	private void configureListeners() throws IOException {
 		myView.getPlayElement().setOnMouseClicked(e -> resumeAnimation());
 		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
 		myView.getStepElement().setOnMouseClicked(e -> stepAnimation());
-		myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
+		//myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
 		myView.setErrorText(); // XML Parser should call this when file format incorrect.
 	}
 	
 	public KeyFrame start(int frameRate) {
 		return new KeyFrame(Duration.millis(1000 / frameRate),
-				e -> updateCellStates());
-	}
-	
-	private Object updateCellStates() {
-		// TODO Auto-generated method stub
-		return null;
+				e -> updateGrid());
 	}
 
 	// May be in a SimController subclass
 	private void updateGrid() {
-		SimController controller = new LifeController();
-	//	controller.runOneSim(array[][]);
 		
 		try {
-			myCells = myController.runOneSim(myCells);
+			myInitCellArray = myController.runOneSim(myInitCellArray);
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -103,7 +112,7 @@ public class CellSociety{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		myView.updateSimGrid(myCells);
+		myView.updateSimGrid(myInitCellArray);
 	}
 		
 	private void resumeAnimation() {
@@ -126,8 +135,8 @@ public class CellSociety{
 		myTimeline.pause();
 	}
 	
-	private void readNewXML() {
-		
+	private void readNewXML() throws ParserConfigurationException, SAXException, IOException {
+		myParser.parseXMLFile(new File("src/life.xml")); //this should only be called when you click uploadXML
 	}
 	
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
