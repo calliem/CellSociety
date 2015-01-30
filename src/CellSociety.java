@@ -61,6 +61,7 @@ public class CellSociety{
 		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
 		myView.getStepElement().setOnMouseClicked(e -> stepAnimation());
 		myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
+		myView.setErrorText(); // XML Parser should call this when file format incorrect.
 	}
 	
 	public KeyFrame start(int frameRate) {
@@ -121,7 +122,8 @@ public class CellSociety{
 	}
 	
 	private void stepAnimation() {
-		
+		myTimeline.play();
+		myTimeline.pause();
 	}
 	
 	private void readNewXML() {

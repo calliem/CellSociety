@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simulation>
-	<initParam>
+	<simParam>
 		<simName>Life</simName>
 		<author>Author</author>
 		<xRows>10</xRows>
 		<yCols>2</yCols>
 		<speed>100</speed>
-	</initParam>
+	</simParam>
 	<cellParam>
-	    <cell state="EmptyCell" color="black" />
-	    <cell state="LiveCell" color="cyan">
-	        <loc>1 2 5 10 15 17</loc>   
-	    </cell> 
+	    <cell state="EmptyCell" color="black">3 4 6 7 8 9 11 12 13 14 16 18 19 20</cell>
+	    <cell state="LiveCell" color="cyan"> 1 2 5 10 15 17</cell> 
     </cellParam>>
 </simulation>
 

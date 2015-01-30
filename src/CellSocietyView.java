@@ -36,6 +36,7 @@ public class CellSocietyView {
 	private Button myPauseButton;
 	private Button myStepButton;
 	private Button myXMLButton;
+	private Text myErrorMsg;
 	private GridPane myRoot;
 	private GridPane mySimGrid;
 	private Cell[][] myInitArray;
@@ -88,6 +89,12 @@ public class CellSocietyView {
 		}
 	}
 	
+	public void setErrorText() {
+		myErrorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+		myErrorMsg.setFill(Color.RED);
+		myErrorMsg.setText("XML File uploaded is not valid.");
+	}
+	
 	private void configureUI() {
 		myRoot.setAlignment(Pos.CENTER);
 		myRoot.setHgap(10);
@@ -135,10 +142,6 @@ public class CellSocietyView {
         
         updateSimGrid(myInitArray);
 	}
-	
-	
-	
-
 	
 	/*
 	for (int i = 0; i < xRows; i++) {
@@ -203,11 +206,9 @@ public class CellSocietyView {
 	 */
 	private HBox createErrorLocation() {
 		HBox bottomRow = new HBox(10);
-		Text errorMsg = new Text("[Error message]");
-		errorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
-		errorMsg.setFill(Color.RED);
+		myErrorMsg = new Text();
 		bottomRow.setAlignment(Pos.TOP_CENTER);
-		bottomRow.getChildren().add(errorMsg);
+		bottomRow.getChildren().add(myErrorMsg);
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
 	}
