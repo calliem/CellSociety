@@ -22,8 +22,10 @@ public class XMLParser {
 	private NodeList myNodeList;
 
     private Map<String, String> mySimParam = new HashMap<String, String>();
-    private Map<String, String> myCellParam = new HashMap<String, String>();
-    private List<CellState> myCellStateList = new ArrayList<CellState>(); //state name maps to state color
+   // private Map<String, String> myCellParam = new HashMap<String, String>();
+    private Map<String, String> myInitParam = new HashMap<String, String>();
+    private List<HashMap<String, String>> myCellParamList = new ArrayList<HashMap<String, String>>(); //state name maps to state color
+    //why don't i just add all of this to the hashmap of mycellparam and get the values that i need? 
 	
 	public void parseXMLFile(File xmlFile) throws ParserConfigurationException,
     SAXException, IOException {
@@ -39,24 +41,28 @@ public class XMLParser {
 	
 	public void parseInitialTags(){
 		for (int i = 0; i < myNodeList.getLength(); i++) {
-			//<gridParam tag>
+			//<initParam> <cellParam> <simParam> tags
              Node node = myNodeList.item(i);
              if (node instanceof Element) {  
             	switch (node.getNodeName()) {
-     			case "simParam":
-                    NodeList simParamList = node.getChildNodes(); //use instance instead of global?                  
-     				mySimParam = makeParamMap(simParamList);
+     			case "initParam":
+                    NodeList initParamList = node.getChildNodes(); //use instance instead of global?                  
+     				myInitParam = makeParamMap(initParamList);
      				//somehow pass this in just once later  on instead of calling makeParamMap each time
                     //maybe just use one myParamList variable and continuously override it?
      				break;
      			case "cellParam":
-     				NodeList cellParamList = node.getChildNodes();
-     				myCellParam = makeParamMap(cellParamList);
+     				NodeList cellList = node.getChildNodes();
+     				myCellParamList = makeCellParamList(cellList);
      				break;
-     			case "cellStates":
+     			case "simParam":
+     				NodeList simParamList = node.getChildNodes();
+     				mySimParam = makeParamMap(simParamList);
+     				break;
+     		/*	case "cellStates":
      				NodeList cellStatesList = node.getChildNodes();
      				myCellStateList = makeCellStateList(cellStatesList);
-     				break;
+     				break;*/
             	}
              }
 		}
@@ -65,80 +71,97 @@ public class XMLParser {
 	//should these just be void? they create a new temporary map which doesn't seem necessary
 	private Map<String, String> makeParamMap(NodeList paramList){
 		Map<String, String> paramMap = new HashMap<String, String>();
-		System.out.println(paramList.getLength());
 		for (int j = 0; j < paramList.getLength(); j++) {
 			Node node = paramList.item(j);
-           //   if (cNode instanceof Element) {
-			String paramName = node.getNodeName();
-			String content = node.getTextContent();
-			paramMap.put(paramName,content);
+			if (node instanceof Element){
+				String paramName = node.getNodeName();
+				String content = node.getTextContent();
+				paramMap.put(paramName,content);
+			}
+			//test
+			if (node.hasChildNodes()){
+				NodeList nodelist = node.getChildNodes();
+				for (int i = 0; i < nodelist.getLength(); i++){
+					Node node2 = nodelist.item(i);
+					if (node2 instanceof Element)
+						System.out.println("hi");
+				}
+			}
 		}
    
 		//for debugging purposes
-		System.out.println("print paramMap");
+	/*	System.out.println("print paramMap");
 		for (String string : paramMap.keySet()){
 			System.out.print(string + ": ");
 			System.out.println(paramMap.get(string));
-		}		
+		}		*/
 		return paramMap;
 	}
 	
-	private List<CellState> makeCellStateList(NodeList paramList){
-		List<CellState> cellStates = new ArrayList<CellState>();
-		for (int j = 0; j < paramList.getLength(); j++) {		
-			//<cell> tag
+	private List<HashMap<String, String>> makeCellParamList(NodeList paramList){
+		System.out.println("makeCellParamList-----------");
+		List<HashMap<String, String>> cellStates = new ArrayList<HashMap<String, String>>(); //is there any way to do map = hashmap inside of the arraylist?
+
+		//for each cell
+		System.out.println(paramList.getLength());
+		for (int j = 0; j < paramList.getLength(); j++) {
+			HashMap<String, String> cellParamMap = new HashMap<String, String>();
 			Node node = paramList.item(j);
-			if (node instanceof Element && node.getNodeName().equals("cell")) { //in case other parameters are added
-                Element element = (Element) node;
-				String stateName = element.getAttribute("state");
-				System.out.println("stname" + stateName);
-				Color color = Color.valueOf(element.getAttribute("color"));
-				int[] locations = stringToIntArray(element.getTextContent());
-				CellState newCell = new CellState(stateName, color, locations); //is this considered "bad" design?
-				cellStates.add(newCell);
-				//cellsociety will take in statename and location. the cell must be be set to the specific color and then never changed again (no set methods)
+			if (node instanceof Element && node.getFirstChild().getNodeValue() != null){
+				String paramName = node.getNodeName();
+				System.out.println("name of node: " + paramName + " ");
+				Element element = (Element) node;
+	                //every cell must have a state and a color and thus these have their own attributes
+				String stateName = element.getAttribute("state"); //these strings are probably bad, although we can pass them in as constants
+				cellParamMap.put("state", stateName); //this is hardcoded the 2nd time
+				String color = element.getAttribute("color");
+				System.out.println("color: " + color);
+				cellParamMap.put("color", color);
+				System.out.println("llololol" + cellParamMap.get("color"));
+			
+			//if cell has more properties
+			if (node.hasChildNodes()){
+				NodeList nodelist = node.getChildNodes();
+				for (int i = 0; i < nodelist.getLength(); i++){
+					Node node2 = nodelist.item(i);
+					if (node2 instanceof Element){
+						System.out.println("lowerlevel: " + node2.getNodeName() + node2.getTextContent());
+						cellParamMap.put(node2.getNodeName(), node2.getTextContent());
+					}
+				}
+			}
+			cellStates.add(cellParamMap);
 			}
 		}
 		
-		//for debugging
+		
+		System.out.println(cellStates.size());
 		System.out.println("print cellStateList");
-		for (CellState state : cellStates){
-			System.out.println("statename: " + state.toString());
-			System.out.println("color: " + state.getColor().toString());
-			//System.out.println("locations: " + state.getState());
+		for (int i = 0; i < cellStates.size(); i ++){
+			for (String string: cellStates.get(i).keySet()){
+				System.out.println(i + " " + string + " " + cellStates.get(i));
 			System.out.println("----------");
+			}
+		}
 
-		}		
+		
+		
 		return cellStates;
 	}
-				
-		//changes a string inputted as integers with spaces		
-	private int[] stringToIntArray(String string){
-		String[] split = string.split(" ");
-		for (String s: split){
-			System.out.println(s);
-		}
-	    int[] intArray = new int[split.length];
-	    for (int i = 0; i < split.length; i++) {
-	        intArray[i] = Integer.parseInt(split[i]);
-	    }
-	    return intArray;	
-	}
-				
+		
 		
 	public Map<String, String> getSimParamMap(){
 		return mySimParam;
 	}
 	
-	public Map<String, String> getCellParamMap(){
-		return myCellParam;
+	public Map<String, String> getInitParamMap(){
+		return myInitParam;
 	}
 	
-	public List<CellState> getCellStateList(){
-		return myCellStateList;
+	public List<HashMap<String, String>> getCellParamList(){
+		return myCellParamList;
 	}
 		
-	
 	//REMOVE #TEXT NODES
 
 }

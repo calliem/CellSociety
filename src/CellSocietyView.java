@@ -17,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -30,12 +29,13 @@ import org.xml.sax.SAXException;
 
 public class CellSocietyView {
 	
+	private Stage myStage;
 	private Scene myScene;
 	private Button myPlayButton;
 	private Button myPauseButton;
 	private Button myStepButton;
 	private Button myXMLButton;
-	private XMLParser myParser; //this is really weird. check if this is okay design?
+	private Text myErrorMsg;
 	private GridPane myRoot;
 	private GridPane mySimGrid;
 	
@@ -43,21 +43,26 @@ public class CellSocietyView {
 	
 	//using Reflection makes us have a ton of throw errors. Is that okay?
 	
-	public CellSocietyView(Stage s, XMLParser parser) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
+	public CellSocietyView(Stage s, Cell[][] initialCellArray, int frameRate) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
 		myRoot = new GridPane();
-		myParser = parser;
+		myStage = s;
 		
 		initializeButtons();
 		generateGrid();
-		configureUI();
-		
+		updateSimGrid(initialCellArray);
+		configureUI(frameRate);
+				
 		myScene = new Scene(myRoot);
-		s.setTitle("CellSociety");		
-		s.setScene(myScene);
-		s.show();
+		myStage.setTitle("CellSociety");		
+		myStage.setScene(myScene);
+		myStage.show();
 	}
 	
+	public Stage getStage() {
+		return myStage;
+	}
+
 	public Button getPlayElement() {
 		return this.myPlayButton;
 	}
@@ -75,21 +80,27 @@ public class CellSocietyView {
 	}
 	
 	public void updateSimGrid(Cell[][] cellGrid) {
+		mySimGrid.getChildren().clear();
 		for (int i = 0; i < cellGrid.length; i++) {
-			for (int j = 0; j < cellGrid[0].length; j++) {
+			for (int j = 0; j < cellGrid[0].length; j++)
 				mySimGrid.add(cellGrid[i][j], j, i);
-			}
 		}
 	}
 	
-	private void configureUI() {
+	public void setErrorText() {
+		myErrorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+		myErrorMsg.setFill(Color.RED);
+		myErrorMsg.setText("XML File uploaded is not valid.");
+	}
+	
+	private void configureUI(int frameRate) {
 		myRoot.setAlignment(Pos.CENTER);
 		myRoot.setHgap(10);
 		myRoot.setVgap(10);
 		myRoot.add(createTitle(), 0, 0);
 		myRoot.add(mySimGrid, 0, 1);
 		myRoot.add(makeButtons(), 0, 2);
-		myRoot.add(makeSpeed(), 0, 3);
+		myRoot.add(makeSpeed(frameRate), 0, 3);
 		myRoot.add(createErrorLocation(), 0, 4);
 	}
 	
@@ -99,6 +110,7 @@ public class CellSocietyView {
 	private void initializeButtons() {
 		myPlayButton = new Button("Play");
 		myPauseButton = new Button("Pause");
+		myPauseButton.setDisable(true);
 		myStepButton = new Button("Step");
 		myXMLButton = new Button("Upload XML");
 	}
@@ -126,58 +138,7 @@ public class CellSocietyView {
         //NOTE: the parser may not belong in this class, but this is an example of how the XMLParser
         //will update the other classes. Unsure right now whether specifically searching for the
         //string "yCols" is bad design, although we can ask when we meet with our TA
-        
-		
-		mySimGrid.add(cell, col, row);
-
-		
-	
-	}
-		
-	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
-		Map<String, String> map = myParser.getSimParamMap();
-		//use this for setting initial FPS/speed and stuff. Can be used in CellSociety instead; or will have to find a way to utilize it in both
-		
-		int numCols = Integer.parseInt(map.get("yCols"));
-		int numRows = Integer.parseInt(map.get("xRows"));
-		
-		Cell[][] cellArray = new Cell[numRows][numCols];
-		
-		List<CellState> cellStates = myParser.getCellStateList();
-		Map<String, String> cellParams = myParser.getCellParamMap(); //this should just be an empty value for those without it
-		//here Map = Map instead of Map = Hashmap. Is that okay or should it be changed (in the XMLParser class)?
-		
-		//instantiates cells for all states except for the last one (which will be automatically done)
-		
-		//initializes all cells in the 2Darray
-		for (int i = 1; i < cellStates.size(); i++){ 
-			CellState state = cellStates.get(i);
-			String stateName = state.toString();
-			System.out.println("stateName " + stateName);
-			int[] locations = state.getLocations();
-			for (int j = 0; j < locations.length; j++){ 
-				int row = locations[j] / numCols;
-				int col = locations[j] % numCols;
-				System.out.println("stateName " + stateName + " location: " + locations[j] + " num: " + j + " row: " + row + " col: " + col);
-				Cell cell = createCellInstance(stateName, state.getColor(), cellParams);
-				cellArray[row][col] = cell;
-			}
-		}
-		
-		//sets all remaining cells
-		for (int x = 0; x < numRows; x ++){
-			for (int y = 0; y < numCols; y++){
-				if (cellArray[x][y] == null){
-					CellState remainingState = cellStates.get(0); 
-					cellArray[x][y] = createCellInstance(remainingState.toString(), remainingState.getColor(), cellParams); //this cellParams hashmap needs to be fixed
-				}
-			}
-		}
-		
-		return cellArray;
-		
-	}
-
+    }
 	
 	/*
 	for (int i = 0; i < xRows; i++) {
@@ -192,17 +153,7 @@ public class CellSocietyView {
 	}*/
 
 	//param should be a map or a hashmap?
-		public Cell createCellInstance(String cellState, Color color, Map<String, String> cellParams) throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
-            Class<?> className = Class.forName(cellState);
-            System.out.println("ClassName:  " + className.toString());
-            Constructor<?> constructor;
-            if (cellParams.size() == 0)
-            	 constructor = className.getConstructor(Color.class);           
-            else
-            	constructor = className.getConstructor(Color.class, Map.class);       
-			System.out.println(constructor);
-			return (Cell) constructor.newInstance(color);
-		}
+		
 
 	/**
 	 * @return
@@ -236,10 +187,11 @@ public class CellSocietyView {
 	 * @param speedText
 	 * @param middleRow
 	 */
-	private HBox makeSpeed() {
+	private HBox makeSpeed(int frameRate) {
 		HBox middleRow = new HBox(10);
 		Label speedLabel = new Label("Speed: ");
 		TextField speedText = new TextField();
+		speedText.setText(frameRate + " frame(s) per second");
 		middleRow.setAlignment(Pos.CENTER);
 		middleRow.getChildren().add(speedLabel);
 		middleRow.getChildren().add(speedText);
@@ -252,11 +204,9 @@ public class CellSocietyView {
 	 */
 	private HBox createErrorLocation() {
 		HBox bottomRow = new HBox(10);
-		Text errorMsg = new Text("[Error message]");
-		errorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
-		errorMsg.setFill(Color.RED);
+		myErrorMsg = new Text();
 		bottomRow.setAlignment(Pos.TOP_CENTER);
-		bottomRow.getChildren().add(errorMsg);
+		bottomRow.getChildren().add(myErrorMsg);
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
 	}
