@@ -1,18 +1,19 @@
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 
-public class WaTorController extends SimController{
+public class WatorController extends SimController{
 
-	public Cell[][] runOneSim(Cell[][] grid) {
+	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
 				Cell curCell = grid[r][c];
 				//CellState cs = curCell.getState();
-				if(!curCell.toString().equals("empty") && !deadShark(curCell)){
+				if(!curCell.toString().equals("EmptyCell") && !deadShark(curCell)){
 					updateDestination(grid, r, c, newGrid);
 					updateSource(grid, r, c, newGrid);
-					newGrid[r][c] = new Cell("empty");
+					newGrid[r][c] = makeCell("EmptyCell");
 				}
 			}
 		}
