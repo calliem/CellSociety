@@ -24,6 +24,7 @@ public class XMLParser {
     private Map<String, String> mySimParam = new HashMap<String, String>();
     private Map<String, String> myCellParam = new HashMap<String, String>();
     private List<CellState> myCellStateList = new ArrayList<CellState>(); //state name maps to state color
+    //why don't i just add all of this to the hashmap of mycellparam and get the values that i need? 
 	
 	public void parseXMLFile(File xmlFile) throws ParserConfigurationException,
     SAXException, IOException {
@@ -50,13 +51,14 @@ public class XMLParser {
                     //maybe just use one myParamList variable and continuously override it?
      				break;
      			case "cellParam":
+     				System.out.println("making parammap");
      				NodeList cellParamList = node.getChildNodes();
      				myCellParam = makeParamMap(cellParamList);
      				break;
-     			case "cellStates":
+     		/*	case "cellStates":
      				NodeList cellStatesList = node.getChildNodes();
      				myCellStateList = makeCellStateList(cellStatesList);
-     				break;
+     				break;*/
             	}
              }
 		}
@@ -119,8 +121,10 @@ public class XMLParser {
 			System.out.println(s);
 		}
 	    int[] intArray = new int[split.length];
-	    for (int i = 0; i < split.length; i++) {
-	        intArray[i] = Integer.parseInt(split[i]);
+	    if (!string.equals("")){ //checks to ensure that it is not the first location parameter passed in from the XML document (it is empty and will be made automatically)
+	    	for (int i = 0; i < split.length; i++) {
+	    		intArray[i] = Integer.parseInt(split[i]);
+	    	}
 	    }
 	    return intArray;	
 	}
