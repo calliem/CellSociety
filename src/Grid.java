@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 
 
 public class Grid {
@@ -7,12 +7,10 @@ public class Grid {
 	private int myWidth;
 	private int myHeight;
 	
-	public Grid(int width, int height) {
-		
+	public Grid(int width, int height) {	
 		myWidth = width;
 		myHeight = height;
 		myCells = new Cell[width][height];
-
 	}
 	
 	/**
@@ -22,12 +20,12 @@ public class Grid {
 	 * @param x The x-coordinate
 	 * @param y The y-coordinate
 	 * @return An ArrayList of Cell objects containing the neighbors
-	 */
+	 
 	
 	public ArrayList<Cell> getNeighbors(int x, int y) {
 		
 		ArrayList<Cell> cells = new ArrayList<Cell>();
-		
+	
 		if (!inBounds(x, y))
 			return cells;
 		
@@ -58,3 +56,4 @@ public class Grid {
 	}
 	
 }
+*/

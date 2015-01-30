@@ -14,7 +14,6 @@ import org.xml.sax.SAXException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -31,10 +30,9 @@ public class CellSociety{
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
         myParser = new XMLParser();
-		myParser.parseXMLFile(new File("src/life.xml")); //this should only be called when you click uploadXML
+		myParser.parseXMLFile(new File("src/fire.xml")); //this should only be called when you click uploadXML
 
-		myFrameRate = 2;	// actually get from XMLParser
-	//	myInitCellArray = createDummyArray();
+		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));	// actually get from XMLParser
 		myInitCellArray = createCellArray();
 		
 		myView = new CellSocietyView(s, myInitCellArray, myFrameRate);
@@ -53,25 +51,6 @@ public class CellSociety{
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
 		myTimeline.getKeyFrames().add(frame);
-	}
-	
-	private Cell[][] createDummyArray() {
-		
-		Cell[][] gridCell = new Cell[10][10];
-		
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
-				gridCell[i][j] = new EmptyCell(Color.WHITE);
-			}
-		}
-		
-		gridCell[2][0] = new LiveCell(Color.BLACK);
-		gridCell[2][1] = new LiveCell(Color.BLACK);
-		gridCell[2][2] = new LiveCell(Color.BLACK);
-		gridCell[1][2] = new LiveCell(Color.BLACK);
-		gridCell[0][1] = new LiveCell(Color.BLACK);
-		
-		return gridCell;
 	}
 	
 	private void configureListeners() throws IOException {
@@ -137,8 +116,9 @@ public class CellSociety{
 		myTimeline.pause();
 	}
 	
+	//this method is not used at all
 	private void readNewXML() throws ParserConfigurationException, SAXException, IOException {
-		myParser.parseXMLFile(new File("src/life.xml")); //this should only be called when you click uploadXML
+		myParser.parseXMLFile(new File("src/fire.xml")); //this should only be called when you click uploadXML
 	}
 	
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
@@ -156,12 +136,8 @@ public class CellSociety{
 		
 		//instantiates cells for all states except for the first one (which will be automatically done)
 		
-		
-		System.out.println("hohohoho" + cellStates.size());
-		System.out.println("print cellStateList");
-		
 		//iterate through the list of cell states
-		for (int i = 0; i < cellStates.size(); i ++){
+		for (int i = 1; i < cellStates.size(); i ++){
 			HashMap<String, String> cellParams = cellStates.get(i);
 			for (String string: cellParams.keySet()){
 				Color color = Color.valueOf(cellParams.get("color"));
@@ -179,29 +155,6 @@ public class CellSociety{
 			System.out.println("----------");
 			}
 		}
-			
-		
-		/*	
-			//fix empty hashmaps since they are causing errors all around like here
-			HashMap<String, String> cellParams2 = cellStates.get(1);
-			for (String s : cellParams2.keySet()){
-				System.out.println(s);
-			}
-			
-
-			Color color = Color.valueOf(cellParams2.get("color"));
-
-			int[] locations = stringToIntArray(cellParams.get("loc"));
-			for (int j = 0; j < locations.length; j++){ 
-				int row = locations[j] / numCols;
-				int col = locations[j] % numCols;
-				System.out.println("stateName " + cellParams2.get("state") + " location: " + cellParams2.get("loc") + " num: " + j + " row: " + row + " col: " + col);
-				Cell cell = createCellInstance(cellParams2.get("state"), color, cellParams2); //this is probably wrong because it creates the instance with the same color multiple times
-				myInitCellArray[row][col] = cell;
-			}*/
-
-	
-		
 		//sets all remaining cells
 
 		for (int x = 0; x < numRows; x ++){

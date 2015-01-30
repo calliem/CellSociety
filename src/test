@@ -1,0 +1,96 @@
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Employees>
+     <Employee ID="1">
+          <Firstname>Lebron lol</Firstname >
+          <Lastname>James</Lastname>
+          <Age>30</Age>
+          <Salary>2500</Salary>
+     </Employee>
+     <Employee ID="2">
+          <Firstname>Anthony</Firstname>
+          <Lastname>Davis</Lastname>
+          <Age>22</Age>
+          <Salary>1500</Salary>
+     </Employee>
+     <Employee ID="3">
+          <Firstname>Paul</Firstname>
+          <Lastname>George</Lastname>
+          <Age>24</Age>
+          <Salary>2000</Salary>
+     </Employee>
+     <Employee ID="4">
+          <Firstname>Blake</Firstname>
+          <Lastname>Griffin</Lastname>
+          <Age>25</Age>
+          <Salary>2250</Salary>
+     </Employee>
+</Employees>
+
+
+        <cell type=1>red</cell>
+        <cell type=2>brown</cell>
+        <cell type=3>white</cell>
+        
+        
+        
+        
+    <cells>
+        <state type=0>
+            <color>white</color>
+            <coord x="1" y="10" />
+        </state>
+        <state type=2>
+            <color>red</color>
+            <coord x="2" y="20" />
+        </state>
+        <state type=3>
+            <color>green</color>
+            <coord x="1" y="5" />
+        </state>
+    </cells>
+    
+    or put coord in a differnt column
+    
+    
+    
+    
+
+myBackButton = makeButton("BackCommand", new EventHandler<ActionEvent>() {</ActionEvent>)public void handle (ActionEvent event)}
+	back();
+	}
+	
+	makeButton("", event -> home());
+	
+	myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE ....)
+	
+	myResources.getString("ErrorTitle") //instead of hardcoding a string
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+String className = "LiveCell";
+Class<?> currentClass = Class.forName(className);
+System.out.println(currentClass.toString());
+Constructor<?> constructor = currentClass.getConstructor(Integer.TYPE, Integer.TYPE);
+System.out.println(constructor);
+Object o = constructor.newInstance(10,10);
+
+	private HashMap<String, String> myParameters;
+
+
+
+Q: is it okay to have private static variables in cell class (for color) since each instance of the specific cells will be the same color?
+Should we be setting the static for color in the constructor or as a set method? We currently have 2 constructors. 
+Was using a data structure for CellStates a viable idea? Another alternative was using 2 hashmaps.
+Is there an issue having so many cell subclasses? 
+For Java reflection, how do we deal with constructor types? How do we deal with it if we have 10 different constructor types with different parameter tyeps passed into them all	
+	Should we pass in values into a resource file or use hashmaps in the constructors? (some of the hashmaps will be wasted since some cells do not have those specific properties)
+	Is it okay to have myParser's that are pretty much the same in CellSociety and CellSocietyView? Are there any alternatives?

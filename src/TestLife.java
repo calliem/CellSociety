@@ -1,4 +1,4 @@
-import java.lang.reflect.InvocationTargetException;
+/*import java.lang.reflect.InvocationTargetException;
 
 
 public class TestLife {
@@ -69,7 +69,7 @@ public class TestLife {
 		}
 		return outGrid;
 	}
-	*/
+	
 	
 	static void printGrid(Cell[][] grid){
 		System.out.println("!!!!");
@@ -81,4 +81,4 @@ public class TestLife {
 		System.out.println("!!!!");
 	}
 
-}
+}*/
