@@ -17,9 +17,8 @@
 	    <cell state="LiveCell" color="Cyan">
 	        <loc>1 2 5 10 15 17</loc>
 	    </cell>
-	    
-    </cellParam>>
+  </cellParam>
 </simulation>
-
-
+	  
+	    
 

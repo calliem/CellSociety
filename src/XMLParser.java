@@ -162,7 +162,6 @@ public class XMLParser {
 		return myCellParamList;
 	}
 		
-	
 	//REMOVE #TEXT NODES
 
 }

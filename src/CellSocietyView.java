@@ -30,12 +30,13 @@ import org.xml.sax.SAXException;
 
 public class CellSocietyView {
 	
+	private Stage myStage;
 	private Scene myScene;
 	private Button myPlayButton;
 	private Button myPauseButton;
 	private Button myStepButton;
 	private Button myXMLButton;
-	private XMLParser myParser; //this is really weird. check if this is okay design?
+	private Text myErrorMsg;
 	private GridPane myRoot;
 	private GridPane mySimGrid;
 	private Cell[][] myInitArray;
@@ -47,16 +48,21 @@ public class CellSocietyView {
 	public CellSocietyView(Stage s, Cell[][] initialCellArray) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
 		myRoot = new GridPane();
+		myStage = s;
 		myInitArray = initialCellArray;
 		
 		initializeButtons();
 		generateGrid();
 		configureUI();
-		
+				
 		myScene = new Scene(myRoot);
-		s.setTitle("CellSociety");		
-		s.setScene(myScene);
-		s.show();
+		myStage.setTitle("CellSociety");		
+		myStage.setScene(myScene);
+		myStage.show();
+	}
+	
+	public Stage getStage() {
+		return myStage;
 	}
 
 	public Button getPlayElement() {
@@ -76,11 +82,17 @@ public class CellSocietyView {
 	}
 	
 	public void updateSimGrid(Cell[][] cellGrid) {
+		mySimGrid.getChildren().clear();
 		for (int i = 0; i < cellGrid.length; i++) {
-			for (int j = 0; j < cellGrid[0].length; j++) {
+			for (int j = 0; j < cellGrid[0].length; j++)
 				mySimGrid.add(cellGrid[i][j], j, i);
-			}
 		}
+	}
+	
+	public void setErrorText() {
+		myErrorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+		myErrorMsg.setFill(Color.RED);
+		myErrorMsg.setText("XML File uploaded is not valid.");
 	}
 	
 	private void configureUI() {
@@ -130,10 +142,6 @@ public class CellSocietyView {
         
         updateSimGrid(myInitArray);
 	}
-	
-	
-	
-
 	
 	/*
 	for (int i = 0; i < xRows; i++) {
@@ -198,11 +206,9 @@ public class CellSocietyView {
 	 */
 	private HBox createErrorLocation() {
 		HBox bottomRow = new HBox(10);
-		Text errorMsg = new Text("[Error message]");
-		errorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
-		errorMsg.setFill(Color.RED);
+		myErrorMsg = new Text();
 		bottomRow.setAlignment(Pos.TOP_CENTER);
-		bottomRow.getChildren().add(errorMsg);
+		bottomRow.getChildren().add(myErrorMsg);
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
 	}
