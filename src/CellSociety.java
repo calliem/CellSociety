@@ -15,7 +15,11 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+
 import javafx.scene.paint.Color;
+
+import javafx.stage.FileChooser;
+
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -88,8 +92,20 @@ public class CellSociety{
 		
 	}
 	
-	private void readNewXML() {
-		
+	private XMLParser readNewXML() {
+		FileChooser fileChooser = new FileChooser();
+
+        // Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+                "XML files (*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        // Show save file dialog
+        File file = fileChooser.showOpenDialog(myView.getStage());
+
+        if (file != null) {
+            return new XMLParser(file);
+        }
 	}
 	
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
