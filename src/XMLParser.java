@@ -21,10 +21,9 @@ import java.util.Map;
 public class XMLParser {
 	private NodeList myNodeList;
 
-    private Map<String, String> mySimParam;
-    private Map<String, String> myCellParam;
-    private List<CellState> myCellStateList; //state name maps to state color
- //   private List<Integer> myCellStates; //
+    private Map<String, String> mySimParam = new HashMap<String, String>();
+    private Map<String, String> myCellParam = new HashMap<String, String>();
+    private List<CellState> myCellStateList = new ArrayList<CellState>(); //state name maps to state color
 	
 	public void parseXMLFile(File xmlFile) throws ParserConfigurationException,
     SAXException, IOException {
@@ -63,6 +62,7 @@ public class XMLParser {
 		}
 	}
 	
+	//should these just be void? they create a new temporary map which doesn't seem necessary
 	private Map<String, String> makeParamMap(NodeList paramList){
 		Map<String, String> paramMap = new HashMap<String, String>();
 		System.out.println(paramList.getLength());

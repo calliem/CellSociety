@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.lang.reflect.*;
@@ -125,10 +126,11 @@ public class CellSocietyView {
 		
 		int numCols = Integer.parseInt(map.get("yCols"));
 		int numRows = Integer.parseInt(map.get("xRows"));
-	//	List<CellState> list = getCellStateList();
-		int temp = 0;
 
 		List<CellState> cellStates = parser.getCellStateList();
+		Map<String, String> cellParams = parser.getCellParamMap(); //this should just be an empty value for those without it
+		//here Map = Map instead of Map = Hashmap. Is that okay or should it be changed (in the XMLParser class)?
+		
 		//instantiates cells for all states except for the last one (which will be automatically done)
 		for (int i = 0; i < cellStates.size(); i++){ 
 			CellState state = cellStates.get(i);
@@ -136,16 +138,17 @@ public class CellSocietyView {
 			System.out.println("stateName " + stateName);
 			int[] locations = state.getLocations();
 			for (int j = 0; j < locations.length; j++){ 
-				//row* numRows + col = actualValue      col = actualValue - row*numRows
-				int row = locations[j] % numRows;
+				int row = locations[j] / numCols;
 				int col = locations[j] % numCols;
 				System.out.println("stateName " + stateName + " location: " + locations[j] + " num: " + j + " row: " + row + " col: " + col);
-				Cell cell = createCellInstance(stateName);
-				myGrid.add(cell, row, col);
+				Cell cell = createCellInstance(stateName, state.getColor(), cellParams);
+				myGrid.add(cell, col, row);
 			}
 		}
 	}
 		
+
+	
 	/*
 	for (int i = 0; i < xRows; i++) {
 		for (int j = 0; j < yCols; j++) {
@@ -158,12 +161,17 @@ public class CellSocietyView {
 		}
 	}*/
 
-		public Cell createCellInstance(String cellState) throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
+	//param should be a map or a hashmap?
+		public Cell createCellInstance(String cellState, Color color, Map<String, String> cellParams) throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
             Class<?> className = Class.forName(cellState);
-            System.out.println("CRRRR " + className.toString());
-			Constructor<?> constructor = className.getConstructor(Integer.TYPE, Integer.TYPE);
+            System.out.println("ClassName:  " + className.toString());
+            Constructor<?> constructor;
+            if (cellParams.size() == 0)
+            	 constructor = className.getConstructor(Color.class);           
+            else
+            	constructor = className.getConstructor(Color.class, Map.class);       
 			System.out.println(constructor);
-			return (Cell) constructor.newInstance(CELL_SIZE, CELL_SIZE);
+			return (Cell) constructor.newInstance(color);
 		}
 
 	/**
@@ -221,5 +229,9 @@ public class CellSocietyView {
 		bottomRow.getChildren().add(errorMsg);
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
+	}
+	
+	public GridPane Grid(){
+		return myGrid;
 	}
 }

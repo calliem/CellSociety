@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 
@@ -5,13 +6,11 @@ public class EmptyCell extends Cell{
 	
 	public EmptyCell() {
 		super();
-		setFill(Color.valueOf("white"));
-
-
-		// TODO Auto-generated constructor stub
+	}
+	
+	public EmptyCell(Color color) {
+		super();
+		setFill(color);
 	}
 
-	public String toString(){
-		return "EmptyCell";
-	}
 }
