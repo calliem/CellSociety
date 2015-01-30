@@ -88,3 +88,4 @@ Was using a data structure for CellStates a viable idea? Another alternative was
 Is there an issue having so many cell subclasses? 
 For Java reflection, how do we deal with constructor types? How do we deal with it if we have 10 different constructor types with different parameter tyeps passed into them all	
 	Should we pass in values into a resource file or use hashmaps in the constructors? (some of the hashmaps will be wasted since some cells do not have those specific properties)
+	Is it okay to have myParser's that are pretty much the same in CellSociety and CellSocietyView? Are there any alternatives?

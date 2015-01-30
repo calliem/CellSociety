@@ -35,6 +35,7 @@ public class CellSocietyView {
 	private Button myPauseButton;
 	private Button myStepButton;
 	private Button myXMLButton;
+	private XMLParser myParser; //this is really weird. check if this is okay design?
 	private GridPane myRoot;
 	private GridPane myGrid;
 	
@@ -42,9 +43,10 @@ public class CellSocietyView {
 	
 	//using Reflection makes us have a ton of throw errors. Is that okay?
 	
-	public CellSocietyView(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
+	public CellSocietyView(Stage s, XMLParser parser) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
 		myRoot = new GridPane();
+		myParser = parser;
 		
 		initializeButtons();
 		generateGrid();
@@ -54,7 +56,6 @@ public class CellSocietyView {
 		s.setTitle("CellSociety");		
 		s.setScene(myScene);
 		s.show();
-		
 	}
 	
 	public Button getPlayElement() {
@@ -118,21 +119,29 @@ public class CellSocietyView {
         //will update the other classes. Unsure right now whether specifically searching for the
         //string "yCols" is bad design, although we can ask when we meet with our TA
         
-        XMLParser parser = new XMLParser();
-		parser.parseXMLFile(new File("src/life.xml"));
-		Map<String, String> map = parser.getSimParamMap();
 		
-		//how to use cols and rows here?
+				
+		
+	
+	}
+		
+	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
+		Map<String, String> map = myParser.getSimParamMap();
+		//use this for setting initial FPS/speed and stuff. Can be used in CellSociety instead; or will have to find a way to utilize it in both
 		
 		int numCols = Integer.parseInt(map.get("yCols"));
 		int numRows = Integer.parseInt(map.get("xRows"));
-
-		List<CellState> cellStates = parser.getCellStateList();
-		Map<String, String> cellParams = parser.getCellParamMap(); //this should just be an empty value for those without it
+		
+		Cell[][] cellArray = new Cell[numRows][numCols];
+		
+		List<CellState> cellStates = myParser.getCellStateList();
+		Map<String, String> cellParams = myParser.getCellParamMap(); //this should just be an empty value for those without it
 		//here Map = Map instead of Map = Hashmap. Is that okay or should it be changed (in the XMLParser class)?
 		
 		//instantiates cells for all states except for the last one (which will be automatically done)
-		for (int i = 0; i < cellStates.size(); i++){ 
+		
+		//initializes all cells in the 2Darray
+		for (int i = 1; i < cellStates.size(); i++){ 
 			CellState state = cellStates.get(i);
 			String stateName = state.toString();
 			System.out.println("stateName " + stateName);
@@ -142,11 +151,23 @@ public class CellSocietyView {
 				int col = locations[j] % numCols;
 				System.out.println("stateName " + stateName + " location: " + locations[j] + " num: " + j + " row: " + row + " col: " + col);
 				Cell cell = createCellInstance(stateName, state.getColor(), cellParams);
-				myGrid.add(cell, col, row);
+				cellArray[row][col] = cell;
 			}
 		}
-	}
 		
+		//sets all remaining cells
+		for (int x = 0; x < numRows; x ++){
+			for (int y = 0; y < numCols; y++){
+				if (cellArray[x][y] == null){
+					CellState remainingState = cellStates.get(0); 
+					cellArray[x][y] = createCellInstance(remainingState.toString(), remainingState.getColor(), cellParams); //this cellParams hashmap needs to be fixed
+				}
+			}
+		}
+		
+		return cellArray;
+		
+	}
 
 	
 	/*
