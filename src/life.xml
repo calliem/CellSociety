@@ -5,12 +5,13 @@
 		<author>Author</author>
 		<xRows>10</xRows>
 		<yCols>2</yCols>
-		<speed>100</speed>
+		<fps>100</fps>
 	</initParam>
 	<cellParam>
 	    <cell state="EmptyCell" color="black" />
 	    <cell state="LiveCell" color="cyan">
-	        <loc>1 2 5 10 15 17</loc>   
+	        <loc>1 2 5 10 15 17</loc>
+	        <test>123</test>
 	    </cell> 
     </cellParam>>
 </simulation>
