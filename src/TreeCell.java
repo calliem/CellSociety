@@ -1,11 +1,17 @@
 import javafx.scene.paint.Color;
 
 
-public class TreeCell extends Cell {
+public class TreeCell extends Cell{
+	
 	public TreeCell(){
 		super();
-		setFill(Color.valueOf("green"));
 	}
+
+	public TreeCell(Color color) {
+		super();
+		setFill(color);
+	}
+	
 	public String toString(){
 		return "TreeCell";
 	}

@@ -1,4 +1,5 @@
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -22,7 +23,9 @@ public class CellSociety{
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
-		myView = new CellSocietyView(s);
+        myParser = new XMLParser();
+		myParser.parseXMLFile(new File("src/life.xml")); //this should only be called when you click uploadXML
+		myView = new CellSocietyView(s, myParser);
 		//myParser = new XMLParser();
 		configureListeners();
 		
@@ -32,6 +35,8 @@ public class CellSociety{
 		/* get FrameRate and initial settings */
 		myFrameRate = 100;	// actually get from XMLParser
 		//parser is instantiated in the cellsocietyview. it will have to be moved here if it is to setup the framrate here. 
+		
+		//is starting this here a bit weird?
 		
 		KeyFrame frame = start(myFrameRate);
 		Timeline animation = new Timeline();
@@ -54,6 +59,8 @@ public class CellSociety{
 	
 	// May be in a SimController subclass
 	private void updateGrid() {
+		SimController controller = new LifeController();
+		controller.runOneSim();
 		
 	}
 	

@@ -3,7 +3,7 @@
     <simParam>
     	<simName>Fire</simName>
     	<author>Author</author>
-    	<fps>100</fps>
+    	<speed>100</speed>
 		<xRows>30</xRows>
 		<yCols>30</yCols>
 	</simParam>
@@ -11,9 +11,14 @@
         <probCatch>90</probCatch>
     </cellParam>
 	<cellStates>
-	    <cell state="EmptyCell" color="white">3 4 6 7 8 9 10 11 12 13 14 16 17 18 19</cell>
-	    <cell state="FireCell" color="red">1 17 20</cell> 
-	    <cell state="TreeCell" color="black">2 5 15</cell>
+	    <!-- initial value should be what all remaining, unspecified cells are initialized to -->
+	    <cell state="EmptyCell" color="white" />
+	    <cell state="FireCell" color="red">
+	        <loc>1 17 20</loc>
+	    </cell> 
+	    <cell state="TreeCell" color="black">
+	        <loc>2 5 15</loc>
+	    </cell>
     </cellStates>
 </simulation>
 

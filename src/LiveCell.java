@@ -1,19 +1,21 @@
+import java.util.HashMap;
+
 import javafx.scene.paint.Color;
 
 public class LiveCell extends Cell{
 	
-	public LiveCell() {
+	public LiveCell(){
 		super();
-		//pass mycellparameters earlier on as well
-		
-		//put parameters in cell as well
-		
-		//use parameters to setfill
-		setFill(Color.valueOf("red"));
-		// TODO Auto-generated constructor stub
+	}
+	
+	public LiveCell(Color color) {
+		super();
+		setFill(color);
 	}
 
+	//for debugging 
 	public String toString(){
 		return "LiveCell";
 	}
+	
 }

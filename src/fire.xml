@@ -77,5 +77,15 @@ System.out.println(currentClass.toString());
 Constructor<?> constructor = currentClass.getConstructor(Integer.TYPE, Integer.TYPE);
 System.out.println(constructor);
 Object o = constructor.newInstance(10,10);
-	
-	
+
+	private HashMap<String, String> myParameters;
+
+
+
+Q: is it okay to have private static variables in cell class (for color) since each instance of the specific cells will be the same color?
+Should we be setting the static for color in the constructor or as a set method? We currently have 2 constructors. 
+Was using a data structure for CellStates a viable idea? Another alternative was using 2 hashmaps.
+Is there an issue having so many cell subclasses? 
+For Java reflection, how do we deal with constructor types? How do we deal with it if we have 10 different constructor types with different parameter tyeps passed into them all	
+	Should we pass in values into a resource file or use hashmaps in the constructors? (some of the hashmaps will be wasted since some cells do not have those specific properties)
+	Is it okay to have myParser's that are pretty much the same in CellSociety and CellSocietyView? Are there any alternatives?
