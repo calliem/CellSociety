@@ -37,7 +37,7 @@ public class CellSocietyView {
 	private Button myXMLButton;
 	private XMLParser myParser; //this is really weird. check if this is okay design?
 	private GridPane myRoot;
-	private GridPane myGrid;
+	private GridPane mySimGrid;
 	
 	private static final int CELL_SIZE = 10;
 	
@@ -74,12 +74,20 @@ public class CellSocietyView {
 		return this.myXMLButton;
 	}
 	
+	public void updateSimGrid(Cell[][] cellGrid) {
+		for (int i = 0; i < cellGrid.length; i++) {
+			for (int j = 0; j < cellGrid[0].length; j++) {
+				mySimGrid.add(cellGrid[i][j], j, i);
+			}
+		}
+	}
+	
 	private void configureUI() {
 		myRoot.setAlignment(Pos.CENTER);
 		myRoot.setHgap(10);
 		myRoot.setVgap(10);
 		myRoot.add(createTitle(), 0, 0);
-		myRoot.add(myGrid, 0, 1);
+		myRoot.add(mySimGrid, 0, 1);
 		myRoot.add(makeButtons(), 0, 2);
 		myRoot.add(makeSpeed(), 0, 3);
 		myRoot.add(createErrorLocation(), 0, 4);
@@ -109,18 +117,19 @@ public class CellSocietyView {
 	 */
 	private void generateGrid() throws ParserConfigurationException,
 			SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
-		myGrid = new GridPane();
-		myGrid.setHgap(1);
-		myGrid.setVgap(1);
-        myGrid.setPadding(new Insets(0, 25, 5, 25));
-        myGrid.setAlignment(Pos.CENTER);
+		mySimGrid = new GridPane();
+		mySimGrid.setHgap(1);
+		mySimGrid.setVgap(1);
+        mySimGrid.setPadding(new Insets(0, 25, 5, 25));
+        mySimGrid.setAlignment(Pos.CENTER);
         
         //NOTE: the parser may not belong in this class, but this is an example of how the XMLParser
         //will update the other classes. Unsure right now whether specifically searching for the
         //string "yCols" is bad design, although we can ask when we meet with our TA
         
 		
-				
+		mySimGrid.add(cell, col, row);
+
 		
 	
 	}
@@ -251,8 +260,5 @@ public class CellSocietyView {
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
 	}
-	
-	public GridPane Grid(){
-		return myGrid;
-	}
+		
 }
