@@ -30,6 +30,7 @@ import org.xml.sax.SAXException;
 
 public class CellSocietyView {
 	
+	private Stage myStage;
 	private Scene myScene;
 	private Button myPlayButton;
 	private Button myPauseButton;
@@ -47,15 +48,20 @@ public class CellSocietyView {
 		
 		myRoot = new GridPane();
 		myParser = parser;
+		myStage = s;
 		
 		initializeButtons();
 		generateGrid();
 		configureUI();
-		
+				
 		myScene = new Scene(myRoot);
-		s.setTitle("CellSociety");		
-		s.setScene(myScene);
-		s.show();
+		myStage.setTitle("CellSociety");		
+		myStage.setScene(myScene);
+		myStage.show();
+	}
+	
+	public Stage getStage() {
+		return myStage;
 	}
 	
 	public Button getPlayElement() {
@@ -75,10 +81,10 @@ public class CellSocietyView {
 	}
 	
 	public void updateSimGrid(Cell[][] cellGrid) {
+		mySimGrid.getChildren().clear();
 		for (int i = 0; i < cellGrid.length; i++) {
-			for (int j = 0; j < cellGrid[0].length; j++) {
+			for (int j = 0; j < cellGrid[0].length; j++)
 				mySimGrid.add(cellGrid[i][j], j, i);
-			}
 		}
 	}
 	
@@ -127,11 +133,7 @@ public class CellSocietyView {
         //will update the other classes. Unsure right now whether specifically searching for the
         //string "yCols" is bad design, although we can ask when we meet with our TA
         
-		
-		mySimGrid.add(cell, col, row);
-
-		
-	
+			
 	}
 		
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{

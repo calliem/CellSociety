@@ -20,17 +20,21 @@ public class CellSociety{
 	private XMLParser myParser;
 	private int myFrameRate;
 	private SimController myController;
+	private Timeline myTimeline;
+	private Cell[][] myCells;
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
         myParser = new XMLParser();
 		myParser.parseXMLFile(new File("src/life.xml")); //this should only be called when you click uploadXML
 		myView = new CellSocietyView(s, myParser);
-		//myParser = new XMLParser();
 		configureListeners();
 		
 		// or however it's decided
+		
+		myCells = myView.createCellArray();
 		myController = new LifeController();
+		myView.updateSimGrid(myCells);
 		
 		/* get FrameRate and initial settings */
 		myFrameRate = 100;	// actually get from XMLParser
@@ -39,10 +43,9 @@ public class CellSociety{
 		//is starting this here a bit weird?
 		
 		KeyFrame frame = start(myFrameRate);
-		Timeline animation = new Timeline();
-		animation.setCycleCount(Animation.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
+		myTimeline = new Timeline();
+		myTimeline.setCycleCount(Animation.INDEFINITE);
+		myTimeline.getKeyFrames().add(frame);
 	}
 	
 	private void configureListeners() {
@@ -54,26 +57,51 @@ public class CellSociety{
 	
 	public KeyFrame start(int frameRate) {
 		return new KeyFrame(Duration.millis(1000 / frameRate),
-				e -> updateGrid());
+				e -> updateCellStates());
 	}
 	
-	// May be in a SimController subclass
-	private void updateGrid() {
-		SimController controller = new LifeController();
-		controller.runOneSim();
+	private void updateCellStates() {
 		
+		try {
+			myCells = myController.runOneSim(myCells);
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		myView.updateSimGrid(myCells);
 	}
-	
+		
 	private void resumeAnimation() {
 		myView.getPlayElement().setDisable(true);		// ideally abstracted to view later
 		myView.getPauseElement().setDisable(false);		// ideally abstracted to view later
 		myView.getStepElement().setDisable(true);		// ideally abstracted to view later
+		myTimeline.play();
+		
 	}
 	
 	private void pauseAnimation() {
 		myView.getPlayElement().setDisable(false);		// ideally abstracted to view later
 		myView.getPauseElement().setDisable(true);		// ideally abstracted to view later
 		myView.getStepElement().setDisable(false);		// ideally abstracted to view later
+		myTimeline.pause();
 	}
 	
 	private void stepAnimation() {

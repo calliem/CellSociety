@@ -138,7 +138,6 @@ public class XMLParser {
 		return myCellStateList;
 	}
 		
-	
 	//REMOVE #TEXT NODES
 
 }
