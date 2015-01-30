@@ -1,3 +1,4 @@
+
 import javafx.scene.paint.Color;
 
 public class FishCell extends Cell{
@@ -20,4 +21,5 @@ public class FishCell extends Cell{
 	public int getAge(){
 		return myAge;
 	}
+
 }

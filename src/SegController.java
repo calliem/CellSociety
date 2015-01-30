@@ -1,16 +1,26 @@
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 
 public class SegController extends SimController{
 	double myHappyFraction;
-	ArrayList<String> myRandList;
+	private int numEmpty = 0;
+	private int iterCount = 0;
+	//private Queue<Integer> iterCount = new LinkedList<Integer>();
+	private ArrayList<Integer> randomCount = new ArrayList<Integer>();
+	ArrayList<String> myRandList = new ArrayList<String>();
 	
-	public SegController(float happyFraction){
-		myHappyFraction = happyFraction;
+	public SegController(double d){
+		myHappyFraction = d;
 	}
+	
 	@Override
-	public Cell[][] runOneSim(Cell[][] grid) {
+	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		numEmpty = 0;
+		iterCount = 0;
 		makeRandomList(grid);
 		return super.runOneSim(grid);
 	}
@@ -20,10 +30,10 @@ public class SegController extends SimController{
 		double blueCount = 0;
 		double redCount = 0;
 		for(Cell c: neighbors){
-			if(c.getState().toString().equals("blue")){
+			if(c.toString().equals("BlueCell")){
 				blueCount++;
 			}
-			if(c.getState().toString().equals("red")){
+			if(c.toString().equals("RedCell")){
 				redCount++;
 			}
 		}
@@ -41,40 +51,68 @@ public class SegController extends SimController{
 			if(redHappy){
 				return "both";
 			}
-			return "blue";
+			return "BlueCell";
 		}
-		return "red";
+		return "RedCell";
 	}
 	
 	@Override
-	protected Cell newState(CellState cellState, String neighborsState) {
+	protected Cell newState(Cell cell, String neighborsState) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		//handle current empty cell
-		if(cellState.toString().equals("empty")){
-			return populateEmpty();
+		if(cell.toString().equals("EmptyCell")){
+			iterCount++;
+			System.out.println("$$$"+ iterCount+"^^^"+numEmpty+"((("+ randomCount+"$$$");
+			if(shouldPopulate()){
+				return populateEmpty();
+			}
+			
 		}
 		//if its happy with what it is stay.
-		if(cellState.toString().equals(neighborsState) || neighborsState.equals("both")){
-			return new Cell(neighborsState);
+		if(cell.toString().equals(neighborsState) || neighborsState.equals("both")){
+			return makeCell(cell.toString());
 		}
-		return new Cell("empty");
+		if(neighborsState.equals("none")){
+			System.out.println("WHYYY");
+		}
+		return makeCell("EmptyCell");
 	}
 	
+	private boolean shouldPopulate() {
+		return (randomCount.contains(iterCount));
+
+	}
+
 	private void makeRandomList(Cell[][] grid) {
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
-				CellState curState = grid[r][c].getState();
-				if(!curState.toString().equals("empty")){
-					if(!getNeighborsState(getNeighbors(grid, r, c)).equals(curState.toString())){
-						myRandList.add(curState.toString());
+				String curString = grid[r][c].toString();
+				if(!curString.toString().equals("EmptyCell")){
+					if(!((getNeighborsState(getNeighbors(grid, r, c)).equals(curString)) || (getNeighborsState(getNeighbors(grid, r, c)).equals("both")))){
+						//System.out.println(getNeighborsState(getNeighbors(grid, r, c))+"222222"+curString);
+						myRandList.add(curString);
 					}
+				}
+				else{
+					numEmpty++;
 				}
 			}
 		}
+		populateRandomCountQueue();
 	}
 	
-	private Cell populateEmpty() {
-		String randomString = myRandList.get(new Random().nextInt(myRandList.size()));
-		return new Cell(randomString);
+	private void populateRandomCountQueue() {
+		for(int i = 0; i < numEmpty; i++){
+			randomCount.add(new Random().nextInt(numEmpty)+1);
+		}
+	}
+
+	private Cell populateEmpty() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		if(!myRandList.isEmpty()){
+			String randomString = myRandList.get(new Random().nextInt(myRandList.size()));
+			myRandList.remove(randomString);
+			return makeCell(randomString);
+		}
+		return makeCell("EmptyCell");
 	}
 
 }

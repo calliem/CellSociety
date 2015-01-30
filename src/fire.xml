@@ -71,6 +71,9 @@ myBackButton = makeButton("BackCommand", new EventHandler<ActionEvent>() {</Acti
 	
 	
 	
+	
+	
+	
 String className = "LiveCell";
 Class<?> currentClass = Class.forName(className);
 System.out.println(currentClass.toString());

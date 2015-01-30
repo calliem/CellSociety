@@ -36,19 +36,19 @@ public class CellSocietyView {
 	private Button myPauseButton;
 	private Button myStepButton;
 	private Button myXMLButton;
-	private XMLParser myParser; //this is really weird. check if this is okay design?
 	private GridPane myRoot;
 	private GridPane mySimGrid;
+	private Cell[][] myInitArray;
 	
 	private static final int CELL_SIZE = 10;
 	
 	//using Reflection makes us have a ton of throw errors. Is that okay?
 	
-	public CellSocietyView(Stage s, XMLParser parser) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
+	public CellSocietyView(Stage s, Cell[][] initialCellArray) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
 		myRoot = new GridPane();
-		myParser = parser;
 		myStage = s;
+		myInitArray = initialCellArray;
 		
 		initializeButtons();
 		generateGrid();
@@ -63,7 +63,7 @@ public class CellSocietyView {
 	public Stage getStage() {
 		return myStage;
 	}
-	
+
 	public Button getPlayElement() {
 		return this.myPlayButton;
 	}
@@ -133,52 +133,11 @@ public class CellSocietyView {
         //will update the other classes. Unsure right now whether specifically searching for the
         //string "yCols" is bad design, although we can ask when we meet with our TA
         
-			
+        updateSimGrid(myInitArray);
 	}
-		
-	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
-		Map<String, String> map = myParser.getSimParamMap();
-		//use this for setting initial FPS/speed and stuff. Can be used in CellSociety instead; or will have to find a way to utilize it in both
-		
-		int numCols = Integer.parseInt(map.get("yCols"));
-		int numRows = Integer.parseInt(map.get("xRows"));
-		
-		Cell[][] cellArray = new Cell[numRows][numCols];
-		
-		List<CellState> cellStates = myParser.getCellStateList();
-		Map<String, String> cellParams = myParser.getCellParamMap(); //this should just be an empty value for those without it
-		//here Map = Map instead of Map = Hashmap. Is that okay or should it be changed (in the XMLParser class)?
-		
-		//instantiates cells for all states except for the last one (which will be automatically done)
-		
-		//initializes all cells in the 2Darray
-		for (int i = 1; i < cellStates.size(); i++){ 
-			CellState state = cellStates.get(i);
-			String stateName = state.toString();
-			System.out.println("stateName " + stateName);
-			int[] locations = state.getLocations();
-			for (int j = 0; j < locations.length; j++){ 
-				int row = locations[j] / numCols;
-				int col = locations[j] % numCols;
-				System.out.println("stateName " + stateName + " location: " + locations[j] + " num: " + j + " row: " + row + " col: " + col);
-				Cell cell = createCellInstance(stateName, state.getColor(), cellParams);
-				cellArray[row][col] = cell;
-			}
-		}
-		
-		//sets all remaining cells
-		for (int x = 0; x < numRows; x ++){
-			for (int y = 0; y < numCols; y++){
-				if (cellArray[x][y] == null){
-					CellState remainingState = cellStates.get(0); 
-					cellArray[x][y] = createCellInstance(remainingState.toString(), remainingState.getColor(), cellParams); //this cellParams hashmap needs to be fixed
-				}
-			}
-		}
-		
-		return cellArray;
-		
-	}
+	
+	
+	
 
 	
 	/*
@@ -194,17 +153,7 @@ public class CellSocietyView {
 	}*/
 
 	//param should be a map or a hashmap?
-		public Cell createCellInstance(String cellState, Color color, Map<String, String> cellParams) throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
-            Class<?> className = Class.forName(cellState);
-            System.out.println("ClassName:  " + className.toString());
-            Constructor<?> constructor;
-            if (cellParams.size() == 0)
-            	 constructor = className.getConstructor(Color.class);           
-            else
-            	constructor = className.getConstructor(Color.class, Map.class);       
-			System.out.println(constructor);
-			return (Cell) constructor.newInstance(color);
-		}
+		
 
 	/**
 	 * @return
