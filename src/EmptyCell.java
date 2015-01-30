@@ -1,4 +1,6 @@
 import java.util.HashMap;
+import java.util.Map;
+
 
 import javafx.scene.paint.Color;
 
@@ -9,7 +11,7 @@ public class EmptyCell extends Cell{
 		super();
 		setFill(Color.WHITE);
 	}
-	
+	//add on map parameter
 	public EmptyCell(Color color) {
 		super();
 		setFill(color);
