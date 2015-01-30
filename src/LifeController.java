@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 public class LifeController extends SimController{
 
+	//{S}
+	//private static ArrayList<Integer> stayOn;
+	//{B}
+	//private static ArrayList<Integer> bornOn;
+	
 	@Override
 	/**
 	 * Determines whether the surrounding eight cells produce  a live condition,
@@ -18,9 +23,13 @@ public class LifeController extends SimController{
 				count++;
 			}
 		}
+		//if(count = {S} - {B})
+		//if(count = stayNotBorn(stayOn, bornOn)
 		if (count == 2){
 			return "two";
 		}
+		//else if(count == {S}&{B})
+		//else if(count == stayAndBorn(stayOn, bornOn)
 		else if (count == 3){
 			return "LiveCell";
 		}
@@ -37,11 +46,12 @@ public class LifeController extends SimController{
 	protected Cell newState(Cell cell, String neighborsState) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		if(neighborsState.equals("two")){
 			//return new Cell(cell.myLabel);
-
-			return (Cell) Class.forName(cell.toString()).getConstructor().newInstance();
+			return makeCell(cell.toString());
+			//return (Cell) Class.forName(cell.toString()).getConstructor().newInstance();
 		}
 		//return new Cell(neighborsState);
-		return (Cell) Class.forName(neighborsState).getConstructor().newInstance();
+		return makeCell(neighborsState);
+		//(Cell) Class.forName(neighborsState).getConstructor().newInstance();
 	}
 	/*
 	String className = "LiveCell";

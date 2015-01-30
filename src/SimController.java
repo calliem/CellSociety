@@ -8,7 +8,6 @@ public abstract class SimController {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
-
 				Cell curCell = grid[r][c];
 				ArrayList<Cell> neighbors = getNeighbors(grid, r, c);
 				String neighborsState = getNeighborsState(neighbors);
@@ -19,6 +18,8 @@ public abstract class SimController {
 		return newGrid;
 	}
 
+	
+	
 	protected ArrayList<Cell> getNeighbors(Cell[][] grid, int row, int col) {
 		ArrayList<Cell> list = new ArrayList<Cell>();
 		for(int dr = -1; dr <= 1; dr++){
@@ -41,8 +42,13 @@ public abstract class SimController {
 		return true;
 	}
 
+	public static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		return (Cell) Class.forName(s).getConstructor().newInstance();
+	}
+	
 	protected  abstract String getNeighborsState(ArrayList<Cell> neighbors);
 
 	protected abstract Cell newState(Cell cell, String hoodState) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 
+	
 }	

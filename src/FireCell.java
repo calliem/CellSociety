@@ -10,4 +10,7 @@ public class FireCell extends Cell{
 		super();
 		setFill(color);
 	}
+	public String toString(){
+		return "FireCell";
+	}
 }

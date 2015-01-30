@@ -2,7 +2,6 @@ import java.util.HashMap;
 
 import javafx.scene.paint.Color;
 
-
 public class LiveCell extends Cell{
 	
 	public LiveCell(){
