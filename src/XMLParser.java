@@ -52,6 +52,15 @@ public class XMLParser {
      			case "simParam":
      				NodeList simParamList = node.getChildNodes();
      				mySimParam = makeParamMap(simParamList);
+     				
+     				//for debugging purposes
+     				System.out.println("print paramMap ============================");
+     				System.out.println("print paramMap ============================");
+     				for (String string : mySimParam.keySet()){
+     					System.out.print(string + ": ");
+     					System.out.println(mySimParam.get(string));
+     				}		
+     				System.out.println("print paramMap ============================");
      				break;
             	}
              }
@@ -78,12 +87,6 @@ public class XMLParser {
 			}
 		}
    
-		//for debugging purposes
-	/*	System.out.println("print paramMap");
-		for (String string : paramMap.keySet()){
-			System.out.print(string + ": ");
-			System.out.println(paramMap.get(string));
-		}		*/
 		return paramMap;
 	}
 	
@@ -140,6 +143,7 @@ public class XMLParser {
 	public List<HashMap<String, String>> getCellParamList(){
 		return myCellParamList;
 	}
+
 }
 
 

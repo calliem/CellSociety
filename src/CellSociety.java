@@ -39,7 +39,7 @@ public class CellSociety{
 		configureListeners();
 		
 		// or however it's decided
-		myController = new LifeController();
+		myController = new FireController(myParser.getSimParamMap());
 		myView.updateSimGrid(myInitCellArray);
 
 		/* get FrameRate and initial settings */
@@ -117,7 +117,7 @@ public class CellSociety{
 	}
 	
 	//this method is not used at all
-	private void readNewXML() throws ParserConfigurationException, SAXException, IOException {
+	private void readNewXML(File file) throws ParserConfigurationException, SAXException, IOException {
 		myParser.parseXMLFile(new File("src/fire.xml")); //this should only be called when you click uploadXML
 	}
 	

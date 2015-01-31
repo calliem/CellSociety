@@ -1,6 +1,7 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 
@@ -13,8 +14,8 @@ public class SegController extends SimController{
 	private ArrayList<Integer> randomCount = new ArrayList<Integer>();
 	ArrayList<String> myRandList = new ArrayList<String>();
 	
-	public SegController(double d){
-		myHappyFraction = d;
+	public SegController(Map<String, String> parameters){
+		myHappyFraction = Double.parseDouble(parameters.get("probHappy"));
 	}
 	
 	@Override

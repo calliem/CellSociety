@@ -46,7 +46,7 @@ public class Grid {
 	 * @param c The Cell to set in the Grid
 	 * @param x The x-coordinate of the Cell
 	 * @param y The y-coordinate of the Cell
-	 */
+	 
 	public void setCell(Cell c, int x, int y) {
 		myCells[x][y] = c;
 	}

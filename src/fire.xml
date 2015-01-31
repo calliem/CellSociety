@@ -7,6 +7,9 @@
 		<yCols>10</yCols>
 		<fps>10</fps>
 	</initParam>
+	<simParam>
+	    <probCatch>100</probCatch>
+	</simParam>
 	<cellParam>    
 	    <cell state="EmptyCell" color="White" />
 	    <cell state="TreeCell" color="Black">
