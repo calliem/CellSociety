@@ -1,4 +1,4 @@
-/*import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
@@ -117,4 +117,3 @@ public class SegController extends SimController{
 	}
 
 }
-*/

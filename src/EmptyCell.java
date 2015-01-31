@@ -9,6 +9,7 @@ public class EmptyCell extends Cell{
 	
 	public EmptyCell() {
 		super();
+		setFill(Color.WHITE);
 	}
 	//add on map parameter
 	public EmptyCell(Color color) {

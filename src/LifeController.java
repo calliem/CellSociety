@@ -10,6 +10,7 @@ public class LifeController extends SimController{
 	//{B}
 	//private static ArrayList<Integer> bornOn;
 	
+	
 	//can we possibly make the simcontroller an (abstract) class that has this contstructor for all? --> will be passing in a hashmap for all 
 	public LifeController(Map<String, String>parameters){
 	}
