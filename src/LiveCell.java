@@ -6,7 +6,6 @@ public class LiveCell extends Cell{
 	
 	public LiveCell(){
 		super();
-		setFill(Color.BLACK);
 	}
 	
 	public LiveCell(Color color) {

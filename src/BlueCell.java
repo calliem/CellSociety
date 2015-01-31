@@ -3,9 +3,13 @@ import javafx.scene.paint.Color;
 
 public class BlueCell extends Cell{
 
-	public BlueCell(){
+	public BlueCell() {
 		super();
-		setFill(Color.valueOf("blue"));
+	}
+	//add on map parameter
+	public BlueCell(Color color) {
+		super();
+		setFill(color);
 	}
 	
 	public String toString(){

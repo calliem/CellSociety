@@ -1,5 +1,6 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class LifeController extends SimController{
@@ -9,6 +10,9 @@ public class LifeController extends SimController{
 	//{B}
 	//private static ArrayList<Integer> bornOn;
 	
+	//this probably isn't good that it is empty
+	public LifeController(Map<String, String>parameters){
+	}
 	@Override
 	/**
 	 * Determines whether the surrounding eight cells produce  a live condition,

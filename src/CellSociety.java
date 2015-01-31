@@ -30,7 +30,7 @@ public class CellSociety{
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
         myParser = new XMLParser();
-		myParser.parseXMLFile(new File("src/fire.xml")); //this should only be called when you click uploadXML
+		myParser.parseXMLFile(new File("src/life.xml")); //this should only be called when you click uploadXML
 
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));	// actually get from XMLParser
 		myInitCellArray = createCellArray();
@@ -38,16 +38,23 @@ public class CellSociety{
 		myView = new CellSocietyView(s, myInitCellArray, myFrameRate);
 		configureListeners();
 		
+		String className = myParser.getInitParamMap().get("simName") + "Controller";
+		Class<?> currentClass = Class.forName(className);
+		System.out.println(currentClass.toString());
+		Constructor<?> constructor = currentClass.getConstructor(Map.class); //how to use reflection on a map?
+		System.out.println(constructor);
+		myController = (SimController) constructor.newInstance(myParser.getSimParamMap());
+		
+		
 		// or however it's decided
-		myController = new FireController(myParser.getSimParamMap());
+	//	myController = new FireController(myParser.getSimParamMap());
 		myView.updateSimGrid(myInitCellArray);
 
 		/* get FrameRate and initial settings */
 		//parser is instantiated in the cellsocietyview. it will have to be moved here if it is to setup the framrate here. 
 		
-		//is starting this here a bit weird?
-		
-		KeyFrame frame = start(myFrameRate);
+	
+		KeyFrame frame = start(myFrameRate); //should this be from the parser?
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
 		myTimeline.getKeyFrames().add(frame);

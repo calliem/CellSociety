@@ -6,9 +6,13 @@ import javafx.scene.paint.Color;
 
 public class RedCell extends Cell{
 
-	public RedCell(){
+	public RedCell() {
 		super();
-		setFill(Color.valueOf("red"));
+	}
+	//add on map parameter
+	public RedCell(Color color) {
+		super();
+		setFill(color);
 	}
 	
 	public String toString(){
