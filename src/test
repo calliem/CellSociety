@@ -76,6 +76,44 @@ myBackButton = makeButton("BackCommand", new EventHandler<ActionEvent>() {</Acti
 	
 	
 	
+	
+	
+	<?xml version="1.0" encoding="UTF-8"?>
+<simulation>
+	<initParam>
+		<simName>Fire</simName>
+		<author>Author</author>
+		<xRows>10</xRows>
+		<yCols>10</yCols>
+		<fps>3</fps>
+	</initParam>
+	<simParam>
+	    <probCatch>100</probCatch>
+	</simParam>
+	<cellParam>    
+	    <cell state="EmptyCell" color="White" />
+	    <cell state="TreeCell" color="Black">
+	        <loc>1 2 5 10 15 17 18 19 30 31 32 33 50 55 67 88 92 93 94 95 99</loc>
+	    </cell>
+	    <cell state="FireCell" color="Orange">
+	        <loc>5 8 11 22 23 24 29 56 58 59 98</loc>
+	    </cell>
+  </cellParam>
+</simulation>
+	  
+	    
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 String className = "LiveCell";
 Class<?> currentClass = Class.forName(className);
 System.out.println(currentClass.toString());

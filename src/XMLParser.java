@@ -54,6 +54,7 @@ public class XMLParser {
      				mySimParam = makeParamMap(simParamList);
      				
      				//for debugging purposes
+     				/*
      				System.out.println("print paramMap ============================");
      				System.out.println("print paramMap ============================");
      				for (String string : mySimParam.keySet()){
@@ -61,7 +62,7 @@ public class XMLParser {
      					System.out.println(mySimParam.get(string));
      				}		
      				System.out.println("print paramMap ============================");
-     				break;
+     				break;*/
             	}
              }
 		}
@@ -77,14 +78,15 @@ public class XMLParser {
 				String content = node.getTextContent();
 				paramMap.put(paramName,content);
 			}
-			if (node.hasChildNodes()){
+			//for future extensions, if any.
+		/*	if (node.hasChildNodes()){
 				NodeList nodeList = node.getChildNodes();
 				for (int i = 0; i < nodeList.getLength(); i++){
 					Node subNode = nodeList.item(i);
 					if (subNode instanceof Element)
-						System.out.println("hi");
+						System.out.println("hi"); 
 				}
-			}
+			}*/
 		}
    
 		return paramMap;
@@ -111,7 +113,7 @@ public class XMLParser {
 				for (int i = 0; i < nodelist.getLength(); i++){
 					Node node2 = nodelist.item(i);
 					if (node2 instanceof Element){
-						System.out.println("lowerlevel: " + node2.getNodeName() + node2.getTextContent());
+				//		System.out.println("lowerlevel: " + node2.getNodeName() + node2.getTextContent());
 						cellParamMap.put(node2.getNodeName(), node2.getTextContent());
 					}
 				}

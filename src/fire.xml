@@ -5,18 +5,15 @@
 		<author>Author</author>
 		<xRows>10</xRows>
 		<yCols>10</yCols>
-		<fps>10</fps>
+		<fps>3</fps>
 	</initParam>
 	<simParam>
 	    <probCatch>100</probCatch>
 	</simParam>
 	<cellParam>    
-	    <cell state="EmptyCell" color="White" />
-	    <cell state="TreeCell" color="Black">
-	        <loc>1 2 5 10 15 17 18 19 30 31 32 33 50 55 67 88 92 93 94 95 99</loc>
-	    </cell>
+	    <cell state="TreeCell" color="Black" />
 	    <cell state="FireCell" color="Orange">
-	        <loc>5 8 11 22 23 24 29 56 58 59</loc>
+	        <loc>5 8 11 22 23 24 29 56 58 59 98</loc>
 	    </cell>
   </cellParam>
 </simulation>
