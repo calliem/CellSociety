@@ -6,7 +6,7 @@ import java.util.Queue;
 import java.util.Random;
 
 
-public class SegController extends SimController{
+public class SegregationController extends SimController{
 	double myHappyFraction;
 	private int numEmpty = 0;
 	private int iterCount = 0;
@@ -14,7 +14,7 @@ public class SegController extends SimController{
 	private ArrayList<Integer> randomCount = new ArrayList<Integer>();
 	ArrayList<String> myRandList = new ArrayList<String>();
 	
-	public SegController(Map<String, String> parameters){
+	public SegregationController(Map<String, String> parameters){
 		myHappyFraction = Double.parseDouble(parameters.get("probHappy"));
 	}
 	

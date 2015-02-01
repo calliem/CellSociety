@@ -4,17 +4,16 @@
 		<simName>Life</simName>
 		<author>Author</author>
 		<xRows>10</xRows>
-		<yCols>2</yCols>
-		<fps>100</fps>
+		<yCols>10</yCols>
+		<fps>30</fps>
 	</initParam>
-	<cellParam>
-	    <cell state="EmptyCell" color="black" />
-	    <cell state="LiveCell" color="cyan">
-	        <loc>1 2 5 10 15 17</loc>
-	        <test>123</test>
-	    </cell> 
-    </cellParam>>
+	<cellParam>    
+	    <cell state="EmptyCell" color="White" />
+	    <cell state="LiveCell" color="Black">
+	        <loc>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 17 18 19 30 31 32 33 41 42 43 44 45 50 55 67 88 92 93 94 95 99</loc>
+	    </cell>
+  </cellParam>
 </simulation>
-
-
+	  
+	    
 

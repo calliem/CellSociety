@@ -13,7 +13,6 @@ public class LiveCell extends Cell{
 		setFill(color);
 	}
 
-	//for debugging 
 	public String toString(){
 		return "LiveCell";
 	}

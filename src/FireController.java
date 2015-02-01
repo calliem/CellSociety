@@ -1,5 +1,7 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -8,17 +10,22 @@ public class FireController extends SimController{
 	//from XML
 	private static int myProbCatch;// = 50;
 
-	public FireController(int probCatch){
+	public FireController(Map<String, String> map){
 		super();
-		myProbCatch = probCatch;
+		System.out.println(map.get("probCatch"));
+		//is prob catch a probability (double) like .5 or a number out of 100?
+		myProbCatch = Integer.parseInt(map.get("probCatch"));
 	}
 
 	@Override
 	protected ArrayList<Cell> getNeighbors(Cell[][] grid, int r, int c){
 		ArrayList<Cell> list = new ArrayList<Cell>();
 		for(int d = -1; d <= 1; d++){
-			if(inBounds(grid, r+d, c+d)){
+			if(inBounds(grid, r+d, c)){
 				list.add(grid[r+d][c]);
+				
+			}
+			if(inBounds(grid, r, c+d)){
 				list.add(grid[r][c+d]);
 			}
 		}

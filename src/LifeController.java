@@ -1,5 +1,6 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class LifeController extends SimController{
@@ -8,6 +9,11 @@ public class LifeController extends SimController{
 	//private static ArrayList<Integer> stayOn;
 	//{B}
 	//private static ArrayList<Integer> bornOn;
+	
+	
+	//can we possibly make the simcontroller an (abstract) class that has this contstructor for all? --> will be passing in a hashmap for all 
+	public LifeController(Map<String, String>parameters){
+	}
 	
 	@Override
 	/**

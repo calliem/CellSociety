@@ -8,7 +8,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage s) throws Exception {
 		mySimulation = new CellSociety(s);
-		
 	}
 	
 	public static void main(String[] args) {

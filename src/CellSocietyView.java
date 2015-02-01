@@ -17,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -30,33 +29,38 @@ import org.xml.sax.SAXException;
 
 public class CellSocietyView {
 	
+	private Stage myStage;
 	private Scene myScene;
 	private Button myPlayButton;
 	private Button myPauseButton;
 	private Button myStepButton;
 	private Button myXMLButton;
-	private XMLParser myParser; //this is really weird. check if this is okay design?
+	private Text myErrorMsg;
 	private GridPane myRoot;
 	private GridPane mySimGrid;
-	private Cell[][] myInitArray;
 	
 	private static final int CELL_SIZE = 10;
 	
 	//using Reflection makes us have a ton of throw errors. Is that okay?
 	
-	public CellSocietyView(Stage s, Cell[][] initialCellArray) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
+	public CellSocietyView(Stage s, Cell[][] initialCellArray, int frameRate) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
 		myRoot = new GridPane();
-		myInitArray = initialCellArray;
+		myStage = s;
 		
 		initializeButtons();
 		generateGrid();
-		configureUI();
-		
+		updateSimGrid(initialCellArray);
+		configureUI(frameRate);
+				
 		myScene = new Scene(myRoot);
-		s.setTitle("CellSociety");		
-		s.setScene(myScene);
-		s.show();
+		myStage.setTitle("CellSociety");		
+		myStage.setScene(myScene);
+		myStage.show();
+	}
+	
+	public Stage getStage() {
+		return myStage;
 	}
 
 	public Button getPlayElement() {
@@ -76,21 +80,27 @@ public class CellSocietyView {
 	}
 	
 	public void updateSimGrid(Cell[][] cellGrid) {
+		mySimGrid.getChildren().clear();
 		for (int i = 0; i < cellGrid.length; i++) {
-			for (int j = 0; j < cellGrid[0].length; j++) {
+			for (int j = 0; j < cellGrid[0].length; j++)
 				mySimGrid.add(cellGrid[i][j], j, i);
-			}
 		}
 	}
 	
-	private void configureUI() {
+	public void setErrorText() {
+		myErrorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+		myErrorMsg.setFill(Color.RED);
+		myErrorMsg.setText("XML File uploaded is not valid.");
+	}
+	
+	private void configureUI(int frameRate) {
 		myRoot.setAlignment(Pos.CENTER);
 		myRoot.setHgap(10);
 		myRoot.setVgap(10);
 		myRoot.add(createTitle(), 0, 0);
 		myRoot.add(mySimGrid, 0, 1);
 		myRoot.add(makeButtons(), 0, 2);
-		myRoot.add(makeSpeed(), 0, 3);
+		myRoot.add(makeSpeed(frameRate), 0, 3);
 		myRoot.add(createErrorLocation(), 0, 4);
 	}
 	
@@ -100,6 +110,7 @@ public class CellSocietyView {
 	private void initializeButtons() {
 		myPlayButton = new Button("Play");
 		myPauseButton = new Button("Pause");
+		myPauseButton.setDisable(true);
 		myStepButton = new Button("Step");
 		myXMLButton = new Button("Upload XML");
 	}
@@ -127,13 +138,7 @@ public class CellSocietyView {
         //NOTE: the parser may not belong in this class, but this is an example of how the XMLParser
         //will update the other classes. Unsure right now whether specifically searching for the
         //string "yCols" is bad design, although we can ask when we meet with our TA
-        
-        updateSimGrid(myInitArray);
-	}
-	
-	
-	
-
+    }
 	
 	/*
 	for (int i = 0; i < xRows; i++) {
@@ -182,10 +187,11 @@ public class CellSocietyView {
 	 * @param speedText
 	 * @param middleRow
 	 */
-	private HBox makeSpeed() {
+	private HBox makeSpeed(int frameRate) {
 		HBox middleRow = new HBox(10);
 		Label speedLabel = new Label("Speed: ");
 		TextField speedText = new TextField();
+		speedText.setText(frameRate + " frame(s) per second");
 		middleRow.setAlignment(Pos.CENTER);
 		middleRow.getChildren().add(speedLabel);
 		middleRow.getChildren().add(speedText);
@@ -198,11 +204,9 @@ public class CellSocietyView {
 	 */
 	private HBox createErrorLocation() {
 		HBox bottomRow = new HBox(10);
-		Text errorMsg = new Text("[Error message]");
-		errorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
-		errorMsg.setFill(Color.RED);
+		myErrorMsg = new Text();
 		bottomRow.setAlignment(Pos.TOP_CENTER);
-		bottomRow.getChildren().add(errorMsg);
+		bottomRow.getChildren().add(myErrorMsg);
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
 	}
