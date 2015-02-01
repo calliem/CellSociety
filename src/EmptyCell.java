@@ -10,11 +10,12 @@ public class EmptyCell extends Cell{
 	public EmptyCell() {
 		super();
 		setFill(Color.WHITE);
+		//above setfill should be removed
 	}
 	//add on map parameter
-	public EmptyCell(Color color) {
+	public EmptyCell(Map<String, String> params) {
 		super();
-		setFill(color);
+		setFill(Color.valueOf(params.get("color")));
 	}
 	
 	//for debugging 

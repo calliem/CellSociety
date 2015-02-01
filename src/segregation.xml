@@ -12,11 +12,14 @@
 	</simParam>
 	<cellParam>    
 	    <cell state="EmptyCell" color="White" />
-	    <cell state="RedCell" color="Black">
+	    <cell state="RedCell" color="Red">
 	        <loc>1 2 5 10 15 17 18 19 30 31 32 33 50 55 67 88 92 93 94 95 99</loc>
 	    </cell>
-	    <cell state="BlueCell" color="Orange">
+	    <cell state="BlueCell" color="Blue">
 	        <loc>5 8 11 22 23 24 29 56 58 59 98</loc>
 	    </cell>
   </cellParam>
 </simulation>
+	  
+	    
+

@@ -5,7 +5,7 @@
 		<author>Author</author>
 		<xRows>10</xRows>
 		<yCols>10</yCols>
-		<fps>3</fps>
+		<fps>1</fps>
 	</initParam>
 	<simParam>
 	    <probCatch>100</probCatch>
