@@ -10,6 +10,7 @@ public class Cell extends Rectangle{
 	//how to do it with parsed XML? Make a random cell instance in the beginning to set its width and height values?
 	private static int myWidth = 10;
 	private static int myHeight = 10;
+	
 	public Cell() {
 		super(myWidth, myHeight);
 	}

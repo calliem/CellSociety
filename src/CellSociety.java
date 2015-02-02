@@ -34,35 +34,35 @@ public class CellSociety{
 	private Cell[][] myInitCellArray;
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
-		
-		 myParser = new XMLParser();
-			myParser.parseXMLFile(new File("src/fire.xml")); //this should only be called when you click uploadXML
+		myParser = new XMLParser();
+		myParser.parseXMLFile(new File("src/fire.xml")); //this should only be called when you click uploadXML
 
-			myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));	// actually get from XMLParser
-			myInitCellArray = createCellArray();
-			
-			myView = new CellSocietyView(s, myInitCellArray, myFrameRate);
-			configureListeners();
-			
-			String className = myParser.getInitParamMap().get("simName") + "Controller";
-			Class<?> currentClass = Class.forName(className);
-			System.out.println(currentClass.toString());
-			Constructor<?> constructor = currentClass.getConstructor(Map.class); //how to use reflection on a map?
-			System.out.println(constructor);
-			myController = (SimController) constructor.newInstance(myParser.getSimParamMap());
-			
-			
-			// or however it's decided
-		//	myController = new FireController(myParser.getSimParamMap());
-			myView.updateSimGrid(myInitCellArray);
-
-			/* get FrameRate and initial settings */
-			//parser is instantiated in the cellsocietyview. it will have to be moved here if it is to setup the framrate here. 		
+		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));	// actually get from XMLParser
+		myInitCellArray = createCellArray();
 		
-			KeyFrame frame = start(myFrameRate); //should this be from the parser?
-			myTimeline = new Timeline();
-			myTimeline.setCycleCount(Animation.INDEFINITE);
-			myTimeline.getKeyFrames().add(frame);
+		myView = new CellSocietyView(s, myInitCellArray, myFrameRate);
+		configureListeners();
+		
+		//make this a new method
+		String className = myParser.getInitParamMap().get("simName") + "Controller";
+		Class<?> currentClass = Class.forName(className);
+		System.out.println(currentClass.toString());
+		Constructor<?> constructor = currentClass.getConstructor(Map.class); //how to use reflection on a map?
+		//System.out.println(constructor);
+		myController = (SimController) constructor.newInstance(myParser.getSimParamMap());
+			
+			
+		// or however it's decided
+	//	myController = new FireController(myParser.getSimParamMap());
+		myView.updateSimGrid(myInitCellArray);
+
+		/* get FrameRate and initial settings */
+		//parser is instantiated in the cellsocietyview. it will have to be moved here if it is to setup the framrate here. 		
+	
+		KeyFrame frame = start(myFrameRate); //should this be from the parser?
+		myTimeline = new Timeline();
+		myTimeline.setCycleCount(Animation.INDEFINITE);
+		myTimeline.getKeyFrames().add(frame);
 	}
 	
 	private void configureListeners() throws IOException {
@@ -153,19 +153,19 @@ public class CellSociety{
 		for (int i = 1; i < cellStates.size(); i ++){
 			HashMap<String, String> cellParams = cellStates.get(i);
 			for (String string: cellParams.keySet()){
-				Color color = Color.valueOf(cellParams.get("color"));
+			//	Color color = Color.valueOf(cellParams.get("color"));
 				int[] locations = stringToIntArray(cellParams.get("loc"));
 				for (int j = 0; j < locations.length; j++){ 
 					int row = locations[j] / numCols;
 					int col = locations[j] % numCols;
 				//	System.out.println("stateName " + cellParams.get("state") + " location: " + cellParams.get("loc") + " num: " + j + " row: " + row + " col: " + col);
-					Cell cell = createCellInstance(cellParams.get("state"), color, cellParams); //this is probably wrong because it creates the instance with the same color multiple times
+					Cell cell = createCellInstance(cellParams); //this is probably wrong because it creates the instance with the same color multiple times
 					myInitCellArray[row][col] = cell;
 				}
 
-				System.out.println("color" + color);
-				System.out.println(i + " " + string + " " + cellStates.get(i));
-			System.out.println("----------");
+			
+			//	System.out.println(i + " " + string + " " + cellStates.get(i));
+		//	System.out.println("----------");
 			}
 		}
 		//sets all remaining cells
@@ -173,11 +173,13 @@ public class CellSociety{
 		for (int x = 0; x < numRows; x ++){
 			for (int y = 0; y < numCols; y++){
 				if (myInitCellArray[x][y] == null){
-					HashMap<String, String> remainingCellParams = cellStates.get(1);
-					Color remainingColor = Color.valueOf(remainingCellParams.get("color"));
-					String remainingState = remainingCellParams.get("state");
+
+					HashMap<String, String> remainingCellParams = cellStates.get(0);
+			//		Color remainingColor = Color.valueOf(remainingCellParams.get("color"));
+			//		String remainingState = remainingCellParams.get("state");
+
 					
-					myInitCellArray[x][y] = createCellInstance(remainingState, remainingColor, remainingCellParams); //this cellParams hashmap needs to be fixed
+					myInitCellArray[x][y] = createCellInstance(remainingCellParams); //this cellParams hashmap needs to be fixed
 				}
 			}
 		}
@@ -198,16 +200,24 @@ public class CellSociety{
 	    return intArray;	
 	}
 	
-	public Cell createCellInstance(String cellState, Color color, Map<String, String> cellParams) throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
-        Class<?> className = Class.forName(cellState);
-    //    System.out.println("ClassName:  " + className.toString());
+	public Cell createCellInstance(Map<String, String> cellParams) throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
+        //test
+		for (String string: cellParams.keySet()){
+			System.out.print(string + " : ");
+			System.out.println(cellParams.get(string));
+		}
+		System.out.println(cellParams.size());
+		//end test
+		
+		Class<?> className = Class.forName(cellParams.get("state"));
+        System.out.println("ClassName:  " + className.toString());
         Constructor<?> constructor;
         if (cellParams.size() == 0)
-        	 constructor = className.getConstructor(Color.class);           
+        	 constructor = className.getConstructor(Map.class);           
         else
-        	constructor = className.getConstructor(Color.class);       
-	//	System.out.println(constructor);
-		return (Cell) constructor.newInstance(color);
+        	constructor = className.getConstructor(Map.class);       
+		System.out.println(constructor);
+		return (Cell) constructor.newInstance(cellParams);
 	}
 	
 

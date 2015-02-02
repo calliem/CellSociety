@@ -1,3 +1,5 @@
+import java.util.Map;
+
 import javafx.scene.paint.Color;
 
 public class FireCell extends Cell{
@@ -14,14 +16,13 @@ public class FireCell extends Cell{
 	//	setFill(Color.valueOf("orange"));
 	}
 
-	public FireCell(Color color) {
+	public FireCell(Map<String, String> params) {
 	
 		super();
-		myColor = color;
+		myColor = Color.valueOf(params.get("color"));
 		setFill(myColor);
-		//super();
-	//	setFill(color);
 	}
+	
 	public String toString(){
 		return "FireCell";
 	}

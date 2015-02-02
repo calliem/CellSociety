@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 
 import javafx.scene.paint.Color;
 
@@ -8,9 +9,9 @@ public class LiveCell extends Cell{
 		super();
 	}
 	
-	public LiveCell(Color color) {
+	public LiveCell(Map<String, String> params) {
 		super();
-		setFill(color);
+		setFill(Color.valueOf(params.get("color")));
 	}
 
 	public String toString(){
