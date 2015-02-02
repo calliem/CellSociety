@@ -5,8 +5,8 @@ import javafx.scene.paint.Color;
 
 public class SharkCell extends Cell implements ReproducingCell{
 	
-	private int myEnergy;
-	private int myAge;
+	private int myEnergy = 5;
+	private int myAge = 3;
 	private int myCurrAge;
 	private int myCurrEnergy;
 	private static Color myColor;
@@ -15,7 +15,8 @@ public class SharkCell extends Cell implements ReproducingCell{
 	
 	public SharkCell(){
 		super();
-		myAge = age;
+		myCurrAge = 0;
+		myCurrEnergy = myEnergy;
 		setFill(myColor);
 		
 	}
@@ -28,9 +29,11 @@ public class SharkCell extends Cell implements ReproducingCell{
 		myEnergy = Integer.parseInt(params.get("fullEnergy"));
 	}
 
+	
+	//REFACTOR!!!  make ReproducingCell abstract
 	@Override
 	public Cell reproducingResult() {
-		if(myAge == reproducingAge){
+		if(myCurrAge == myAge){
 			return new SharkCell();
 		}
 		else{
@@ -38,6 +41,17 @@ public class SharkCell extends Cell implements ReproducingCell{
 		}
 	}
 	
+	public int getEnergy(){
+		return myCurrEnergy;
+	}
 	
-
+	public Cell ageOneChronon(){
+		myCurrAge++;
+		myCurrEnergy--;
+		return this;
+	}
+	
+	public boolean isDead(){
+		return myCurrEnergy == 0;
+	}
 }

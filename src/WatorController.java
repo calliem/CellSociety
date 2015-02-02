@@ -1,5 +1,6 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class WatorController extends CardinalSimController{
@@ -37,10 +38,13 @@ public class WatorController extends CardinalSimController{
 		return newGrid;
 		
 	}
+	
+	/*
 	private Cell sharkResult(Cell curCell) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
+	
 	private void updateDestination(Cell[][] grid, int r, int c, Cell[][] newGrid) {
 		//ArrayList<Cell> neighbors = getNeighbors(grid, r, c);
 		String state = grid[r][c].toString();
@@ -53,9 +57,10 @@ public class WatorController extends CardinalSimController{
 		
 	}
 	
-	private void updateSource(Cell[][] grid, int r, int c, Cell[][] newGrid){
-		
+	/*
+	private void updateSource(Cell[][] grid, int r, int c, Cell[][] newGrid){	
 	}
+	*/
 	
 	private void updateFromShark(Cell[][] grid, int r, int c, Cell[][] newGrid){//,ArrayList<Cell> neighbors) {
 		ArrayList<Integer[]> eligibleDestinations = getNeighbors(grid, r, c, "FishCell");
@@ -63,13 +68,13 @@ public class WatorController extends CardinalSimController{
 			eligibleDestinations = getNeighbors(grid, r, c, "EmptyCell");
 		}
 		if(eligibleDestinations.isEmpty()){
-			newGrid[r][c] = ageOneChronon((SharkCell) grid[r][c]);
+			newGrid[r][c] = ((SharkCell) grid[r][c]).ageOneChronon();
 			//newGrid[r][c].setReproduce(newGrid[r][c].getReproduce - 1);
 			//newGrid[r][c].setEnergy(newGrid[r][c].getEnergy - 1);
 		}
 		else{
-			newGrid[getDestination(eligibleDestinations)[0]][getDestination(eligibleDestinations)[1]] = ageOneChronon(grid[r][c]);
-			newGrid[r][c] = updateSource(isReproducing(grid[r][c]));
+			newGrid[getDestination(eligibleDestinations)[0]][getDestination(eligibleDestinations)[1]] = ((SharkCell) grid[r][c]).ageOneChronon();
+			newGrid[r][c] = ((SharkCell) (grid[r][c])).reproducingResult();
 		}
 		
 		// TODO Auto-generated method stub
@@ -83,7 +88,37 @@ public class WatorController extends CardinalSimController{
 		
 		
 	}
-	
+	private ArrayList<Integer[]> getNeighbors(Cell[][] grid, int r, int c, String s){
+		ArrayList<Integer[]> list = new ArrayList<Integer[]>();
+		for(int d = -1; d <= 1; d++){
+			if(inBounds(grid, r+d, c)){
+				//list.add(grid[r+d][c]);
+				Integer[] currArr = new Integer[2];
+				currArr[0] = r+d;
+				currArr[1] = c;
+				list.add(currArr);
+			}
+			if(inBounds(grid, r, c+d)){
+				//list.add(grid[r][c+d]);
+				Integer[] currArr = new Integer[2];
+				currArr[0] = r;
+				currArr[1] = c+d;	
+				list.add(currArr);
+			}
+		}
+		for(Integer[] i : list){
+			if (!(grid[i[0]][i[1]].toString().equals(s))){
+				list.remove(i);
+			}
+		}
+		return list;
+	}
+
+	/*
+	private Cell ageOneChronon(SharkCell sharkCell) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	private ArrayList<Integer[]> getNeighbors(Cell[][] grid, int r, int c,
 			String string) {
 		ArrayList<Cell> list = getNeighbors(grid,r, c);
@@ -93,6 +128,7 @@ public class WatorController extends CardinalSimController{
 			}
 		}
 	}
+	*/
 	private void updateFromFish(Cell[][] grid, int r, int c, Cell[][] newGrid){//,ArrayList<Cell> neighbors) {
 		// TODO Auto-generated method stub
 		//Make list of random empty cell
@@ -104,13 +140,18 @@ public class WatorController extends CardinalSimController{
 			//newGrid[r][c].setEnergy(newGrid[r][c].getEnergy - 1);
 		}
 		else{
-			newGrid[getDestination(eligibleDestinations)[0]][getDestination(eligibleDestinations)[1]] = ageOneChronon(grid[r][c]);
-			newGrid[r][c] = updateSource(isReproducing(grid[r][c]));
+			Integer[] dest = getDestination(eligibleDestinations);
+			newGrid[dest[0]][dest[1]] = ((FishCell) (grid[r][c])).reproducingResult();
+			newGrid[r][c] = ((FishCell) (grid[r][c])).reproducingResult();
 		}
 		//put FishCell(reproduce--) at corresponding newGrid spot
 		
 	}
 	
+	private Integer[] getDestination(ArrayList<Integer[]> eligibleDestinations) {
+		return eligibleDestinations.get(new Random().nextInt(eligibleDestinations.size()));
+	}
+
 	/** 
 	 * Check's if shark is out of energy
 	 * @param cell
@@ -118,9 +159,7 @@ public class WatorController extends CardinalSimController{
 	 */
 	private boolean deadShark(Cell cell) {
 		if(cell instanceof SharkCell){
-			if(((SharkCell) cell).getEnergy() == 0){
-				return true;
-			}
+			return ((SharkCell) cell).isDead();
 		}
 		return false;
 	}

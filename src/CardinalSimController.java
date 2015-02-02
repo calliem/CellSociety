@@ -7,6 +7,8 @@ public abstract class CardinalSimController extends SimController{
 	protected ArrayList<Cell> getNeighbors(Cell[][] grid, int r, int c){
 		ArrayList<Cell> list = new ArrayList<Cell>();
 		for(int d = -1; d <= 1; d++){
+			
+			//addToList(grid, r, c, d);
 			if(inBounds(grid, r+d, c)){
 				list.add(grid[r+d][c]);
 			}
@@ -16,4 +18,12 @@ public abstract class CardinalSimController extends SimController{
 		}
 		return list;
 	}
+/*
+	private void addToList(Cell[][] grid, int r, int c) {
+		for(int i = 0; i < 2; i++){
+			if
+		}
+		
+	}
+	*/
 }

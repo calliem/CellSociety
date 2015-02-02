@@ -3,17 +3,18 @@ import java.util.Map;
 
 import javafx.scene.paint.Color;
 
-public class FishCell extends Cell{
-	
+public class FishCell extends Cell implements ReproducingCell{
+
 	// private int reproductionAge; this should be passed into the controller
-	
-	private int myAge;
+
+	private static int myAge = 3;
+	private int myCurrAge;
 	private Color myColor;
-	
-	public FishCell(int age){
+
+	public FishCell(){
 		super();
+		myCurrAge = 0;
 		setFill(myColor);
-		myAge = age;
 	}
 
 	public FishCell(Map<String, String> params) {
@@ -22,9 +23,25 @@ public class FishCell extends Cell{
 		setFill(myColor);
 		myAge = 0;
 	}
-	
+
 	public int getAge(){
 		return myAge;
+	}
+
+	//REFACTOR!!!! make ReproducingCell interactive
+	@Override
+	public Cell reproducingResult() {
+		if(myCurrAge == myAge){
+			return new FishCell();
+		}
+		else{
+			return new EmptyCell();
+		}
+	}
+
+	public Cell ageOneChronon(){
+		myCurrAge++;
+		return this;
 	}
 
 }

@@ -40,5 +40,7 @@ public class FireController extends CardinalSimController{
 		}
 		return makeCell("EmptyCell");
 	}
+	
+
 
 }
