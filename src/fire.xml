@@ -5,10 +5,10 @@
 		<author>Author</author>
 		<xRows>10</xRows>
 		<yCols>10</yCols>
-		<fps>10</fps>
+		<fps>3</fps>
 	</initParam>
 	<simParam>
-	    <probCatch>100</probCatch>
+	    <probCatch>50</probCatch>
 	</simParam>
 	<cellParam>    
 	    <cell state="EmptyCell" color="White" />

@@ -57,8 +57,7 @@ public class CellSociety{
 			myView.updateSimGrid(myInitCellArray);
 
 			/* get FrameRate and initial settings */
-			//parser is instantiated in the cellsocietyview. it will have to be moved here if it is to setup the framrate here. 
-			
+			//parser is instantiated in the cellsocietyview. it will have to be moved here if it is to setup the framrate here. 		
 		
 			KeyFrame frame = start(myFrameRate); //should this be from the parser?
 			myTimeline = new Timeline();
@@ -159,7 +158,7 @@ public class CellSociety{
 				for (int j = 0; j < locations.length; j++){ 
 					int row = locations[j] / numCols;
 					int col = locations[j] % numCols;
-					System.out.println("stateName " + cellParams.get("state") + " location: " + cellParams.get("loc") + " num: " + j + " row: " + row + " col: " + col);
+				//	System.out.println("stateName " + cellParams.get("state") + " location: " + cellParams.get("loc") + " num: " + j + " row: " + row + " col: " + col);
 					Cell cell = createCellInstance(cellParams.get("state"), color, cellParams); //this is probably wrong because it creates the instance with the same color multiple times
 					myInitCellArray[row][col] = cell;
 				}
@@ -201,13 +200,13 @@ public class CellSociety{
 	
 	public Cell createCellInstance(String cellState, Color color, Map<String, String> cellParams) throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
         Class<?> className = Class.forName(cellState);
-        System.out.println("ClassName:  " + className.toString());
+    //    System.out.println("ClassName:  " + className.toString());
         Constructor<?> constructor;
         if (cellParams.size() == 0)
         	 constructor = className.getConstructor(Color.class);           
         else
         	constructor = className.getConstructor(Color.class);       
-		System.out.println(constructor);
+	//	System.out.println(constructor);
 		return (Cell) constructor.newInstance(color);
 	}
 	
