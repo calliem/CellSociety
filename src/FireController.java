@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 
-public class FireController extends SimController{
+public class FireController extends CardinalSimController{
 
 	//from XML
 	private static int myProbCatch;// = 50;
@@ -15,19 +15,7 @@ public class FireController extends SimController{
 		System.out.println(map.get("probCatch"));
 		//is prob catch a probability (double) like .5 or a number out of 100?
 		myProbCatch = Integer.parseInt(map.get("probCatch"));
-	}
-
-	@Override
-	protected ArrayList<Cell> getNeighbors(Cell[][] grid, int r, int c){
-		ArrayList<Cell> list = new ArrayList<Cell>();
-		for(int d = -1; d <= 1; d++){
-			if(inBounds(grid, r+d, c+d)){
-				list.add(grid[r+d][c]);
-				list.add(grid[r][c+d]);
-			}
-		}
-		return list;
-	}
+	}	
 
 	@Override
 	protected String getNeighborsState(ArrayList<Cell> neighbors) {
@@ -41,15 +29,7 @@ public class FireController extends SimController{
 		}
 		return "TreeCell";
 	}
-	/*
-	@Override
-	protected Cell newState(CellState cellState, String hoodState) {
-		if(cellState.toString().equals("tree")){
-			return new Cell(hoodState);
-		}
-		return new Cell("empty");
-	}
-	 */
+
 	@Override
 	protected Cell newState(Cell cell, String hoodState)
 			throws InstantiationException, IllegalAccessException,
