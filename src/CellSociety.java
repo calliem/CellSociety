@@ -14,13 +14,8 @@ import org.xml.sax.SAXException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-
 import javafx.application.Application;
-
 import javafx.scene.paint.Color;
-
-import javafx.stage.FileChooser;
-
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -31,12 +26,15 @@ public class CellSociety{
 	private int myFrameRate;
 	private SimController myController;
 	private Timeline myTimeline;
+	private Stage myStage;
 	private Cell[][] myInitCellArray;
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		myParser = new XMLParser();
 		myParser.parseXMLFile(new File("src/fire.xml")); //this should only be called when you click uploadXML
 
+		myStage = s;
+		
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));	// actually get from XMLParser
 		myInitCellArray = createCellArray();
 		
@@ -69,7 +67,7 @@ public class CellSociety{
 		myView.getPlayElement().setOnMouseClicked(e -> resumeAnimation());
 		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
 		myView.getStepElement().setOnMouseClicked(e -> stepAnimation());
-		//myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
+		myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
 		myView.setErrorText(); // XML Parser should call this when file format incorrect.
 	}
 	
@@ -124,14 +122,20 @@ public class CellSociety{
 	}
 	
 	private void stepAnimation() {
-		myTimeline.play();
-		myTimeline.pause();
+		updateGrid();
 	}
 	
 
 	//this method is not used at all
-	private void readNewXML(File file) throws ParserConfigurationException, SAXException, IOException {
-		myParser.parseXMLFile(new File("src/fire.xml")); //this should only be called when you click uploadXML
+	private void readNewXML() {
+		
+		File newFile = myView.displayXMLChooser(); 
+		try {
+			myParser.parseXMLFile(newFile);
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //this should only be called when you click uploadXML
 	}
 	
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
