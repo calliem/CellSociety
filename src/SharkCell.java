@@ -7,24 +7,17 @@ public class SharkCell extends Cell implements ReproducingCell{
 	
 	private int myEnergy;
 	private int myAge;
-<<<<<<< HEAD
+	private int myCurrAge;
+	private int myCurrEnergy;
 	private static Color myColor;
-=======
-	private int startingEnergy;
-	private int reproducingAge;
->>>>>>> caf5952b1232272a701d228e66c17f65a84acd7b
 	
 	//energyGained shoudl be a parameter passed from the XMLparser into the control
 	
 	public SharkCell(){
 		super();
-<<<<<<< HEAD
 		myAge = age;
 		setFill(myColor);
-=======
-		myAge = 0;
-		myEnergy = startingEnergy;
->>>>>>> caf5952b1232272a701d228e66c17f65a84acd7b
+		
 	}
 
 	public SharkCell(HashMap<String, String> params) {
