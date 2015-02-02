@@ -14,8 +14,8 @@ import org.xml.sax.SAXException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Application;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -31,7 +31,7 @@ public class CellSociety{
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		myParser = new XMLParser();
-		myParser.parseXMLFile(new File("src/segregation.xml")); //this should only be called when you click uploadXML
+		myParser.parseXMLFile(new File("src/fire.xml")); //this should only be called when you click uploadXML
 
 		myStage = s;
 		
@@ -125,6 +125,7 @@ public class CellSociety{
 		updateGrid();
 	}
 	
+
 	//this method is not used at all
 	private void readNewXML() {
 		
@@ -176,9 +177,11 @@ public class CellSociety{
 		for (int x = 0; x < numRows; x ++){
 			for (int y = 0; y < numCols; y++){
 				if (myInitCellArray[x][y] == null){
+
 					HashMap<String, String> remainingCellParams = cellStates.get(0);
 			//		Color remainingColor = Color.valueOf(remainingCellParams.get("color"));
 			//		String remainingState = remainingCellParams.get("state");
+
 					
 					myInitCellArray[x][y] = createCellInstance(remainingCellParams); //this cellParams hashmap needs to be fixed
 				}

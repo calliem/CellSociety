@@ -8,12 +8,15 @@
 		<fps>1</fps>
 	</initParam>
 	<simParam>
-	    <probCatch>100</probCatch>
+	    <probCatch>50</probCatch>
 	</simParam>
 	<cellParam>    
-	    <cell state="TreeCell" color="Black" />
+	    <cell state="EmptyCell" color="White" />
+	    <cell state="TreeCell" color="Black">
+	        <loc></loc>
+	    </cell>
 	    <cell state="FireCell" color="Orange">
-	        <loc>5 8 11 22 23 24 29 56 58 59 98</loc>
+	        <loc>55</loc>
 	    </cell>
   </cellParam>
 </simulation>

@@ -24,7 +24,9 @@ public class TestLife {
 		Cell[][] outGrid = new Cell[num][num];
 		for (int i = 0; i < num; i++){
 			for (int j = 0; j < num; j++){
-				if(i==2 && j != 0 && j != num-1){
+				if((i==1 && (j == 1 || j==2)) 
+						|| (i==3 && j==3)
+						|| (i==4 && (j==1 || j==3 ||))){
 					outGrid[i][j] = new LiveCell();
 				}
 				else{
