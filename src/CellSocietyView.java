@@ -14,8 +14,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -40,12 +42,14 @@ public class CellSocietyView {
 	private Text myErrorMsg;
 	private GridPane myRoot;
 	private GridPane mySimGrid;
+	private int myNumRows;
+	private int myNumCols;
 	
-	private static final int GRID_SIZE = 100;
+	private static final int GRID_SIZE = 500;
 	
 	//using Reflection makes us have a ton of throw errors. Is that okay?
 	
-	public CellSocietyView(Stage s, Cell[][] initialCellArray, int frameRate) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
+	public CellSocietyView(Stage s, int frameRate) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
 		myRoot = new GridPane();
 		myStage = s;
@@ -120,9 +124,12 @@ public class CellSocietyView {
 	private void initializeButtons() {
 		myPlayButton = new Button("Play");
 		myPauseButton = new Button("Pause");
-		myPauseButton.setDisable(true);
 		myStepButton = new Button("Step");
 		myXMLButton = new Button("Upload XML");
+		
+		myPlayButton.setDisable(true);
+		myPauseButton.setDisable(true);
+		myStepButton.setDisable(true);
 	}
 
 	/**
@@ -144,6 +151,19 @@ public class CellSocietyView {
 		mySimGrid.setVgap(1);
         mySimGrid.setPadding(new Insets(0, 25, 5, 25));
         mySimGrid.setAlignment(Pos.CENTER);
+        
+        double colSize = (double) GRID_SIZE / myNumCols;
+        double rowSize = (double) GRID_SIZE / myNumRows;
+        
+        for (int i = 0; i < myNumCols; i++) {
+            ColumnConstraints column = new ColumnConstraints(colSize);
+            mySimGrid.getColumnConstraints().add(column);
+        }
+        
+        for (int i = 0; i < myNumCols; i++) {
+            RowConstraints row = new RowConstraints(rowSize);
+            mySimGrid.getRowConstraints().add(row);
+        }
         
         //NOTE: the parser may not belong in this class, but this is an example of how the XMLParser
         //will update the other classes. Unsure right now whether specifically searching for the

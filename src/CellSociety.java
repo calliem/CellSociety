@@ -1,4 +1,3 @@
-//callie_branch
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -24,13 +23,12 @@ public class CellSociety{
 	private int myFrameRate;
 	private SimController myController;
 	private Timeline myTimeline;
-	private Stage myStage;
 	private Cell[][] myInitCellArray;
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
+		
 		myParser = new XMLParser();
-		// myStage = s;		
-		myView = new CellSocietyView(s, myInitCellArray, myFrameRate);
+		myView = new CellSocietyView(s, myFrameRate);
 		configureListeners();
 	}
 
@@ -67,7 +65,7 @@ public class CellSociety{
 	private void configureListeners() throws IOException {
 		myView.getPlayElement().setOnMouseClicked(e -> resumeAnimation());
 		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
-		myView.getStepElement().setOnMouseClicked(e -> stepAnimation());
+		myView.getStepElement().setOnMouseClicked(e -> updateGrid());
 		myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
 		myView.setErrorText(); // XML Parser should call this when file format incorrect.
 	}
@@ -82,25 +80,10 @@ public class CellSociety{
 		
 		try {
 			myInitCellArray = myController.runOneSim(myInitCellArray);
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException
+				| ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -121,13 +104,7 @@ public class CellSociety{
 		myView.getStepElement().setDisable(false);		// ideally abstracted to view later
 		myTimeline.pause();
 	}
-	
-	private void stepAnimation() {
-		updateGrid();
-	}
-	
 
-	//this method is not used at all
 	private void readNewXML() {
 		
 		File newFile = myView.displayXMLChooser(); 
@@ -156,7 +133,6 @@ public class CellSociety{
 		int numCols = Integer.parseInt(map.get("yCols"));
 		int numRows = Integer.parseInt(map.get("xRows"));
 		
-	//	Cell[][] cellArray = new Cell[numRows][numCols];
 		myInitCellArray = new Cell[numRows][numCols];
 		
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
@@ -227,13 +203,10 @@ public class CellSociety{
 		
 		Class<?> className = Class.forName(cellParams.get("state"));
         System.out.println("ClassName:  " + className.toString());
-        Constructor<?> constructor;
-        if (cellParams.size() == 0)
-        	 constructor = className.getConstructor(Map.class);           
-        else
-        	constructor = className.getConstructor(Map.class);       
+        Constructor<?> constructor = className.getConstructor(Map.class);       
 		System.out.println(constructor);
 		return (Cell) constructor.newInstance(cellParams);
+		
 	}
 	
 
