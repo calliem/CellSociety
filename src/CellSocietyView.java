@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -40,7 +41,7 @@ public class CellSocietyView {
 	private GridPane myRoot;
 	private GridPane mySimGrid;
 	
-	private static final int CELL_SIZE = 10;
+	private static final int GRID_SIZE = 100;
 	
 	//using Reflection makes us have a ton of throw errors. Is that okay?
 	
@@ -51,7 +52,7 @@ public class CellSocietyView {
 		
 		initializeButtons();
 		generateGrid();
-		updateSimGrid(initialCellArray);
+		setBlankGrid();
 		configureUI(frameRate);
 				
 		myScene = new Scene(myRoot);
@@ -92,6 +93,14 @@ public class CellSocietyView {
 		myErrorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
 		myErrorMsg.setFill(Color.RED);
 		myErrorMsg.setText("XML File uploaded is not valid.");
+	}
+	
+	public void setBlankGrid() {
+		mySimGrid.getChildren().clear();
+		Rectangle r = new Rectangle();
+		r.setWidth(GRID_SIZE);
+		r.setHeight(GRID_SIZE);
+		mySimGrid.add(r, 0, 0);
 	}
 	
 	private void configureUI(int frameRate) {
@@ -218,11 +227,6 @@ public class CellSocietyView {
 		fileChooser.setTitle("Open XML File");
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
 		return fileChooser.showOpenDialog(myStage);
-		/*
-		if (selectedFile != null) {
-			myStage.display(selectedFile);
-		}
-		*/
 	}
 		
 }

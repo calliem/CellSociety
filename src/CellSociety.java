@@ -14,8 +14,6 @@ import org.xml.sax.SAXException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -31,36 +29,39 @@ public class CellSociety{
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		myParser = new XMLParser();
-		myParser.parseXMLFile(new File("src/segregation.xml")); //this should only be called when you click uploadXML
-
-		myStage = s;
-		
-		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));	// actually get from XMLParser
-		myInitCellArray = createCellArray();
-		
+		// myStage = s;		
 		myView = new CellSocietyView(s, myInitCellArray, myFrameRate);
 		configureListeners();
-		
-		//make this a new method
-		String className = myParser.getInitParamMap().get("simName") + "Controller";
-		Class<?> currentClass = Class.forName(className);
-		System.out.println(currentClass.toString());
-		Constructor<?> constructor = currentClass.getConstructor(Map.class); //how to use reflection on a map?
-		//System.out.println(constructor);
-		myController = (SimController) constructor.newInstance(myParser.getSimParamMap());
-			
-			
-		// or however it's decided
-	//	myController = new FireController(myParser.getSimParamMap());
-		myView.updateSimGrid(myInitCellArray);
+	}
 
-		/* get FrameRate and initial settings */
-		//parser is instantiated in the cellsocietyview. it will have to be moved here if it is to setup the framrate here. 		
-	
+	/**
+	 * 
+	 */
+	private void setupAnimation() {
 		KeyFrame frame = start(myFrameRate); //should this be from the parser?
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
 		myTimeline.getKeyFrames().add(frame);
+	}
+
+	/**
+	 * @throws ClassNotFoundException
+	 * @throws NoSuchMethodException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
+	private void retrieveParserInfo() throws ClassNotFoundException,
+			NoSuchMethodException, InstantiationException,
+			IllegalAccessException, InvocationTargetException {
+		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
+		String className = myParser.getInitParamMap().get("simName") + "Controller";
+		Class<?> currentClass = Class.forName(className);
+		System.out.println(currentClass.toString());
+		Constructor<?> constructor = currentClass.getConstructor(Map.class); //how to use reflection on a map?
+		System.out.println(constructor);
+		myController = (SimController) constructor.newInstance(myParser.getSimParamMap());
+		myInitCellArray = createCellArray();
 	}
 	
 	private void configureListeners() throws IOException {
@@ -135,7 +136,18 @@ public class CellSociety{
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} //this should only be called when you click uploadXML
+		}
+		try {
+			retrieveParserInfo();
+		} catch (ClassNotFoundException | NoSuchMethodException
+				| InstantiationException | IllegalAccessException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		setupAnimation();
+		myView.updateSimGrid(myInitCellArray);
+		pauseAnimation();
 	}
 	
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
