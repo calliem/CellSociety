@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -209,6 +210,19 @@ public class CellSocietyView {
 		bottomRow.getChildren().add(myErrorMsg);
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
+	}
+
+	public File displayXMLChooser() {
+		// TODO Auto-generated method stub
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open XML File");
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+		return fileChooser.showOpenDialog(myStage);
+		/*
+		if (selectedFile != null) {
+			myStage.display(selectedFile);
+		}
+		*/
 	}
 		
 }
