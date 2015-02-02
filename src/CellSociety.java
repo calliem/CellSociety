@@ -31,7 +31,7 @@ public class CellSociety{
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		myParser = new XMLParser();
-		myParser.parseXMLFile(new File("src/fire.xml")); //this should only be called when you click uploadXML
+		myParser.parseXMLFile(new File("src/segregation.xml")); //this should only be called when you click uploadXML
 
 		myStage = s;
 		
