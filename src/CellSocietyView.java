@@ -222,6 +222,7 @@ public class CellSocietyView {
 		HBox displayRow = new HBox(10);
 		Label speedLabel = new Label("Speed: ");
 		mySpeedTextField = new TextField();
+		mySpeedTextField.setEditable(false);
 		displayRow.setAlignment(Pos.CENTER);
 		displayRow.getChildren().add(speedLabel);
 		displayRow.getChildren().add(mySpeedTextField);
