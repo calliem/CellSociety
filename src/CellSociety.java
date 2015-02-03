@@ -28,7 +28,7 @@ public class CellSociety{
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
 		
 		myParser = new XMLParser();
-		myView = new CellSocietyView(s, myFrameRate);
+		myView = new CellSocietyView(s);
 		configureListeners();
 	}
 
@@ -135,6 +135,8 @@ public class CellSociety{
 		setupAnimation();
 		myView.updateSimGrid(myInitCellArray);
 		pauseAnimation();
+		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
+		myView.displayFrameRate(myFrameRate);
 	}
 	
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
