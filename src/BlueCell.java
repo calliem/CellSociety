@@ -1,9 +1,3 @@
-
-<<<<<<< HEAD
-=======
-
-import java.util.HashMap;
->>>>>>> fa41cd8e197d0a74202919e4b9d047ef82432c6e
 import java.util.Map;
 
 import javafx.scene.paint.Color;

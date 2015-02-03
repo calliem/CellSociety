@@ -101,7 +101,7 @@ public class CellSocietyView {
 	}
 
 	public void setErrorText() {
-		myErrorMsg.setFont(ERROR_FONT);
+		myErrorMsg.setFont(ERROR_FONT); 
 		myErrorMsg.setFill(Color.RED);
 		myErrorMsg.setText(myResources.getString("ErrorMessage"));
 	}

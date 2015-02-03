@@ -1,16 +1,7 @@
+Team Members
+Callie Mao
+Kevin Delgado
+Le Qi
 
-
-
-1/23/15
-Spring 2015 # cellsociety
-
-
-
-hello qaqq
-
-
-
-
-
-Empty repository for CellSociety project
-
+Date started: 1/23/15
+Date completed (Sprint 1): 2/3/2015
