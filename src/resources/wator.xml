@@ -14,15 +14,17 @@
 	-->
 	<cellParam>    
 	    <cell state="EmptyCell" color="Cyan" />
-	    <!--  <cell state="SharkCell" color="Black">
-	        <loc>1 2 55 94 95 99</loc>
-
-	        <energy></energy>-->
-
+	    
+	     <cell state="SharkCell" color="Black">
+	        <loc>54</loc>
+	        <!--<energy></energy>-->
+	     </cell>
+<!--
 	    <cell state="FishCell" color="Yellow">
 	        <loc>54</loc>
-	        <!-- <age></age>-->
+	        
 	    </cell>
+-->
   </cellParam>
 </simulation>
 	  

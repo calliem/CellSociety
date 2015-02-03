@@ -112,9 +112,9 @@ public class WatorController extends CardinalSimController{
 			//newGrid[r][c].setEnergy(newGrid[r][c].getEnergy - 1);
 		}
 		else{
-			Integer[] currCoord = getDestination(eligibleDestinations);//[0],getDestination(eligibleDestinations)[1]};
-			newGrid[currCoord[0]][currCoord[1]] = ((SharkCell) grid[r][c]).ageOneChronon();
-			updatedCoordinates.add(currCoord);
+			Integer[] dest = getDestination(eligibleDestinations);//[0],getDestination(eligibleDestinations)[1]};
+			newGrid[dest[0]][dest[1]] = ((SharkCell) grid[r][c]).ageOneChronon();
+			updatedCoordinates.add(dest);
 			newGrid[r][c] = ((SharkCell) (grid[r][c])).reproducingResult();
 		}
 
