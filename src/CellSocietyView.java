@@ -41,6 +41,7 @@ public class CellSocietyView {
 	private Button myXMLButton;
 	private TextField mySpeedTextField;
 	private Text myErrorMsg;
+	private HBox myTitleBox;
 	private GridPane myRoot;
 	private GridPane mySimGrid;
 	
@@ -62,10 +63,6 @@ public class CellSocietyView {
 		myStage.setTitle("CellSociety");		
 		myStage.setScene(myScene);
 		myStage.show();
-	}
-	
-	public Stage getStage() {
-		return myStage;
 	}
 
 	public Button getPlayElement() {
@@ -117,6 +114,13 @@ public class CellSocietyView {
 		myRoot.add(createErrorLocation(), 0, 4);
 	}
 	
+	public void generateTitle(String s) {
+        Text title = new Text(s);
+        title.setFont(Font.font("Helvetica", FontWeight.NORMAL, 32));
+		myTitleBox.getChildren().clear();
+		myTitleBox.getChildren().add(title);	
+	}
+	
 	/**
 	 * 
 	 */
@@ -159,18 +163,6 @@ public class CellSocietyView {
         //will update the other classes. Unsure right now whether specifically searching for the
         //string "yCols" is bad design, although we can ask when we meet with our TA
     }
-	
-	/*
-	for (int i = 0; i < xRows; i++) {
-		for (int j = 0; j < yCols; j++) {
-			//substitute these with Cell class after the Cell class is completed/updated
-			Rectangle r = new Rectangle(10, 10, Color.CYAN);
-			String hi = "hi";
-			Cell cell = createCellInstance(hi);
-			myGrid.add(r, i, j);
-			
-		}
-	}*/
 
 	//param should be a map or a hashmap?
 		
@@ -179,13 +171,11 @@ public class CellSocietyView {
 	 * @return
 	 */
 	private HBox createTitle() {
-		HBox titleBox = new HBox(10);		
-		titleBox.setAlignment(Pos.CENTER);
-		Text title = new Text("Cell Society");		
-        title.setFont(Font.font("Helvetica", FontWeight.NORMAL, 32));
-        titleBox.setPadding(new Insets(15, 25, 5, 25));
-		titleBox.getChildren().add(title);
-		return titleBox;
+		myTitleBox = new HBox(10);		
+		myTitleBox.setAlignment(Pos.CENTER);
+        myTitleBox.setPadding(new Insets(15, 25, 5, 25));
+		generateTitle("Cell Society");
+		return myTitleBox;
 	}
 
 	/**

@@ -137,6 +137,7 @@ public class CellSociety{
 		pauseAnimation();
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		myView.displayFrameRate(myFrameRate);
+		myView.generateTitle(myParser.getInitParamMap().get("simName") + " Cellular Automata");
 	}
 	
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
