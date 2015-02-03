@@ -87,10 +87,11 @@ public class WatorController extends CardinalSimController{
 	private void updateDestination(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates) {
 		//ArrayList<Cell> neighbors = getNeighbors(grid, r, c);
 		String state = grid[r][c].toString();
-		switch (state){
-		case "shark":
+		//switch (state){
+		if(state.equals("SharkCell")){
 			updateFromShark(grid, r, c, newGrid, updatedCoordinates);//, neighbors);
-		default:
+		}
+		else{
 			updateFromFish(grid, r, c, newGrid, updatedCoordinates);//, neighbors);
 		}
 

@@ -2,6 +2,7 @@
 
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javafx.scene.paint.Color;
 
@@ -23,12 +24,12 @@ public class SharkCell extends Cell implements ReproducingCell{
 		
 	}
 
-	public SharkCell(HashMap<String, String> params) {
+	public SharkCell(Map<String, String> params) {
 		super();
 		myColor = Color.valueOf(params.get("color"));
 		//getShape().setFill(myColor);
 		getShape().setFill(Color.BLACK);
-		myAge = 0;
+		myCurrAge = 0;
 		myCurrEnergy = myEnergy;
 		//myEnergy = Integer.parseInt(params.get("fullEnergy"));
 	}
@@ -38,6 +39,7 @@ public class SharkCell extends Cell implements ReproducingCell{
 	@Override
 	public Cell reproducingResult() {
 		if(myCurrAge == myAge){
+			myCurrAge = 0;
 			return new SharkCell();
 		}
 		else{

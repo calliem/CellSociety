@@ -11,6 +11,7 @@ import java.util.Random;
 public class SegregationController extends SimController{
 	double myHappyFraction;
 	private int numEmpty = 0;
+	//private int newEmpty = 0;
 	private int iterCount = 0;
 	private int bound;
 	//private Queue<Integer> iterCount = new LinkedList<Integer>();
@@ -26,22 +27,11 @@ public class SegregationController extends SimController{
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		numEmpty = 0;
 		iterCount = 0;
+		//newEmpty = 0;
 		//count how many empty cells there are and make a list of unhappy nonempty cells
 		makeRandomList(grid);
 		return super.runOneSim(grid);
-		/*
-		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
-		for(int r = 0; r < grid.length; r++){
-			for(int c = 0; c < grid[0].length; c++){
-				Cell curCell = grid[r][c];
-				ArrayList<Cell> neighbors = getNeighbors(grid, r, c);
-				String neighborsState = getNeighborsState(neighbors);
-				Cell newCell = newState(curCell, neighborsState);
-				newGrid[r][c] = newCell;
-			}
-		}
-		return newGrid;
-		*/
+
 	}
 	
 	@Override
@@ -96,7 +86,9 @@ public class SegregationController extends SimController{
 		if(neighborsState.equals("none")){
 			System.out.println("WHYYY");
 		}
+		//newEmpty++;
 		return makeCell("EmptyCell");
+		
 	}
 	
 	private boolean shouldPopulate() {
