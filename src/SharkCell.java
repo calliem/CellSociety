@@ -54,4 +54,8 @@ public class SharkCell extends Cell implements ReproducingCell{
 	public boolean isDead(){
 		return myCurrEnergy == 0;
 	}
+	
+	public String toString(){
+		return "SharkCell";
+	}
 }

@@ -14,14 +14,23 @@ public class FishCell extends Cell implements ReproducingCell{
 	public FishCell(){
 		super();
 		myCurrAge = 0;
+
 		getShape().setFill(myColor);
+
 	}
 
 	public FishCell(Map<String, String> params) {
 		super();
 		myColor = Color.valueOf(params.get("color"));
+
+		//setFill(myColor);
+		//setFill(Color.YELLOW);
+		//myCurrAge = 0;
+
+
 		getShape().setFill(myColor);
-		myAge = 0;
+		myCurrAge = 0;
+
 	}
 
 	public int getAge(){
@@ -42,6 +51,10 @@ public class FishCell extends Cell implements ReproducingCell{
 	public Cell ageOneChronon(){
 		myCurrAge++;
 		return this;
+	}
+	
+	public String toString(){
+		return "FishCell";
 	}
 
 }

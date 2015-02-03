@@ -10,6 +10,8 @@ public class EmptyCell extends Cell{
 	
 	public EmptyCell() {
 		super();
+
+		//setFill(Color.CYAN);
 		getShape().setFill(myColor);
 	}
 	//add on map parameter
