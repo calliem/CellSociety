@@ -35,145 +35,15 @@ public class CellSociety {
 		configureListeners();
 	}
 
-	private void setupAnimation() {
-		KeyFrame frame = start(myFrameRate);
-		myTimeline = new Timeline();
-		myTimeline.setCycleCount(Animation.INDEFINITE);
-		myTimeline.getKeyFrames().add(frame);
-	}
-
-	/**
-	 * @throws ClassNotFoundException
-	 * @throws NoSuchMethodException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 */
-	private void retrieveParserInfo() throws ClassNotFoundException,
-			NoSuchMethodException, InstantiationException,
-			IllegalAccessException, InvocationTargetException {
-		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
-		String className = myParser.getInitParamMap().get("simName")
-				+ "Controller";
-		Class<?> currentClass = Class.forName(className);
-		System.out.println("class" + currentClass);
-		Constructor<?> constructor = currentClass.getConstructor(Map.class); // how
-																				// to
-																				// use
-																				// reflection
-																				// on
-																				// a
-																				// map?
+	public Cell createCellInstance(Map<String, String> cellParams)
+			throws InstantiationException, IllegalAccessException,
+			IllegalArgumentException, ClassNotFoundException,
+			NoSuchMethodException, SecurityException, InvocationTargetException {
+		Class<?> className = Class.forName(cellParams.get("state"));
+		System.out.println("ClassName:  " + className.toString());
+		Constructor<?> constructor = className.getConstructor(Map.class);
 		System.out.println(constructor);
-		myController = (SimController) constructor.newInstance(myParser
-				.getSimParamMap());
-	}
-
-	private void configureListeners() throws IOException {
-		myView.getPlayElement().setOnMouseClicked(e -> resumeAnimation());
-		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
-		myView.getStepElement().setOnMouseClicked(e -> updateGrid());
-		myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
-		myView.getSpeedupElement().setOnMouseClicked(e -> increaseFrameRate());
-		myView.getSlowdownElement().setOnMouseClicked(e -> decreaseFrameRate());
-		myView.setErrorText(); // XML Parser should call this when file format
-								// incorrect.
-	}
-
-	private KeyFrame start(int frameRate) {
-		return new KeyFrame(Duration.millis(1000 / frameRate),
-				e -> updateGrid());
-	}
-
-	private void increaseFrameRate() {
-		myFrameRate++;
-		myView.displayFrameRate(myFrameRate);
-		myTimeline.getKeyFrames().clear();
-		myTimeline.getKeyFrames().add(start(myFrameRate));
-	}
-
-	private void decreaseFrameRate() {
-		if (myFrameRate > 1)
-			myFrameRate--;
-		myView.displayFrameRate(myFrameRate);
-		myTimeline.getKeyFrames().clear();
-		myTimeline.getKeyFrames().add(start(myFrameRate));
-	}
-
-	// May be in a SimController subclass
-	private void updateGrid() {
-
-		try {
-			myCells = myController.runOneSim(myCells);
-		} catch (InstantiationException | IllegalAccessException
-				| IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException
-				| ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		myView.updateSimGrid(myCells);
-	}
-
-	private void resumeAnimation() {
-		myView.getPlayElement().setDisable(true);
-		myView.getPauseElement().setDisable(false);
-		myView.getStepElement().setDisable(true);
-		myView.getXMLElement().setDisable(true);
-		myView.getSpeedupElement().setDisable(true);
-		myView.getSlowdownElement().setDisable(true);
-		myTimeline.play();
-
-	}
-
-	private void pauseAnimation() {
-		myView.getPlayElement().setDisable(false);
-		myView.getPauseElement().setDisable(true);
-		myView.getStepElement().setDisable(false);
-		myView.getXMLElement().setDisable(false);
-		myView.getSpeedupElement().setDisable(false);
-		myView.getSlowdownElement().setDisable(false);
-		myTimeline.stop();
-	}
-
-	private void readNewXML() {
-
-		File newFile = myView.displayXMLChooser();
-		try {
-			myParser.parseXMLFile(newFile);
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			retrieveParserInfo();
-		} catch (ClassNotFoundException | NoSuchMethodException
-				| InstantiationException | IllegalAccessException
-				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Cell.setCellSize(
-				CellSocietyView.GRID_SIZE
-						/ Integer.parseInt(myParser.getInitParamMap().get(
-								"xRows")),
-				CellSocietyView.GRID_SIZE
-						/ Integer.parseInt(myParser.getInitParamMap().get(
-								"yCols")));
-		try {
-			myCells = createCellArray();
-		} catch (InstantiationException | IllegalAccessException
-				| IllegalArgumentException | ClassNotFoundException
-				| NoSuchMethodException | SecurityException
-				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		setupAnimation();
-		myView.updateSimGrid(myCells);
-		pauseAnimation();
-		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
-		myView.displayFrameRate(myFrameRate);
+		return (Cell) constructor.newInstance(cellParams);
 	}
 
 	public Cell[][] createCellArray() throws InstantiationException,
@@ -217,6 +87,129 @@ public class CellSociety {
 		return myCells;
 	}
 
+	private void setupAnimation() {
+		KeyFrame frame = start(myFrameRate);
+		myTimeline = new Timeline();
+		myTimeline.setCycleCount(Animation.INDEFINITE);
+		myTimeline.getKeyFrames().add(frame);
+	}
+
+	/**
+	 * @throws ClassNotFoundException
+	 * @throws NoSuchMethodException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
+	private void retrieveParserInfo() throws ClassNotFoundException,
+			NoSuchMethodException, InstantiationException,
+			IllegalAccessException, InvocationTargetException {
+		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
+		String className = myParser.getInitParamMap().get("simName")
+				+ "Controller";
+		Class<?> currentClass = Class.forName(className);
+		System.out.println("class" + currentClass);
+		Constructor<?> constructor = currentClass.getConstructor(Map.class);
+		System.out.println(constructor);
+		myController = (SimController) constructor.newInstance(myParser
+				.getSimParamMap());
+	}
+
+	private void configureListeners() throws IOException {
+		myView.getPlayElement().setOnMouseClicked(e -> resumeAnimation());
+		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
+		myView.getStepElement().setOnMouseClicked(e -> updateGrid());
+		myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
+		myView.getSpeedupElement().setOnMouseClicked(e -> increaseFrameRate());
+		myView.getSlowdownElement().setOnMouseClicked(e -> decreaseFrameRate());
+		// myView.setErrorText(); // XML Parser should call this when file format
+	}
+
+	private KeyFrame start(int frameRate) {
+		return new KeyFrame(Duration.millis(1000 / frameRate),
+				e -> updateGrid());
+	}
+
+	private void increaseFrameRate() {
+		myFrameRate++;
+		reframeTimeline();
+	}
+
+	private void decreaseFrameRate() {
+		if (myFrameRate > 1)
+			myFrameRate--;
+		reframeTimeline();
+		
+	}
+	
+	private void reframeTimeline() {
+		myView.displayFrameRate(myFrameRate);
+		myTimeline.getKeyFrames().clear();
+		myTimeline.getKeyFrames().add(start(myFrameRate));
+	}
+
+	private void updateGrid() {
+
+		try {
+			myCells = myController.runOneSim(myCells);
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException
+				| ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		myView.updateSimGrid(myCells);
+	}
+
+	private void resumeAnimation() {
+		myView.changeResumeButtonPermissions();
+		myTimeline.play();
+
+	}
+
+	private void pauseAnimation() {
+		myView.changePauseButtonPermissions();
+		myTimeline.stop();
+	}
+
+	private void readNewXML() {
+
+		File newFile = myView.displayXMLChooser();
+		try {
+			myParser.parseXMLFile(newFile);
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			retrieveParserInfo();
+		} catch (ClassNotFoundException | NoSuchMethodException
+				| InstantiationException | IllegalAccessException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		Cell.setCellSize(
+				CellSocietyView.GRID_SIZE
+						/ Integer.parseInt(myParser.getInitParamMap().get(
+								"xRows")),
+				CellSocietyView.GRID_SIZE
+						/ Integer.parseInt(myParser.getInitParamMap().get(
+								"yCols")));
+		try {
+			myCells = createCellArray();
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | ClassNotFoundException
+				| NoSuchMethodException | SecurityException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		
+		setupAnimation();
+		myView.updateSimGrid(myCells);
+		pauseAnimation();
+		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
+		myView.displayFrameRate(myFrameRate);
+	}
+
 	private int[] stringToIntArray(String string) {
 		String[] split = string.split(" ");
 		for (String s : split) {
@@ -233,14 +226,4 @@ public class CellSociety {
 		return intArray;
 	}
 
-	public Cell createCellInstance(Map<String, String> cellParams)
-			throws InstantiationException, IllegalAccessException,
-			IllegalArgumentException, ClassNotFoundException,
-			NoSuchMethodException, SecurityException, InvocationTargetException {
-		Class<?> className = Class.forName(cellParams.get("state"));
-		System.out.println("ClassName:  " + className.toString());
-		Constructor<?> constructor = className.getConstructor(Map.class);
-		System.out.println(constructor);
-		return (Cell) constructor.newInstance(cellParams);
-	}
 }
