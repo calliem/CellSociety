@@ -1,4 +1,3 @@
-//callie_branch
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -6,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -24,13 +24,14 @@ public class CellSociety{
 	private int myFrameRate;
 	private SimController myController;
 	private Timeline myTimeline;
-	private Stage myStage;
 	private Cell[][] myInitCellArray;
+    private ResourceBundle myResources;
+	private static final String DEFAULT_RESOURCE_PACKAGE = "/constants.properties";
 	
-	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
+	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {		
 		myParser = new XMLParser();
-		// myStage = s;		
-		myView = new CellSocietyView(s, myInitCellArray, myFrameRate);
+		myView = new CellSocietyView(s);
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		configureListeners();
 	}
 
@@ -57,17 +58,16 @@ public class CellSociety{
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		String className = myParser.getInitParamMap().get("simName") + "Controller";
 		Class<?> currentClass = Class.forName(className);
-		System.out.println(currentClass.toString());
+		System.out.println("class" + currentClass);
 		Constructor<?> constructor = currentClass.getConstructor(Map.class); //how to use reflection on a map?
 		System.out.println(constructor);
 		myController = (SimController) constructor.newInstance(myParser.getSimParamMap());
-		myInitCellArray = createCellArray();
 	}
 	
 	private void configureListeners() throws IOException {
 		myView.getPlayElement().setOnMouseClicked(e -> resumeAnimation());
 		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
-		myView.getStepElement().setOnMouseClicked(e -> stepAnimation());
+		myView.getStepElement().setOnMouseClicked(e -> updateGrid());
 		myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
 		myView.setErrorText(); // XML Parser should call this when file format incorrect.
 	}
@@ -82,25 +82,10 @@ public class CellSociety{
 		
 		try {
 			myInitCellArray = myController.runOneSim(myInitCellArray);
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException
+				| ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -121,18 +106,13 @@ public class CellSociety{
 		myView.getStepElement().setDisable(false);		// ideally abstracted to view later
 		myTimeline.pause();
 	}
-	
-	private void stepAnimation() {
-		updateGrid();
-	}
-	
 
-	//this method is not used at all
 	private void readNewXML() {
 		
 		File newFile = myView.displayXMLChooser(); 
 		try {
 			myParser.parseXMLFile(newFile);
+			System.out.println(newFile.toString());
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -145,9 +125,23 @@ public class CellSociety{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Cell.setCellSize(CellSocietyView.GRID_SIZE / Integer.parseInt(myParser.getInitParamMap().get("xRows")),
+				CellSocietyView.GRID_SIZE / Integer.parseInt(myParser.getInitParamMap().get("yCols")));
+		try {
+			myInitCellArray = createCellArray();
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | ClassNotFoundException
+				| NoSuchMethodException | SecurityException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setupAnimation();
 		myView.updateSimGrid(myInitCellArray);
 		pauseAnimation();
+		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
+		myView.displayFrameRate(myFrameRate);
+		myView.generateTitle(myParser.getInitParamMap().get("simName") + " Cellular Automata");
 	}
 	
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
@@ -156,16 +150,11 @@ public class CellSociety{
 		int numCols = Integer.parseInt(map.get("yCols"));
 		int numRows = Integer.parseInt(map.get("xRows"));
 		
-	//	Cell[][] cellArray = new Cell[numRows][numCols];
 		myInitCellArray = new Cell[numRows][numCols];
 		
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
-	//	Map<String, String> cellParams = myParser.getCellParamList(); //this should just be an empty value for those without it
-		//here Map = Map instead of Map = Hashmap. Is that okay or should it be changed (in the XMLParser class)?
-		
-		//instantiates cells for all states except for the first one (which will be automatically done)
-		
-		//iterate through the list of cell states
+	
+		//instantiates cells for all states except for the first one (which will be automatically done below)
 		for (int i = 1; i < cellStates.size(); i ++){
 			HashMap<String, String> cellParams = cellStates.get(i);
 			for (String string: cellParams.keySet()){
@@ -174,14 +163,9 @@ public class CellSociety{
 				for (int j = 0; j < locations.length; j++){ 
 					int row = locations[j] / numCols;
 					int col = locations[j] % numCols;
-				//	System.out.println("stateName " + cellParams.get("state") + " location: " + cellParams.get("loc") + " num: " + j + " row: " + row + " col: " + col);
-					Cell cell = createCellInstance(cellParams); //this is probably wrong because it creates the instance with the same color multiple times
+					Cell cell = createCellInstance(cellParams); 
 					myInitCellArray[row][col] = cell;
 				}
-
-			
-			//	System.out.println(i + " " + string + " " + cellStates.get(i));
-		//	System.out.println("----------");
 			}
 		}
 		//sets all remaining cells
@@ -191,11 +175,7 @@ public class CellSociety{
 				if (myInitCellArray[x][y] == null){
 
 					HashMap<String, String> remainingCellParams = cellStates.get(0);
-			//		Color remainingColor = Color.valueOf(remainingCellParams.get("color"));
-			//		String remainingState = remainingCellParams.get("state");
-
-					
-					myInitCellArray[x][y] = createCellInstance(remainingCellParams); //this cellParams hashmap needs to be fixed
+					myInitCellArray[x][y] = createCellInstance(remainingCellParams); 
 				}
 			}
 		}
@@ -208,7 +188,8 @@ public class CellSociety{
 			System.out.println(s);
 		}
 	    int[] intArray = new int[split.length];
-	    if (!string.equals("")){ //checks to ensure that it is not the first location parameter passed in from the XML document (it is empty and will be made automatically)
+	  //checks to ensure that it is not the first location parameter passed in from the XML document (it is empty and will be made automatically)
+	    if (!string.equals("")){ 
 	    	for (int i = 0; i < split.length; i++) {
 	    		intArray[i] = Integer.parseInt(split[i]);
 	    	}
@@ -217,24 +198,10 @@ public class CellSociety{
 	}
 	
 	public Cell createCellInstance(Map<String, String> cellParams) throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
-        //test
-		for (String string: cellParams.keySet()){
-			System.out.print(string + " : ");
-			System.out.println(cellParams.get(string));
-		}
-		System.out.println(cellParams.size());
-		//end test
-		
 		Class<?> className = Class.forName(cellParams.get("state"));
         System.out.println("ClassName:  " + className.toString());
-        Constructor<?> constructor;
-        if (cellParams.size() == 0)
-        	 constructor = className.getConstructor(Map.class);           
-        else
-        	constructor = className.getConstructor(Map.class);       
+        Constructor<?> constructor = className.getConstructor(Map.class);       
 		System.out.println(constructor);
-		return (Cell) constructor.newInstance(cellParams);
+		return (Cell) constructor.newInstance(cellParams);	
 	}
-	
-
 }

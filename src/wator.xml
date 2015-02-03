@@ -2,7 +2,7 @@
 <simulation>
 	<initParam>
 		<simName>Wator</simName>
-		<author>Author</author>
+		<author>Callie</author>
 		<xRows>10</xRows>
 		<yCols>10</yCols>
 		<fps>1</fps>
@@ -16,8 +16,9 @@
 	    <cell state="EmptyCell" color="Cyan" />
 	    <!--  <cell state="SharkCell" color="Black">
 	        <loc>1 2 55 94 95 99</loc>
-	        <energy></energy>
-	    </cell>-->
+
+	        <energy></energy>-->
+
 	    <cell state="FishCell" color="Yellow">
 	        <loc>54</loc>
 	        <!-- <age></age>-->

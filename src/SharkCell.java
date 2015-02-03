@@ -17,14 +17,14 @@ public class SharkCell extends Cell implements ReproducingCell{
 		super();
 		myCurrAge = 0;
 		myCurrEnergy = myEnergy;
-		setFill(myColor);
+		getShape().setFill(myColor);
 		
 	}
 
 	public SharkCell(HashMap<String, String> params) {
 		super();
 		myColor = Color.valueOf(params.get("color"));
-		setFill(myColor);
+		getShape().setFill(myColor);
 		myAge = 0;
 		myEnergy = Integer.parseInt(params.get("fullEnergy"));
 	}

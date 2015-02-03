@@ -1,18 +1,34 @@
-
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 
-public class Cell extends Rectangle{
-	
-	private static Color myColor;
+public class Cell{
 	
 	// Get these from parsed XML data or from properties doc CELL_SIZE
 	//how to do it with parsed XML? Make a random cell instance in the beginning to set its width and height values?
-	private static int myWidth = 10;
-	private static int myHeight = 10;
+	private static double myWidth;
+	private static double myHeight;	
+	private Shape myShape;
 	
 	public Cell() {
-		super(myWidth, myHeight);
+		myShape = new Rectangle(myWidth, myHeight);
+	}
+	
+	protected Shape getShape(){
+		return myShape;
+	}
+	
+	protected double getWidth(){
+		return myWidth;
+	}
+	
+	protected double getHeight(){
+		return myHeight;
+	}
+	
+	public static void setCellSize(double width, double height) {
+		myWidth = width;
+		myHeight = height;
 	}
 }
 
