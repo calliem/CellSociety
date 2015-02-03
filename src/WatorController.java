@@ -152,8 +152,17 @@ public class WatorController extends CardinalSimController{
 		return null;
 	}
 
-	@Override
 	protected Cell newState(Cell cell, String hoodState) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Cell newState(Cell[][] newGrid, Cell cell, String hoodState,
+			int r, int c) throws InstantiationException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException,
+			SecurityException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
