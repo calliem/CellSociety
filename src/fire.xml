@@ -3,8 +3,8 @@
 	<initParam>
 		<simName>Fire</simName>
 		<author>Author</author>
-		<xRows>10</xRows>
-		<yCols>10</yCols>
+		<xRows>9</xRows>
+		<yCols>9</yCols>
 		<fps>1</fps>
 	</initParam>
 	<simParam>
