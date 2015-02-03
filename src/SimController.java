@@ -13,7 +13,8 @@ public abstract class SimController {
 				Cell curCell = grid[r][c];
 				ArrayList<Cell> neighbors = getNeighbors(grid, r, c);
 				String neighborsState = getNeighborsState(neighbors);
-				Cell newCell = newState(curCell, neighborsState);
+				Cell newCell = newState(newGrid, curCell, neighborsState, r, c);
+				//newState(grid)
 				newGrid[r][c] = newCell;
 			}
 		}
@@ -48,7 +49,25 @@ public abstract class SimController {
 	
 	protected  abstract String getNeighborsState(ArrayList<Cell> neighbors);
 
-	protected abstract Cell newState(Cell cell, String hoodState) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
+	protected abstract Cell newState(Cell[][] newGrid, Cell cell, String hoodState, int r, int c) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 
-	
+	protected boolean contains(ArrayList<Integer[]> updatedCoordinates,
+			Integer[] curCoordinates) {
+		int[] coords = new int[curCoordinates.length];
+		for(int i = 0; i < curCoordinates.length; i++){
+			coords[i] = curCoordinates[i];
+		}
+		for(int j = 0; j < updatedCoordinates.size(); j++){
+			int count = 0;
+			for(int k = 0; k < coords.length; k++){
+				if(coords[k] == updatedCoordinates.get(j)[k]){
+					count++;
+				}
+			}
+			if(count == coords.length){
+				return true;
+			}
+		}
+		return false;
+	}
 }	

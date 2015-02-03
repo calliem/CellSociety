@@ -7,6 +7,10 @@
 		<yCols>10</yCols>
 		<fps>3</fps>
 	</initParam>
+	<simParam>
+	    <stayOn>2</stayOn>
+	    <bornOn>3</bornOn>
+	</simParam>
 	<cellParam>    
 	    <cell state="EmptyCell" color="White" />
 	    <cell state="LiveCell" color="Black">

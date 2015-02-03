@@ -45,7 +45,7 @@ public class CellSocietyView {
     private static final Font TITLE_FONT = Font.font("Helvetica", FontWeight.NORMAL, 32);
 
 
-    public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+    public static final String DEFAULT_RESOURCE_PACKAGE = "";
 	public static final int GRID_SIZE = 500;
 
 	// using Reflection makes us have a ton of throw errors. Is that okay?

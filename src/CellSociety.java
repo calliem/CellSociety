@@ -25,11 +25,17 @@ public class CellSociety {
 	private Timeline myTimeline;
 	private Cell[][] myCells;
 
+	//Remove this
+	private int count = 0;
+	
+
+
 	public CellSociety(Stage s) throws ParserConfigurationException,
 			SAXException, IOException, InstantiationException,
 			IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, ClassNotFoundException,
 			NoSuchMethodException, SecurityException {
+
 		myParser = new XMLParser();
 		myView = new CellSocietyView(s);
 		configureListeners();
@@ -158,6 +164,8 @@ public class CellSociety {
 				| ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Count: "+ count);
+		count++;
 		myView.updateSimGrid(myCells);
 	}
 

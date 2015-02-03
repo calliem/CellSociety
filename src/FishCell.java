@@ -9,7 +9,7 @@ public class FishCell extends Cell implements ReproducingCell{
 
 	// private int reproductionAge; this should be passed into the controller
 
-	private static int myAge = 3;
+	private static int myReproducingAge = 3;
 	private int myCurrAge;
 	private Color myColor;
 
@@ -17,7 +17,8 @@ public class FishCell extends Cell implements ReproducingCell{
 		super();
 		myCurrAge = 0;
 
-		getShape().setFill(myColor);
+		//getShape().setFill(myColor);
+		getShape().setFill(Color.YELLOW);
 
 	}
 
@@ -30,19 +31,21 @@ public class FishCell extends Cell implements ReproducingCell{
 		//myCurrAge = 0;
 
 
-		getShape().setFill(myColor);
+		//getShape().setFill(myColor);
+		getShape().setFill(Color.YELLOW);
 		myCurrAge = 0;
 
 	}
 
 	public int getAge(){
-		return myAge;
+		return myReproducingAge;
 	}
 
 	//REFACTOR!!!! make ReproducingCell interactive
 	@Override
 	public Cell reproducingResult() {
-		if(myCurrAge == myAge){
+		if(myCurrAge == myReproducingAge){
+			myCurrAge = 0;
 			return new FishCell();
 		}
 		else{

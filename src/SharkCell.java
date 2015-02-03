@@ -2,38 +2,44 @@
 
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javafx.scene.paint.Color;
 
 public class SharkCell extends Cell implements ReproducingCell{
 	
-	private int myEnergy = 5;
-	private int myAge = 3;
+	private int myMaxEnergy = 2;
+	private int myReproducingAge = 3;
 	private int myCurrAge;
 	private int myCurrEnergy;
-	private static Color myColor;
+	//private static Color myColor;
+	private Color myColor;
 		
 	public SharkCell(){
 		super();
 		myCurrAge = 0;
-		myCurrEnergy = myEnergy;
-		getShape().setFill(myColor);
+		myCurrEnergy = myMaxEnergy;
+		//getShape().setFill(myColor);
+		getShape().setFill(Color.BLACK);
 		
 	}
 
-	public SharkCell(HashMap<String, String> params) {
+	public SharkCell(Map<String, String> params) {
 		super();
 		myColor = Color.valueOf(params.get("color"));
-		getShape().setFill(myColor);
-		myAge = 0;
-		myEnergy = Integer.parseInt(params.get("fullEnergy"));
+		//getShape().setFill(myColor);
+		getShape().setFill(Color.BLACK);
+		myCurrAge = 0;
+		myCurrEnergy = myMaxEnergy;
+		//myEnergy = Integer.parseInt(params.get("fullEnergy"));
 	}
 
 	
 	//REFACTOR!!!  make ReproducingCell abstract
 	@Override
 	public Cell reproducingResult() {
-		if(myCurrAge == myAge){
+		if(myCurrAge == myReproducingAge){
+			myCurrAge = 0;
 			return new SharkCell();
 		}
 		else{
@@ -57,5 +63,10 @@ public class SharkCell extends Cell implements ReproducingCell{
 	
 	public String toString(){
 		return "SharkCell";
+	}
+
+	public void replenishEnergy() {
+		myCurrEnergy = myMaxEnergy;
+		
 	}
 }
