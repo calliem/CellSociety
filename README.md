@@ -1,16 +1,6 @@
-
-
-
-1/23/15
-Spring 2015 # cellsociety
-
-
-
-hello qaqq
-
-
-
-
+cellsociety
+===========
 
 Empty repository for CellSociety project
 
+Names: Kevin Delgado, Callie Mao, Le Qi

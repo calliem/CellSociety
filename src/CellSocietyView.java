@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -24,9 +23,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-
 public class CellSocietyView {
-	
+
 	private Stage myStage;
 	private Scene myScene;
 	private Button myPlayButton;
@@ -42,51 +40,58 @@ public class CellSocietyView {
 	private GridPane mySimGrid;
     private ResourceBundle myResources;
 	
+    
+    private static final Font ERROR_FONT = Font.font("Arial", FontWeight.NORMAL, 12);
+    private static final Font TITLE_FONT = Font.font("Helvetica", FontWeight.NORMAL, 32);
+
+
+    public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	public static final int GRID_SIZE = 500;
-	
-	//using Reflection makes us have a ton of throw errors. Is that okay?
-	
-	public CellSocietyView(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
-		
+
+	// using Reflection makes us have a ton of throw errors. Is that okay?
+
+	public CellSocietyView(Stage s) throws ParserConfigurationException,
+			SAXException, IOException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, ClassNotFoundException,
+			NoSuchMethodException, SecurityException {
+
 		myRoot = new GridPane();
 		myStage = s;
-		myResources = ResourceBundle.getBundle("english");
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "english");
 		
 		initializeButtons();
+		disableInitialButtons();
 		generateGrid();
 		setBlankGrid();
 		configureUI();
-				
-		myScene = new Scene(myRoot);
-		myStage.setTitle("CellSociety");		
-		myStage.setScene(myScene);
-		myStage.show();
+		setupGameScene();
 	}
 
 	public Button getPlayElement() {
 		return this.myPlayButton;
 	}
-	
+
 	public Button getPauseElement() {
 		return this.myPauseButton;
 	}
-	
+
 	public Button getStepElement() {
 		return this.myStepButton;
 	}
-	
+
 	public Button getXMLElement() {
 		return this.myXMLButton;
 	}
-	
+
 	public Button getSpeedupElement() {
 		return this.mySpeedupButton;
 	}
-	
+
 	public Button getSlowdownElement() {
 		return this.mySlowdownButton;
 	}
-	
+
 	public void updateSimGrid(Cell[][] cellGrid) {
 		mySimGrid.getChildren().clear();
 		for (int i = 0; i < cellGrid.length; i++) {
@@ -94,19 +99,43 @@ public class CellSocietyView {
 				mySimGrid.add(cellGrid[i][j].getShape(), j, i);
 		}
 	}
-	
+
 	public void setErrorText() {
-		myErrorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+		myErrorMsg.setFont(ERROR_FONT);
 		myErrorMsg.setFill(Color.RED);
 		myErrorMsg.setText(myResources.getString("ErrorMessage"));
 	}
-	
+
 	public void setBlankGrid() {
 		mySimGrid.getChildren().clear();
 		Rectangle r = new Rectangle();
 		r.setWidth(GRID_SIZE);
 		r.setHeight(GRID_SIZE);
 		mySimGrid.add(r, 0, 0);
+	}
+
+	public void generateTitle(String s) {
+		Text title = new Text(s);
+		title.setFont(TITLE_FONT);
+		myTitleBox.getChildren().clear();
+		myTitleBox.getChildren().add(title);
+	}
+
+	/**
+	 * 
+	 */
+	public void displayFrameRate(int frameRate) {
+		mySpeedTextField.setText(frameRate + " "
+				+ myResources.getString("FramesLabel"));
+	}
+	
+	public File displayXMLChooser() {
+		// TODO Auto-generated method stub
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open XML File");
+		fileChooser.getExtensionFilters().add(
+				new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+		return fileChooser.showOpenDialog(myStage);
 	}
 	
 	private void configureUI() {
@@ -117,20 +146,20 @@ public class CellSocietyView {
 		myRoot.add(mySimGrid, 0, 1);
 		myRoot.add(makeSimulationButtons(), 0, 2);
 		myRoot.add(makeFrameControlButtons(), 0, 3);
-		myRoot.add(makeSpeed(), 0, 4);
+		myRoot.add(makeSpeedDisplay(), 0, 4);
 		myRoot.add(createErrorLocation(), 0, 5);
-	}
-	
-	public void generateTitle(String s) {
-        Text title = new Text(s);
-        title.setFont(Font.font("Helvetica", FontWeight.NORMAL, 32));
-		myTitleBox.getChildren().clear();
-		myTitleBox.getChildren().add(title);	
 	}
 	
 	/**
 	 * 
 	 */
+	private void setupGameScene() {
+		myScene = new Scene(myRoot);
+		myStage.setTitle(myResources.getString("Title"));
+		myStage.setScene(myScene);
+		myStage.show();
+	}
+	
 	private void initializeButtons() {
 		myPlayButton = new Button(myResources.getString("PlayCommand"));
 		myPauseButton = new Button(myResources.getString("PauseCommand"));
@@ -138,54 +167,51 @@ public class CellSocietyView {
 		myXMLButton = new Button(myResources.getString("XMLCommand"));
 		mySpeedupButton = new Button(myResources.getString("SpeedupCommand"));
 		mySlowdownButton = new Button(myResources.getString("SlowdownCommand"));
-		
+	}
+
+	/**
+	 * 
+	 */
+	private void disableInitialButtons() {
 		myPlayButton.setDisable(true);
 		myPauseButton.setDisable(true);
 		myStepButton.setDisable(true);
 		mySpeedupButton.setDisable(true);
 		mySlowdownButton.setDisable(true);
-		
 	}
 
-	public void displayFrameRate(int frameRate) {
-		mySpeedTextField.setText(frameRate + " " + myResources.getString("FramesLabel"));
-	}
-	
 	/**
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws ClassNotFoundException 
+	 * @throws InvocationTargetException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws SecurityException
+	 * @throws NoSuchMethodException
+	 * @throws ClassNotFoundException
 	 */
 	private void generateGrid() throws ParserConfigurationException,
-			SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
+			SAXException, IOException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, ClassNotFoundException,
+			NoSuchMethodException, SecurityException {
 		mySimGrid = new GridPane();
 		mySimGrid.setHgap(1);
 		mySimGrid.setVgap(1);
-        mySimGrid.setPadding(new Insets(0, 25, 5, 25));
-        mySimGrid.setAlignment(Pos.CENTER);
-        
-        //NOTE: the parser may not belong in this class, but this is an example of how the XMLParser
-        //will update the other classes. Unsure right now whether specifically searching for the
-        //string "yCols" is bad design, although we can ask when we meet with our TA
-    }
+		mySimGrid.setPadding(new Insets(0, 25, 5, 25));
+		mySimGrid.setAlignment(Pos.CENTER);
 
-	//param should be a map or a hashmap?
-		
+	}
 
 	/**
 	 * @return
 	 */
 	private HBox createTitle() {
-		myTitleBox = new HBox(10);		
+		myTitleBox = new HBox(10);
 		myTitleBox.setAlignment(Pos.CENTER);
-        myTitleBox.setPadding(new Insets(15, 25, 5, 25));
+		myTitleBox.setPadding(new Insets(15, 25, 5, 25));
 		generateTitle(myResources.getString("Title"));
 		return myTitleBox;
 	}
@@ -203,7 +229,7 @@ public class CellSocietyView {
 		topRow.setPadding(new Insets(0, 25, 5, 25));
 		return topRow;
 	}
-	
+
 	private HBox makeFrameControlButtons() {
 		HBox middleRow = new HBox(10);
 		middleRow.setAlignment(Pos.CENTER);
@@ -212,23 +238,24 @@ public class CellSocietyView {
 		middleRow.setPadding(new Insets(0, 25, 5, 25));
 		return middleRow;
 	}
-	
+
 	/**
 	 * @param speedLabel
 	 * @param speedText
 	 * @param middleRow
 	 */
-	private HBox makeSpeed() {
+	private HBox makeSpeedDisplay() {
 		HBox displayRow = new HBox(10);
-		Label speedLabel = new Label("Speed: ");
+		Label speedLabel = new Label(myResources.getString("SpeedLabel"));
 		mySpeedTextField = new TextField();
+		mySpeedTextField.setEditable(false);
 		displayRow.setAlignment(Pos.CENTER);
 		displayRow.getChildren().add(speedLabel);
 		displayRow.getChildren().add(mySpeedTextField);
 		displayRow.setPadding(new Insets(0, 25, 5, 25));
 		return displayRow;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -240,15 +267,23 @@ public class CellSocietyView {
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
 	}
-	
-	
 
-	public File displayXMLChooser() {
-		// TODO Auto-generated method stub
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open XML File");
-		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
-		return fileChooser.showOpenDialog(myStage);
+	public void changeResumeButtonPermissions() {
+		myPlayButton.setDisable(true);
+		myPauseButton.setDisable(false);
+		myStepButton.setDisable(true);
+		myXMLButton.setDisable(true);
+		mySpeedupButton.setDisable(true);
+		mySlowdownButton.setDisable(true);		
 	}
-		
+
+	public void changePauseButtonPermissions() {
+		myPlayButton.setDisable(false);
+		myPauseButton.setDisable(true);
+		myStepButton.setDisable(false);
+		myXMLButton.setDisable(false);
+		mySpeedupButton.setDisable(false);
+		mySlowdownButton.setDisable(false);		
+	}
+
 }
