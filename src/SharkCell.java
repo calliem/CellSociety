@@ -8,8 +8,8 @@ import javafx.scene.paint.Color;
 
 public class SharkCell extends Cell implements ReproducingCell{
 	
-	private int myEnergy = 4;
-	private int myAge = 3;
+	private int myMaxEnergy = 2;
+	private int myReproducingAge = 3;
 	private int myCurrAge;
 	private int myCurrEnergy;
 	//private static Color myColor;
@@ -18,7 +18,7 @@ public class SharkCell extends Cell implements ReproducingCell{
 	public SharkCell(){
 		super();
 		myCurrAge = 0;
-		myCurrEnergy = myEnergy;
+		myCurrEnergy = myMaxEnergy;
 		//getShape().setFill(myColor);
 		getShape().setFill(Color.BLACK);
 		
@@ -30,7 +30,7 @@ public class SharkCell extends Cell implements ReproducingCell{
 		//getShape().setFill(myColor);
 		getShape().setFill(Color.BLACK);
 		myCurrAge = 0;
-		myCurrEnergy = myEnergy;
+		myCurrEnergy = myMaxEnergy;
 		//myEnergy = Integer.parseInt(params.get("fullEnergy"));
 	}
 
@@ -38,7 +38,7 @@ public class SharkCell extends Cell implements ReproducingCell{
 	//REFACTOR!!!  make ReproducingCell abstract
 	@Override
 	public Cell reproducingResult() {
-		if(myCurrAge == myAge){
+		if(myCurrAge == myReproducingAge){
 			myCurrAge = 0;
 			return new SharkCell();
 		}
@@ -63,5 +63,10 @@ public class SharkCell extends Cell implements ReproducingCell{
 	
 	public String toString(){
 		return "SharkCell";
+	}
+
+	public void replenishEnergy() {
+		myCurrEnergy = myMaxEnergy;
+		
 	}
 }
