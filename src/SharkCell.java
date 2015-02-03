@@ -12,9 +12,7 @@ public class SharkCell extends Cell implements ReproducingCell{
 	private int myCurrAge;
 	private int myCurrEnergy;
 	private static Color myColor;
-	
-	//energyGained shoudl be a parameter passed from the XMLparser into the control
-	
+		
 	public SharkCell(){
 		super();
 		myCurrAge = 0;

@@ -1,5 +1,3 @@
-
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -25,9 +23,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-
 public class CellSocietyView {
-	
+
 	private Stage myStage;
 	private Scene myScene;
 	private Button myPlayButton;
@@ -45,11 +42,15 @@ public class CellSocietyView {
 	
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	public static final int GRID_SIZE = 500;
-	
-	//using Reflection makes us have a ton of throw errors. Is that okay?
-	
-	public CellSocietyView(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
-		
+
+	// using Reflection makes us have a ton of throw errors. Is that okay?
+
+	public CellSocietyView(Stage s) throws ParserConfigurationException,
+			SAXException, IOException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, ClassNotFoundException,
+			NoSuchMethodException, SecurityException {
+
 		myRoot = new GridPane();
 		myStage = s;
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "english");
@@ -58,9 +59,9 @@ public class CellSocietyView {
 		generateGrid();
 		setBlankGrid();
 		configureUI();
-				
+
 		myScene = new Scene(myRoot);
-		myStage.setTitle("CellSociety");		
+		myStage.setTitle("CellSociety");
 		myStage.setScene(myScene);
 		myStage.show();
 	}
@@ -68,27 +69,27 @@ public class CellSocietyView {
 	public Button getPlayElement() {
 		return this.myPlayButton;
 	}
-	
+
 	public Button getPauseElement() {
 		return this.myPauseButton;
 	}
-	
+
 	public Button getStepElement() {
 		return this.myStepButton;
 	}
-	
+
 	public Button getXMLElement() {
 		return this.myXMLButton;
 	}
-	
+
 	public Button getSpeedupElement() {
 		return this.mySpeedupButton;
 	}
-	
+
 	public Button getSlowdownElement() {
 		return this.mySlowdownButton;
 	}
-	
+
 	public void updateSimGrid(Cell[][] cellGrid) {
 		mySimGrid.getChildren().clear();
 		for (int i = 0; i < cellGrid.length; i++) {
@@ -96,13 +97,13 @@ public class CellSocietyView {
 				mySimGrid.add(cellGrid[i][j].getShape(), j, i);
 		}
 	}
-	
+
 	public void setErrorText() {
 		myErrorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
 		myErrorMsg.setFill(Color.RED);
 		myErrorMsg.setText(myResources.getString("ErrorMessage"));
 	}
-	
+
 	public void setBlankGrid() {
 		mySimGrid.getChildren().clear();
 		Rectangle r = new Rectangle();
@@ -110,7 +111,7 @@ public class CellSocietyView {
 		r.setHeight(GRID_SIZE);
 		mySimGrid.add(r, 0, 0);
 	}
-	
+
 	private void configureUI() {
 		myRoot.setAlignment(Pos.CENTER);
 		myRoot.setHgap(10);
@@ -122,14 +123,14 @@ public class CellSocietyView {
 		myRoot.add(makeSpeed(), 0, 4);
 		myRoot.add(createErrorLocation(), 0, 5);
 	}
-	
+
 	public void generateTitle(String s) {
-        Text title = new Text(s);
-        title.setFont(Font.font("Helvetica", FontWeight.NORMAL, 32));
+		Text title = new Text(s);
+		title.setFont(Font.font("Helvetica", FontWeight.NORMAL, 32));
 		myTitleBox.getChildren().clear();
-		myTitleBox.getChildren().add(title);	
+		myTitleBox.getChildren().add(title);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -140,54 +141,60 @@ public class CellSocietyView {
 		myXMLButton = new Button(myResources.getString("XMLCommand"));
 		mySpeedupButton = new Button(myResources.getString("SpeedupCommand"));
 		mySlowdownButton = new Button(myResources.getString("SlowdownCommand"));
-		
+
 		myPlayButton.setDisable(true);
 		myPauseButton.setDisable(true);
 		myStepButton.setDisable(true);
 		mySpeedupButton.setDisable(true);
 		mySlowdownButton.setDisable(true);
-		
+
 	}
 
 	public void displayFrameRate(int frameRate) {
-		mySpeedTextField.setText(frameRate + " " + myResources.getString("FramesLabel"));
+		mySpeedTextField.setText(frameRate + " "
+				+ myResources.getString("FramesLabel"));
 	}
-	
+
 	/**
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws ClassNotFoundException 
+	 * @throws InvocationTargetException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws SecurityException
+	 * @throws NoSuchMethodException
+	 * @throws ClassNotFoundException
 	 */
 	private void generateGrid() throws ParserConfigurationException,
-			SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
+			SAXException, IOException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, ClassNotFoundException,
+			NoSuchMethodException, SecurityException {
 		mySimGrid = new GridPane();
 		mySimGrid.setHgap(1);
 		mySimGrid.setVgap(1);
-        mySimGrid.setPadding(new Insets(0, 25, 5, 25));
-        mySimGrid.setAlignment(Pos.CENTER);
-        
-        //NOTE: the parser may not belong in this class, but this is an example of how the XMLParser
-        //will update the other classes. Unsure right now whether specifically searching for the
-        //string "yCols" is bad design, although we can ask when we meet with our TA
-    }
+		mySimGrid.setPadding(new Insets(0, 25, 5, 25));
+		mySimGrid.setAlignment(Pos.CENTER);
 
-	//param should be a map or a hashmap?
-		
+		// NOTE: the parser may not belong in this class, but this is an example
+		// of how the XMLParser
+		// will update the other classes. Unsure right now whether specifically
+		// searching for the
+		// string "yCols" is bad design, although we can ask when we meet with
+		// our TA
+	}
+
+	// param should be a map or a hashmap?
 
 	/**
 	 * @return
 	 */
 	private HBox createTitle() {
-		myTitleBox = new HBox(10);		
+		myTitleBox = new HBox(10);
 		myTitleBox.setAlignment(Pos.CENTER);
-        myTitleBox.setPadding(new Insets(15, 25, 5, 25));
+		myTitleBox.setPadding(new Insets(15, 25, 5, 25));
 		generateTitle(myResources.getString("Title"));
 		return myTitleBox;
 	}
@@ -205,7 +212,7 @@ public class CellSocietyView {
 		topRow.setPadding(new Insets(0, 25, 5, 25));
 		return topRow;
 	}
-	
+
 	private HBox makeFrameControlButtons() {
 		HBox middleRow = new HBox(10);
 		middleRow.setAlignment(Pos.CENTER);
@@ -214,7 +221,7 @@ public class CellSocietyView {
 		middleRow.setPadding(new Insets(0, 25, 5, 25));
 		return middleRow;
 	}
-	
+
 	/**
 	 * @param speedLabel
 	 * @param speedText
@@ -231,7 +238,7 @@ public class CellSocietyView {
 		displayRow.setPadding(new Insets(0, 25, 5, 25));
 		return displayRow;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -243,15 +250,14 @@ public class CellSocietyView {
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
 	}
-	
-	
 
 	public File displayXMLChooser() {
 		// TODO Auto-generated method stub
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open XML File");
-		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+		fileChooser.getExtensionFilters().add(
+				new FileChooser.ExtensionFilter("XML Files", "*.xml"));
 		return fileChooser.showOpenDialog(myStage);
 	}
-		
+
 }

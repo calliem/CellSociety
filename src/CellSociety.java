@@ -1,5 +1,3 @@
-
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -18,7 +16,7 @@ import javafx.animation.Timeline;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class CellSociety{
+public class CellSociety {
 
 	private CellSocietyView myView;
 	private XMLParser myParser;
@@ -26,16 +24,17 @@ public class CellSociety{
 	private SimController myController;
 	private Timeline myTimeline;
 	private Cell[][] myCells;
-	
-	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {		
+
+	public CellSociety(Stage s) throws ParserConfigurationException,
+			SAXException, IOException, InstantiationException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, ClassNotFoundException,
+			NoSuchMethodException, SecurityException {
 		myParser = new XMLParser();
 		myView = new CellSocietyView(s);
 		configureListeners();
 	}
 
-	/**
-	 * 
-	 */
 	private void setupAnimation() {
 		KeyFrame frame = start(myFrameRate);
 		myTimeline = new Timeline();
@@ -54,14 +53,22 @@ public class CellSociety{
 			NoSuchMethodException, InstantiationException,
 			IllegalAccessException, InvocationTargetException {
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
-		String className = myParser.getInitParamMap().get("simName") + "Controller";
+		String className = myParser.getInitParamMap().get("simName")
+				+ "Controller";
 		Class<?> currentClass = Class.forName(className);
 		System.out.println("class" + currentClass);
-		Constructor<?> constructor = currentClass.getConstructor(Map.class); //how to use reflection on a map?
+		Constructor<?> constructor = currentClass.getConstructor(Map.class); // how
+																				// to
+																				// use
+																				// reflection
+																				// on
+																				// a
+																				// map?
 		System.out.println(constructor);
-		myController = (SimController) constructor.newInstance(myParser.getSimParamMap());
+		myController = (SimController) constructor.newInstance(myParser
+				.getSimParamMap());
 	}
-	
+
 	private void configureListeners() throws IOException {
 		myView.getPlayElement().setOnMouseClicked(e -> resumeAnimation());
 		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
@@ -69,9 +76,10 @@ public class CellSociety{
 		myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
 		myView.getSpeedupElement().setOnMouseClicked(e -> increaseFrameRate());
 		myView.getSlowdownElement().setOnMouseClicked(e -> decreaseFrameRate());
-		myView.setErrorText(); // XML Parser should call this when file format incorrect.
+		myView.setErrorText(); // XML Parser should call this when file format
+								// incorrect.
 	}
-	
+
 	private KeyFrame start(int frameRate) {
 		return new KeyFrame(Duration.millis(1000 / frameRate),
 				e -> updateGrid());
@@ -83,7 +91,7 @@ public class CellSociety{
 		myTimeline.getKeyFrames().clear();
 		myTimeline.getKeyFrames().add(start(myFrameRate));
 	}
-	
+
 	private void decreaseFrameRate() {
 		if (myFrameRate > 1)
 			myFrameRate--;
@@ -91,10 +99,10 @@ public class CellSociety{
 		myTimeline.getKeyFrames().clear();
 		myTimeline.getKeyFrames().add(start(myFrameRate));
 	}
-	
+
 	// May be in a SimController subclass
 	private void updateGrid() {
-		
+
 		try {
 			myCells = myController.runOneSim(myCells);
 		} catch (InstantiationException | IllegalAccessException
@@ -106,18 +114,18 @@ public class CellSociety{
 		}
 		myView.updateSimGrid(myCells);
 	}
-		
+
 	private void resumeAnimation() {
-		myView.getPlayElement().setDisable(true);		
-		myView.getPauseElement().setDisable(false);		
-		myView.getStepElement().setDisable(true);		
+		myView.getPlayElement().setDisable(true);
+		myView.getPauseElement().setDisable(false);
+		myView.getStepElement().setDisable(true);
 		myView.getXMLElement().setDisable(true);
 		myView.getSpeedupElement().setDisable(true);
 		myView.getSlowdownElement().setDisable(true);
 		myTimeline.play();
-		
+
 	}
-	
+
 	private void pauseAnimation() {
 		myView.getPlayElement().setDisable(false);
 		myView.getPauseElement().setDisable(true);
@@ -129,11 +137,10 @@ public class CellSociety{
 	}
 
 	private void readNewXML() {
-		
-		File newFile = myView.displayXMLChooser(); 
+
+		File newFile = myView.displayXMLChooser();
 		try {
 			myParser.parseXMLFile(newFile);
-			System.out.println(newFile.toString());
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -146,8 +153,13 @@ public class CellSociety{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Cell.setCellSize(CellSocietyView.GRID_SIZE / Integer.parseInt(myParser.getInitParamMap().get("xRows")),
-				CellSocietyView.GRID_SIZE / Integer.parseInt(myParser.getInitParamMap().get("yCols")));
+		Cell.setCellSize(
+				CellSocietyView.GRID_SIZE
+						/ Integer.parseInt(myParser.getInitParamMap().get(
+								"xRows")),
+				CellSocietyView.GRID_SIZE
+						/ Integer.parseInt(myParser.getInitParamMap().get(
+								"yCols")));
 		try {
 			myCells = createCellArray();
 		} catch (InstantiationException | IllegalAccessException
@@ -163,65 +175,72 @@ public class CellSociety{
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		myView.displayFrameRate(myFrameRate);
 	}
-	
-	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
+
+	public Cell[][] createCellArray() throws InstantiationException,
+			IllegalAccessException, IllegalArgumentException,
+			ClassNotFoundException, NoSuchMethodException, SecurityException,
+			InvocationTargetException {
 		Map<String, String> map = myParser.getInitParamMap();
-		
+
 		int numCols = Integer.parseInt(map.get("yCols"));
 		int numRows = Integer.parseInt(map.get("xRows"));
-		
+
 		myCells = new Cell[numRows][numCols];
-		
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
-	
-		//instantiates cells for all states except for the first one (which will be automatically done below)
-		for (int i = 1; i < cellStates.size(); i ++){
+
+		// instantiates cells for all states except for the first one (which
+		// will be automatically done below)
+		for (int i = 1; i < cellStates.size(); i++) {
 			HashMap<String, String> cellParams = cellStates.get(i);
-			for (String string: cellParams.keySet()){
-			//	Color color = Color.valueOf(cellParams.get("color"));
+			for (String string : cellParams.keySet()) {
 				int[] locations = stringToIntArray(cellParams.get("loc"));
-				for (int j = 0; j < locations.length; j++){ 
+				for (int j = 0; j < locations.length; j++) {
 					int row = locations[j] / numCols;
 					int col = locations[j] % numCols;
-					Cell cell = createCellInstance(cellParams); 
+					Cell cell = createCellInstance(cellParams);
 					myCells[row][col] = cell;
 				}
 			}
 		}
-		//sets all remaining cells
+				
+		// sets all remaining cells (1st cell tag from the XML file)
+		for (int x = 0; x < numRows; x++) {
+			for (int y = 0; y < numCols; y++) {
+				if (myCells[x][y] == null) {
 
-		for (int x = 0; x < numRows; x ++){
-			for (int y = 0; y < numCols; y++){
-				if (myCells[x][y] == null){
-
-					HashMap<String, String> remainingCellParams = cellStates.get(0);
-					myCells[x][y] = createCellInstance(remainingCellParams); 
+					HashMap<String, String> remainingCellParams = cellStates
+							.get(0);
+					myCells[x][y] = createCellInstance(remainingCellParams);
 				}
 			}
 		}
 		return myCells;
 	}
-	
-	private int[] stringToIntArray(String string){
+
+	private int[] stringToIntArray(String string) {
 		String[] split = string.split(" ");
-		for (String s: split){
+		for (String s : split) {
 			System.out.println(s);
 		}
-	    int[] intArray = new int[split.length];
-	  //checks to ensure that it is not the first location parameter passed in from the XML document (it is empty and will be made automatically)
-	    if (!string.equals("")){ 
-	    	for (int i = 0; i < split.length; i++) {
-	    		intArray[i] = Integer.parseInt(split[i]);
-	    	}
-	    }
-	    return intArray;	
+		int[] intArray = new int[split.length];
+		// checks to ensure that it is not the first location parameter passed
+		// in from the XML document (it is empty and will be made automatically)
+		if (!string.equals("")) {
+			for (int i = 0; i < split.length; i++) {
+				intArray[i] = Integer.parseInt(split[i]);
+			}
+		}
+		return intArray;
 	}
-	
-	public Cell createCellInstance(Map<String, String> cellParams) throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
+
+	public Cell createCellInstance(Map<String, String> cellParams)
+			throws InstantiationException, IllegalAccessException,
+			IllegalArgumentException, ClassNotFoundException,
+			NoSuchMethodException, SecurityException, InvocationTargetException {
 		Class<?> className = Class.forName(cellParams.get("state"));
-        System.out.println("ClassName:  " + className.toString());
-        Constructor<?> constructor = className.getConstructor(Map.class);       
+		System.out.println("ClassName:  " + className.toString());
+		Constructor<?> constructor = className.getConstructor(Map.class);
 		System.out.println(constructor);
-		return (Cell) constructor.newInstance(cellParams);	
+		return (Cell) constructor.newInstance(cellParams);
 	}
 }
