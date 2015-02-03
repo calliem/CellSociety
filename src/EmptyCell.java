@@ -4,22 +4,19 @@ import java.util.Map;
 
 import javafx.scene.paint.Color;
 
-
 public class EmptyCell extends Cell{
 	
-	private Color myColor;
+	private static Color myColor;
 	
 	public EmptyCell() {
 		super();
-		//getShape().setFill(myColor);
-		//above setfill should be removed
+		getShape().setFill(myColor);
 	}
 	//add on map parameter
 	public EmptyCell(Map<String, String> params) {
 		super();
-		//myColor = Color.valueOf(params.get("color"));
-		Color color = Color.valueOf(params.get("color"));
-		getShape().setFill(color);
+		myColor = Color.valueOf(params.get("color"));
+		getShape().setFill(myColor);
 	}
 	
 	//for debugging 

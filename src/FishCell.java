@@ -14,13 +14,13 @@ public class FishCell extends Cell implements ReproducingCell{
 	public FishCell(){
 		super();
 		myCurrAge = 0;
-		setFill(myColor);
+		getShape().setFill(myColor);
 	}
 
 	public FishCell(Map<String, String> params) {
 		super();
 		myColor = Color.valueOf(params.get("color"));
-		setFill(myColor);
+		getShape().setFill(myColor);
 		myAge = 0;
 	}
 

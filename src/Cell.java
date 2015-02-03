@@ -7,23 +7,22 @@ public class Cell{
 	// Get these from parsed XML data or from properties doc CELL_SIZE
 	//how to do it with parsed XML? Make a random cell instance in the beginning to set its width and height values?
 	private static double myWidth;
-	private static double myHeight;
-	
+	private static double myHeight;	
 	private Shape myShape;
 	
 	public Cell() {
-		Shape myShape = new Rectangle(myWidth, myHeight);
+		myShape = new Rectangle(myWidth, myHeight);
 	}
 	
 	protected Shape getShape(){
 		return myShape;
 	}
 	
-	protected int getWidth(){
+	protected double getWidth(){
 		return myWidth;
 	}
 	
-	protected int getHeight(){
+	protected double getHeight(){
 		return myHeight;
 	}
 	
