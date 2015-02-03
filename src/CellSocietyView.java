@@ -45,7 +45,7 @@ public class CellSocietyView {
 	private int myNumRows;
 	private int myNumCols;
 	
-	private static final int GRID_SIZE = 500;
+	public static final int GRID_SIZE = 500;
 	
 	//using Reflection makes us have a ton of throw errors. Is that okay?
 	

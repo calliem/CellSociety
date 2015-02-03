@@ -59,7 +59,6 @@ public class CellSociety{
 		Constructor<?> constructor = currentClass.getConstructor(Map.class); //how to use reflection on a map?
 		System.out.println(constructor);
 		myController = (SimController) constructor.newInstance(myParser.getSimParamMap());
-		myInitCellArray = createCellArray();
 	}
 	
 	private void configureListeners() throws IOException {
@@ -118,6 +117,17 @@ public class CellSociety{
 			retrieveParserInfo();
 		} catch (ClassNotFoundException | NoSuchMethodException
 				| InstantiationException | IllegalAccessException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Cell.setCellSize(CellSocietyView.GRID_SIZE / Integer.parseInt(myParser.getInitParamMap().get("xRows")),
+				CellSocietyView.GRID_SIZE / Integer.parseInt(myParser.getInitParamMap().get("yCols")));
+		try {
+			myInitCellArray = createCellArray();
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | ClassNotFoundException
+				| NoSuchMethodException | SecurityException
 				| InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
