@@ -22,6 +22,4 @@ public class RedCell extends Cell{
 	public String toString(){
 		return "RedCell";
 	}
-		
-
 }

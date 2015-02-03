@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -24,10 +25,13 @@ public class CellSociety{
 	private SimController myController;
 	private Timeline myTimeline;
 	private Cell[][] myInitCellArray;
+    private ResourceBundle myResources;
+	private static final String DEFAULT_RESOURCE_PACKAGE = "/constants.properties";
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {		
 		myParser = new XMLParser();
 		myView = new CellSocietyView(s, myFrameRate);
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		configureListeners();
 	}
 

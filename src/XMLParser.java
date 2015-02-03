@@ -50,17 +50,6 @@ public class XMLParser {
      			case "simParam":
      				NodeList simParamList = node.getChildNodes();
      				mySimParam = makeParamMap(simParamList);
-     				
-     				//for debugging purposes
-     				/*
-     				System.out.println("print paramMap ============================");
-     				System.out.println("print paramMap ============================");
-     				for (String string : mySimParam.keySet()){
-     					System.out.print(string + ": ");
-     					System.out.println(mySimParam.get(string));
-     				}		
-     				System.out.println("print paramMap ============================");
-     				break;*/
             	}
              }
 		}
@@ -75,22 +64,13 @@ public class XMLParser {
 				String content = node.getTextContent();
 				paramMap.put(paramName,content);
 			}
-			//for future extensions, if any.
-		/*	if (node.hasChildNodes()){
-				NodeList nodeList = node.getChildNodes();
-				for (int i = 0; i < nodeList.getLength(); i++){
-					Node subNode = nodeList.item(i);
-					if (subNode instanceof Element)
-						System.out.println("hi"); 
-				}
-			}*/
 		}
    
 		return paramMap;
 	}
 	
 	private List<HashMap<String, String>> makeCellParamList(NodeList paramList){
-		List<HashMap<String, String>> cellStates = new ArrayList<HashMap<String, String>>(); //is there any way to do map = hashmap inside of the arraylist?
+		List<HashMap<String, String>> cellStates = new ArrayList<HashMap<String, String>>();
 
 		//for each cell
 		for (int j = 0; j < paramList.getLength(); j++) {
@@ -109,7 +89,6 @@ public class XMLParser {
 				for (int i = 0; i < nodelist.getLength(); i++){
 					Node node2 = nodelist.item(i);
 					if (node2 instanceof Element){
-				//		System.out.println("lowerlevel: " + node2.getNodeName() + node2.getTextContent());
 						cellParamMap.put(node2.getNodeName(), node2.getTextContent());
 					}
 				}
@@ -117,16 +96,6 @@ public class XMLParser {
 			cellStates.add(cellParamMap);
 			}
 		}
-		
-		//for testing
-	/*	System.out.println(cellStates.size());
-		System.out.println("print cellStateList");
-		for (int i = 0; i < cellStates.size(); i ++){
-			for (String string: cellStates.get(i).keySet()){
-				System.out.println(i + " " + string + " " + cellStates.get(i));
-			System.out.println("----------");
-			}
-		}*/
 		return cellStates;
 	}
 		
