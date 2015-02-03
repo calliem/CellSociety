@@ -2,7 +2,7 @@
 <simulation>
 	<initParam>
 		<simName>Fire</simName>
-		<author>Author</author>
+		<author>Callie</author>
 		<xRows>9</xRows>
 		<yCols>9</yCols>
 		<fps>1</fps>
@@ -10,14 +10,12 @@
 	<simParam>
 	    <probCatch>50</probCatch>
 	</simParam>
-	<cellParam>    
-			
+	<cellParam>    		
 	    <cell state="TreeCell" color="Black">
 	        <loc></loc>
 	    </cell>
 	    <cell state="FireCell" color="Orange">
 	        <loc>55</loc>
 	    </cell>
-	     
   </cellParam>
 </simulation>

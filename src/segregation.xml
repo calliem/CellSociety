@@ -2,7 +2,7 @@
 <simulation>
 	<initParam>
 		<simName>Segregation</simName>
-		<author>Author</author>
+		<author>Callie</author>
 		<xRows>10</xRows>
 		<yCols>10</yCols>
 		<fps>3</fps>
