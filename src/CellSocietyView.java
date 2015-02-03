@@ -32,6 +32,8 @@ public class CellSocietyView {
 	private Button myPauseButton;
 	private Button myStepButton;
 	private Button myXMLButton;
+	private Button mySpeedupButton;
+	private Button mySlowdownButton;
 	private TextField mySpeedTextField;
 	private Text myErrorMsg;
 	private HBox myTitleBox;
@@ -76,6 +78,14 @@ public class CellSocietyView {
 		return this.myXMLButton;
 	}
 	
+	public Button getSpeedupElement() {
+		return this.mySpeedupButton;
+	}
+	
+	public Button getSlowdownElement() {
+		return this.mySlowdownButton;
+	}
+	
 	public void updateSimGrid(Cell[][] cellGrid) {
 		mySimGrid.getChildren().clear();
 		for (int i = 0; i < cellGrid.length; i++) {
@@ -104,9 +114,10 @@ public class CellSocietyView {
 		myRoot.setVgap(10);
 		myRoot.add(createTitle(), 0, 0);
 		myRoot.add(mySimGrid, 0, 1);
-		myRoot.add(makeButtons(), 0, 2);
-		myRoot.add(makeSpeed(), 0, 3);
-		myRoot.add(createErrorLocation(), 0, 4);
+		myRoot.add(makeSimulationButtons(), 0, 2);
+		myRoot.add(makeFrameControlButtons(), 0, 3);
+		myRoot.add(makeSpeed(), 0, 4);
+		myRoot.add(createErrorLocation(), 0, 5);
 	}
 	
 	public void generateTitle(String s) {
@@ -124,10 +135,15 @@ public class CellSocietyView {
 		myPauseButton = new Button(myResources.getString("PauseCommand"));
 		myStepButton = new Button(myResources.getString("StepCommand"));
 		myXMLButton = new Button(myResources.getString("XMLCommand"));
+		mySpeedupButton = new Button(myResources.getString("SpeedupCommand"));
+		mySlowdownButton = new Button(myResources.getString("SlowdownCommand"));
 		
 		myPlayButton.setDisable(true);
 		myPauseButton.setDisable(true);
 		myStepButton.setDisable(true);
+		mySpeedupButton.setDisable(true);
+		mySlowdownButton.setDisable(true);
+		
 	}
 
 	public void displayFrameRate(int frameRate) {
@@ -176,7 +192,7 @@ public class CellSocietyView {
 	/**
 	 * @param topRow
 	 */
-	private HBox makeButtons() {
+	private HBox makeSimulationButtons() {
 		HBox topRow = new HBox(10);
 		topRow.setAlignment(Pos.CENTER);
 		topRow.getChildren().add(myPlayButton);
@@ -187,20 +203,29 @@ public class CellSocietyView {
 		return topRow;
 	}
 	
+	private HBox makeFrameControlButtons() {
+		HBox middleRow = new HBox(10);
+		middleRow.setAlignment(Pos.CENTER);
+		middleRow.getChildren().add(mySpeedupButton);
+		middleRow.getChildren().add(mySlowdownButton);
+		middleRow.setPadding(new Insets(0, 25, 5, 25));
+		return middleRow;
+	}
+	
 	/**
 	 * @param speedLabel
 	 * @param speedText
 	 * @param middleRow
 	 */
 	private HBox makeSpeed() {
-		HBox middleRow = new HBox(10);
+		HBox displayRow = new HBox(10);
 		Label speedLabel = new Label("Speed: ");
 		mySpeedTextField = new TextField();
-		middleRow.setAlignment(Pos.CENTER);
-		middleRow.getChildren().add(speedLabel);
-		middleRow.getChildren().add(mySpeedTextField);
-		middleRow.setPadding(new Insets(0, 25, 5, 25));
-		return middleRow;
+		displayRow.setAlignment(Pos.CENTER);
+		displayRow.getChildren().add(speedLabel);
+		displayRow.getChildren().add(mySpeedTextField);
+		displayRow.setPadding(new Insets(0, 25, 5, 25));
+		return displayRow;
 	}
 	
 	/**

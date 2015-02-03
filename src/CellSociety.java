@@ -65,6 +65,9 @@ public class CellSociety{
 		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
 		myView.getStepElement().setOnMouseClicked(e -> updateGrid());
 		myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
+		myView.getSpeedupElement().setOnMouseClicked(e -> increaseFrameRate());
+		myView.getSlowdownElement().setOnMouseClicked(e -> decreaseFrameRate());
+		
 		myView.setErrorText(); // XML Parser should call this when file format incorrect.
 	}
 	
@@ -73,6 +76,21 @@ public class CellSociety{
 				e -> updateGrid());
 	}
 
+	private void increaseFrameRate() {
+		myFrameRate++;
+		myView.displayFrameRate(myFrameRate);
+		myTimeline.getKeyFrames().clear();
+		myTimeline.getKeyFrames().add(start(myFrameRate));
+	}
+	
+	private void decreaseFrameRate() {
+		if (myFrameRate > 1)
+			myFrameRate--;
+		myView.displayFrameRate(myFrameRate);
+		myTimeline.getKeyFrames().clear();
+		myTimeline.getKeyFrames().add(start(myFrameRate));
+	}
+	
 	// May be in a SimController subclass
 	private void updateGrid() {
 		
@@ -93,6 +111,8 @@ public class CellSociety{
 		myView.getPauseElement().setDisable(false);		// ideally abstracted to view later
 		myView.getStepElement().setDisable(true);		// ideally abstracted to view later
 		myView.getXMLElement().setDisable(true);
+		myView.getSpeedupElement().setDisable(true);
+		myView.getSlowdownElement().setDisable(true);
 		myTimeline.play();
 		
 	}
@@ -102,7 +122,9 @@ public class CellSociety{
 		myView.getPauseElement().setDisable(true);		// ideally abstracted to view later
 		myView.getStepElement().setDisable(false);		// ideally abstracted to view later
 		myView.getXMLElement().setDisable(false);
-		myTimeline.pause();
+		myView.getSpeedupElement().setDisable(false);
+		myView.getSlowdownElement().setDisable(false);
+		myTimeline.stop();
 	}
 
 	private void readNewXML() {
