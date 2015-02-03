@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -23,7 +24,7 @@ public class CellSociety{
 	private int myFrameRate;
 	private SimController myController;
 	private Timeline myTimeline;
-	private Cell[][] myInitCellArray;
+	private Cell[][] myCells;
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {		
 		myParser = new XMLParser();
@@ -35,7 +36,7 @@ public class CellSociety{
 	 * 
 	 */
 	private void setupAnimation() {
-		KeyFrame frame = start(myFrameRate); //should this be from the parser?
+		KeyFrame frame = start(myFrameRate);
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
 		myTimeline.getKeyFrames().add(frame);
@@ -67,11 +68,10 @@ public class CellSociety{
 		myView.getXMLElement().setOnMouseClicked(e -> readNewXML());
 		myView.getSpeedupElement().setOnMouseClicked(e -> increaseFrameRate());
 		myView.getSlowdownElement().setOnMouseClicked(e -> decreaseFrameRate());
-		
 		myView.setErrorText(); // XML Parser should call this when file format incorrect.
 	}
 	
-	public KeyFrame start(int frameRate) {
+	private KeyFrame start(int frameRate) {
 		return new KeyFrame(Duration.millis(1000 / frameRate),
 				e -> updateGrid());
 	}
@@ -95,7 +95,7 @@ public class CellSociety{
 	private void updateGrid() {
 		
 		try {
-			myInitCellArray = myController.runOneSim(myInitCellArray);
+			myCells = myController.runOneSim(myCells);
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException
@@ -103,13 +103,13 @@ public class CellSociety{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		myView.updateSimGrid(myInitCellArray);
+		myView.updateSimGrid(myCells);
 	}
 		
 	private void resumeAnimation() {
-		myView.getPlayElement().setDisable(true);		// ideally abstracted to view later
-		myView.getPauseElement().setDisable(false);		// ideally abstracted to view later
-		myView.getStepElement().setDisable(true);		// ideally abstracted to view later
+		myView.getPlayElement().setDisable(true);		
+		myView.getPauseElement().setDisable(false);		
+		myView.getStepElement().setDisable(true);		
 		myView.getXMLElement().setDisable(true);
 		myView.getSpeedupElement().setDisable(true);
 		myView.getSlowdownElement().setDisable(true);
@@ -118,9 +118,9 @@ public class CellSociety{
 	}
 	
 	private void pauseAnimation() {
-		myView.getPlayElement().setDisable(false);		// ideally abstracted to view later
-		myView.getPauseElement().setDisable(true);		// ideally abstracted to view later
-		myView.getStepElement().setDisable(false);		// ideally abstracted to view later
+		myView.getPlayElement().setDisable(false);
+		myView.getPauseElement().setDisable(true);
+		myView.getStepElement().setDisable(false);
 		myView.getXMLElement().setDisable(false);
 		myView.getSpeedupElement().setDisable(false);
 		myView.getSlowdownElement().setDisable(false);
@@ -148,7 +148,7 @@ public class CellSociety{
 		Cell.setCellSize(CellSocietyView.GRID_SIZE / Integer.parseInt(myParser.getInitParamMap().get("xRows")),
 				CellSocietyView.GRID_SIZE / Integer.parseInt(myParser.getInitParamMap().get("yCols")));
 		try {
-			myInitCellArray = createCellArray();
+			myCells = createCellArray();
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException | ClassNotFoundException
 				| NoSuchMethodException | SecurityException
@@ -157,7 +157,7 @@ public class CellSociety{
 			e.printStackTrace();
 		}
 		setupAnimation();
-		myView.updateSimGrid(myInitCellArray);
+		myView.updateSimGrid(myCells);
 		pauseAnimation();
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		myView.displayFrameRate(myFrameRate);
@@ -169,7 +169,7 @@ public class CellSociety{
 		int numCols = Integer.parseInt(map.get("yCols"));
 		int numRows = Integer.parseInt(map.get("xRows"));
 		
-		myInitCellArray = new Cell[numRows][numCols];
+		myCells = new Cell[numRows][numCols];
 		
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
 	
@@ -183,7 +183,7 @@ public class CellSociety{
 					int row = locations[j] / numCols;
 					int col = locations[j] % numCols;
 					Cell cell = createCellInstance(cellParams); 
-					myInitCellArray[row][col] = cell;
+					myCells[row][col] = cell;
 				}
 			}
 		}
@@ -191,14 +191,14 @@ public class CellSociety{
 
 		for (int x = 0; x < numRows; x ++){
 			for (int y = 0; y < numCols; y++){
-				if (myInitCellArray[x][y] == null){
+				if (myCells[x][y] == null){
 
 					HashMap<String, String> remainingCellParams = cellStates.get(0);
-					myInitCellArray[x][y] = createCellInstance(remainingCellParams); 
+					myCells[x][y] = createCellInstance(remainingCellParams); 
 				}
 			}
 		}
-		return myInitCellArray;
+		return myCells;
 	}
 	
 	private int[] stringToIntArray(String string){
