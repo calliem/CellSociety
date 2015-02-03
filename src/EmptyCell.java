@@ -7,15 +7,19 @@ import javafx.scene.paint.Color;
 
 public class EmptyCell extends Cell{
 	
+	private Color myColor;
+	
 	public EmptyCell() {
 		super();
-		setFill(Color.WHITE);
+		//getShape().setFill(myColor);
 		//above setfill should be removed
 	}
 	//add on map parameter
 	public EmptyCell(Map<String, String> params) {
 		super();
-		setFill(Color.valueOf(params.get("color")));
+		//myColor = Color.valueOf(params.get("color"));
+		Color color = Color.valueOf(params.get("color"));
+		getShape().setFill(color);
 	}
 	
 	//for debugging 

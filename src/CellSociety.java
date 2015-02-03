@@ -25,8 +25,7 @@ public class CellSociety{
 	private Timeline myTimeline;
 	private Cell[][] myInitCellArray;
 	
-	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {
-		
+	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {		
 		myParser = new XMLParser();
 		myView = new CellSocietyView(s, myFrameRate);
 		configureListeners();
@@ -155,10 +154,6 @@ public class CellSociety{
 					Cell cell = createCellInstance(cellParams); //this is probably wrong because it creates the instance with the same color multiple times
 					myInitCellArray[row][col] = cell;
 				}
-
-			
-			//	System.out.println(i + " " + string + " " + cellStates.get(i));
-		//	System.out.println("----------");
 			}
 		}
 		//sets all remaining cells
@@ -170,7 +165,6 @@ public class CellSociety{
 					HashMap<String, String> remainingCellParams = cellStates.get(0);
 			//		Color remainingColor = Color.valueOf(remainingCellParams.get("color"));
 			//		String remainingState = remainingCellParams.get("state");
-
 					
 					myInitCellArray[x][y] = createCellInstance(remainingCellParams); //this cellParams hashmap needs to be fixed
 				}
@@ -206,9 +200,6 @@ public class CellSociety{
         System.out.println("ClassName:  " + className.toString());
         Constructor<?> constructor = className.getConstructor(Map.class);       
 		System.out.println(constructor);
-		return (Cell) constructor.newInstance(cellParams);
-		
+		return (Cell) constructor.newInstance(cellParams);	
 	}
-	
-
 }

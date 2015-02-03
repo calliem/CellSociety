@@ -89,7 +89,7 @@ public class CellSocietyView {
 		mySimGrid.getChildren().clear();
 		for (int i = 0; i < cellGrid.length; i++) {
 			for (int j = 0; j < cellGrid[0].length; j++)
-				mySimGrid.add(cellGrid[i][j], j, i);
+				mySimGrid.add(cellGrid[i][j].getShape(), j, i);
 		}
 	}
 	
