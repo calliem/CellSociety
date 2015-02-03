@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simulation>
+	<initParam>
+		<simName>Fire</simName>
+		<author>Author</author>
+		<xRows>9</xRows>
+		<yCols>9</yCols>
+		<fps>20</fps>
+	</initParam>
+	<simParam>
+	    <probCatch>50</probCatch>
+	</simParam>
+	<cellParam>    
+			
+	    <cell state="TreeCell" color="Black">
+	        <loc></loc>
+	    </cell>
+	    <cell state="FireCell" color="Orange">
+	        <loc>55</loc>
+	    </cell>
+	     
+  </cellParam>
+</simulation>

@@ -1,4 +1,5 @@
 
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -42,6 +43,7 @@ public class CellSocietyView {
 	private GridPane mySimGrid;
     private ResourceBundle myResources;
 	
+    public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	public static final int GRID_SIZE = 500;
 	
 	//using Reflection makes us have a ton of throw errors. Is that okay?
@@ -50,7 +52,7 @@ public class CellSocietyView {
 		
 		myRoot = new GridPane();
 		myStage = s;
-		myResources = ResourceBundle.getBundle("english");
+		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "english");
 		
 		initializeButtons();
 		generateGrid();

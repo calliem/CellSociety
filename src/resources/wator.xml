@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simulation>
+	<initParam>
+		<simName>Wator</simName>
+		<author>Callie</author>
+		<xRows>10</xRows>
+		<yCols>10</yCols>
+		<fps>1</fps>
+	</initParam>
+	<!--  
+	<simParam>
+	    <>50</>
+	</simParam>
+	-->
+	<cellParam>    
+	    <cell state="EmptyCell" color="Cyan" />
+	    <!--  <cell state="SharkCell" color="Black">
+	        <loc>1 2 55 94 95 99</loc>
+
+	        <energy></energy>-->
+
+	    <cell state="FishCell" color="Yellow">
+	        <loc>54</loc>
+	        <!-- <age></age>-->
+	    </cell>
+  </cellParam>
+</simulation>
+	  
+	    
+ 
