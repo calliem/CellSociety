@@ -40,6 +40,11 @@ public class CellSocietyView {
 	private GridPane mySimGrid;
     private ResourceBundle myResources;
 	
+    
+    private static final Font ERROR_FONT = Font.font("Arial", FontWeight.NORMAL, 12);
+    private static final Font TITLE_FONT = Font.font("Helvetica", FontWeight.NORMAL, 32);
+
+
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	public static final int GRID_SIZE = 500;
 
@@ -56,14 +61,11 @@ public class CellSocietyView {
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "english");
 		
 		initializeButtons();
+		disableInitialButtons();
 		generateGrid();
 		setBlankGrid();
 		configureUI();
-
-		myScene = new Scene(myRoot);
-		myStage.setTitle("CellSociety");
-		myStage.setScene(myScene);
-		myStage.show();
+		setupGameScene();
 	}
 
 	public Button getPlayElement() {
@@ -99,7 +101,7 @@ public class CellSocietyView {
 	}
 
 	public void setErrorText() {
-		myErrorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+		myErrorMsg.setFont(ERROR_FONT);
 		myErrorMsg.setFill(Color.RED);
 		myErrorMsg.setText(myResources.getString("ErrorMessage"));
 	}
@@ -112,6 +114,30 @@ public class CellSocietyView {
 		mySimGrid.add(r, 0, 0);
 	}
 
+	public void generateTitle(String s) {
+		Text title = new Text(s);
+		title.setFont(TITLE_FONT);
+		myTitleBox.getChildren().clear();
+		myTitleBox.getChildren().add(title);
+	}
+
+	/**
+	 * 
+	 */
+	public void displayFrameRate(int frameRate) {
+		mySpeedTextField.setText(frameRate + " "
+				+ myResources.getString("FramesLabel"));
+	}
+	
+	public File displayXMLChooser() {
+		// TODO Auto-generated method stub
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open XML File");
+		fileChooser.getExtensionFilters().add(
+				new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+		return fileChooser.showOpenDialog(myStage);
+	}
+	
 	private void configureUI() {
 		myRoot.setAlignment(Pos.CENTER);
 		myRoot.setHgap(10);
@@ -120,20 +146,20 @@ public class CellSocietyView {
 		myRoot.add(mySimGrid, 0, 1);
 		myRoot.add(makeSimulationButtons(), 0, 2);
 		myRoot.add(makeFrameControlButtons(), 0, 3);
-		myRoot.add(makeSpeed(), 0, 4);
+		myRoot.add(makeSpeedDisplay(), 0, 4);
 		myRoot.add(createErrorLocation(), 0, 5);
 	}
-
-	public void generateTitle(String s) {
-		Text title = new Text(s);
-		title.setFont(Font.font("Helvetica", FontWeight.NORMAL, 32));
-		myTitleBox.getChildren().clear();
-		myTitleBox.getChildren().add(title);
-	}
-
+	
 	/**
 	 * 
 	 */
+	private void setupGameScene() {
+		myScene = new Scene(myRoot);
+		myStage.setTitle(myResources.getString("Title"));
+		myStage.setScene(myScene);
+		myStage.show();
+	}
+	
 	private void initializeButtons() {
 		myPlayButton = new Button(myResources.getString("PlayCommand"));
 		myPauseButton = new Button(myResources.getString("PauseCommand"));
@@ -141,18 +167,17 @@ public class CellSocietyView {
 		myXMLButton = new Button(myResources.getString("XMLCommand"));
 		mySpeedupButton = new Button(myResources.getString("SpeedupCommand"));
 		mySlowdownButton = new Button(myResources.getString("SlowdownCommand"));
+	}
 
+	/**
+	 * 
+	 */
+	private void disableInitialButtons() {
 		myPlayButton.setDisable(true);
 		myPauseButton.setDisable(true);
 		myStepButton.setDisable(true);
 		mySpeedupButton.setDisable(true);
 		mySlowdownButton.setDisable(true);
-
-	}
-
-	public void displayFrameRate(int frameRate) {
-		mySpeedTextField.setText(frameRate + " "
-				+ myResources.getString("FramesLabel"));
 	}
 
 	/**
@@ -178,15 +203,7 @@ public class CellSocietyView {
 		mySimGrid.setPadding(new Insets(0, 25, 5, 25));
 		mySimGrid.setAlignment(Pos.CENTER);
 
-		// NOTE: the parser may not belong in this class, but this is an example
-		// of how the XMLParser
-		// will update the other classes. Unsure right now whether specifically
-		// searching for the
-		// string "yCols" is bad design, although we can ask when we meet with
-		// our TA
 	}
-
-	// param should be a map or a hashmap?
 
 	/**
 	 * @return
@@ -227,9 +244,9 @@ public class CellSocietyView {
 	 * @param speedText
 	 * @param middleRow
 	 */
-	private HBox makeSpeed() {
+	private HBox makeSpeedDisplay() {
 		HBox displayRow = new HBox(10);
-		Label speedLabel = new Label("Speed: ");
+		Label speedLabel = new Label(myResources.getString("SpeedLabel"));
 		mySpeedTextField = new TextField();
 		mySpeedTextField.setEditable(false);
 		displayRow.setAlignment(Pos.CENTER);
@@ -251,13 +268,22 @@ public class CellSocietyView {
 		return bottomRow;
 	}
 
-	public File displayXMLChooser() {
-		// TODO Auto-generated method stub
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open XML File");
-		fileChooser.getExtensionFilters().add(
-				new FileChooser.ExtensionFilter("XML Files", "*.xml"));
-		return fileChooser.showOpenDialog(myStage);
+	public void changeResumeButtonPermissions() {
+		myPlayButton.setDisable(true);
+		myPauseButton.setDisable(false);
+		myStepButton.setDisable(true);
+		myXMLButton.setDisable(true);
+		mySpeedupButton.setDisable(true);
+		mySlowdownButton.setDisable(true);		
+	}
+
+	public void changePauseButtonPermissions() {
+		myPlayButton.setDisable(false);
+		myPauseButton.setDisable(true);
+		myStepButton.setDisable(false);
+		myXMLButton.setDisable(false);
+		mySpeedupButton.setDisable(false);
+		mySlowdownButton.setDisable(false);		
 	}
 
 }
