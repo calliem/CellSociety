@@ -16,7 +16,8 @@ public class FishCell extends Cell implements ReproducingCell{
 		super();
 		myCurrAge = 0;
 
-		getShape().setFill(myColor);
+		//getShape().setFill(myColor);
+		getShape().setFill(Color.YELLOW);
 
 	}
 
@@ -29,7 +30,8 @@ public class FishCell extends Cell implements ReproducingCell{
 		//myCurrAge = 0;
 
 
-		getShape().setFill(myColor);
+		//getShape().setFill(myColor);
+		getShape().setFill(Color.YELLOW);
 		myCurrAge = 0;
 
 	}
@@ -42,6 +44,7 @@ public class FishCell extends Cell implements ReproducingCell{
 	@Override
 	public Cell reproducingResult() {
 		if(myCurrAge == myAge){
+			myCurrAge = 0;
 			return new FishCell();
 		}
 		else{
