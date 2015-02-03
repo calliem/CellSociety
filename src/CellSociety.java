@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -25,13 +24,10 @@ public class CellSociety{
 	private SimController myController;
 	private Timeline myTimeline;
 	private Cell[][] myInitCellArray;
-    private ResourceBundle myResources;
-	private static final String DEFAULT_RESOURCE_PACKAGE = "/constants.properties";
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {		
 		myParser = new XMLParser();
 		myView = new CellSocietyView(s);
-		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		configureListeners();
 	}
 
@@ -96,6 +92,7 @@ public class CellSociety{
 		myView.getPlayElement().setDisable(true);		// ideally abstracted to view later
 		myView.getPauseElement().setDisable(false);		// ideally abstracted to view later
 		myView.getStepElement().setDisable(true);		// ideally abstracted to view later
+		myView.getXMLElement().setDisable(true);
 		myTimeline.play();
 		
 	}
@@ -104,6 +101,7 @@ public class CellSociety{
 		myView.getPlayElement().setDisable(false);		// ideally abstracted to view later
 		myView.getPauseElement().setDisable(true);		// ideally abstracted to view later
 		myView.getStepElement().setDisable(false);		// ideally abstracted to view later
+		myView.getXMLElement().setDisable(false);
 		myTimeline.pause();
 	}
 
@@ -141,7 +139,6 @@ public class CellSociety{
 		pauseAnimation();
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		myView.displayFrameRate(myFrameRate);
-		myView.generateTitle(myParser.getInitParamMap().get("simName") + " Cellular Automata");
 	}
 	
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{

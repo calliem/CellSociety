@@ -1,12 +1,7 @@
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.lang.reflect.*;
+import java.util.ResourceBundle;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,10 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -44,6 +37,7 @@ public class CellSocietyView {
 	private HBox myTitleBox;
 	private GridPane myRoot;
 	private GridPane mySimGrid;
+    private ResourceBundle myResources;
 	
 	public static final int GRID_SIZE = 500;
 	
@@ -53,6 +47,7 @@ public class CellSocietyView {
 		
 		myRoot = new GridPane();
 		myStage = s;
+		myResources = ResourceBundle.getBundle("english");
 		
 		initializeButtons();
 		generateGrid();
@@ -92,7 +87,7 @@ public class CellSocietyView {
 	public void setErrorText() {
 		myErrorMsg.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
 		myErrorMsg.setFill(Color.RED);
-		myErrorMsg.setText("XML File uploaded is not valid.");
+		myErrorMsg.setText(myResources.getString("ErrorMessage"));
 	}
 	
 	public void setBlankGrid() {
@@ -125,10 +120,10 @@ public class CellSocietyView {
 	 * 
 	 */
 	private void initializeButtons() {
-		myPlayButton = new Button("Play");
-		myPauseButton = new Button("Pause");
-		myStepButton = new Button("Step");
-		myXMLButton = new Button("Upload XML");
+		myPlayButton = new Button(myResources.getString("PlayCommand"));
+		myPauseButton = new Button(myResources.getString("PauseCommand"));
+		myStepButton = new Button(myResources.getString("StepCommand"));
+		myXMLButton = new Button(myResources.getString("XMLCommand"));
 		
 		myPlayButton.setDisable(true);
 		myPauseButton.setDisable(true);
@@ -136,7 +131,7 @@ public class CellSocietyView {
 	}
 
 	public void displayFrameRate(int frameRate) {
-		mySpeedTextField.setText(frameRate + " frame(s) per second");
+		mySpeedTextField.setText(frameRate + " " + myResources.getString("FramesLabel"));
 	}
 	
 	/**
@@ -174,7 +169,7 @@ public class CellSocietyView {
 		myTitleBox = new HBox(10);		
 		myTitleBox.setAlignment(Pos.CENTER);
         myTitleBox.setPadding(new Insets(15, 25, 5, 25));
-		generateTitle("Cell Society");
+		generateTitle(myResources.getString("Title"));
 		return myTitleBox;
 	}
 
@@ -219,6 +214,8 @@ public class CellSocietyView {
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
 	}
+	
+	
 
 	public File displayXMLChooser() {
 		// TODO Auto-generated method stub
