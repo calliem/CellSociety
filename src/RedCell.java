@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 //want to use throughout
 
 
+
 public class RedCell extends Cell{
 
 	public RedCell(){

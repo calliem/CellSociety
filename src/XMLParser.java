@@ -17,11 +17,9 @@ import java.util.Map;
  
 public class XMLParser {
 	private NodeList myNodeList;
-	
     private Map<String, String> mySimParam = new HashMap<String, String>();
     private Map<String, String> myInitParam = new HashMap<String, String>();
-    private List<HashMap<String, String>> myCellParamList = new ArrayList<HashMap<String, String>>(); //state name maps to state color
-    //why don't i just add all of this to the hashmap of mycellparam and get the values that i need? 
+    private List<HashMap<String, String>> myCellParamList = new ArrayList<HashMap<String, String>>(); 
 	    
 	public void parseXMLFile(File xmlFile) throws ParserConfigurationException,
     SAXException, IOException {
@@ -37,7 +35,7 @@ public class XMLParser {
 	
 	public void parseInitialTags(){
 		for (int i = 0; i < myNodeList.getLength(); i++) {
-			//<initParam> <cellParam> <simParam> tags
+			//parses <initParam> <cellParam> <simParam> and other first-level tags
              Node node = myNodeList.item(i);
              if (node instanceof Element) {  
             	switch (node.getNodeName()) {
@@ -68,7 +66,6 @@ public class XMLParser {
 		}
 	}
 	
-	//should these just be void? they create a new temporary map which doesn't seem necessary
 	private Map<String, String> makeParamMap(NodeList paramList){
 		Map<String, String> paramMap = new HashMap<String, String>();
 		for (int j = 0; j < paramList.getLength(); j++) {
@@ -100,14 +97,13 @@ public class XMLParser {
 			HashMap<String, String> cellParamMap = new HashMap<String, String>();
 			Node node = paramList.item(j);
 			if (node instanceof Element){
-				//String paramName = node.getNodeName();
 				Element element = (Element) node;
-	                //every cell must have a state and a color and thus these have their own attributes
-				String stateName = element.getAttribute("state"); //these strings are probably bad, although we can pass them in as constants
-				cellParamMap.put("state", stateName); //this is hardcoded the 2nd time
+				//input essential (state + color) elements into the cellParamMap
+				String stateName = element.getAttribute("state"); 
+				cellParamMap.put("state", stateName); 
 				String color = element.getAttribute("color");
 				cellParamMap.put("color", color);
-			//if cell has more properties
+			//if the cell has more properties (lower level nodes)
 			if (node.hasChildNodes()){
 				NodeList nodelist = node.getChildNodes();
 				for (int i = 0; i < nodelist.getLength(); i++){

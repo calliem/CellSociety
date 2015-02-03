@@ -17,7 +17,6 @@
 	    <!--  <cell state="SharkCell" color="Black">
 	        <loc>1 2 55 94 95 99</loc>
 	        <energy></energy>-->
-	    </cell>
 	    <cell state="FishCell" color="Yellow">
 	        <loc>5 8 11 22 23 24 29 56 58 59 98</loc>
 	        <!-- <age></age>-->

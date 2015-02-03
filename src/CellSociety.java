@@ -57,7 +57,7 @@ public class CellSociety{
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		String className = myParser.getInitParamMap().get("simName") + "Controller";
 		Class<?> currentClass = Class.forName(className);
-		System.out.println(currentClass.toString());
+		System.out.println("class" + currentClass);
 		Constructor<?> constructor = currentClass.getConstructor(Map.class); //how to use reflection on a map?
 		System.out.println(constructor);
 		myController = (SimController) constructor.newInstance(myParser.getSimParamMap());
@@ -133,6 +133,7 @@ public class CellSociety{
 		File newFile = myView.displayXMLChooser(); 
 		try {
 			myParser.parseXMLFile(newFile);
+			System.out.println(newFile.toString());
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
