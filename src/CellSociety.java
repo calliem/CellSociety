@@ -30,7 +30,7 @@ public class CellSociety{
 	
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException, IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, SecurityException {		
 		myParser = new XMLParser();
-		myView = new CellSocietyView(s, myFrameRate);
+		myView = new CellSocietyView(s);
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
 		configureListeners();
 	}
@@ -139,6 +139,9 @@ public class CellSociety{
 		setupAnimation();
 		myView.updateSimGrid(myInitCellArray);
 		pauseAnimation();
+		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
+		myView.displayFrameRate(myFrameRate);
+		myView.generateTitle(myParser.getInitParamMap().get("simName") + " Cellular Automata");
 	}
 	
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
@@ -150,12 +153,8 @@ public class CellSociety{
 		myInitCellArray = new Cell[numRows][numCols];
 		
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
-	//	Map<String, String> cellParams = myParser.getCellParamList(); //this should just be an empty value for those without it
-		//here Map = Map instead of Map = Hashmap. Is that okay or should it be changed (in the XMLParser class)?
-		
-		//instantiates cells for all states except for the first one (which will be automatically done)
-		
-		//iterate through the list of cell states
+	
+		//instantiates cells for all states except for the first one (which will be automatically done below)
 		for (int i = 1; i < cellStates.size(); i ++){
 			HashMap<String, String> cellParams = cellStates.get(i);
 			for (String string: cellParams.keySet()){
@@ -164,8 +163,7 @@ public class CellSociety{
 				for (int j = 0; j < locations.length; j++){ 
 					int row = locations[j] / numCols;
 					int col = locations[j] % numCols;
-				//	System.out.println("stateName " + cellParams.get("state") + " location: " + cellParams.get("loc") + " num: " + j + " row: " + row + " col: " + col);
-					Cell cell = createCellInstance(cellParams); //this is probably wrong because it creates the instance with the same color multiple times
+					Cell cell = createCellInstance(cellParams); 
 					myInitCellArray[row][col] = cell;
 				}
 			}
@@ -177,10 +175,7 @@ public class CellSociety{
 				if (myInitCellArray[x][y] == null){
 
 					HashMap<String, String> remainingCellParams = cellStates.get(0);
-			//		Color remainingColor = Color.valueOf(remainingCellParams.get("color"));
-			//		String remainingState = remainingCellParams.get("state");
-					
-					myInitCellArray[x][y] = createCellInstance(remainingCellParams); //this cellParams hashmap needs to be fixed
+					myInitCellArray[x][y] = createCellInstance(remainingCellParams); 
 				}
 			}
 		}
@@ -193,7 +188,8 @@ public class CellSociety{
 			System.out.println(s);
 		}
 	    int[] intArray = new int[split.length];
-	    if (!string.equals("")){ //checks to ensure that it is not the first location parameter passed in from the XML document (it is empty and will be made automatically)
+	  //checks to ensure that it is not the first location parameter passed in from the XML document (it is empty and will be made automatically)
+	    if (!string.equals("")){ 
 	    	for (int i = 0; i < split.length; i++) {
 	    		intArray[i] = Integer.parseInt(split[i]);
 	    	}
@@ -202,14 +198,6 @@ public class CellSociety{
 	}
 	
 	public Cell createCellInstance(Map<String, String> cellParams) throws InstantiationException, IllegalAccessException, IllegalArgumentException, ClassNotFoundException, NoSuchMethodException, SecurityException, InvocationTargetException{
-        //test
-		for (String string: cellParams.keySet()){
-			System.out.print(string + " : ");
-			System.out.println(cellParams.get(string));
-		}
-		System.out.println(cellParams.size());
-		//end test
-		
 		Class<?> className = Class.forName(cellParams.get("state"));
         System.out.println("ClassName:  " + className.toString());
         Constructor<?> constructor = className.getConstructor(Map.class);       
