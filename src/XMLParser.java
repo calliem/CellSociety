@@ -93,6 +93,7 @@ public class XMLParser {
 					if (node2 instanceof Element){
 						cellParamMap.put(node2.getNodeName(), node2.getTextContent());
 					}
+				//	System.out.println(node2.getNodeName());
 				}
 			}
 			cellStates.add(cellParamMap);

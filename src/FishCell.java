@@ -18,7 +18,7 @@ public class FishCell extends Cell implements ReproducingCell{
 		myCurrAge = 0;
 
 		//getShape().setFill(myColor);
-		getShape().setFill(Color.YELLOW);
+		getShape().setFill(myColor);
 
 	}
 

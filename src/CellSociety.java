@@ -28,8 +28,6 @@ public class CellSociety {
 	//Remove this
 	private int count = 0;
 	
-
-
 	public CellSociety(Stage s) throws ParserConfigurationException,
 			SAXException, IOException, InstantiationException,
 			IllegalAccessException, IllegalArgumentException,
@@ -220,9 +218,6 @@ public class CellSociety {
 
 	private int[] stringToIntArray(String string) {
 		String[] split = string.split(" ");
-		for (String s : split) {
-			System.out.println(s);
-		}
 		int[] intArray = new int[split.length];
 		// checks to ensure that it is not the first location parameter passed
 		// in from the XML document (it is empty and will be made automatically)

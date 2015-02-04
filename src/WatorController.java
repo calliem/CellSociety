@@ -22,6 +22,7 @@ public class WatorController extends CardinalSimController{
 					}
 					else if(curCell.toString().equals("EmptyCell")){
 						newGrid[r][c] = makeCell("EmptyCell");
+						System.out.println("row " + r + " col " + c);
 					}
 					else{
 						updateDestination(grid, r, c, newGrid, updatedCoordinates);
@@ -79,10 +80,7 @@ public class WatorController extends CardinalSimController{
 			newGrid[r][c] = ((ReproducingCell) (grid[r][c])).reproducingResult();
 		}
 	}
-/*
- * 
- * Didn't have time to refactor this yet.
- * 
+
 	private void updateFromCell(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates, String type){        
 		ArrayList<Integer[]> eligibleDestinations = new ArrayList<Integer[]>();                                                                  
 		if(type.equals("FishCell")){                                                                                                             
@@ -109,7 +107,7 @@ public class WatorController extends CardinalSimController{
 			newGrid[r][c] = ((ReproducingCell) (grid[r][c])).reproducingResult();                                                                    
 		}                                                                                                                                        
 	}                                                                                                                                        
-*/
+
 
 	
 
