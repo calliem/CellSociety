@@ -22,7 +22,7 @@
 
 	    <cell state="FishCell" color="Yellow">
 	        <loc>1 2 10 15</loc>
-	     <!--    <reproductionAge>3</reproductionAge> !-->
+	     	<reproductionAge>3</reproductionAge>
 	    </cell>
 
   </cellParam>

@@ -8,19 +8,19 @@ import javafx.scene.paint.Color;
 
 public class SharkCell extends Cell implements ReproducingCell{
 	
-	private int myMaxEnergy;
-	private int myReproducingAge;
+	private static int myMaxEnergy;
+	private static int myReproducingAge;
 	private int myCurrAge;
 	private int myCurrEnergy;
 	//private static Color myColor;
-	private Color myColor;
+	private static Color myColor;
 		
 	public SharkCell(){
 		super();
 		myCurrAge = 0;
 		myCurrEnergy = myMaxEnergy;
 		//getShape().setFill(myColor);
-		getShape().setFill(Color.BLACK);	
+		getShape().setFill(myColor);	 
 	}
 
 	public SharkCell(Map<String, String> params) {
