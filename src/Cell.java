@@ -18,6 +18,8 @@ public class Cell{
 	
 	public Cell(String name) {
 		myName = name;
+		//myShape = new Rectangle(myWidth, myHeight);
+		//getShape().setFill(myColor);
 	}
 	
 	public Cell(Map<String, String> params){

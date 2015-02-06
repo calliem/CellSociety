@@ -17,7 +17,7 @@ public class SharkCell extends Cell implements ReproducingCell{
 	private static Color myColor;
 		
 	public SharkCell(){
-		super();
+		super("SharkCell");
 		myCurrAge = 0;
 		myCurrEnergy = myMaxEnergy;
 		//getShape().setFill(myColor);
@@ -25,7 +25,7 @@ public class SharkCell extends Cell implements ReproducingCell{
 	}
 
 	public SharkCell(Map<String, String> params) {
-		super();
+		super("SharkCell");
 		System.out.println("cellparammap in shark cell:");
 		for (String s: params.keySet()){
 			System.out.print(s + ": ");

@@ -15,7 +15,7 @@ public class FishCell extends Cell implements ReproducingCell{
 	private static Color myColor;
 
 	public FishCell(){
-		super();
+		super("FishCell");
 		myCurrAge = 0;
 
 		//getShape().setFill(myColor);
@@ -24,7 +24,7 @@ public class FishCell extends Cell implements ReproducingCell{
 	}
 
 	public FishCell(Map<String, String> params) {
-		super();
+		super("FishCell");
 		myColor = Color.valueOf(params.get("color"));
 		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
 

@@ -38,7 +38,7 @@ public class CellSociety {
 		myView = new CellSocietyView(s);
 		configureListeners();
 	}
-
+/*
 	public Cell createCellInstance(Map<String, String> cellParams)
 			throws InstantiationException, IllegalAccessException,
 			IllegalArgumentException, ClassNotFoundException,
@@ -49,7 +49,19 @@ public class CellSociety {
 		System.out.println(constructor);
 		return (Cell) constructor.newInstance(cellParams);
 	}
-
+*/
+	
+	public Cell createCellInstance(Map<String, String> cellParams)
+			throws InstantiationException, IllegalAccessException,
+			IllegalArgumentException, ClassNotFoundException,
+			NoSuchMethodException, SecurityException, InvocationTargetException {
+		Class<?> className = Class.forName("Cell");
+		System.out.println("ClassName:  " + className.toString());
+		Constructor<?> constructor = className.getConstructor(Map.class);
+		System.out.println(constructor);
+		return (Cell) constructor.newInstance(cellParams);
+	}
+	
 	public Cell[][] createCellArray() throws InstantiationException,
 			IllegalAccessException, IllegalArgumentException,
 			ClassNotFoundException, NoSuchMethodException, SecurityException,
@@ -164,7 +176,22 @@ public class CellSociety {
 		}
 		System.out.println("Count: "+ count);
 		count++;
+		myCells = convertCells(myCells);
 		myView.updateSimGrid(myCells);
+	}
+
+	private Cell[][] convertCells(Cell[][] gridIn) {
+		Cell[][] gridOut = new Cell[gridIn.length][gridIn[0].length];
+		for(int i = 0; i < gridIn.length; i ++){
+			for(int j = 0; j < gridIn[0].length; j++){
+				
+				Class<?> className = Class.forName("Cell");
+				System.out.println("ClassName:  " + className.toString());
+				Constructor<?> constructor = className.getConstructor(Map.class);
+				System.out.println(constructor);
+				gridOut[i][j] = (Cell) constructor.newInstance(cellParams);
+			}
+		}
 	}
 
 	private void resumeAnimation() {
