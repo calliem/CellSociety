@@ -1,0 +1,6 @@
+<map id="WatorController.getNeighbors" name="WatorController.getNeighbors">
+<area shape="rect" id="node2" href="$dc/da7/class_wator_controller.html#a92a5ed25c56db84dd6f20e244d092a46" title="WatorController.updateFromFish" alt="" coords="264,5,488,32"/>
+<area shape="rect" id="node5" href="$dc/da7/class_wator_controller.html#a1cf19c6619c3be6edf4e18c4758f6c01" title="WatorController.updateFrom\lShark" alt="" coords="276,57,476,98"/>
+<area shape="rect" id="node3" href="$dc/da7/class_wator_controller.html#a0d61c3c9e96000370bacec79d64725ab" title="WatorController.updateDestination" alt="" coords="537,35,778,61"/>
+<area shape="rect" id="node4" href="$dc/da7/class_wator_controller.html#acc1968e8357ac21f25473b4fcbadc954" title="WatorController.runOneSim" alt="" coords="827,35,1021,61"/>
+</map>

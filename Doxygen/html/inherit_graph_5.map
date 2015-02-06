@@ -1,0 +1,12 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$dd/d11/class_cell.html" title="Cell" alt="" coords="44,183,89,209"/>
+<area shape="rect" id="node2" href="$df/d9e/class_blue_cell.html" title="BlueCell" alt="" coords="183,5,257,32"/>
+<area shape="rect" id="node3" href="$d4/dbb/class_empty_cell.html" title="EmptyCell" alt="" coords="177,56,263,83"/>
+<area shape="rect" id="node4" href="$d7/d2e/class_fire_cell.html" title="FireCell" alt="" coords="187,107,253,133"/>
+<area shape="rect" id="node5" href="$d2/ddc/class_fish_cell.html" title="FishCell" alt="" coords="185,309,255,336"/>
+<area shape="rect" id="node6" href="$d2/d85/class_live_cell.html" title="LiveCell" alt="" coords="185,157,255,184"/>
+<area shape="rect" id="node7" href="$db/d8c/class_red_cell.html" title="RedCell" alt="" coords="186,208,254,235"/>
+<area shape="rect" id="node8" href="$d1/dd5/class_shark_cell.html" title="SharkCell" alt="" coords="179,360,261,387"/>
+<area shape="rect" id="node9" href="$d4/dd9/class_tree_cell.html" title="TreeCell" alt="" coords="185,259,255,285"/>
+<area shape="rect" id="node10" href="$d1/dd8/interface_reproducing_cell.html" title="ReproducingCell" alt="" coords="5,335,128,361"/>
+</map>
