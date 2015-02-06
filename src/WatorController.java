@@ -8,9 +8,9 @@ import java.util.Random;
 
 public class WatorController extends SimController{
 
-	/*
+/*
 public class WatorController extends CardinalSimController{
-	 */
+*/
 
 
 	public WatorController(Map<String, String> parameters){
@@ -19,12 +19,6 @@ public class WatorController extends CardinalSimController{
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
 		ArrayList<Integer[]> updatedCoordinates = new ArrayList<Integer[]>();
-
-		/**
-		 * Do shark first
-		 * then fish
-		 * then empty
-		 */
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
 				Integer[] curCoordinates = {r,c};
@@ -39,15 +33,15 @@ public class WatorController extends CardinalSimController{
 						System.out.println("row " + r + " col " + c);
 					}
 					else{
-						//updateDestination(grid, r, c, newGrid, updatedCoordinates);
-						updateFromCell(grid, r, c, newGrid, updatedCoordinates, grid[r][c].toString()); 
+						updateDestination(grid, r, c, newGrid, updatedCoordinates);
+						//updateFromCell(grid, r, c, newGrid, updatedCoordinates, grid[r][c].toString()); 
 					}	
 				}
 			}
 		}
 		return newGrid;
 	}
-/*
+
 	private void updateDestination(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates) {
 		String state = grid[r][c].toString();
 		if(state.equals("SharkCell")){
@@ -79,7 +73,7 @@ public class WatorController extends CardinalSimController{
 			newGrid[r][c] = ((ReproducingCell) (grid[r][c])).reproducingResult();
 		}
 	}
-
+	
 	private void updateFromFish(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates){//,ArrayList<Cell> neighbors) {
 		ArrayList<Integer[]> eligibleDestinations = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);
 		if(eligibleDestinations.isEmpty()){
@@ -94,11 +88,10 @@ public class WatorController extends CardinalSimController{
 			newGrid[r][c] = ((ReproducingCell) (grid[r][c])).reproducingResult();
 		}
 	}
-*/
 
+/*	
 	private void updateFromCell(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates, String type){        
-		ArrayList<Integer[]> eligibleDestinations = makeEligible(grid, r, c, updatedCoordinates, type);//new ArrayList<Integer[]>(); 
-		/*
+		ArrayList<Integer[]> eligibleDestinations = new ArrayList<Integer[]>();                                                                  
 		if(type.equals("FishCell")){                                                                                                             
 			eligibleDestinations = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);                                                        
 		}                                                                                                                                        
@@ -107,19 +100,16 @@ public class WatorController extends CardinalSimController{
 			if(eligibleDestinations.isEmpty()){                                                                                                      
 				eligibleDestinations = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);                                                        
 			}                                                                                                                                        
-		}
-		*/                                                                                                                                        
+		}                                                                                                                                        
 		if(eligibleDestinations.isEmpty()){                                                                                                      
-			newGrid[r][c] = ((ReproducingCell) grid[r][c]).ageOneChronon();                                                                      
+			newGrid[r][c] = ((ReproducingCell) grid[r][c]).reproducingResult();                                                                      
 		}                                                                                                                                        
 		else{                                                                                                                                    
 			Integer[] dest = getDestination(eligibleDestinations);                                                                                   
 			newGrid[dest[0]][dest[1]] = ((ReproducingCell) (grid[r][c])).ageOneChronon();                                                            
 			Integer[] currCoord = {r,c};
-			if(type.equals("SharkCell")){
-				if(grid[dest[0]][dest[1]].toString().equals("FishCell")){
-					((SharkCell) newGrid[dest[0]][dest[1]]).replenishEnergy();
-				}
+			if(grid[dest[0]][dest[1]].toString().equals("FishCell")){
+				((SharkCell) newGrid[dest[0]][dest[1]]).replenishEnergy();
 			}
 			updatedCoordinates.add(dest);                                                                                                            
 			updatedCoordinates.add(currCoord);                                                                                                       
@@ -128,22 +118,7 @@ public class WatorController extends CardinalSimController{
 	}                                                                                                                                        
 
 
-
-
-	private ArrayList<Integer[]> makeEligible(Cell[][] grid, int r, int c,
-			ArrayList<Integer[]> updatedCoordinates, String type) {
-		ArrayList<Integer[]> list = new ArrayList<Integer[]>();
-		if(type.equals("FishCell")){                                                                                                             
-			list = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);                                                        
-		}                                                                                                                                        
-		else{                                                                                                                                    
-			list = getNeighbors(grid, r, c, "FishCell", updatedCoordinates);                                                         
-			if(list.isEmpty()){                                                                                                      
-				list = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);                                                        
-			}                                                                                                                                        
-		}                                                                                                                                        
-		return list;
-	}
+	*/
 
 	private ArrayList<Integer[]> getNeighbors(Cell[][] grid, int r, int c, String s, ArrayList<Integer[]> updatedCoordinates){
 		ArrayList<Integer[]> list = new ArrayList<Integer[]>();
@@ -164,10 +139,10 @@ public class WatorController extends CardinalSimController{
 				currArr[1] = c+d;	
 				list.add(currArr);
 			}
-			/*
+/*
 			neighborsFromTwoDirections(grid, r+d, c, list);
 			neighborsFromTwoDirections(grid, r, c+d, list);
-			 */
+*/
 		}
 		for(Integer[] i : new ArrayList<Integer[]>(list)){
 			if (!(grid[i[0]][i[1]].toString().equals(s)) || contains(updatedCoordinates, i)){
@@ -176,11 +151,15 @@ public class WatorController extends CardinalSimController{
 		}
 		return list;
 	}
+<<<<<<< HEAD
 	
 	public static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
 		return (Cell) Class.forName(s).getConstructor().newInstance();
 	}
 	/*
+=======
+/*
+>>>>>>> parent of 2d18607... refactor cell updates in wator
 	private void neighborsFromTwoDirections(Cell[][] grid, int newR, int newC, ArrayList<Integer[]> list) {
 		if(inBounds(grid, newR, newC)){
 			Integer[] currArr = new Integer[2];
@@ -189,7 +168,7 @@ public class WatorController extends CardinalSimController{
 			list.add(currArr);
 		}
 	}
-	 */
+*/
 	private Integer[] getDestination(ArrayList<Integer[]> eligibleDestinations) {
 		return eligibleDestinations.get(new Random().nextInt(eligibleDestinations.size()));
 	}
