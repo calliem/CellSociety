@@ -89,6 +89,7 @@ public class WatorController extends CardinalSimController{
 		}
 	}
 
+/*	
 	private void updateFromCell(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates, String type){        
 		ArrayList<Integer[]> eligibleDestinations = new ArrayList<Integer[]>();                                                                  
 		if(type.equals("FishCell")){                                                                                                             
@@ -117,7 +118,7 @@ public class WatorController extends CardinalSimController{
 	}                                                                                                                                        
 
 
-	
+	*/
 
 	private ArrayList<Integer[]> getNeighbors(Cell[][] grid, int r, int c, String s, ArrayList<Integer[]> updatedCoordinates){
 		ArrayList<Integer[]> list = new ArrayList<Integer[]>();

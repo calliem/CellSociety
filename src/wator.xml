@@ -16,21 +16,17 @@
 	    <cell state="EmptyCell" color="Cyan" />
 	     <cell state="SharkCell" color="Black">
 	        <loc>3</loc>
-<<<<<<< HEAD
-	        <!--<energy></energy>-->
-=======
+
 	        <reproductionAge>3</reproductionAge>
 			<maxEnergy>2</maxEnergy>
->>>>>>> 3c6541eac11384638786055d8c73df1b0e1ca64e
+
 	     </cell>
 
 	    <cell state="FishCell" color="Yellow">
 	        <loc>1 2 10 15</loc>
-<<<<<<< HEAD
-	        
-=======
+
 	     	<reproductionAge>3</reproductionAge>
->>>>>>> 3c6541eac11384638786055d8c73df1b0e1ca64e
+
 	    </cell>
 
   </cellParam>
