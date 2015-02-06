@@ -58,7 +58,7 @@ public abstract class SimController {
 	*/
 
 	public static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
-		return (Cell) Class.forName(s).getConstructor().newInstance();
+		return (Cell) Class.forName("Cell").getConstructor(String.class).newInstance(s);
 	}
 	
 	protected  abstract String getNeighborsState(ArrayList<Cell> neighbors);

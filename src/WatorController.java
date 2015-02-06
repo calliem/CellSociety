@@ -176,6 +176,10 @@ public class WatorController extends CardinalSimController{
 		}
 		return list;
 	}
+	
+	public static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		return (Cell) Class.forName(s).getConstructor().newInstance();
+	}
 	/*
 	private void neighborsFromTwoDirections(Cell[][] grid, int newR, int newC, ArrayList<Integer[]> list) {
 		if(inBounds(grid, newR, newC)){
