@@ -46,7 +46,7 @@ public class CellSocietyView {
 
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "";
-	public static final int GRID_SIZE = 500;
+	public static final int GRID_SIZE = 300;
 
 	// using Reflection makes us have a ton of throw errors. Is that okay?
 
@@ -268,22 +268,13 @@ public class CellSocietyView {
 		return bottomRow;
 	}
 
-	public void changeResumeButtonPermissions() {
-		myPlayButton.setDisable(true);
-		myPauseButton.setDisable(false);
-		myStepButton.setDisable(true);
-		myXMLButton.setDisable(true);
-		mySpeedupButton.setDisable(true);
-		mySlowdownButton.setDisable(true);		
-	}
-
-	public void changePauseButtonPermissions() {
-		myPlayButton.setDisable(false);
-		myPauseButton.setDisable(true);
-		myStepButton.setDisable(false);
-		myXMLButton.setDisable(false);
-		mySpeedupButton.setDisable(false);
-		mySlowdownButton.setDisable(false);		
+	public void setButtonsPause(boolean disable) {
+		myPlayButton.setDisable(disable);
+		myPauseButton.setDisable(!disable);
+		myStepButton.setDisable(disable);
+		myXMLButton.setDisable(disable);
+		mySpeedupButton.setDisable(disable);
+		mySlowdownButton.setDisable(disable);		
 	}
 
 }

@@ -168,13 +168,13 @@ public class CellSociety {
 	}
 
 	private void resumeAnimation() {
-		myView.changeResumeButtonPermissions();
+		myView.setButtonsPause(true);
 		myTimeline.play();
 
 	}
 
 	private void pauseAnimation() {
-		myView.changePauseButtonPermissions();
+		myView.setButtonsPause(false);
 		myTimeline.stop();
 	}
 
