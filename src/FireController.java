@@ -3,20 +3,16 @@
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 
 public class FireController extends CardinalSimController{
 
-	//from XML
-	private static int myProbCatch;// = 50;
+	private int myProbCatch;
 
 	public FireController(Map<String, String> map){
 		super();
-		System.out.println(map.get("probCatch"));
-		//is prob catch a probability (double) like .5 or a number out of 100?
 		myProbCatch = Integer.parseInt(map.get("probCatch"));
 	}	
 
@@ -32,6 +28,7 @@ public class FireController extends CardinalSimController{
 		}
 		return "TreeCell";
 	}
+
 	
 /*
 	@Override
@@ -46,6 +43,7 @@ public class FireController extends CardinalSimController{
 	}
 */
 	
+
 	@Override
 	protected Cell newState(Cell[][] newGrid, Cell cell, String hoodState,
 			int r, int c) throws InstantiationException,

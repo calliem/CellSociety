@@ -1,6 +1,4 @@
 
-
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -11,19 +9,16 @@ public class LifeController extends SimController{
 	//{S}
 	//private static ArrayList<Integer> stayOn;
 	//{B}
-	//private static ArrayList<Integer> bornOn;
 
+	private int stayOn;
+	private int bornOn;
+	 
 
-	//can we possibly make the simcontroller an (abstract) class that has this contstructor for all? --> will be passing in a hashmap for all 
 	public LifeController(Map<String, String>parameters){
+		stayOn = Integer.parseInt(parameters.get("stayOn"));
+		bornOn = Integer.parseInt(parameters.get("bornOn"));
 	}
 
-	@Override
-	/**
-	 * Determines whether the surrounding eight cells produce  a live condition,
-	 * dead condition, or in the case of two, a condition dependent upon the cell's
-	 * previous condition.
-	 */
 	protected String getNeighborsState(ArrayList<Cell> neighbors) {
 		int count = 0;
 		for(Cell c: neighbors){
@@ -33,18 +28,17 @@ public class LifeController extends SimController{
 				}
 			//}
 		}
-		//if(count = {S} - {B})
-		//if(count = stayNotBorn(stayOn, bornOn)
-		if (count == 2){
+
+		if (count == stayOn){
 			return "two";
 		}
-		//else if(count == {S}&{B})
-		//else if(count == stayAndBorn(stayOn, bornOn)
-		else if (count == 3){
+
+		else if (count == bornOn){
 			return "LiveCell";
 		}
 		return "EmptyCell";
 	}
+
 
 
 	//@Override
@@ -71,6 +65,7 @@ public class LifeController extends SimController{
 	System.out.println(constructor);
 	Object o = constructor.newInstance(10,10);
 	 */
+
 
 	@Override
 	protected Cell newState(Cell[][] newGrid, Cell cell, String neighborsState,

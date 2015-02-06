@@ -1,29 +1,20 @@
 
-
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Random;
 
 
 public class SegregationController extends SimController{
-	double myHappyFraction;
-	private int numEmpty = 0;
-	//private int newEmpty = 0;
-	private int iterCount = 0;
-	private int bound;
-	//private Queue<Integer> iterCount = new LinkedList<Integer>();
-	private ArrayList<Integer> randomCount;
-	private ArrayList<String> myRandList;
+	private double myHappyFraction;
 	private ArrayList<Integer[]> myEmptyList;
 	private ArrayList<Integer[]> updatedList;
+
 	private Boundary myBoundary = new FiniteBoundary();
 	private Neighbor myNeighbor = new FullNeighbor(myBoundary);
 	//private Neighbor 
 	//private ArrayList<String> myRandomList;
+
 
 	public SegregationController(Map<String, String> parameters){
 		myHappyFraction = Double.parseDouble(parameters.get("probHappy"));
@@ -31,12 +22,7 @@ public class SegregationController extends SimController{
 
 	@Override
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		numEmpty = 0;
-		iterCount = 0;
 		updatedList = new ArrayList<Integer[]>();
-		//newEmpty = 0;
-		//count how many empty cells there are and make a list of unhappy nonempty cells
-		makeRandomList(grid);
 		makeEmptyList(grid);
 		return super.runOneSim(grid);
 
@@ -44,7 +30,6 @@ public class SegregationController extends SimController{
 
 	private void makeEmptyList(Cell[][] grid) {
 		myEmptyList = new ArrayList<Integer[]>();
-		//randomCount = new ArrayList<Integer>();
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
 				String curString = grid[r][c].toString();
@@ -92,29 +77,25 @@ public class SegregationController extends SimController{
 
 	@Override
 	protected Cell newState(Cell[][] newGrid, Cell cell, String neighborsState, int r, int c) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		
 		Integer[] curCoord = {r,c};
-		//if its happy with what it is stay.
-		//!updatedList.isEmpty() && 
 		if(!contains(updatedList, curCoord)){
 			Random random = new Random();
 			if(cell.toString().equals(neighborsState) || neighborsState.equals("both")){
 				return makeCell(cell.toString());
 			}
-			//if unhappy, populate an empty cell and add current to emptyList
 			else if(!cell.toString().equals("EmptyCell")){
 				Integer[] randCoord = myEmptyList.remove(random.nextInt(myEmptyList.size()));
 				newGrid[randCoord[0]][randCoord[1]] = makeCell(cell.toString());
 				updatedList.add(randCoord);
 				Integer[] newCoord = {r,c};
 				myEmptyList.add(newCoord);
-				//return makeCell("EmptyCell");
 			}
 			return makeCell("EmptyCell");
 		}
 		return newGrid[r][c];
 	}
 
+/*
 	private boolean contains(ArrayList<Integer[]> updatedCoordinates,
 			Integer[] curCoordinates) {
 		int[] coords = new int[curCoordinates.length];
@@ -191,5 +172,6 @@ public class SegregationController extends SimController{
 		}
 		return makeCell("EmptyCell");
 	}
+*/
 
 }

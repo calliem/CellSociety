@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public abstract class SimController {
 
 	protected Boundary myBoundary = new FiniteBoundary();
-	protected Neighbor myNeighbor = new HalfNeighbor(myBoundary);
+	protected Neighbor myNeighbor = new FullNeighbor(myBoundary);
 	
 	/*
 	public SimController(){	
@@ -65,5 +65,23 @@ public abstract class SimController {
 
 	protected abstract Cell newState(Cell[][] newGrid, Cell cell, String hoodState, int r, int c) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 
-	
+	protected boolean contains(ArrayList<Integer[]> updatedCoordinates,
+			Integer[] curCoordinates) {
+		int[] coords = new int[curCoordinates.length];
+		for(int i = 0; i < curCoordinates.length; i++){
+			coords[i] = curCoordinates[i];
+		}
+		for(int j = 0; j < updatedCoordinates.size(); j++){
+			int count = 0;
+			for(int k = 0; k < coords.length; k++){
+				if(coords[k] == updatedCoordinates.get(j)[k]){
+					count++;
+				}
+			}
+			if(count == coords.length){
+				return true;
+			}
+		}
+		return false;
+	}
 }	

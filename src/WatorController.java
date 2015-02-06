@@ -1,13 +1,17 @@
 
-
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 
 
+
 public class WatorController extends SimController{
+
+/*
+public class WatorController extends CardinalSimController{
+*/
+
 
 	public WatorController(Map<String, String> parameters){
 	}
@@ -26,34 +30,16 @@ public class WatorController extends SimController{
 					}
 					else if(curCell.toString().equals("EmptyCell")){
 						newGrid[r][c] = makeCell("EmptyCell");
+						System.out.println("row " + r + " col " + c);
 					}
 					else{
 						updateDestination(grid, r, c, newGrid, updatedCoordinates);
+						//updateFromCell(grid, r, c, newGrid, updatedCoordinates, grid[r][c].toString()); 
 					}	
 				}
 			}
 		}
 		return newGrid;
-	}
-
-	private boolean contains(ArrayList<Integer[]> updatedCoordinates,
-			Integer[] curCoordinates) {
-		int[] coords = new int[curCoordinates.length];
-		for(int i = 0; i < curCoordinates.length; i++){
-			coords[i] = curCoordinates[i];
-		}
-		for(int j = 0; j < updatedCoordinates.size(); j++){
-			int count = 0;
-			for(int k = 0; k < coords.length; k++){
-				if(coords[k] == updatedCoordinates.get(j)[k]){
-					count++;
-				}
-			}
-			if(count == coords.length){
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private void updateDestination(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates) {
@@ -73,27 +59,70 @@ public class WatorController extends SimController{
 			eligibleDestinations = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);
 		}
 		if(eligibleDestinations.isEmpty()){
-			newGrid[r][c] = ((SharkCell) grid[r][c]).ageOneChronon();
-			//newGrid[r][c].setReproduce(newGrid[r][c].getReproduce - 1);
-			//newGrid[r][c].setEnergy(newGrid[r][c].getEnergy - 1);
+			newGrid[r][c] = ((ReproducingCell) grid[r][c]).ageOneChronon();
 		}
 		else{
 			Integer[] dest = getDestination(eligibleDestinations);//[0],getDestination(eligibleDestinations)[1]};
-			newGrid[dest[0]][dest[1]] = ((SharkCell) grid[r][c]).ageOneChronon();
+			newGrid[dest[0]][dest[1]] = ((ReproducingCell) grid[r][c]).ageOneChronon();
+			Integer[] currCoord = {r,c};
 			if(grid[dest[0]][dest[1]].toString().equals("FishCell")){
 				((SharkCell) newGrid[dest[0]][dest[1]]).replenishEnergy();
 			}
 			updatedCoordinates.add(dest);
-			newGrid[r][c] = ((SharkCell) (grid[r][c])).reproducingResult();
+			updatedCoordinates.add(currCoord);
+			newGrid[r][c] = ((ReproducingCell) (grid[r][c])).reproducingResult();
 		}
-
-
-
-
 	}
+	
+	private void updateFromFish(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates){//,ArrayList<Cell> neighbors) {
+		ArrayList<Integer[]> eligibleDestinations = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);
+		if(eligibleDestinations.isEmpty()){
+			newGrid[r][c] = ((ReproducingCell)grid[r][c]).ageOneChronon();//ageOneChronon((SharkCell) grid[r][c]);
+		}
+		else{
+			Integer[] dest = getDestination(eligibleDestinations);
+			newGrid[dest[0]][dest[1]] = ((ReproducingCell) (grid[r][c])).ageOneChronon();
+			Integer[] currCoord = {r,c};
+			updatedCoordinates.add(dest);
+			updatedCoordinates.add(currCoord);
+			newGrid[r][c] = ((ReproducingCell) (grid[r][c])).reproducingResult();
+		}
+	}
+
+	private void updateFromCell(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates, String type){        
+		ArrayList<Integer[]> eligibleDestinations = new ArrayList<Integer[]>();                                                                  
+		if(type.equals("FishCell")){                                                                                                             
+			eligibleDestinations = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);                                                        
+		}                                                                                                                                        
+		else{                                                                                                                                    
+			eligibleDestinations = getNeighbors(grid, r, c, "FishCell", updatedCoordinates);                                                         
+			if(eligibleDestinations.isEmpty()){                                                                                                      
+				eligibleDestinations = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);                                                        
+			}                                                                                                                                        
+		}                                                                                                                                        
+		if(eligibleDestinations.isEmpty()){                                                                                                      
+			newGrid[r][c] = ((ReproducingCell) grid[r][c]).reproducingResult();                                                                      
+		}                                                                                                                                        
+		else{                                                                                                                                    
+			Integer[] dest = getDestination(eligibleDestinations);                                                                                   
+			newGrid[dest[0]][dest[1]] = ((ReproducingCell) (grid[r][c])).ageOneChronon();                                                            
+			Integer[] currCoord = {r,c};
+			if(grid[dest[0]][dest[1]].toString().equals("FishCell")){
+				((SharkCell) newGrid[dest[0]][dest[1]]).replenishEnergy();
+			}
+			updatedCoordinates.add(dest);                                                                                                            
+			updatedCoordinates.add(currCoord);                                                                                                       
+			newGrid[r][c] = ((ReproducingCell) (grid[r][c])).reproducingResult();                                                                    
+		}                                                                                                                                        
+	}                                                                                                                                        
+
+
+	
+
 	private ArrayList<Integer[]> getNeighbors(Cell[][] grid, int r, int c, String s, ArrayList<Integer[]> updatedCoordinates){
 		ArrayList<Integer[]> list = new ArrayList<Integer[]>();
 		for(int d = -1; d <= 1; d += 2){
+
 			//REFACTOR
 			if(myBoundary.makeCell(grid, r+d, c) != null){
 				//list.add(grid[r+d][c]);
@@ -109,33 +138,28 @@ public class WatorController extends SimController{
 				currArr[1] = c+d;	
 				list.add(currArr);
 			}
+/*
+			neighborsFromTwoDirections(grid, r+d, c, list);
+			neighborsFromTwoDirections(grid, r, c+d, list);
+*/
 		}
 		for(Integer[] i : new ArrayList<Integer[]>(list)){
 			if (!(grid[i[0]][i[1]].toString().equals(s)) || contains(updatedCoordinates, i)){
-				
 				list.remove(i);
 			}
 		}
 		return list;
 	}
-
-	private void updateFromFish(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates){//,ArrayList<Cell> neighbors) {
-		ArrayList<Integer[]> eligibleDestinations = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);
-		if(eligibleDestinations.isEmpty()){
-			newGrid[r][c] = ((FishCell)grid[r][c]).ageOneChronon();//ageOneChronon((SharkCell) grid[r][c]);
-			//newGrid[r][c].setReproduce(newGrid[r][c].getReproduce - 1);
-			//newGrid[r][c].setEnergy(newGrid[r][c].getEnergy - 1);
-		}
-		else{
-			Integer[] dest = getDestination(eligibleDestinations);
-			newGrid[dest[0]][dest[1]] = ((FishCell) (grid[r][c])).ageOneChronon();
-			Integer[] currCoord = {r,c};
-			updatedCoordinates.add(dest);
-			updatedCoordinates.add(currCoord);
-			newGrid[r][c] = ((FishCell) (grid[r][c])).reproducingResult();
+/*
+	private void neighborsFromTwoDirections(Cell[][] grid, int newR, int newC, ArrayList<Integer[]> list) {
+		if(inBounds(grid, newR, newC)){
+			Integer[] currArr = new Integer[2];
+			currArr[0] = newR;
+			currArr[1] = newC;
+			list.add(currArr);
 		}
 	}
-
+*/
 	private Integer[] getDestination(ArrayList<Integer[]> eligibleDestinations) {
 		return eligibleDestinations.get(new Random().nextInt(eligibleDestinations.size()));
 	}
@@ -149,11 +173,6 @@ public class WatorController extends SimController{
 
 	@Override
 	protected String getNeighborsState(ArrayList<Cell> neighbors) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	protected Cell newState(Cell cell, String hoodState) {
 		// TODO Auto-generated method stub
 		return null;
 	}

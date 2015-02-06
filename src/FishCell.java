@@ -10,22 +10,23 @@ public class FishCell extends Cell implements ReproducingCell{
 
 	// private int reproductionAge; this should be passed into the controller
 
-	private static int myReproducingAge = 3;
+	private static int myReproducingAge;
 	private int myCurrAge;
-	private Color myColor;
+	private static Color myColor;
 
 	public FishCell(){
 		super();
 		myCurrAge = 0;
 
 		//getShape().setFill(myColor);
-		getShape().setFill(Color.YELLOW);
+		getShape().setFill(myColor);
 
 	}
 
 	public FishCell(Map<String, String> params) {
 		super();
 		myColor = Color.valueOf(params.get("color"));
+		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
 
 		//setFill(myColor);
 		//setFill(Color.YELLOW);
@@ -33,7 +34,7 @@ public class FishCell extends Cell implements ReproducingCell{
 
 
 		//getShape().setFill(myColor);
-		getShape().setFill(Color.YELLOW);
+		getShape().setFill(myColor);
 		myCurrAge = 0;
 
 	}
