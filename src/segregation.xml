@@ -3,12 +3,12 @@
 	<initParam>
 		<simName>Segregation</simName>
 		<author>Author</author>
-		<xRows>10</xRows>
-		<yCols>10</yCols>
-		<fps>5</fps>
+		<xRows>30</xRows>
+		<yCols>30</yCols>
+		<fps>50</fps>
 	</initParam>
 	<simParam>
-	    <probHappy>0.5</probHappy>
+	    <probHappy>0.7</probHappy>
 	</simParam>
 	<cellParam>    
 	    <cell state="EmptyCell" color="White" />

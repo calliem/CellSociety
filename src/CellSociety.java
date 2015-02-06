@@ -28,8 +28,6 @@ public class CellSociety {
 	//Remove this
 	private int count = 0;
 	
-
-
 	public CellSociety(Stage s) throws ParserConfigurationException,
 			SAXException, IOException, InstantiationException,
 			IllegalAccessException, IllegalArgumentException,
@@ -46,8 +44,8 @@ public class CellSociety {
 			IllegalArgumentException, ClassNotFoundException,
 			NoSuchMethodException, SecurityException, InvocationTargetException {
 		Class<?> className = Class.forName(cellParams.get("state"));
-		System.out.println("ClassName:  " + className.toString());
-		Constructor<?> constructor = className.getConstructor(Map.class);
+		//System.out.println("ClassName:  " + className.toString());
+			Constructor<?> constructor = className.getConstructor(Map.class);
 		System.out.println(constructor);
 		return (Cell) constructor.newInstance(cellParams);
 	}
@@ -113,7 +111,18 @@ public class CellSociety {
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		String className = myParser.getInitParamMap().get("simName")
 				+ "Controller";
-		Class<?> currentClass = Class.forName(className);
+		System.out.println("class");
+		Class<?> currentClass = null;
+		System.out.println("class2");
+		try{
+			System.out.println("before");
+			currentClass = Class.forName(className);
+			System.out.println("after");
+		}catch (ClassNotFoundException e){
+			System.out.println("error!");
+			System.out.println(currentClass);
+		}
+		System.out.println("currentclass" + currentClass);
 		System.out.println("class" + currentClass);
 		Constructor<?> constructor = currentClass.getConstructor(Map.class);
 		System.out.println(constructor);
@@ -164,7 +173,7 @@ public class CellSociety {
 				| ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Count: "+ count);
+	//	System.out.println("Count: "+ count);
 		count++;
 		myView.updateSimGrid(myCells);
 	}
@@ -220,9 +229,6 @@ public class CellSociety {
 
 	private int[] stringToIntArray(String string) {
 		String[] split = string.split(" ");
-		for (String s : split) {
-			System.out.println(s);
-		}
 		int[] intArray = new int[split.length];
 		// checks to ensure that it is not the first location parameter passed
 		// in from the XML document (it is empty and will be made automatically)
