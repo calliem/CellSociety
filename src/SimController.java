@@ -1,17 +1,28 @@
 
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 
+
+
 public abstract class SimController {
 
+	protected Boundary myBoundary = new FiniteBoundary();
+	protected Neighbor myNeighbor = new HalfNeighbor(myBoundary);
+	
+	/*
+	public SimController(){	
+	}
+	*/
+	
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
 				Cell curCell = grid[r][c];
-				ArrayList<Cell> neighbors = getNeighbors(grid, r, c);
+				ArrayList<Cell> neighbors = myNeighbor.getNeighbors(grid, r, c);
 				String neighborsState = getNeighborsState(neighbors);
 				Cell newCell = newState(newGrid, curCell, neighborsState, r, c);
 				//newState(grid)
@@ -20,7 +31,7 @@ public abstract class SimController {
 		}
 		return newGrid;
 	}
-	
+	/*
 	protected ArrayList<Cell> getNeighbors(Cell[][] grid, int row, int col) {
 		ArrayList<Cell> list = new ArrayList<Cell>();
 		for(int dr = -1; dr <= 1; dr++){
@@ -35,13 +46,16 @@ public abstract class SimController {
 		}
 		return list;
 	}
+	*/
 	
+	/*
 	protected boolean inBounds(Cell[][] grid, int nextRow, int nextCol) {
 		if(nextRow < 0 || nextRow >= grid.length || nextCol < 0 || nextCol >= grid[0].length){
 			return false;
 		}
 		return true;
 	}
+	*/
 
 	public static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
 		return (Cell) Class.forName(s).getConstructor().newInstance();

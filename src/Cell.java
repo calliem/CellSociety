@@ -1,6 +1,7 @@
 
 
 
+
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
@@ -16,7 +17,7 @@ public class Cell{
 		myShape = new Rectangle(myWidth, myHeight);
 	}
 	
-	protected Shape getShape(){
+	public Shape getShape(){
 		return myShape;
 	}
 	

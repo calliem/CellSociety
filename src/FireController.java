@@ -1,5 +1,6 @@
 
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ public class FireController extends CardinalSimController{
 		}
 		return "TreeCell";
 	}
+	
 /*
 	@Override
 	protected Cell newState(Cell cell, String hoodState)
@@ -43,6 +45,7 @@ public class FireController extends CardinalSimController{
 		return makeCell("EmptyCell");
 	}
 */
+	
 	@Override
 	protected Cell newState(Cell[][] newGrid, Cell cell, String hoodState,
 			int r, int c) throws InstantiationException,

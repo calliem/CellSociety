@@ -1,12 +1,13 @@
 
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 
 
-public class WatorController extends CardinalSimController{
+public class WatorController extends SimController{
 
 	public WatorController(Map<String, String> parameters){
 	}
@@ -94,14 +95,14 @@ public class WatorController extends CardinalSimController{
 		ArrayList<Integer[]> list = new ArrayList<Integer[]>();
 		for(int d = -1; d <= 1; d += 2){
 			//REFACTOR
-			if(inBounds(grid, r+d, c)){
+			if(myBoundary.makeCell(grid, r+d, c) != null){
 				//list.add(grid[r+d][c]);
 				Integer[] currArr = new Integer[2];
 				currArr[0] = r+d;
 				currArr[1] = c;
 				list.add(currArr);
 			}
-			if(inBounds(grid, r, c+d)){
+			if(myBoundary.makeCell(grid, r, c+d) != null){
 				//list.add(grid[r][c+d]);
 				Integer[] currArr = new Integer[2];
 				currArr[0] = r;

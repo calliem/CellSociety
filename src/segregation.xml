@@ -8,7 +8,7 @@
 		<fps>5</fps>
 	</initParam>
 	<simParam>
-	    <probHappy>0.8</probHappy>
+	    <probHappy>0.5</probHappy>
 	</simParam>
 	<cellParam>    
 	    <cell state="EmptyCell" color="White" />

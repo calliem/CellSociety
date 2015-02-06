@@ -1,5 +1,6 @@
 
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -11,12 +12,12 @@ public class LifeController extends SimController{
 	//private static ArrayList<Integer> stayOn;
 	//{B}
 	//private static ArrayList<Integer> bornOn;
-	
-	
+
+
 	//can we possibly make the simcontroller an (abstract) class that has this contstructor for all? --> will be passing in a hashmap for all 
 	public LifeController(Map<String, String>parameters){
 	}
-	
+
 	@Override
 	/**
 	 * Determines whether the surrounding eight cells produce  a live condition,
@@ -26,10 +27,11 @@ public class LifeController extends SimController{
 	protected String getNeighborsState(ArrayList<Cell> neighbors) {
 		int count = 0;
 		for(Cell c: neighbors){
-
-			if(c.toString().equals("LiveCell")){
-				count++;
-			}
+			//if(c != null){
+				if(c.toString().equals("LiveCell")){
+					count++;
+				}
+			//}
 		}
 		//if(count = {S} - {B})
 		//if(count = stayNotBorn(stayOn, bornOn)
@@ -44,12 +46,12 @@ public class LifeController extends SimController{
 		return "EmptyCell";
 	}
 
-	
+
 	//@Override
 	/**
 	 * Makes a new Cell based on the cell's previous state and
 	 * the state of its neighbors
-	
+
 
 	protected Cell newState(Cell cell, String neighborsState) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		if(neighborsState.equals("two")){
@@ -68,7 +70,7 @@ public class LifeController extends SimController{
 	Constructor<?> constructor = currentClass.getConstructor(Integer.TYPE, Integer.TYPE);
 	System.out.println(constructor);
 	Object o = constructor.newInstance(10,10);
-	*/
+	 */
 
 	@Override
 	protected Cell newState(Cell[][] newGrid, Cell cell, String neighborsState,

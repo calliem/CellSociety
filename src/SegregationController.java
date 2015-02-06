@@ -1,5 +1,6 @@
 
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -19,6 +20,9 @@ public class SegregationController extends SimController{
 	private ArrayList<String> myRandList;
 	private ArrayList<Integer[]> myEmptyList;
 	private ArrayList<Integer[]> updatedList;
+	private Boundary myBoundary = new FiniteBoundary();
+	private Neighbor myNeighbor = new FullNeighbor(myBoundary);
+	//private Neighbor 
 	//private ArrayList<String> myRandomList;
 
 	public SegregationController(Map<String, String> parameters){
@@ -143,7 +147,7 @@ public class SegregationController extends SimController{
 			for(int c = 0; c < grid[0].length; c++){
 				String curString = grid[r][c].toString();
 				if(!curString.toString().equals("EmptyCell")){
-					if(((getNeighborsState(getNeighbors(grid, r, c)).equals(curString)) || (getNeighborsState(getNeighbors(grid, r, c)).equals("both")))){
+					if(((getNeighborsState(myNeighbor.getNeighbors(grid, r, c)).equals(curString)) || (getNeighborsState(myNeighbor.getNeighbors(grid, r, c)).equals("both")))){
 						//System.out.println(getNeighborsState(getNeighbors(grid, r, c))+"222222"+curString);
 
 					}
