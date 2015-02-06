@@ -1,4 +1,4 @@
-Le Qi and Rubens Martins Bezerra Farias
+Le Qi (lq10) and Rubens Martins Bezerra  (rm252)
 
 In our CellSocietyView class, there were two functions that set 
 the permissions of enabling of the buttons, yet they had the 
