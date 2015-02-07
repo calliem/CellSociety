@@ -1,6 +1,3 @@
-
-
-
 import java.util.Map;
 
 import javafx.scene.paint.Color;
@@ -12,18 +9,26 @@ public class FishCell extends Cell implements ReproducingCell{
 	private static int myReproducingAge;
 	private int myCurrAge;
 	private static Color myColor;
+	
 
-	public FishCell(){
-		super("Fish");
+	public FishCell(String name){
+		super(name);
 		myCurrAge = 0;
-		//getShape().setFill(myColor);
+		getShape().setFill(myColor);
 
 	}
 
 	public FishCell(Map<String, String> params) {
-		super();
+		super(params);
 		myColor = Color.valueOf(params.get("color"));
 		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
+
+		//setFill(myColor);
+		//setFill(Color.YELLOW);
+		//myCurrAge = 0;
+
+
+		//getShape().setFill(myColor);
 		getShape().setFill(myColor);
 		myCurrAge = 0;
 

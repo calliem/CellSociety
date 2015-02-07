@@ -17,7 +17,7 @@ public class Cell{
 	
 	//test to see if we even need this
 	public Cell(String name){
-		myShape.setFill(myColor);
+		myShape.setFill(myColor); //SETTING COLOR TO NULL
 		myName = name;
 	}
 	
