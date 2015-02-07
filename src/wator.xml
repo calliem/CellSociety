@@ -11,8 +11,10 @@
 	    <cell state="Cell" name="Empty" color="Cyan" />
 	     <cell state="SharkCell" name="Shark" color="Black">
 	        <loc>3</loc>
+
 	        <reproductionAge>3</reproductionAge>
 			<maxEnergy>2</maxEnergy>
+
 	     </cell>
 	    <cell state="FishCell" name="Fish" color="Yellow">
 	        <loc>1 2 10 15</loc>

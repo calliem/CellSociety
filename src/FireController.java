@@ -1,5 +1,6 @@
 
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -27,6 +28,21 @@ public class FireController extends CardinalSimController{
 		}
 		return "TreeCell";
 	}
+
+	
+/*
+	@Override
+	protected Cell newState(Cell cell, String hoodState)
+			throws InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException,
+			NoSuchMethodException, SecurityException, ClassNotFoundException {
+		if(cell.toString().equals("TreeCell")){
+			return makeCell(hoodState);
+		}
+		return makeCell("EmptyCell");
+	}
+*/
+	
 
 	@Override
 	protected Cell newState(Cell[][] newGrid, Cell cell, String hoodState,

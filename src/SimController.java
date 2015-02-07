@@ -1,27 +1,41 @@
 
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 
+
+
 public abstract class SimController {
 
+	protected Boundary myBoundary = new FiniteBoundary();
+	protected Neighbor myNeighbor = new FullNeighbor(myBoundary);
+	
+	/*
+	public SimController(){	
+	}
+	*/
+	
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
 				Cell curCell = grid[r][c];
-				ArrayList<Cell> neighbors = getNeighbors(grid, r, c);
+
+				ArrayList<Cell> neighbors = myNeighbor.getNeighbors(grid, r, c);
 				//change below to Cell getNeighbors (so that we can access their NAME and their STATE
-				String neighborsName = getNeighborsState(neighbors);
+
+				String neighborsState = getNeighborsState(neighbors); //or neighborsName?
 				System.out.println("runonesim: neighbors" + neighborsState);
+
 				Cell newCell = newState(newGrid, curCell, neighborsState, r, c);
 				newGrid[r][c] = newCell;
 			}
 		}
 		return newGrid;
 	}
-	
+	/*
 	protected ArrayList<Cell> getNeighbors(Cell[][] grid, int row, int col) {
 		ArrayList<Cell> list = new ArrayList<Cell>();
 		for(int dr = -1; dr <= 1; dr++){
@@ -36,13 +50,16 @@ public abstract class SimController {
 		}
 		return list;
 	}
+	*/
 	
+	/*
 	protected boolean inBounds(Cell[][] grid, int nextRow, int nextCol) {
 		if(nextRow < 0 || nextRow >= grid.length || nextCol < 0 || nextCol >= grid[0].length){
 			return false;
 		}
 		return true;
 	}
+	*/
 
 		//put the string now as a parameter instead of as the class name....although some special one will need a special classname
 	public static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
