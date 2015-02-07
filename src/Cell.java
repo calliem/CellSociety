@@ -1,6 +1,3 @@
-
-
-
 import java.util.Map;
 
 import javafx.scene.paint.Color;
@@ -17,7 +14,7 @@ public class Cell{
 	
 	//test to see if we even need this
 	public Cell(String name){
-		myShape.setFill(myColor); //SETTING COLOR TO NULL
+		myShape.setFill(myColor); //SETTING COLOR TO NULL IF THIS IS CALLED FIRST
 		myName = name;
 	}
 	

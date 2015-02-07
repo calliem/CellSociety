@@ -15,20 +15,12 @@ public class FishCell extends Cell implements ReproducingCell{
 		super(name);
 		myCurrAge = 0;
 		getShape().setFill(myColor);
-
 	}
 
 	public FishCell(Map<String, String> params) {
 		super(params);
 		myColor = Color.valueOf(params.get("color"));
 		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
-
-		//setFill(myColor);
-		//setFill(Color.YELLOW);
-		//myCurrAge = 0;
-
-
-		//getShape().setFill(myColor);
 		getShape().setFill(myColor);
 		myCurrAge = 0;
 
