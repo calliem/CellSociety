@@ -12,9 +12,9 @@
 	    <bornOn>3</bornOn>
 	</simParam>
 	<cellParam>    
-	    <cell state="EmptyCell" color="White" />
+	    <cell state="EmptyCell" color="White"/>
 	    <cell state="LiveCell" color="Black">
-	        <loc>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 17 18 19 30 31 32 33 41 42 43 44 45 47 48 50 55 67 88 92 93 94 95 99</loc>
+	    	<loc>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 17 18 19 30 31 32 33 41 42 43 44 45 47 48 50 55 67 88 92 93 94 95 99</loc>
 	    </cell>
-  </cellParam>
+	</cellParam>
 </simulation>

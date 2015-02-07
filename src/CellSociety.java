@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,7 @@ public class CellSociety {
 	private SimController myController;
 	private Timeline myTimeline;
 	private Cell[][] myCells;
+	private int myNumFrames = 0;
 
 	//Remove this
 	private int count = 0;
@@ -44,9 +47,9 @@ public class CellSociety {
 			IllegalArgumentException, ClassNotFoundException,
 			NoSuchMethodException, SecurityException, InvocationTargetException {
 		Class<?> className = Class.forName(cellParams.get("state"));
-		System.out.println("ClassName:  " + className.toString());
+		//System.out.println("ClassName:  " + className.toString());
 		Constructor<?> constructor = className.getConstructor(Map.class);
-		System.out.println(constructor);
+		//System.out.println(constructor);
 		return (Cell) constructor.newInstance(cellParams);
 	}
 
@@ -66,14 +69,14 @@ public class CellSociety {
 		// will be automatically done below)
 		for (int i = 1; i < cellStates.size(); i++) {
 			HashMap<String, String> cellParams = cellStates.get(i);
-			for (String string : cellParams.keySet()) {
+		//	for (String string : cellParams.keySet()) {
 				int[] locations = stringToIntArray(cellParams.get("loc"));
 				for (int j = 0; j < locations.length; j++) {
 					int row = locations[j] / numCols;
 					int col = locations[j] % numCols;
 					Cell cell = createCellInstance(cellParams);
 					myCells[row][col] = cell;
-				}
+			//	}
 			}
 		}
 				
@@ -112,9 +115,9 @@ public class CellSociety {
 		String className = myParser.getInitParamMap().get("simName")
 				+ "Controller";
 		Class<?> currentClass = Class.forName(className);
-		System.out.println("class" + currentClass);
+		//System.out.println("class" + currentClass);
 		Constructor<?> constructor = currentClass.getConstructor(Map.class);
-		System.out.println(constructor);
+		//System.out.println(constructor);
 		myController = (SimController) constructor.newInstance(myParser
 				.getSimParamMap());
 	}
@@ -162,9 +165,19 @@ public class CellSociety {
 				| ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Count: "+ count);
+		//System.out.println("Count: "+ count);
 		count++;
 		myView.updateSimGrid(myCells);
+		
+		String[] cellNames = new String[myParser.getCellParamList().size()];
+		List<HashMap<String, String>> cellParams = myParser.getCellParamList();
+		for (int i = 0; i < cellParams.size(); i++) {
+			Map<String, String> cur = cellParams.get(i);
+			cellNames[i] = cur.get("name");
+		}
+		
+		myView.updateChartLines(myCells, myNumFrames, cellNames);
+		myNumFrames++;
 	}
 
 	private void resumeAnimation() {
@@ -214,16 +227,38 @@ public class CellSociety {
 		pauseAnimation();
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		myView.displayFrameRate(myFrameRate);
+		
+		String[] cellNames = new String[myParser.getCellParamList().size()];
+		List<HashMap<String, String>> cellParams = myParser.getCellParamList();
+		for (int i = 0; i < cellParams.size(); i++) {
+			Map<String, String> cur = cellParams.get(i);
+			for (String s : cur.keySet()) {
+				System.out.println(s + " : " + cur.get(s));
+			}
+			cellNames[i] = cur.get("name");
+		}
+		
+		System.out.println(Arrays.toString(cellNames));
+		
+		myView.generateChartLines(cellNames);
+		myView.updateChartLines(myCells, myNumFrames, cellNames);
+		myView.openDialogBox("HI");
+		
 	}
 
 	private int[] stringToIntArray(String string) {
+		//System.out.println("STRING:" + string);
 		String[] split = string.split(" ");
 		int[] intArray = new int[split.length];
 		// checks to ensure that it is not the first location parameter passed
 		// in from the XML document (it is empty and will be made automatically)
 		if (!string.equals("")) {
 			for (int i = 0; i < split.length; i++) {
-				intArray[i] = Integer.parseInt(split[i]);
+				//System.out.println("SPLIT:" + split[i]);
+				//System.out.println("split length:" + split[i].length());
+				if (split[i] != ""){
+					intArray[i] = Integer.parseInt(split[i]);
+				}
 			}
 		}
 		return intArray;
