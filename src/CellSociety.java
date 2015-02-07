@@ -53,9 +53,9 @@ public class CellSociety {
 			throw new XMLParserException("Invalid cell state: %s", state);	
 		}
 		//WRITE A CATCH NULL POINTER AND THAT MEANS THAT THE CELL STATE WAS ENTERED INCORRECTLY
-		System.out.println("ClassName:  " + className.toString());
+	//	System.out.println("ClassName:  " + className.toString());
 		Constructor<?> constructor = className.getConstructor(Map.class);
-		System.out.println(constructor);
+	//	System.out.println(constructor);
 		return (Cell) constructor.newInstance(cellParams);
 	}
 
@@ -73,15 +73,19 @@ public class CellSociety {
 
 		// instantiates cells for all states except for the first one (which
 		// will be automatically done below)
-		for (int i = 1; i < cellStates.size(); i++) {
-			HashMap<String, String> cellParams = cellStates.get(i);
-			for (String string : cellParams.keySet()) {
+		if (cellStates.size() > 0){
+			for (int i = 1; i < cellStates.size(); i++) {
+				HashMap<String, String> cellParams = cellStates.get(i);
 				int[] locations = stringToIntArray(cellParams.get("loc"));
-				for (int j = 0; j < locations.length; j++) {
-					int row = locations[j] / numCols;
-					int col = locations[j] % numCols;
-					Cell cell = createCellInstance(cellParams);
-					myCells[row][col] = cell;
+				if (locations != null){
+					for (int j = 0; j < locations.length; j++) {
+						System.out.println(cellParams.get("state") + locations[j]);
+						int row = locations[j] / numCols;
+						int col = locations[j] % numCols;
+						Cell cell = createCellInstance(cellParams);
+						myCells[row][col] = cell;
+					}
+					
 				}
 			}
 		}
@@ -239,17 +243,21 @@ public class CellSociety {
 	}
 
 	private int[] stringToIntArray(String string) {
-		string = string.replaceAll("\\s+"," ");
-		String[] split = string.split(" ");
-		int[] intArray = new int[split.length];
-			for (int i = 0; i < split.length; i++) {
-				if (!split[i].equals("")) {
-					System.out.println("STR" + split[i]);
-					intArray[i] = Integer.parseInt(split[i]);
-				}
+			string = string.replaceAll("\\s+"," ");
+			String[] split = string.split(" ");
+			if (!string.equals(" ") && !string.equals("")){
+						int[] intArray = new int[split.length];
+					for (int i = 0; i < split.length; i++) {
+						System.out.println("split[i]" + split[i]);
+						if (!split[i].equals("") && !split[i].equals(" ")) {
+							System.out.println("STR" + split[i]);
+							intArray[i] = Integer.parseInt(split[i]);
+						}
+					}
+			return intArray;
 			}
-		
-		return intArray;
+			else
+				return null;
 	}
 
 }
