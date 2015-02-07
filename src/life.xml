@@ -6,6 +6,7 @@
 		<xRows>10</xRows>
 		<yCols>10</yCols>
 		<fps>3</fps>
+		<gridLines>0</gridLines>
 	</initParam>
 	<simParam>
 	    <stayOn>2</stayOn>

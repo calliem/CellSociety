@@ -210,11 +210,18 @@ public class CellSocietyView {
 			InvocationTargetException, ClassNotFoundException,
 			NoSuchMethodException, SecurityException {
 		mySimGrid = new GridPane();
+		
 		mySimGrid.setHgap(1);
 		mySimGrid.setVgap(1);
+		
 		mySimGrid.setPadding(new Insets(0, 25, 5, 25));
 		mySimGrid.setAlignment(Pos.CENTER);
 
+	}
+	
+	public void setGridGap(int gridLineGap){
+		mySimGrid.setHgap(gridLineGap);
+		mySimGrid.setVgap(gridLineGap);
 	}
 
 	/**

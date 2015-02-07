@@ -135,6 +135,8 @@ public class CellSociety {
 		System.out.println(constructor);
 		myController = (SimController) constructor.newInstance(myParser
 				.getSimParamMap());
+		
+
 	}
 
 	private void configureListeners() throws IOException {
@@ -240,24 +242,28 @@ public class CellSociety {
 		pauseAnimation();
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		myView.displayFrameRate(myFrameRate);
+		String gridLines = myParser.getInitParamMap().get("gridLines");
+		if (gridLines != null)
+			myView.setGridGap(Integer.parseInt(gridLines));
+		else
+			myView.setGridGap(1); //default
 	}
 
 	private int[] stringToIntArray(String string) {
-			string = string.replaceAll("\\s+"," ");
-			String[] split = string.split(" ");
-			if (!string.equals(" ") && !string.equals("")){
-						int[] intArray = new int[split.length];
-					for (int i = 0; i < split.length; i++) {
-						System.out.println("split[i]" + split[i]);
-						if (!split[i].equals("") && !split[i].equals(" ")) {
-							System.out.println("STR" + split[i]);
-							intArray[i] = Integer.parseInt(split[i]);
-						}
-					}
-			return intArray;
+		string = string.replaceAll("\\s+"," ");
+		String[] split = string.split(" ");
+		if (!string.equals(" ") && !string.equals("")){
+			int[] intArray = new int[split.length];
+			for (int i = 0; i < split.length; i++) {
+				System.out.println("split[i]" + split[i]);
+				if (!split[i].equals("") && !split[i].equals(" ")) {
+					System.out.println("STR" + split[i]);
+					intArray[i] = Integer.parseInt(split[i]);
+				}
 			}
-			else
-				return null;
+			return intArray;
+		}
+		else
+			return null;
 	}
-
 }
