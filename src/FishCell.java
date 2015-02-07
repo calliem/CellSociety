@@ -46,7 +46,7 @@ public class FishCell extends Cell implements ReproducingCell{
 	//REFACTOR!!!! make ReproducingCell interactive
 	@Override
 	public Cell reproducingResult() {
-		if(myCurrAge == myReproducingAge){
+		if(myCurrAge >= myReproducingAge){
 			myCurrAge = 0;
 			return new FishCell();
 		}

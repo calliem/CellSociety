@@ -3,6 +3,7 @@
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -17,7 +18,7 @@ public class FireController extends CardinalSimController{
 	}	
 
 	@Override
-	protected String getNeighborsState(ArrayList<Cell> neighbors) {
+	protected String getNeighborsState(List<Cell> neighbors) {
 		for(Cell c: neighbors){
 			if(c.toString().equals("FireCell")){
 				if(new Random().nextInt(100) < myProbCatch){

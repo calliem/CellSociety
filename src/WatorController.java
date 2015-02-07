@@ -1,6 +1,7 @@
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -18,13 +19,42 @@ public class WatorController extends CardinalSimController{
 
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
-		ArrayList<Integer[]> updatedCoordinates = new ArrayList<Integer[]>();
+		List<Integer[]> updatedCoordinates = new ArrayList<Integer[]>();
+		
 
 		/**
 		 * Do shark first
 		 * then fish
 		 * then empty
 		 */
+		List<ArrayList<Integer[]>> myCoordinates= findCoordinates(grid);
+		//CoordinateObject 
+		
+		for(List<Integer[]> types : myCoordinates){
+			for(Integer[] coords : types){
+				int row = coords[0];
+				int col = coords[1];
+				//Integer[] curCoordinates = {r,c};
+				if(!contains(updatedCoordinates, coords)){
+					Cell curCell = grid[row][col];
+					if(deadShark(curCell)){
+
+						newGrid[row][col] = ((SharkCell) curCell).reproducingResult();
+						//grid[row][col] = ((SharkCell) curCell).reproducingResult();
+					}
+					else if(curCell.toString().equals("EmptyCell")){
+						//grid[row][col] = makeCell("EmptyCell");
+						newGrid[row][col] = makeCell("EmptyCell");
+						//System.out.println("row " + row + " col " + col);
+					}
+					else{
+						//updateDestination(grid, r, c, newGrid, updatedCoordinates);
+						updateFromCell(grid, row, col, newGrid, updatedCoordinates, grid[row][col].toString()); 
+					}	
+				}
+			}
+		}
+		/*
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
 				Integer[] curCoordinates = {r,c};
@@ -44,9 +74,42 @@ public class WatorController extends CardinalSimController{
 					}	
 				}
 			}
-		}
+		}*/
+		//return grid;
 		return newGrid;
 	}
+	
+	private List<ArrayList<Integer[]>> findCoordinates(Cell[][] grid) {
+		List<ArrayList<Integer[]>> returnList = new ArrayList<ArrayList<Integer[]>>();
+		ArrayList<Integer[]> sharkList = new ArrayList<Integer[]>();
+		ArrayList<Integer[]> fishList = new ArrayList<Integer[]>();
+		ArrayList<Integer[]> emptyList = new ArrayList<Integer[]>();
+		
+		returnList.add(sharkList);
+		returnList.add(fishList);
+		returnList.add(emptyList);
+		
+		for(int i = 0; i < grid.length; i++){
+			for(int j = 0; j < grid[0].length; j++){
+				String curName = grid[i][j].toString();
+				Integer[] curCoords = {i,j};
+				if(curName.equals("SharkCell")){
+					sharkList.add(curCoords);
+					returnList.set(0, sharkList);
+				}
+				else if(curName.equals("FishCell")){
+					fishList.add(curCoords);
+					returnList.set(1, fishList);
+				}
+				else{
+					emptyList.add(curCoords);
+					returnList.set(2, emptyList);
+				}
+			}
+		}
+		return returnList;
+	}
+	
 /*
 	private void updateDestination(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates) {
 		String state = grid[r][c].toString();
@@ -96,8 +159,10 @@ public class WatorController extends CardinalSimController{
 	}
 */
 
-	private void updateFromCell(Cell[][] grid, int r, int c, Cell[][] newGrid, ArrayList<Integer[]> updatedCoordinates, String type){        
-		ArrayList<Integer[]> eligibleDestinations = makeEligible(grid, r, c, updatedCoordinates, type);//new ArrayList<Integer[]>(); 
+	
+
+	private void updateFromCell(Cell[][] grid, int r, int c, Cell[][] newGrid, List<Integer[]> updatedCoordinates, String type){        
+		List<Integer[]> eligibleDestinations = makeEligible(grid, r, c, updatedCoordinates, type);//new ArrayList<Integer[]>(); 
 		/*
 		if(type.equals("FishCell")){                                                                                                             
 			eligibleDestinations = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);                                                        
@@ -110,29 +175,33 @@ public class WatorController extends CardinalSimController{
 		}
 		*/                                                                                                                                        
 		if(eligibleDestinations.isEmpty()){                                                                                                      
-			newGrid[r][c] = ((ReproducingCell) grid[r][c]).ageOneChronon();                                                                      
+			newGrid[r][c] = ((ReproducingCell) grid[r][c]).ageOneChronon(); 
+			//grid[r][c] = ((ReproducingCell) grid[r][c]).ageOneChronon();                                                             
 		}                                                                                                                                        
 		else{                                                                                                                                    
 			Integer[] dest = getDestination(eligibleDestinations);                                                                                   
-			newGrid[dest[0]][dest[1]] = ((ReproducingCell) (grid[r][c])).ageOneChronon();                                                            
+			newGrid[dest[0]][dest[1]] = ((ReproducingCell) (grid[r][c])).ageOneChronon();                       
+			//grid[dest[0]][dest[1]] = ((ReproducingCell) (grid[r][c])).ageOneChronon();                       
 			Integer[] currCoord = {r,c};
 			if(type.equals("SharkCell")){
 				if(grid[dest[0]][dest[1]].toString().equals("FishCell")){
 					((SharkCell) newGrid[dest[0]][dest[1]]).replenishEnergy();
+					//((SharkCell) grid[dest[0]][dest[1]]).replenishEnergy();
 				}
 			}
 			updatedCoordinates.add(dest);                                                                                                            
 			updatedCoordinates.add(currCoord);                                                                                                       
-			newGrid[r][c] = ((ReproducingCell) (grid[r][c])).reproducingResult();                                                                    
+			newGrid[r][c] = ((ReproducingCell) (grid[r][c])).reproducingResult();                                     
+			//grid[r][c] = ((ReproducingCell) (grid[r][c])).reproducingResult();                                     
 		}                                                                                                                                        
 	}                                                                                                                                        
 
 
 
 
-	private ArrayList<Integer[]> makeEligible(Cell[][] grid, int r, int c,
-			ArrayList<Integer[]> updatedCoordinates, String type) {
-		ArrayList<Integer[]> list = new ArrayList<Integer[]>();
+	private List<Integer[]> makeEligible(Cell[][] grid, int r, int c,
+			List<Integer[]> updatedCoordinates, String type) {
+		List<Integer[]> list = new ArrayList<Integer[]>();
 		if(type.equals("FishCell")){                                                                                                             
 			list = getNeighbors(grid, r, c, "EmptyCell", updatedCoordinates);                                                        
 		}                                                                                                                                        
@@ -145,8 +214,8 @@ public class WatorController extends CardinalSimController{
 		return list;
 	}
 
-	private ArrayList<Integer[]> getNeighbors(Cell[][] grid, int r, int c, String s, ArrayList<Integer[]> updatedCoordinates){
-		ArrayList<Integer[]> list = new ArrayList<Integer[]>();
+	private List<Integer[]> getNeighbors(Cell[][] grid, int r, int c, String s, List<Integer[]> updatedCoordinates){
+		List<Integer[]> list = new ArrayList<Integer[]>();
 		for(int d = -1; d <= 1; d += 2){
 
 			//REFACTOR
@@ -186,7 +255,7 @@ public class WatorController extends CardinalSimController{
 		}
 	}
 	 */
-	private Integer[] getDestination(ArrayList<Integer[]> eligibleDestinations) {
+	private Integer[] getDestination(List<Integer[]> eligibleDestinations) {
 		return eligibleDestinations.get(new Random().nextInt(eligibleDestinations.size()));
 	}
 
@@ -198,7 +267,7 @@ public class WatorController extends CardinalSimController{
 	}
 
 	@Override
-	protected String getNeighborsState(ArrayList<Cell> neighbors) {
+	protected String getNeighborsState(List<Cell> neighbors) {
 		// TODO Auto-generated method stub
 		return null;
 	}

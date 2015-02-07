@@ -1,6 +1,7 @@
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -19,7 +20,7 @@ public class LifeController extends SimController{
 		bornOn = Integer.parseInt(parameters.get("bornOn"));
 	}
 
-	protected String getNeighborsState(ArrayList<Cell> neighbors) {
+	protected String getNeighborsState(List<Cell> neighbors) {
 		int count = 0;
 		for(Cell c: neighbors){
 			//if(c != null){
