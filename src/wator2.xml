@@ -20,15 +20,11 @@
 	        <loc>4 10 11 12 115 117 118 119 300 312 333 2 4 5</loc>
 	        <reproductionAge>3</reproductionAge>
 			<maxEnergy>2</maxEnergy>
-	     </cell>
-	     
+	     </cell>  
 	   	  <cell state="FishCell" color="Yellow">
 	        <loc> 1 2 3 5 6 7 8 9 200 499 588 299 109 283 111 112</loc>
 	        <reproductionAge>3</reproductionAge>
-	    </cell>
-	    
-		 
-	    
+	    </cell>    
   </cellParam>
 </simulation>
 	  
