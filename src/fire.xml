@@ -18,6 +18,9 @@
 	    <cell state="FireCell" color="Orange">
 	        <loc>55</loc>
 	    </cell>
+	    <cell state="EmptyCell" color="White">
+	    	<loc></loc>
+	    </cell>
 	     
   </cellParam>
 </simulation>
