@@ -12,10 +12,10 @@
 	</simParam>
 	<cellParam>    
 			
-	    <cell state="TreeCell" color="Black">
+	    <cell state="Cell" name="Tree" color="Black">
 	        <loc></loc>
 	    </cell>
-	    <cell state="FireCell" color="Orange">
+	    <cell state="Cell" name="Fire" color="Orange">
 	        <loc>55</loc>
 	    </cell>
 	     

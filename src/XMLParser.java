@@ -81,10 +81,17 @@ public class XMLParser {
 			if (node instanceof Element){
 				Element element = (Element) node;
 				//input essential (state + color) elements into the cellParamMap
+				//each cell must have at least 2 parameters to start out 
+				//is there a for loop for all attributes? prob 
+				//NodeNamedMap n = element.getAttributes();
+				//iterate through them all . 
 				String stateName = element.getAttribute("state"); 
 				cellParamMap.put("state", stateName); 
 				String color = element.getAttribute("color");
 				cellParamMap.put("color", color);
+				String name = element.getAttribute("color");
+				cellParamMap.put("name", name);
+
 			//if the cell has more properties (lower level nodes)
 			if (node.hasChildNodes()){
 				NodeList nodelist = node.getChildNodes();

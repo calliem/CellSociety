@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simulation>
 	<initParam>
-		<simName>Water</simName>
+		<simName></simName>
 		<author>Callie</author>
 		<xRows>10</xRows>
 		<yCols>10</yCols>
 		<fps>3</fps>
 	</initParam>
-	<!--  
-	<simParam>
-	    <>50</>
-	</simParam>
-	-->
 	<cellParam>    
-	    <cell state="EmptyCell" color="Cyan" />
-	     <cell state="SharkCell" color="Black">
+	    <cell state="Cell" name="Empty" color="Cyan" />
+	     <cell state="SharkCell" name="Shark" color="Black">
 	        <loc>3</loc>
 	        <reproductionAge>3</reproductionAge>
 			<maxEnergy>2</maxEnergy>
 	     </cell>
-	    <cell state="FishCell" color="Yellow">
+	    <cell state="FishCell" name="Fish" color="Yellow">
 	        <loc>1 2 10 15</loc>
 	        <reproductionAge>3</reproductionAge>
 	    </cell>

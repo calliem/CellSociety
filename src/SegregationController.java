@@ -39,7 +39,7 @@ public class SegregationController extends SimController{
 		double blueCount = 0;
 		double redCount = 0;
 		for(Cell c: neighbors){
-			if(c.toString().equals("BlueCell")){
+			if(c.toString().equals("BlueCell")){  //these should all just make Cell
 				blueCount++;
 			}
 			if(c.toString().equals("RedCell")){

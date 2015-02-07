@@ -13,15 +13,15 @@
 	</simParam>
 	-->
 	<cellParam>    
-	    <cell state="EmptyCell" color="Cyan" />
+	    <cell state="Cell" name="Empty" color="Cyan" />
 	    
-	     <cell state="SharkCell" color="Black">
+	     <cell state="SharkCell" name="Shark" color="Black">
 	        <loc>3 110 200 112 113 116 220 5 10 115 117 118 </loc>
 	        <reproductionAge>3</reproductionAge>
 			<maxEnergy>2</maxEnergy>
 	     </cell>
 
-	    <cell state="FishCell" color="Yellow">
+	    <cell state="FishCell" name="Fish" color="Yellow">
 	        <loc>1 205 7 10 167 111 112 100 55 56 57 58 59 60 61 62 63 64 70 184 83 87 191 94 98</loc>
 	        <reproductionAge>3</reproductionAge>
 	    </cell>

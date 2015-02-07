@@ -39,11 +39,9 @@ public class CellSocietyView {
 	private GridPane myRoot;
 	private GridPane mySimGrid;
     private ResourceBundle myResources;
-	
     
     private static final Font ERROR_FONT = Font.font("Arial", FontWeight.NORMAL, 12);
     private static final Font TITLE_FONT = Font.font("Helvetica", FontWeight.NORMAL, 32);
-
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "";
 	public static final int GRID_SIZE = 500;

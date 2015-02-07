@@ -24,9 +24,8 @@ public class CellSociety {
 	private SimController myController;
 	private Timeline myTimeline;
 	private Cell[][] myCells;
-
-	//Remove this
-	private int count = 0;
+	
+	private int count=0;
 	
 	public CellSociety(Stage s) throws ParserConfigurationException,
 			SAXException, IOException, InstantiationException,
@@ -36,7 +35,9 @@ public class CellSociety {
 
 		myParser = new XMLParser();
 		myView = new CellSocietyView(s);
+		
 		configureListeners();
+		//technically catch the errors here?
 	}
 
 	public Cell createCellInstance(Map<String, String> cellParams)
@@ -46,7 +47,7 @@ public class CellSociety {
 		Class<?> className = Class.forName(cellParams.get("state"));
 		//System.out.println("ClassName:  " + className.toString());
 			Constructor<?> constructor = className.getConstructor(Map.class);
-		System.out.println(constructor);
+	//	System.out.println(constructor);
 		return (Cell) constructor.newInstance(cellParams);
 	}
 
@@ -105,32 +106,26 @@ public class CellSociety {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	private void retrieveParserInfo() throws ClassNotFoundException,
-			NoSuchMethodException, InstantiationException,
-			IllegalAccessException, InvocationTargetException {
+	private void retrieveParserInfo() throws NoSuchMethodException, InstantiationException,
+			IllegalAccessException, InvocationTargetException, ClassNotFoundException {
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		String className = myParser.getInitParamMap().get("simName")
 				+ "Controller";
-		System.out.println("class");
-		Class<?> currentClass = null;
-		System.out.println("class2");
-		try{
-			System.out.println("before");
-			currentClass = Class.forName(className);
-			System.out.println("after");
-		}catch (ClassNotFoundException e){
-			System.out.println("error!");
-			System.out.println(currentClass);
-		}
+	//	Class<?> currentClass = null;
+//		try{
+		Class<?> currentClass = Class.forName(className);
+	//	}catch (ClassNotFoundException e){
+			System.out.println("ClassNotFoundException");
+		//	throw new XMLException("Get from resource file: XMLSimNameError");
+		//} //throw and then remove the throw classnotfoundexception
 		System.out.println("currentclass" + currentClass);
-		System.out.println("class" + currentClass);
 		Constructor<?> constructor = currentClass.getConstructor(Map.class);
 		System.out.println(constructor);
 		myController = (SimController) constructor.newInstance(myParser
 				.getSimParamMap());
 	}
 
-	private void configureListeners() throws IOException {
+	private void configureListeners() throws IOException, ClassNotFoundException {
 		myView.getPlayElement().setOnMouseClicked(e -> resumeAnimation());
 		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
 		myView.getStepElement().setOnMouseClicked(e -> updateGrid());
@@ -173,7 +168,6 @@ public class CellSociety {
 				| ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-	//	System.out.println("Count: "+ count);
 		count++;
 		myView.updateSimGrid(myCells);
 	}
@@ -181,7 +175,6 @@ public class CellSociety {
 	private void resumeAnimation() {
 		myView.changeResumeButtonPermissions();
 		myTimeline.play();
-
 	}
 
 	private void pauseAnimation() {
@@ -190,7 +183,7 @@ public class CellSociety {
 	}
 
 	private void readNewXML() {
-
+		
 		File newFile = myView.displayXMLChooser();
 		try {
 			myParser.parseXMLFile(newFile);
@@ -199,7 +192,7 @@ public class CellSociety {
 		}
 		try {
 			retrieveParserInfo();
-		} catch (ClassNotFoundException | NoSuchMethodException
+		} catch (NoSuchMethodException | ClassNotFoundException //remove this classnotfoundexception here
 				| InstantiationException | IllegalAccessException
 				| InvocationTargetException e) {
 			e.printStackTrace();
@@ -226,6 +219,8 @@ public class CellSociety {
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		myView.displayFrameRate(myFrameRate);
 	}
+	
+
 
 	private int[] stringToIntArray(String string) {
 		String[] split = string.split(" ");

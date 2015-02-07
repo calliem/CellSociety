@@ -13,7 +13,6 @@ public class LiveCell extends Cell{
 		super();
 		getShape().setFill(myColor);
 		//System.out.println("hi" + myColor);
-
 	}
 	
 	public LiveCell(Map<String, String> params) {

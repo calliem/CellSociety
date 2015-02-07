@@ -12,9 +12,10 @@ public abstract class SimController {
 			for(int c = 0; c < grid[0].length; c++){
 				Cell curCell = grid[r][c];
 				ArrayList<Cell> neighbors = getNeighbors(grid, r, c);
-				String neighborsState = getNeighborsState(neighbors);
+				//change below to Cell getNeighbors (so that we can access their NAME and their STATE
+				String neighborsName = getNeighborsState(neighbors);
+				System.out.println("runonesim: neighbors" + neighborsState);
 				Cell newCell = newState(newGrid, curCell, neighborsState, r, c);
-				//newState(grid)
 				newGrid[r][c] = newCell;
 			}
 		}
@@ -29,7 +30,7 @@ public abstract class SimController {
 					int nextRow = row + dr;
 					int nextCol = col + dc;
 					if(inBounds(grid, nextRow, nextCol))
-					list.add(grid[nextRow][nextCol]);
+						list.add(grid[nextRow][nextCol]);
 				}
 			}
 		}
@@ -43,7 +44,9 @@ public abstract class SimController {
 		return true;
 	}
 
+		//put the string now as a parameter instead of as the class name....although some special one will need a special classname
 	public static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		System.out.println("name (not a classname) " + s); //this should be name
 		return (Cell) Class.forName(s).getConstructor().newInstance();
 	}
 	

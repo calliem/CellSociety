@@ -16,8 +16,9 @@ public class LifeController extends SimController{
 	protected String getNeighborsState(ArrayList<Cell> neighbors) {
 		int count = 0;
 		for(Cell c: neighbors){
+			System.out.println("cell" + c.toString());
 
-			if(c.toString().equals("LiveCell")){
+			if(c.toString().equals(Strings.LIVE_CELL)){
 				count++;
 			}
 		}
@@ -27,9 +28,10 @@ public class LifeController extends SimController{
 		}
 
 		else if (count == bornOn){
-			return "LiveCell";
+			return Strings.LIVE_CELL; //MAKE THIS THE INSTANCE AND ALWAYS MAKE A CELL INSTEAD
 		}
-		return "EmptyCell";
+		else
+			return Strings.EMPTY_CELL; //this will go to Empty but java reflections calls this and it instead needs to go to Cell (and maybe include the name that it is empty.....)
 	}
 
 	@Override
@@ -40,10 +42,12 @@ public class LifeController extends SimController{
 			SecurityException, ClassNotFoundException {
 		if(neighborsState.equals("two")){
 			//return new Cell(cell.myLabel);
-			return makeCell(cell.toString());
+			System.out.println("cell statename" + cell.stateName());
+			return makeCell(cell.stateName());
 			//return (Cell) Class.forName(cell.toString()).getConstructor().newInstance();
 		}
 		//return new Cell(neighborsState);
+		System.out.println("newState(): neighborsState" + neighborsState);
 		return makeCell(neighborsState);
 	}
 }
