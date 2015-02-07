@@ -1,6 +1,7 @@
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -10,8 +11,9 @@ public class SegregationController extends SimController{
 	private ArrayList<Integer[]> myEmptyList;
 	private ArrayList<Integer[]> updatedList;
 
-	private Boundary myBoundary = new FiniteBoundary();
-	private Neighbor myNeighbor = new FullNeighbor(myBoundary);
+	//private Boundary myBoundary = new FiniteBoundary();
+	//private Neighbor myNeighbor = new FullNeighbor(myBoundary);
+	
 	//private Neighbor 
 	//private ArrayList<String> myRandomList;
 
@@ -42,7 +44,7 @@ public class SegregationController extends SimController{
 	}
 
 	@Override
-	protected String getNeighborsState(ArrayList<Cell> neighbors) {
+	protected String getNeighborsState(List<Cell> neighbors) {
 		double blueCount = 0;
 		double redCount = 0;
 		for(Cell c: neighbors){

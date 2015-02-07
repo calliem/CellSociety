@@ -2,7 +2,9 @@
 
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
+//import java.util.Collection;
+import java.util.List;
 
 
 
@@ -22,7 +24,7 @@ public abstract class SimController {
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
 				Cell curCell = grid[r][c];
-				ArrayList<Cell> neighbors = myNeighbor.getNeighbors(grid, r, c);
+				List<Cell> neighbors = myNeighbor.getNeighbors(grid, r, c);
 				String neighborsState = getNeighborsState(neighbors);
 				Cell newCell = newState(newGrid, curCell, neighborsState, r, c);
 				//newState(grid)
@@ -61,11 +63,11 @@ public abstract class SimController {
 		return (Cell) Class.forName(s).getConstructor().newInstance();
 	}
 	
-	protected  abstract String getNeighborsState(ArrayList<Cell> neighbors);
+	protected  abstract String getNeighborsState(List<Cell> neighbors);
 
-	protected abstract Cell newState(Cell[][] newGrid, Cell cell, String hoodState, int r, int c) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
+	protected abstract Cell newState(Cell[][] newGrid, Cell cell, String neighborsState, int r, int c) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 
-	protected boolean contains(ArrayList<Integer[]> updatedCoordinates,
+	protected boolean contains(List<Integer[]> updatedCoordinates,
 			Integer[] curCoordinates) {
 		int[] coords = new int[curCoordinates.length];
 		for(int i = 0; i < curCoordinates.length; i++){
