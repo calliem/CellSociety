@@ -1,11 +1,22 @@
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.chart.Axis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -40,14 +51,16 @@ public class CellSocietyView {
 	private GridPane myRoot;
 	private GridPane mySimGrid;
     private ResourceBundle myResources;
-	
+    private LineChart<Number, Number> myChart;
+    private List<Series<Number, Number>> mySeries;
+
     
     private static final Font ERROR_FONT = Font.font("Arial", FontWeight.NORMAL, 12);
     private static final Font TITLE_FONT = Font.font("Helvetica", FontWeight.NORMAL, 32);
 
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "";
-	public static final int GRID_SIZE = 500;
+	public static final int GRID_SIZE = 400;
 
 	// using Reflection makes us have a ton of throw errors. Is that okay?
 
@@ -91,6 +104,14 @@ public class CellSocietyView {
 
 	public Button getSlowdownElement() {
 		return this.mySlowdownButton;
+	}
+	
+	public void openDialogBox(String s) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Dialog Box");
+		alert.setHeaderText("Look, an Information Dialog");
+		alert.setContentText(s);
+		alert.showAndWait();
 	}
 
 	public void updateSimGrid(Cell[][] cellGrid) {
@@ -150,6 +171,49 @@ public class CellSocietyView {
 		return fileChooser.showOpenDialog(myStage);
 	}
 	
+	public void updateChartLines(Cell[][] cells, int numFrames, String[] names){
+		
+		HashMap<String, Integer> cellCounts = new HashMap<String, Integer>();
+		
+		for (int i = 0; i < names.length; i++) {
+			cellCounts.put(names[i], 0);
+		}
+		
+		System.out.println(cellCounts.toString());
+		
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[0].length; j++) {
+				String cellName = cells[i][j].toString();
+				cellCounts.put(cellName, cellCounts.get(cellName) + 1);
+			}
+		}
+		
+		for (int i = 0 ; i < mySeries.size(); i++) {
+			Series<Number, Number> series = mySeries.get(i);
+			series.getData().add(new Data<Number, Number>(numFrames, cellCounts.get(names[i])));			
+		}
+		
+	}
+	
+	public void generateChartLines(String[] cellNames) {
+		
+		for (int i = 0; i < cellNames.length; i++) {
+			mySeries.add(new Series<Number, Number>());
+		}
+		
+		myChart.getData().addAll(mySeries);
+		
+	}
+	
+	private XYChart<Number, Number> initializeChart() {
+		
+		myChart = new LineChart<Number, Number>(new NumberAxis(), new NumberAxis());
+		myChart.setAnimated(true);
+		mySeries = new ArrayList<Series<Number, Number>>();
+		
+		return myChart;
+	}
+	
 	private void configureUI() {
 		myRoot.setAlignment(Pos.CENTER);
 		myRoot.setHgap(10);
@@ -160,6 +224,7 @@ public class CellSocietyView {
 		myRoot.add(makeFrameControlButtons(), 0, 3);
 		myRoot.add(makeSpeedDisplay(), 0, 4);
 		myRoot.add(createErrorLocation(), 0, 5);
+		myRoot.add(initializeChart(), 1, 1);
 	}
 	
 	/**
@@ -210,11 +275,18 @@ public class CellSocietyView {
 			InvocationTargetException, ClassNotFoundException,
 			NoSuchMethodException, SecurityException {
 		mySimGrid = new GridPane();
+		
 		mySimGrid.setHgap(1);
 		mySimGrid.setVgap(1);
+		
 		mySimGrid.setPadding(new Insets(0, 25, 5, 25));
 		mySimGrid.setAlignment(Pos.CENTER);
 
+	}
+	
+	public void setGridGap(int gridLineGap){
+		mySimGrid.setHgap(gridLineGap);
+		mySimGrid.setVgap(gridLineGap);
 	}
 
 	/**
@@ -280,22 +352,13 @@ public class CellSocietyView {
 		return bottomRow;
 	}
 
-	public void changeResumeButtonPermissions() {
-		myPlayButton.setDisable(true);
-		myPauseButton.setDisable(false);
-		myStepButton.setDisable(true);
-		myXMLButton.setDisable(true);
-		mySpeedupButton.setDisable(true);
-		mySlowdownButton.setDisable(true);		
-	}
-
-	public void changePauseButtonPermissions() {
-		myPlayButton.setDisable(false);
-		myPauseButton.setDisable(true);
-		myStepButton.setDisable(false);
-		myXMLButton.setDisable(false);
-		mySpeedupButton.setDisable(false);
-		mySlowdownButton.setDisable(false);		
+	public void setButtonsPause(boolean disable) {
+		myPlayButton.setDisable(disable);
+		myPauseButton.setDisable(!disable);
+		myStepButton.setDisable(disable);
+		myXMLButton.setDisable(disable);
+		mySpeedupButton.setDisable(disable);
+		mySlowdownButton.setDisable(disable);		
 	}
 
 }

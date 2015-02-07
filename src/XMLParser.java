@@ -85,6 +85,8 @@ public class XMLParser {
 				cellParamMap.put("state", stateName); 
 				String color = element.getAttribute("color");
 				cellParamMap.put("color", color);
+				String name = element.getAttribute("name");
+				cellParamMap.put("name", name);
 			//if the cell has more properties (lower level nodes)
 			if (node.hasChildNodes()){
 				NodeList nodelist = node.getChildNodes();

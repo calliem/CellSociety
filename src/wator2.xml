@@ -6,6 +6,7 @@
 		<xRows>50</xRows>
 		<yCols>50</yCols>
 		<fps>1</fps>
+		<gridLines>0</gridLines>
 	</initParam>
 	<!--  
 	<simParam>
@@ -13,20 +14,22 @@
 	</simParam>
 	-->
 	<cellParam>    
-	    <cell state="EmptyCell" color="Cyan" />
-	    
-	     <cell state="SharkCell" color="Black">
-	        <loc>3 110 200 112 113 116 220 5 10 115 117 118 </loc>
-	        <reproductionAge>3</reproductionAge>
-			<maxEnergy>2</maxEnergy>
-	     </cell>
+	    <cell state="EmptyCell" color="Cyan" name="EmptyCell"/>
 
-	    <cell state="FishCell" color="Yellow">
-	        <loc>1 205 7 10 167 111 112 100 55 56 57 58 59 60 61 62 63 64 70 184 83 87 191 94 98</loc>
-	        <reproductionAge>3</reproductionAge>
+	    <cell state="SharkCell" color="Black" name="SharkCell">
+	    	<loc>4 10 11 12 115 117 118 119 300 312 333 2 4 5</loc>
+	    	<reproductionAge>3</reproductionAge>
+	    	<maxEnergy>2</maxEnergy>
 	    </cell>
 
-  </cellParam>
+	    <cell state="FishCell" color="Yellow" name="FishCell">
+	    	<loc>1 2 3 5 6 7 8 9 200 499 588 299 109 283 111 112</loc>
+	    	<reproductionAge>3</reproductionAge>
+	    </cell>
+
+
+
+	</cellParam>
 </simulation>
 	  
 	    
