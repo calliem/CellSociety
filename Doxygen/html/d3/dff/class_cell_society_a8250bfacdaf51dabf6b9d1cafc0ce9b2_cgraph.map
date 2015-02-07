@@ -1,0 +1,12 @@
+<map id="CellSociety.increaseFrameRate" name="CellSociety.increaseFrameRate">
+<area shape="rect" id="node2" href="$d3/dff/class_cell_society.html#adc5feda3db5472cea4e092d463681033" title="CellSociety.reframeTimeline" alt="" coords="273,87,471,113"/>
+<area shape="rect" id="node3" href="$df/df8/class_cell_society_view.html#a99eb733c00ed7c1bcba8f2d684791a09" title="CellSocietyView.displayFrameRate" alt="" coords="520,61,757,88"/>
+<area shape="rect" id="node4" href="$d3/dff/class_cell_society.html#abf13a64ee79f2cb063447b499c695c58" title="CellSociety.start" alt="" coords="577,112,701,139"/>
+<area shape="rect" id="node5" href="$d3/dff/class_cell_society.html#a0ff19c30a1cc433d8ea8444f6a5617f1" title="CellSociety.updateGrid" alt="" coords="805,112,971,139"/>
+<area shape="rect" id="node6" href="$d6/d6e/class_sim_controller.html#a10145cee2eaceb4ecad9396a825051d1" title="SimController.runOneSim" alt="" coords="1037,79,1221,105"/>
+<area shape="rect" id="node10" href="$df/df8/class_cell_society_view.html#a43ac2666d3a002024be53fe74028a576" title="CellSocietyView.updateSimGrid" alt="" coords="1019,144,1239,171"/>
+<area shape="rect" id="node7" href="$dd/ddd/class_neighbor.html#ac769186595af20512a2ec4754db75640" title="Neighbor.getNeighbors" alt="" coords="1303,5,1473,32"/>
+<area shape="rect" id="node8" href="$d6/d6e/class_sim_controller.html#a1538c5c647988e5d5b6602c8eb1b8949" title="SimController.getNeighbors\lState" alt="" coords="1289,57,1487,98"/>
+<area shape="rect" id="node9" href="$d6/d6e/class_sim_controller.html#a6b7a166a6fd312895c8356d24de980e3" title="SimController.newState" alt="" coords="1302,123,1474,149"/>
+<area shape="rect" id="node11" href="$dd/d11/class_cell.html#a1e0ece61fecc69a9b7986d17d925434a" title="Cell.getShape" alt="" coords="1333,173,1443,200"/>
+</map>
