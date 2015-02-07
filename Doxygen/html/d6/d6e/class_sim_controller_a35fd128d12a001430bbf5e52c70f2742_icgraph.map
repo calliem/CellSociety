@@ -1,7 +1,0 @@
-<map id="SimController.contains" name="SimController.contains">
-<area shape="rect" id="node2" href="$dc/da7/class_wator_controller.html#a8a5c6aa913ced9603c3a2064bf758e5e" title="WatorController.getNeighbors" alt="" coords="222,5,431,32"/>
-<area shape="rect" id="node5" href="$dc/da7/class_wator_controller.html#acc1968e8357ac21f25473b4fcbadc954" title="WatorController.runOneSim" alt="" coords="1003,31,1197,57"/>
-<area shape="rect" id="node6" href="$db/df8/class_segregation_controller.html#a2253ad6843821c07a63332369bc6db60" title="SegregationController.new\lState" alt="" coords="231,107,422,149"/>
-<area shape="rect" id="node3" href="$dc/da7/class_wator_controller.html#ad6ef17a774720254707f22d42c88c781" title="WatorController.makeEligible" alt="" coords="480,5,683,32"/>
-<area shape="rect" id="node4" href="$dc/da7/class_wator_controller.html#ac7f4117f349a319ab8af35b4f9bc8876" title="WatorController.updateFromCell" alt="" coords="731,5,954,32"/>
-</map>
