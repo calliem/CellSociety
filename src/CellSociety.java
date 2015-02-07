@@ -239,15 +239,16 @@ public class CellSociety {
 	}
 
 	private int[] stringToIntArray(String string) {
+		string = string.replaceAll("\\s+"," ");
 		String[] split = string.split(" ");
 		int[] intArray = new int[split.length];
-		// checks to ensure that it is not the first location parameter passed
-		// in from the XML document (it is empty and will be made automatically)
-		if (!string.equals("")) {
 			for (int i = 0; i < split.length; i++) {
-				intArray[i] = Integer.parseInt(split[i]);
+				if (!split[i].equals("")) {
+					System.out.println("STR" + split[i]);
+					intArray[i] = Integer.parseInt(split[i]);
+				}
 			}
-		}
+		
 		return intArray;
 	}
 
