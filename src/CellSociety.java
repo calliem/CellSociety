@@ -273,7 +273,7 @@ public class CellSociety {
 
 		myView.generateChartLines(cellNames);
 		myView.updateChartLines(myCells, myNumFrames, cellNames);
-		myView.openDialogBox("HI");
+		//myView.openDialogBox("HI");
 
 				String gridLines = myParser.getInitParamMap().get("gridLines");
 		if (gridLines != null)

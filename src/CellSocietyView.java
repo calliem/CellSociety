@@ -15,8 +15,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+//import javafx.scene.control.Alert;
+//import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -105,7 +105,7 @@ public class CellSocietyView {
 	public Button getSlowdownElement() {
 		return this.mySlowdownButton;
 	}
-	
+	/*
 	public void openDialogBox(String s) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Dialog Box");
@@ -113,7 +113,7 @@ public class CellSocietyView {
 		alert.setContentText(s);
 		alert.showAndWait();
 	}
-
+*/
 	public void updateSimGrid(Cell[][] cellGrid) {
 		mySimGrid.getChildren().clear();
 		for (int i = 0; i < cellGrid.length; i++) {
