@@ -1,0 +1,6 @@
+<map id="SimController.makeCell" name="SimController.makeCell">
+<area shape="rect" id="node2" href="$d5/d1b/class_fire_controller.html#ab4e08aed3cc0e59a18ab11cfc85ba1ad" title="FireController.newState" alt="" coords="237,5,406,32"/>
+<area shape="rect" id="node3" href="$d9/da2/class_life_controller.html#a36d1c0657f422c009b45e38e8676b4c7" title="LifeController.newState" alt="" coords="237,56,406,83"/>
+<area shape="rect" id="node4" href="$db/df8/class_segregation_controller.html#a2253ad6843821c07a63332369bc6db60" title="SegregationController.new\lState" alt="" coords="226,107,417,149"/>
+<area shape="rect" id="node5" href="$dc/da7/class_wator_controller.html#acc1968e8357ac21f25473b4fcbadc954" title="WatorController.runOneSim" alt="" coords="224,173,419,200"/>
+</map>
