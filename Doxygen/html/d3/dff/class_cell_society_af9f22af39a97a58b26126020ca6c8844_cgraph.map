@@ -1,0 +1,30 @@
+<map id="CellSociety.readNewXML" name="CellSociety.readNewXML">
+<area shape="rect" id="node2" href="$d3/dff/class_cell_society.html#a7a6dab68551f91cc4b120faa51670bf8" title="CellSociety.createCellArray" alt="" coords="257,105,449,131"/>
+<area shape="rect" id="node4" href="$d2/d95/class_x_m_l_parser.html#ac4e3257aed1deb9fe950149f706fce5b" title="XMLParser.getCellParamList" alt="" coords="1059,181,1258,207"/>
+<area shape="rect" id="node5" href="$d2/d95/class_x_m_l_parser.html#aea9b535964c91fa3c3d2b1c0b6a334c2" title="XMLParser.getInitParamMap" alt="" coords="533,231,731,258"/>
+<area shape="rect" id="node7" href="$df/df8/class_cell_society_view.html#a99eb733c00ed7c1bcba8f2d684791a09" title="CellSocietyView.displayFrameRate" alt="" coords="235,206,472,233"/>
+<area shape="rect" id="node8" href="$df/df8/class_cell_society_view.html#a053b6ef6afa80722445223c4e373e51c" title="CellSocietyView.displayXMLChooser" alt="" coords="230,257,477,283"/>
+<area shape="rect" id="node9" href="$df/df8/class_cell_society_view.html#a930d889b8619ae93731b8542ce285180" title="CellSocietyView.generate\lChartLines" alt="" coords="262,308,445,349"/>
+<area shape="rect" id="node10" href="$d2/d95/class_x_m_l_parser.html#a77ee23818c822b69cdf4200eef726a61" title="XMLParser.parseXMLFile" alt="" coords="267,425,440,451"/>
+<area shape="rect" id="node14" href="$d3/dff/class_cell_society.html#ae565a305ea53e5a37da9816a236b4fbc" title="CellSociety.pauseAnimation" alt="" coords="254,475,453,502"/>
+<area shape="rect" id="node16" href="$d3/dff/class_cell_society.html#abfbf43ce46b4c82c16a2d933b6a11abf" title="CellSociety.retrieveParserInfo" alt="" coords="250,374,457,401"/>
+<area shape="rect" id="node18" href="$dd/d11/class_cell.html#a7157b57f4ff263ea68e1ff5fc424176e" title="Cell.setCellSize" alt="" coords="294,526,413,553"/>
+<area shape="rect" id="node19" href="$df/df8/class_cell_society_view.html#a989874eb178e925124f50d7cabcc184c" title="CellSocietyView.setGridGap" alt="" coords="255,577,451,603"/>
+<area shape="rect" id="node20" href="$d3/dff/class_cell_society.html#ab9e56a2a70e210e021b51e898508329b" title="CellSociety.setupAnimation" alt="" coords="256,627,451,654"/>
+<area shape="rect" id="node27" href="$df/df8/class_cell_society_view.html#a43ac2666d3a002024be53fe74028a576" title="CellSocietyView.updateSimGrid" alt="" coords="1049,670,1269,697"/>
+<area shape="rect" id="node29" href="$df/df8/class_cell_society_view.html#a7ca77bdfdef97e9be9c9941c2f4d3513" title="CellSocietyView.updateChart\lLines" alt="" coords="1057,721,1261,763"/>
+<area shape="rect" id="node3" href="$d3/dff/class_cell_society.html#a117f1698760a3f6bbe51bd7af16f79bb" title="CellSociety.createCellInstance" alt="" coords="526,79,738,106"/>
+<area shape="rect" id="node6" href="$d3/dff/class_cell_society.html#a42451b17e2bca5fd025c8d4ea74310ca" title="CellSociety.stringToIntArray" alt="" coords="535,130,729,157"/>
+<area shape="rect" id="node11" href="$d2/d95/class_x_m_l_parser.html#ae67767f9678fb650ac38b1321ea9f723" title="XMLParser.parseInitialTags" alt="" coords="538,425,726,451"/>
+<area shape="rect" id="node12" href="$d2/d95/class_x_m_l_parser.html#a09c6848239104ae94825c045796dddd0" title="XMLParser.makeParamMap" alt="" coords="796,450,991,477"/>
+<area shape="rect" id="node13" href="$d2/d95/class_x_m_l_parser.html#a5a419f71699eb7d3d76ee238fb262a5f" title="XMLParser.makeCellParamList" alt="" coords="787,399,1000,426"/>
+<area shape="rect" id="node15" href="$df/df8/class_cell_society_view.html#ae83511f9bf3610b0750d41c4aeb0f778" title="CellSocietyView.setButtons\lPause" alt="" coords="535,476,729,517"/>
+<area shape="rect" id="node17" href="$d2/d95/class_x_m_l_parser.html#a0df3a2904766f59d1246cb55416f8146" title="XMLParser.getSimParamMap" alt="" coords="529,374,735,401"/>
+<area shape="rect" id="node21" href="$d3/dff/class_cell_society.html#abf13a64ee79f2cb063447b499c695c58" title="CellSociety.start" alt="" coords="570,627,694,654"/>
+<area shape="rect" id="node22" href="$d3/dff/class_cell_society.html#a0ff19c30a1cc433d8ea8444f6a5617f1" title="CellSociety.updateGrid" alt="" coords="811,627,976,654"/>
+<area shape="rect" id="node23" href="$d6/d6e/class_sim_controller.html#a10145cee2eaceb4ecad9396a825051d1" title="SimController.runOneSim" alt="" coords="1067,605,1251,631"/>
+<area shape="rect" id="node24" href="$dd/ddd/class_neighbor.html#ac769186595af20512a2ec4754db75640" title="Neighbor.getNeighbors" alt="" coords="1333,517,1502,543"/>
+<area shape="rect" id="node25" href="$d6/d6e/class_sim_controller.html#a1538c5c647988e5d5b6602c8eb1b8949" title="SimController.getNeighbors\lState" alt="" coords="1318,568,1517,609"/>
+<area shape="rect" id="node26" href="$d6/d6e/class_sim_controller.html#a6b7a166a6fd312895c8356d24de980e3" title="SimController.newState" alt="" coords="1331,634,1503,661"/>
+<area shape="rect" id="node28" href="$dd/d11/class_cell.html#a1e0ece61fecc69a9b7986d17d925434a" title="Cell.getShape" alt="" coords="1362,685,1473,711"/>
+</map>
