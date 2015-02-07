@@ -1,5 +1,0 @@
-<map id="SimController.runOneSim" name="SimController.runOneSim">
-<area shape="rect" id="node2" href="$dd/ddd/class_neighbor.html#ac769186595af20512a2ec4754db75640" title="Neighbor.getNeighbors" alt="" coords="253,5,422,32"/>
-<area shape="rect" id="node3" href="$d6/d6e/class_sim_controller.html#a1538c5c647988e5d5b6602c8eb1b8949" title="SimController.getNeighbors\lState" alt="" coords="238,57,437,98"/>
-<area shape="rect" id="node4" href="$d6/d6e/class_sim_controller.html#a6b7a166a6fd312895c8356d24de980e3" title="SimController.newState" alt="" coords="251,123,423,149"/>
-</map>
