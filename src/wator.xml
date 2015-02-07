@@ -7,11 +7,9 @@
 		<yCols>50</yCols>
 		<fps>6</fps>
 	</initParam>
-	<!--  
 	<simParam>
-	    <>50</>
+	    <></>
 	</simParam>
-	-->
 	<cellParam>    
 	    <cell state="EmptyCell" color="Cyan" />
 

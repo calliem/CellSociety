@@ -193,12 +193,6 @@ public class CellSocietyView {
 			series.getData().add(new Data<Number, Number>(numFrames, cellCounts.get(names[i])));			
 		}
 		
-		
-		System.out.println(mySeries.get(0).getData());
-		
-		// myChart.getData().clear();
-		// myChart.getData().addAll(mySeries);
-		
 	}
 	
 	public void generateChartLines(String[] cellNames) {
