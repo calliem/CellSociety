@@ -211,7 +211,9 @@ public class CellSocietyView {
 		mySeries = new ArrayList<Series<Number, Number>>();
 		
 		for (int i = 0; i < cellNames.length; i++) {
-			mySeries.add(new Series<Number, Number>());
+			Series<Number, Number> series = new Series<Number, Number>();
+			series.setName(cellNames[i]);
+			mySeries.add(series);
 		}
 		
 		myChart.getData().addAll(mySeries);
@@ -222,13 +224,15 @@ public class CellSocietyView {
 		
 		Axis<Number> xAxis = new NumberAxis();
 		xAxis.setAutoRanging(false);
+		xAxis.setTickLabelsVisible(false);
 		
 		Axis<Number> yAxis = new NumberAxis();
 		yAxis.setAutoRanging(true);
 		
 		myChart = new LineChart<Number, Number>(xAxis, yAxis);
-		myChart.setAnimated(true);
+		myChart.setAnimated(false);
 		myChart.setCreateSymbols(false);
+		myChart.setPadding(new Insets(0, 50, 0, 25));
 		
 		return myChart;
 	}
@@ -294,7 +298,7 @@ public class CellSocietyView {
 			InvocationTargetException, ClassNotFoundException,
 			NoSuchMethodException, SecurityException {
 		mySimGrid = new GridPane();	
-		mySimGrid.setPadding(new Insets(0, 25, 5, 25));
+		mySimGrid.setPadding(new Insets(0, 25, 5, 50));
 		mySimGrid.setAlignment(Pos.CENTER);
 
 	}
