@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simulation>
 	<initParam>
-		<simName>Wator</simName>
+		<simName>lala</simName>
 		<author>Callie</author>
 		<xRows>10</xRows>
 		<yCols>10</yCols>
@@ -14,7 +14,7 @@
 	-->
 	<cellParam>    
 	    <cell state="EmptyCell" color="Cyan" />
-	     <cell state="SharkCell" color="Black">
+	     <cell state="hohoho" color="Black">
 	        <loc>3</loc>
 
 	        <reproductionAge>3</reproductionAge>

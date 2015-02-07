@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -101,10 +102,21 @@ public class CellSocietyView {
 	}
 
 	public void setErrorText() {
-		myErrorMsg.setFont(ERROR_FONT); 
+	/*	myErrorMsg.setFont(ERROR_FONT); 
 		myErrorMsg.setFill(Color.RED);
-		myErrorMsg.setText(myResources.getString("ErrorMessage"));
+		myErrorMsg.setText(myResources.getString("ErrorMessage"));*/
+		
 	}
+	
+	/*public void showError (String message) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning Dialog");
+		alert.setHeaderText("Look, a Warning Dialog");
+		alert.setContentText("Careful with the next step!");
+
+		alert.showAndWait();
+        Dialogs.create().title(myResources.getString("ErrorTitle")).message(message).showError();
+    }*/
 
 	public void setBlankGrid() {
 		mySimGrid.getChildren().clear();

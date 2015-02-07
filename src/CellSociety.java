@@ -41,9 +41,18 @@ public class CellSociety {
 
 	public Cell createCellInstance(Map<String, String> cellParams)
 			throws InstantiationException, IllegalAccessException,
-			IllegalArgumentException, ClassNotFoundException,
+			IllegalArgumentException,
 			NoSuchMethodException, SecurityException, InvocationTargetException {
-		Class<?> className = Class.forName(cellParams.get("state"));
+		String state = cellParams.get("state");
+		Class<?> className; 
+		try{
+			className= Class.forName(state);
+		}
+		catch (ClassNotFoundException e){ //null pointer as well?
+			System.out.println("I just threw an exception");
+			throw new XMLParserException("Invalid cell state: %s", state);	
+		}
+		//WRITE A CATCH NULL POINTER AND THAT MEANS THAT THE CELL STATE WAS ENTERED INCORRECTLY
 		System.out.println("ClassName:  " + className.toString());
 		Constructor<?> constructor = className.getConstructor(Map.class);
 		System.out.println(constructor);
@@ -105,14 +114,19 @@ public class CellSociety {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	private void retrieveParserInfo() throws ClassNotFoundException,
-			NoSuchMethodException, InstantiationException,
+	private void retrieveParserInfo() throws NoSuchMethodException, InstantiationException,
 			IllegalAccessException, InvocationTargetException {
+		System.out.println("parser!");
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
-		String className = myParser.getInitParamMap().get("simName")
-				+ "Controller";
-		Class<?> currentClass = Class.forName(className);
-		System.out.println("class" + currentClass);
+		String simName = myParser.getInitParamMap().get("simName");
+		String className = simName + "Controller";
+		Class<?> currentClass;
+		try{
+		currentClass = Class.forName(className);
+		} catch (ClassNotFoundException e){
+			System.out.println("HALLO");
+			throw new XMLParserException("Invalid simulation: %s", simName); //LILA
+		}
 		Constructor<?> constructor = currentClass.getConstructor(Map.class);
 		System.out.println(constructor);
 		myController = (SimController) constructor.newInstance(myParser
@@ -188,10 +202,14 @@ public class CellSociety {
 		}
 		try {
 			retrieveParserInfo();
-		} catch (ClassNotFoundException | NoSuchMethodException
+		} catch (NoSuchMethodException
 				| InstantiationException | IllegalAccessException
 				| InvocationTargetException e) {
 			e.printStackTrace();
+		} catch(XMLParserException e){ //LILA
+			//myView.showError("texthere");
+			System.out.println(e.getMessage());
+			//disable buttons
 		}
 		Cell.setCellSize(
 				CellSocietyView.GRID_SIZE
@@ -207,7 +225,11 @@ public class CellSociety {
 				| NoSuchMethodException | SecurityException
 				| InvocationTargetException e) {
 			e.printStackTrace();
+		} catch (XMLParserException e){
+			System.out.println("PRINTOUT 2");
+			System.out.println(e.getMessage()); //LILA this should not appear twice...?
 		}
+		//if make above into one catch, then it will not printout all of the error messages but only the first one? LILA
 		
 		setupAnimation();
 		myView.updateSimGrid(myCells);
