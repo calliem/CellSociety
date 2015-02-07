@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class SimController {
 
 	protected Boundary myBoundary = new FiniteBoundary();
-	protected Neighbor myNeighbor = new FullNeighbor(myBoundary);
+	protected Neighbor myNeighbor = new HalfNeighbor(myBoundary);
 	
 	/*
 	public SimController(){	

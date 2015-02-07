@@ -162,7 +162,7 @@ public class CellSociety {
 				| ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Count: "+ count);
+		//System.out.println("Count: "+ count);
 		count++;
 		myView.updateSimGrid(myCells);
 	}
