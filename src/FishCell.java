@@ -36,10 +36,10 @@ public class FishCell extends Cell implements ReproducingCell{
 	public Cell reproducingResult() {
 		if(myCurrAge == myReproducingAge){
 			myCurrAge = 0;
-			return new FishCell();
+			return new FishCell("FishCell");
 		}
 		else{
-			return new EmptyCell();
+			return new Cell("EmptyCell");
 		}
 	}
 

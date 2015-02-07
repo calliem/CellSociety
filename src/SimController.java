@@ -62,9 +62,9 @@ public abstract class SimController {
 	*/
 
 		//put the string now as a parameter instead of as the class name....although some special one will need a special classname
-	public static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
-		System.out.println("name (not a classname) " + s); //this should be name
-		return (Cell) Class.forName(s).getConstructor().newInstance();
+	public static Cell makeCell(String cell, String name) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		System.out.println("name (not a classname) " + name); //this should be name
+		return (Cell) Class.forName(cell).getConstructor(String.class).newInstance(name);
 	}
 	
 	protected  abstract String getNeighborsState(ArrayList<Cell> neighbors);

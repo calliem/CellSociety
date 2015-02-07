@@ -16,10 +16,10 @@ public class SharkCell extends Cell implements ReproducingCell{
 	//private static Color myColor;
 	private static Color myColor;
 		
-	public SharkCell(){ //should i put in string name
+	public SharkCell(String name){ //should i put in string name
 		//myName allows for there to be specific types of sharks if the implementation ever so needs
 		//ex. a big cell vs. a small cell 
-		super("Shark");
+		super(name);
 		myCurrAge = 0;
 		myCurrEnergy = myMaxEnergy;
 		//getShape().setFill(myColor);
@@ -53,10 +53,10 @@ public class SharkCell extends Cell implements ReproducingCell{
 	public Cell reproducingResult() {
 		if(myCurrAge == myReproducingAge){
 			myCurrAge = 0;
-			return new SharkCell();
+			return new SharkCell("SharkCell");
 		}
 		else{
-			return new EmptyCell();
+			return new Cell("EmptyCell");
 		}
 	}
 	
