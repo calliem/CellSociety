@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$d5/dda/class_boundary.html" title="Boundary" alt="" coords="5,56,88,83"/>
+<area shape="rect" id="node2" href="$d6/dfd/class_finite_boundary.html" title="FiniteBoundary" alt="" coords="143,5,259,32"/>
+<area shape="rect" id="node3" href="$d2/de6/class_infinite_boundary.html" title="InfiniteBoundary" alt="" coords="139,56,264,83"/>
+<area shape="rect" id="node4" href="$d6/d9e/class_toroidal_boundary.html" title="ToroidalBoundary" alt="" coords="136,107,267,133"/>
+</map>
