@@ -16,8 +16,8 @@ public class HalfNeighbor extends Neighbor {
 		ArrayList<Cell> list = new ArrayList<Cell>();
 		for(int d = -1; d <= 1; d++){
 			//addToList(grid, r, c, d);
-			list.add(myBounds.makeCell(grid, r+d, c));
-			list.add(myBounds.makeCell(grid, r, c+d));
+			list.add(myBounds.findCell(grid, r+d, c));
+			list.add(myBounds.findCell(grid, r, c+d));
 			/*
 			if(myBounds.inBounds(grid, r+d, c)){
 				list.add(grid[r+d][c]);

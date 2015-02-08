@@ -24,7 +24,7 @@ public class CellSociety {
 	private CellSocietyView myView;
 	private XMLParser myParser;
 	private int myFrameRate;
-	private SimController myController;
+	private Controller myController;
 	private Timeline myTimeline;
 	private Cell[][] myCells;
 	private int myNumFrames = 0;
@@ -185,13 +185,12 @@ public class CellSociety {
 			Class <?> currentClass = Class.forName(className);
 			Constructor<?> constructor = currentClass.getConstructor(Map.class);
 			//System.out.println(constructor);
-			myController = (SimController) constructor.newInstance(myParser
-					.getSimParamMap());
+			myController = (Controller) constructor.newInstance(myParser
+					.getSimParamMap());			
 		} catch (ClassNotFoundException e){
 			System.out.println("HALLO");
 			throw new XMLParserException("Invalid simulation: %s", simName); //LILA
-		} 
-		
+		}
 	}
 
 	private void configureListeners() throws IOException {
@@ -313,6 +312,7 @@ public class CellSociety {
 		myNumFrames = 0;
 		myView.generateChartLines(cellNames);
 		myView.updateChartLines(myCells, myNumFrames, cellNames);
+
 
 				String gridLines = myParser.getInitParamMap().get("gridLines");
 		if (gridLines != null)

@@ -11,15 +11,14 @@
 	    <probCatch>100</probCatch>
 	</simParam>
 	<cellParam>    
-	    <cell name="TreeCell" state="TreeCell" color="Black">
+	    <cell name="EmptyCell" state="TreeCell" color="Black">
 	        <loc></loc>
 	    </cell>
-	    <cell color="White" state="EmptyCell" name="EmptyCell">
-	    	<loc>1</loc></cell>
+	    <cell name="TreeCell" state="EmptyCell" color="White" >
+	    	<loc></loc>
+	    </cell>
 	    <cell name="FireCell" state="FireCell" color="Orange">
 	        <loc>55</loc>
 	    </cell>
-	    
-
 	</cellParam>
 </simulation>

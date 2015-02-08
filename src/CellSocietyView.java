@@ -105,14 +105,13 @@ public class CellSocietyView {
 	public Button getSlowdownElement() {
 		return this.mySlowdownButton;
 	}
-	
+	/*
 	public void openDialogBox(String s) {
 /*		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Dialog Box");
 		alert.setHeaderText("Look, an Information Dialog");
 		alert.setContentText(s);
 		alert.showAndWait();*/
-	}
 
 	public void updateSimGrid(Cell[][] cellGrid) {
 		mySimGrid.getChildren().clear();
