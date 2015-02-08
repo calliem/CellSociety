@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+
 import java.util.Map;
 
-=======
->>>>>>> leqi_shapes
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -13,21 +11,17 @@ public class Cell{
 	private static double myHeight;	
 //	private static Color myColor;
 	private Shape myShape;
-<<<<<<< HEAD
 	private String myName;
 	private Ground myGround;
 	private Color myColor;
-=======
-	private Color myColor = Color.CYAN;
->>>>>>> leqi_shapes
+
 	
 	public Cell(String name) {
 		myShape = new Rectangle(myWidth, myHeight);
 		myName = name;
 		//myShape.setFill(color);
 	}
-	
-<<<<<<< HEAD
+
 	public Cell(Map<String, String> params) {
 		//use reflection with shape, but right now it will simply be made into a rectangle.
 		myShape = new Rectangle(myWidth, myHeight); //this is currently set to null ...maybe pass this as a parameter
@@ -36,16 +30,7 @@ public class Cell{
 		myShape.setFill(myColor);
 	}
 
-=======
-	public Color getColor() {
-		return myColor;
-	}
-	
-	public void setColor(Color color) {
-		myColor = color;
-	}
-	
->>>>>>> leqi_shapes
+
 	public Shape getShape(){
 		return myShape;
 	}
