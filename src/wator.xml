@@ -7,18 +7,11 @@
 		<yCols>50</yCols>
 		<fps>6</fps>
 	</initParam>
-	<!--  
-	<simParam>
-	    <>50</>
-	</simParam>
-	-->
 	<cellParam>    
 	    <cell state="EmptyCell" color="Cyan" />
 
 	     <cell state="SharkCell" color="Black">
 	        <loc>3 7 12 13 16 17 21 24 28 29 30 44 48 49 61 70 72 74</loc>
-
-
 	        <reproductionAge>3</reproductionAge>
 			<maxEnergy>2</maxEnergy>
 

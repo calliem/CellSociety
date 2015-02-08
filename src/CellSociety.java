@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,15 +26,16 @@ public class CellSociety {
 	private SimController myController;
 	private Timeline myTimeline;
 	private Cell[][] myCells;
+	private int myNumFrames = 0;
 
 	//Remove this
 	private int count = 0;
-	
+
 	public CellSociety(Stage s) throws ParserConfigurationException,
-			SAXException, IOException, InstantiationException,
-			IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, ClassNotFoundException,
-			NoSuchMethodException, SecurityException {
+	SAXException, IOException, InstantiationException,
+	IllegalAccessException, IllegalArgumentException,
+	InvocationTargetException, ClassNotFoundException,
+	NoSuchMethodException, SecurityException {
 
 		myParser = new XMLParser();
 		myView = new CellSocietyView(s);
@@ -43,6 +46,7 @@ public class CellSociety {
 			throws InstantiationException, IllegalAccessException,
 			IllegalArgumentException,
 			NoSuchMethodException, SecurityException, InvocationTargetException {
+
 		String state = cellParams.get("state");
 		Class<?> className; 
 		try{
@@ -53,16 +57,16 @@ public class CellSociety {
 			throw new XMLParserException("Invalid cell state: %s", state);	
 		}
 		//WRITE A CATCH NULL POINTER AND THAT MEANS THAT THE CELL STATE WAS ENTERED INCORRECTLY
-	//	System.out.println("ClassName:  " + className.toString());
+		//	System.out.println("ClassName:  " + className.toString());
 		Constructor<?> constructor = className.getConstructor(Map.class);
-	//	System.out.println(constructor);
+		//	System.out.println(constructor);
 		return (Cell) constructor.newInstance(cellParams);
 	}
 
 	public Cell[][] createCellArray() throws InstantiationException,
-			IllegalAccessException, IllegalArgumentException,
-			ClassNotFoundException, NoSuchMethodException, SecurityException,
-			InvocationTargetException {
+	IllegalAccessException, IllegalArgumentException,
+	ClassNotFoundException, NoSuchMethodException, SecurityException,
+	InvocationTargetException {
 		Map<String, String> map = myParser.getInitParamMap();
 
 		int numCols = Integer.parseInt(map.get("yCols"));
@@ -73,6 +77,7 @@ public class CellSociety {
 
 		// instantiates cells for all states except for the first one (which
 		// will be automatically done below)
+
 		if (cellStates.size() > 0){
 			for (int i = 1; i < cellStates.size(); i++) {
 				HashMap<String, String> cellParams = cellStates.get(i);
@@ -85,11 +90,11 @@ public class CellSociety {
 						Cell cell = createCellInstance(cellParams);
 						myCells[row][col] = cell;
 					}
-					
+
 				}
 			}
 		}
-				
+
 		// sets all remaining cells (1st cell tag from the XML file)
 		for (int x = 0; x < numRows; x++) {
 			for (int y = 0; y < numCols; y++) {
@@ -119,23 +124,24 @@ public class CellSociety {
 	 * @throws InvocationTargetException
 	 */
 	private void retrieveParserInfo() throws NoSuchMethodException, InstantiationException,
-			IllegalAccessException, InvocationTargetException {
+	IllegalAccessException, InvocationTargetException {
 		System.out.println("parser!");
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
+
 		String simName = myParser.getInitParamMap().get("simName");
 		String className = simName + "Controller";
 		Class<?> currentClass;
 		try{
-		currentClass = Class.forName(className);
+			currentClass = Class.forName(className);
 		} catch (ClassNotFoundException e){
 			System.out.println("HALLO");
 			throw new XMLParserException("Invalid simulation: %s", simName); //LILA
 		}
 		Constructor<?> constructor = currentClass.getConstructor(Map.class);
-		System.out.println(constructor);
+		//System.out.println(constructor);
 		myController = (SimController) constructor.newInstance(myParser
 				.getSimParamMap());
-		
+
 
 	}
 
@@ -163,9 +169,9 @@ public class CellSociety {
 		if (myFrameRate > 1)
 			myFrameRate--;
 		reframeTimeline();
-		
+
 	}
-	
+
 	private void reframeTimeline() {
 		myView.displayFrameRate(myFrameRate);
 		myTimeline.getKeyFrames().clear();
@@ -185,50 +191,48 @@ public class CellSociety {
 		//System.out.println("Count: "+ count);
 		count++;
 		myView.updateSimGrid(myCells);
+
+		String[] cellNames = new String[myParser.getCellParamList().size()];
+		List<HashMap<String, String>> cellParams = myParser.getCellParamList();
+		for (int i = 0; i < cellParams.size(); i++) {
+			Map<String, String> cur = cellParams.get(i);
+			cellNames[i] = cur.get("name");
+		}
+
+		myView.updateChartLines(myCells, myNumFrames, cellNames);
+		myNumFrames++;
 	}
 
 	private void resumeAnimation() {
-		myView.changeResumeButtonPermissions();
+		myView.setButtonsPause(true);
 		myTimeline.play();
 
 	}
 
 	private void pauseAnimation() {
-		myView.changePauseButtonPermissions();
+		myView.setButtonsPause(false);
 		myTimeline.stop();
 	}
 
 	private void readNewXML() {
-
 		File newFile = myView.displayXMLChooser();
+		//test
 		try {
 			myParser.parseXMLFile(newFile);
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			retrieveParserInfo();
-		} catch (NoSuchMethodException
+			retrieveParserInfo();					
+			Cell.setCellSize(
+					CellSocietyView.GRID_SIZE
+					/ Integer.parseInt(myParser.getInitParamMap().get(
+							"xRows")),
+							CellSocietyView.GRID_SIZE
+							/ Integer.parseInt(myParser.getInitParamMap().get(
+									"yCols")));
+				myCells = createCellArray();
+		} catch (IllegalArgumentException | ClassNotFoundException
+				| SecurityException
+				| ParserConfigurationException | 
+				SAXException | IOException | NoSuchMethodException
 				| InstantiationException | IllegalAccessException
-				| InvocationTargetException e) {
-			e.printStackTrace();
-		} catch(XMLParserException e){ //LILA
-			//myView.showError("texthere");
-			System.out.println(e.getMessage());
-			//disable buttons
-		}
-		Cell.setCellSize(
-				CellSocietyView.GRID_SIZE
-						/ Integer.parseInt(myParser.getInitParamMap().get(
-								"xRows")),
-				CellSocietyView.GRID_SIZE
-						/ Integer.parseInt(myParser.getInitParamMap().get(
-								"yCols")));
-		try {
-			myCells = createCellArray();
-		} catch (InstantiationException | IllegalAccessException
-				| IllegalArgumentException | ClassNotFoundException
-				| NoSuchMethodException | SecurityException
 				| InvocationTargetException e) {
 			e.printStackTrace();
 		} catch (XMLParserException e){
@@ -236,13 +240,30 @@ public class CellSociety {
 			System.out.println(e.getMessage()); //LILA this should not appear twice...?
 		}
 		//if make above into one catch, then it will not printout all of the error messages but only the first one? LILA
-		
+//move it to just make one try catch
 		setupAnimation();
 		myView.updateSimGrid(myCells);
 		pauseAnimation();
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		myView.displayFrameRate(myFrameRate);
-		String gridLines = myParser.getInitParamMap().get("gridLines");
+
+		String[] cellNames = new String[myParser.getCellParamList().size()];
+		List<HashMap<String, String>> cellParams = myParser.getCellParamList();
+		for (int i = 0; i < cellParams.size(); i++) {
+			Map<String, String> cur = cellParams.get(i);
+			for (String s : cur.keySet()) {
+				System.out.println(s + " : " + cur.get(s));
+			}
+			cellNames[i] = cur.get("name");
+		}
+
+		System.out.println(Arrays.toString(cellNames));
+
+		myView.generateChartLines(cellNames);
+		myView.updateChartLines(myCells, myNumFrames, cellNames);
+		myView.openDialogBox("HI");
+
+				String gridLines = myParser.getInitParamMap().get("gridLines");
 		if (gridLines != null)
 			myView.setGridGap(Integer.parseInt(gridLines));
 		else
@@ -255,15 +276,15 @@ public class CellSociety {
 		if (!string.equals(" ") && !string.equals("")){
 			int[] intArray = new int[split.length];
 			for (int i = 0; i < split.length; i++) {
-				System.out.println("split[i]" + split[i]);
-				if (!split[i].equals("") && !split[i].equals(" ")) {
-					System.out.println("STR" + split[i]);
-					intArray[i] = Integer.parseInt(split[i]);
+					System.out.println("split[i]" + split[i]);
+					if (!split[i].equals("") && !split[i].equals(" ")) {
+						System.out.println("STR" + split[i]);
+						intArray[i] = Integer.parseInt(split[i]);
+					}
 				}
+				return intArray;
 			}
-			return intArray;
+			else
+				return null;
 		}
-		else
-			return null;
 	}
-}
