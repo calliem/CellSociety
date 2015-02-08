@@ -1,8 +1,0 @@
-<map id="Controller.contains" name="Controller.contains">
-<area shape="rect" id="node2" href="$dc/da7/class_wator_controller.html#a8a5c6aa913ced9603c3a2064bf758e5e" title="WatorController.getNeighbors" alt="" coords="198,5,407,32"/>
-<area shape="rect" id="node6" href="$db/df8/class_segregation_controller.html#a2253ad6843821c07a63332369bc6db60" title="SegregationController.new\lState" alt="" coords="207,57,398,98"/>
-<area shape="rect" id="node7" href="$de/d92/class_complex_controller.html#a73007e4decc009d2913c7a1d56287e99" title="ComplexController.runOneSim" alt="" coords="195,123,410,149"/>
-<area shape="rect" id="node3" href="$dc/da7/class_wator_controller.html#ad6ef17a774720254707f22d42c88c781" title="WatorController.makeEligible" alt="" coords="459,5,661,32"/>
-<area shape="rect" id="node4" href="$dc/da7/class_wator_controller.html#a8f10cc48fea8314d9ae89e397dac0c79" title="WatorController.manipulateCell" alt="" coords="709,5,928,32"/>
-<area shape="rect" id="node5" href="$dc/da7/class_wator_controller.html#a8487f7764316be081c820425dd43b86d" title="WatorController.cellUpdate" alt="" coords="977,5,1167,32"/>
-</map>

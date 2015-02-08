@@ -1,9 +1,0 @@
-<map id="Controller" name="Controller">
-<area shape="rect" id="node2" href="$de/d92/class_complex_controller.html" title="ComplexController" alt="" coords="78,80,217,107"/>
-<area shape="rect" id="node4" href="$da/d56/class_simple_controller.html" title="SimpleController" alt="" coords="245,80,373,107"/>
-<area shape="rect" id="node3" href="$dc/da7/class_wator_controller.html" title="WatorController" alt="" coords="5,155,125,181"/>
-<area shape="rect" id="node5" href="$dd/da4/class_cardinal_sim_controller.html" title="CardinalSimController" alt="" coords="150,155,311,181"/>
-<area shape="rect" id="node7" href="$d9/da2/class_life_controller.html" title="LifeController" alt="" coords="336,155,443,181"/>
-<area shape="rect" id="node8" href="$db/df8/class_segregation_controller.html" title="SegregationController" alt="" coords="467,155,629,181"/>
-<area shape="rect" id="node6" href="$d5/d1b/class_fire_controller.html" title="FireController" alt="" coords="177,229,284,256"/>
-</map>
