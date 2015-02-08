@@ -10,7 +10,7 @@ public class Cell{
 	private static double myWidth;
 	private static double myHeight;	
 	private Shape myShape;
-	private Ground myGround;
+	//private Ground myGround;
 	
 	public Cell() {
 		myShape = new Rectangle(myWidth, myHeight);
