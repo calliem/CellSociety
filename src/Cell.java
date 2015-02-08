@@ -1,3 +1,4 @@
+
 import java.util.Map;
 
 import javafx.scene.paint.Color;
@@ -19,7 +20,7 @@ public class Cell{
 		myName = name;
 		//myShape.setFill(color);
 	}
-	
+
 	public Cell(Map<String, String> params) {
 		//use reflection with shape, but right now it will simply be made into a rectangle.
 		myShape = new Rectangle(myWidth, myHeight); //this is currently set to null ...maybe pass this as a parameter

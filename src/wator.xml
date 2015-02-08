@@ -9,7 +9,7 @@
 		<gridLines>0</gridLines>
 	</initParam>
 	<cellParam>    
-	     <cell state="EmptyCell" name="EmptyCell" color="Cyan" />  
+	     <cell state="EmptyCell" name="Cell" color="Cyan" />  
 	     <cell state="SharkCell" name="SharkCell" color="Black">
 	        <locProbability>.2</locProbability>
 	        <reproductionAge>3</reproductionAge>
