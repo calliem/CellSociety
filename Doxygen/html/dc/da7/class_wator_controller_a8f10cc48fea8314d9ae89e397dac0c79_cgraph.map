@@ -1,8 +1,0 @@
-<map id="WatorController.manipulateCell" name="WatorController.manipulateCell">
-<area shape="rect" id="node2" href="$dc/da7/class_wator_controller.html#a6ebd770acf34cd6be236bc5fca9ec7d3" title="WatorController.getDestination" alt="" coords="273,5,490,32"/>
-<area shape="rect" id="node3" href="$dc/da7/class_wator_controller.html#ad6ef17a774720254707f22d42c88c781" title="WatorController.makeEligible" alt="" coords="280,56,483,83"/>
-<area shape="rect" id="node4" href="$dc/da7/class_wator_controller.html#a8a5c6aa913ced9603c3a2064bf758e5e" title="WatorController.getNeighbors" alt="" coords="539,56,749,83"/>
-<area shape="rect" id="node5" href="$d8/d87/class_controller.html#a2d1d78c34f5551304c3e0f2295766afb" title="Controller.contains" alt="" coords="820,27,961,53"/>
-<area shape="rect" id="node6" href="$dc/da7/class_wator_controller.html#a64040cc93cd5dc646d39865a7d185b11" title="WatorController.neighbors\lFromTwoDirections" alt="" coords="797,78,984,119"/>
-<area shape="rect" id="node7" href="$d5/dda/class_boundary.html#a5b4429164a4f0a293ab14f42f752a698" title="Boundary.findCell" alt="" coords="1032,85,1163,112"/>
-</map>
