@@ -1,0 +1,15 @@
+<map id="CellSocietyView.CellSocietyView" name="CellSocietyView.CellSocietyView">
+<area shape="rect" id="node2" href="$df/df8/class_cell_society_view.html#a5700799d24f6a9c1606d4d755468ee64" title="CellSocietyView.configureUI" alt="" coords="283,168,479,195"/>
+<area shape="rect" id="node10" href="$df/df8/class_cell_society_view.html#a29bf7e6d5159d85db438d227b8fad270" title="CellSocietyView.disableInitial\lButtons" alt="" coords="280,219,483,261"/>
+<area shape="rect" id="node11" href="$df/df8/class_cell_society_view.html#a9a165c8be5daba942493092aa0874422" title="CellSocietyView.generateGrid" alt="" coords="277,285,485,312"/>
+<area shape="rect" id="node12" href="$df/df8/class_cell_society_view.html#ade3f6492149ed9473fb4a4d25d83b851" title="CellSocietyView.initialize\lButtons" alt="" coords="294,337,469,378"/>
+<area shape="rect" id="node13" href="$df/df8/class_cell_society_view.html#a7997441e7afa532f1cee738a57267fae" title="CellSocietyView.setBlankGrid" alt="" coords="279,403,484,429"/>
+<area shape="rect" id="node14" href="$df/df8/class_cell_society_view.html#a7c7df3379e37b9dee0ecfcc754bdf916" title="CellSocietyView.setupGame\lScene" alt="" coords="282,454,481,495"/>
+<area shape="rect" id="node3" href="$df/df8/class_cell_society_view.html#a330d0d6412aace5de81b9d27a0a1c62d" title="CellSocietyView.createTitle" alt="" coords="553,12,743,39"/>
+<area shape="rect" id="node5" href="$df/df8/class_cell_society_view.html#a5267d613dcd4adf7c93e6a6dc9f1cd26" title="CellSocietyView.makeSimulation\lButtons" alt="" coords="534,63,762,105"/>
+<area shape="rect" id="node6" href="$df/df8/class_cell_society_view.html#accc93b8d859185496ec792a1bad1616d" title="CellSocietyView.makeFrame\lControlButtons" alt="" coords="548,129,748,170"/>
+<area shape="rect" id="node7" href="$df/df8/class_cell_society_view.html#a3fe30cb4101a6ab480305dcf07daf95f" title="CellSocietyView.makeSpeed\lDisplay" alt="" coords="547,194,749,235"/>
+<area shape="rect" id="node8" href="$df/df8/class_cell_society_view.html#a591320c85d7b334d166bd59d9cdb6ecb" title="CellSocietyView.createError\lLocation" alt="" coords="550,259,746,301"/>
+<area shape="rect" id="node9" href="$df/df8/class_cell_society_view.html#a93d717f320a90984d01aff041e5a867b" title="CellSocietyView.initialize\lChart" alt="" coords="561,325,735,366"/>
+<area shape="rect" id="node4" href="$df/df8/class_cell_society_view.html#a45365a3c2504cf68a47ee8abdfbbcdf1" title="CellSocietyView.generate\lTitle" alt="" coords="811,5,994,46"/>
+</map>
