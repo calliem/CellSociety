@@ -248,6 +248,7 @@ public class CellSociety {
 		myView.displayFrameRate(myFrameRate);
 
 		String[] cellNames = new String[myParser.getCellParamList().size()];
+		String[] cellColors = new String[myParser.getCellParamList().size()];
 		List<HashMap<String, String>> cellParams = myParser.getCellParamList();
 		for (int i = 0; i < cellParams.size(); i++) {
 			Map<String, String> cur = cellParams.get(i);
@@ -255,19 +256,20 @@ public class CellSociety {
 				System.out.println(s + " : " + cur.get(s));
 			}
 			cellNames[i] = cur.get("name");
+			cellColors[i] = cur.get("color");
 		}
 
 		System.out.println(Arrays.toString(cellNames));
 
+		myNumFrames = 0;
 		myView.generateChartLines(cellNames);
 		myView.updateChartLines(myCells, myNumFrames, cellNames);
-		myView.openDialogBox("HI");
 
 				String gridLines = myParser.getInitParamMap().get("gridLines");
 		if (gridLines != null)
 			myView.setGridGap(Integer.parseInt(gridLines));
 		else
-			myView.setGridGap(1); //default
+			myView.setGridGap(1);
 	}
 
 	private int[] stringToIntArray(String string) {

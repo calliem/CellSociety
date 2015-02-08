@@ -170,6 +170,15 @@ public class CellSocietyView {
 				new FileChooser.ExtensionFilter("XML Files", "*.xml"));
 		return fileChooser.showOpenDialog(myStage);
 	}
+
+	public void setButtonsPause(boolean disable) {
+		myPlayButton.setDisable(disable);
+		myPauseButton.setDisable(!disable);
+		myStepButton.setDisable(disable);
+		myXMLButton.setDisable(disable);
+		mySpeedupButton.setDisable(disable);
+		mySlowdownButton.setDisable(disable);		
+	}
 	
 	public void updateChartLines(Cell[][] cells, int numFrames, String[] names){
 		
@@ -196,9 +205,15 @@ public class CellSocietyView {
 	}
 	
 	public void generateChartLines(String[] cellNames) {
+
+		myChart.getData().clear();
+		
+		mySeries = new ArrayList<Series<Number, Number>>();
 		
 		for (int i = 0; i < cellNames.length; i++) {
-			mySeries.add(new Series<Number, Number>());
+			Series<Number, Number> series = new Series<Number, Number>();
+			series.setName(cellNames[i]);
+			mySeries.add(series);
 		}
 		
 		myChart.getData().addAll(mySeries);
@@ -207,9 +222,17 @@ public class CellSocietyView {
 	
 	private XYChart<Number, Number> initializeChart() {
 		
-		myChart = new LineChart<Number, Number>(new NumberAxis(), new NumberAxis());
-		myChart.setAnimated(true);
-		mySeries = new ArrayList<Series<Number, Number>>();
+		Axis<Number> xAxis = new NumberAxis();
+		xAxis.setAutoRanging(false);
+		xAxis.setTickLabelsVisible(false);
+		
+		Axis<Number> yAxis = new NumberAxis();
+		yAxis.setAutoRanging(true);
+		
+		myChart = new LineChart<Number, Number>(xAxis, yAxis);
+		myChart.setAnimated(false);
+		myChart.setCreateSymbols(false);
+		myChart.setPadding(new Insets(0, 50, 0, 25));
 		
 		return myChart;
 	}
@@ -274,12 +297,8 @@ public class CellSocietyView {
 			IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, ClassNotFoundException,
 			NoSuchMethodException, SecurityException {
-		mySimGrid = new GridPane();
-		
-		mySimGrid.setHgap(1);
-		mySimGrid.setVgap(1);
-		
-		mySimGrid.setPadding(new Insets(0, 25, 5, 25));
+		mySimGrid = new GridPane();	
+		mySimGrid.setPadding(new Insets(0, 25, 5, 50));
 		mySimGrid.setAlignment(Pos.CENTER);
 
 	}
@@ -350,15 +369,6 @@ public class CellSocietyView {
 		bottomRow.getChildren().add(myErrorMsg);
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
-	}
-
-	public void setButtonsPause(boolean disable) {
-		myPlayButton.setDisable(disable);
-		myPauseButton.setDisable(!disable);
-		myStepButton.setDisable(disable);
-		myXMLButton.setDisable(disable);
-		mySpeedupButton.setDisable(disable);
-		mySlowdownButton.setDisable(disable);		
 	}
 
 }
