@@ -82,13 +82,24 @@ public class CellSociety {
 			for (int i = 1; i < cellStates.size(); i++) {
 				HashMap<String, String> cellParams = cellStates.get(i);
 				int[] locations = stringToIntArray(cellParams.get("loc"));
+				List<Integer> invalidLocs = new ArrayList<Integer>();
+				//boolean isInvalid = false;
 				if (locations != null){
 					for (int j = 0; j < locations.length; j++) {
 						System.out.println(cellParams.get("state") + locations[j]);
+						if (locations[j] > numCols * numRows){
+							invalidLocs.add(locations[j]);
+						}
 						int row = locations[j] / numCols;
 						int col = locations[j] % numCols;
 						Cell cell = createCellInstance(cellParams);
-						myCells[row][col] = cell;
+						try{
+							myCells[row][col] = cell;
+						}
+						catch (ArrayIndexOutOfBoundsException e){
+							throw new XMLParserException("Invalid cell locations: %s", invalidLocs);
+						}
+
 					}
 
 				}
@@ -130,18 +141,17 @@ public class CellSociety {
 
 		String simName = myParser.getInitParamMap().get("simName");
 		String className = simName + "Controller";
-		Class<?> currentClass;
+		//Class<?> currentClass;
 		try{
-			currentClass = Class.forName(className);
+			Class <?> currentClass = Class.forName(className);
+			Constructor<?> constructor = currentClass.getConstructor(Map.class);
+			//System.out.println(constructor);
+			myController = (Controller) constructor.newInstance(myParser
+					.getSimParamMap());			
 		} catch (ClassNotFoundException e){
 			System.out.println("HALLO");
 			throw new XMLParserException("Invalid simulation: %s", simName); //LILA
 		}
-		Constructor<?> constructor = currentClass.getConstructor(Map.class);
-		//System.out.println(constructor);
-		myController = (Controller) constructor.newInstance(myParser
-				.getSimParamMap());
-
 
 	}
 
@@ -215,36 +225,24 @@ public class CellSociety {
 	}
 
 	private void readNewXML() {
-
 		File newFile = myView.displayXMLChooser();
+		//test
 		try {
 			myParser.parseXMLFile(newFile);
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			retrieveParserInfo();
-		} catch (NoSuchMethodException
+			retrieveParserInfo();					
+			Cell.setCellSize(
+					CellSocietyView.GRID_SIZE
+					/ Integer.parseInt(myParser.getInitParamMap().get(
+							"xRows")),
+							CellSocietyView.GRID_SIZE
+							/ Integer.parseInt(myParser.getInitParamMap().get(
+									"yCols")));
+				myCells = createCellArray();
+		} catch (IllegalArgumentException | ClassNotFoundException
+				| SecurityException
+				| ParserConfigurationException | 
+				SAXException | IOException | NoSuchMethodException
 				| InstantiationException | IllegalAccessException
-				| InvocationTargetException e) {
-			e.printStackTrace();
-		} catch(XMLParserException e){ //LILA
-			//myView.showError("texthere");
-			System.out.println(e.getMessage());
-			//disable buttons
-		}
-		Cell.setCellSize(
-				CellSocietyView.GRID_SIZE
-				/ Integer.parseInt(myParser.getInitParamMap().get(
-						"xRows")),
-						CellSocietyView.GRID_SIZE
-						/ Integer.parseInt(myParser.getInitParamMap().get(
-								"yCols")));
-		try {
-			myCells = createCellArray();
-		} catch (InstantiationException | IllegalAccessException
-				| IllegalArgumentException | ClassNotFoundException
-				| NoSuchMethodException | SecurityException
 				| InvocationTargetException e) {
 			e.printStackTrace();
 		} catch (XMLParserException e){
@@ -252,7 +250,7 @@ public class CellSociety {
 			System.out.println(e.getMessage()); //LILA this should not appear twice...?
 		}
 		//if make above into one catch, then it will not printout all of the error messages but only the first one? LILA
-
+//move it to just make one try catch
 		setupAnimation();
 		myView.updateSimGrid(myCells);
 		pauseAnimation();
@@ -260,6 +258,7 @@ public class CellSociety {
 		myView.displayFrameRate(myFrameRate);
 
 		String[] cellNames = new String[myParser.getCellParamList().size()];
+		String[] cellColors = new String[myParser.getCellParamList().size()];
 		List<HashMap<String, String>> cellParams = myParser.getCellParamList();
 		for (int i = 0; i < cellParams.size(); i++) {
 			Map<String, String> cur = cellParams.get(i);
@@ -267,19 +266,21 @@ public class CellSociety {
 				System.out.println(s + " : " + cur.get(s));
 			}
 			cellNames[i] = cur.get("name");
+			cellColors[i] = cur.get("color");
 		}
 
 		System.out.println(Arrays.toString(cellNames));
 
+		myNumFrames = 0;
 		myView.generateChartLines(cellNames);
 		myView.updateChartLines(myCells, myNumFrames, cellNames);
-		//myView.openDialogBox("HI");
+
 
 				String gridLines = myParser.getInitParamMap().get("gridLines");
 		if (gridLines != null)
 			myView.setGridGap(Integer.parseInt(gridLines));
 		else
-			myView.setGridGap(1); //default
+			myView.setGridGap(1);
 	}
 
 	private int[] stringToIntArray(String string) {
