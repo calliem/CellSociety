@@ -202,6 +202,7 @@ public class CellSocietyView {
 			series.getData().add(new Data<Number, Number>(numFrames, cellCounts.get(names[i])));			
 		}
 		
+		
 	}
 	
 	public void generateChartLines(String[] cellNames) {
@@ -223,7 +224,7 @@ public class CellSocietyView {
 	private XYChart<Number, Number> initializeChart() {
 		
 		Axis<Number> xAxis = new NumberAxis();
-		xAxis.setAutoRanging(false);
+		xAxis.setAutoRanging(true);
 		xAxis.setTickLabelsVisible(false);
 		
 		Axis<Number> yAxis = new NumberAxis();
