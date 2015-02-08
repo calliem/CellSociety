@@ -215,6 +215,7 @@ public class CellSocietyView {
 			series.getData().add(new Data<Number, Number>(numFrames, cellCounts.get(names[i])));			
 		}
 		
+		
 	}
 	
 	public void generateChartLines(String[] cellNames) {
