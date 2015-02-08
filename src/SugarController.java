@@ -16,7 +16,8 @@ public class SugarController extends ComplexController{
 			IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException {
 		// TODO Auto-generated method stub
-		Updatable curCell = (Updatable) grid[row][col];
+		//Updatable curCell = (Updatable) grid[row][col];
+		Updatable curCell = (Updatable) data.curCell();
 		GridData data = new GridData(grid, row, col, newGrid, updatedCoordinates);
 		curCell.ageOneChronon(data);
 	}

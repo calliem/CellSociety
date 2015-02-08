@@ -41,5 +41,9 @@ public class GridData {
 	public List<Integer[]> getList() {
 		return myList;
 	}
+	
+	public void updateLocation(Cell cell){
+		myNewGrid[myRow][myCol] = cell;
+	}
 
 }

@@ -1,11 +1,8 @@
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-
 
 public class WatorController extends ComplexController{
 
@@ -56,23 +53,7 @@ public class WatorController extends ComplexController{
 	private List<Integer[]> getNeighbors(Cell[][] grid, int r, int c, String s, List<Integer[]> updatedCoordinates){
 		List<Integer[]> list = new ArrayList<Integer[]>();
 		for(int d = -1; d <= 1; d += 2){
-			/*
-			//REFACTOR
-			if(myBoundary.findCell(grid, r+d, c) != null){
-				//list.add(grid[r+d][c]);
-				Integer[] currArr = new Integer[2];
-				currArr[0] = r+d;
-				currArr[1] = c;
-				list.add(currArr);
-			}
-			if(myBoundary.findCell(grid, r, c+d) != null){
-				//list.add(grid[r][c+d]);
-				Integer[] currArr = new Integer[2];
-				currArr[0] = r;
-				currArr[1] = c+d;	
-				list.add(currArr);
-			}
-			*/
+
 			neighborsFromTwoDirections(grid, r+d, c, list);
 			neighborsFromTwoDirections(grid, r, c+d, list);
 			 
@@ -104,7 +85,6 @@ public class WatorController extends ComplexController{
 		}
 		return false;
 	}
-
 
 	@Override
 	protected void cellUpdate(Cell[][] grid, int row, int col, Cell[][] newGrid, List<Integer[]> updatedCoordinates) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {

@@ -4,6 +4,9 @@ import java.util.List;
 
 public abstract class Controller {
 	
+	public static final int X_COORD = 0;
+	public static final int Y_COORD = 1;
+	
 	protected Boundary myBoundary = new FiniteBoundary();
 	protected Neighbor myNeighbor = new FullNeighbor(myBoundary);
 	

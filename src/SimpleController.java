@@ -9,8 +9,8 @@ public abstract class SimpleController extends Controller{
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
 				Cell curCell = grid[r][c];
-				List<Cell> neighbors = myNeighbor.getNeighbors(grid, r, c);
-				String neighborsState = getNeighborsState(neighbors);
+				List<Integer[]> neighbors = myNeighbor.getNeighbors(grid, r, c);
+				String neighborsState = getNeighborsState(grid, neighbors);
 				Cell newCell = newState(newGrid, curCell, neighborsState, r, c);
 				//newState(grid)
 				newGrid[r][c] = newCell;
@@ -19,7 +19,7 @@ public abstract class SimpleController extends Controller{
 		return newGrid;
 	}
 	
-	protected  abstract String getNeighborsState(List<Cell> neighbors);
+	protected  abstract String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors);
 
 	protected abstract Cell newState(Cell[][] newGrid, Cell cell, String neighborsState, int r, int c) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 	

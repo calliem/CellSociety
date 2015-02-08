@@ -35,14 +35,14 @@ public class SegregationController extends SimpleController{
 	}
 
 	@Override
-	protected String getNeighborsState(List<Cell> neighbors) {
+	protected String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors) {
 		double blueCount = 0;
 		double redCount = 0;
-		for(Cell c: neighbors){
-			if(c.toString().equals("BlueCell")){
+		for(Integer[] coords: neighbors){
+			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().toString().equals("BlueCell")){
 				blueCount++;
 			}
-			if(c.toString().equals("RedCell")){
+			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().toString().equals("RedCell")){
 				redCount++;
 			}
 		}
