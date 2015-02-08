@@ -116,6 +116,7 @@ public class CellSocietyView {
 
 	public void updateSimGrid(Cell[][] cellGrid) {
 		mySimGrid.getChildren().clear();
+		System.out.println(cellGrid.length);
 		for (int i = 0; i < cellGrid.length; i++) {
 			for (int j = 0; j < cellGrid[0].length; j++)
 				mySimGrid.add(cellGrid[i][j].getShape(), j, i);
@@ -193,7 +194,10 @@ public class CellSocietyView {
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[0].length; j++) {
 				String cellName = cells[i][j].toString();
+				System.out.println("cellname" + cellName);
+				System.out.println(cellCounts.get(cellName));
 				cellCounts.put(cellName, cellCounts.get(cellName) + 1);
+				
 			}
 		}
 		

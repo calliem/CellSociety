@@ -82,13 +82,24 @@ public class CellSociety {
 			for (int i = 1; i < cellStates.size(); i++) {
 				HashMap<String, String> cellParams = cellStates.get(i);
 				int[] locations = stringToIntArray(cellParams.get("loc"));
+				List<Integer> invalidLocs = new ArrayList<Integer>();
+				//boolean isInvalid = false;
 				if (locations != null){
 					for (int j = 0; j < locations.length; j++) {
 						System.out.println(cellParams.get("state") + locations[j]);
+						if (locations[j] > numCols * numRows){
+							invalidLocs.add(locations[j]);
+						}
 						int row = locations[j] / numCols;
 						int col = locations[j] % numCols;
 						Cell cell = createCellInstance(cellParams);
-						myCells[row][col] = cell;
+						try{
+							myCells[row][col] = cell;
+						}
+						catch (ArrayIndexOutOfBoundsException e){
+							throw new XMLParserException("Invalid cell locations: %s", invalidLocs);
+						}
+
 					}
 
 				}
@@ -130,19 +141,18 @@ public class CellSociety {
 
 		String simName = myParser.getInitParamMap().get("simName");
 		String className = simName + "Controller";
-		Class<?> currentClass;
+		//Class<?> currentClass;
 		try{
-			currentClass = Class.forName(className);
+			Class <?> currentClass = Class.forName(className);
+			Constructor<?> constructor = currentClass.getConstructor(Map.class);
+			//System.out.println(constructor);
+			myController = (SimController) constructor.newInstance(myParser
+					.getSimParamMap());
 		} catch (ClassNotFoundException e){
 			System.out.println("HALLO");
 			throw new XMLParserException("Invalid simulation: %s", simName); //LILA
 		}
-		Constructor<?> constructor = currentClass.getConstructor(Map.class);
-		//System.out.println(constructor);
-		myController = (SimController) constructor.newInstance(myParser
-				.getSimParamMap());
-
-
+		
 	}
 
 	private void configureListeners() throws IOException {
