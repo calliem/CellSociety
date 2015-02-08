@@ -1,7 +1,0 @@
-<map id="WatorController.updateFromCell" name="WatorController.updateFromCell">
-<area shape="rect" id="node2" href="$dc/da7/class_wator_controller.html#a6ebd770acf34cd6be236bc5fca9ec7d3" title="WatorController.getDestination" alt="" coords="278,5,495,32"/>
-<area shape="rect" id="node3" href="$dc/da7/class_wator_controller.html#ad6ef17a774720254707f22d42c88c781" title="WatorController.makeEligible" alt="" coords="285,56,488,83"/>
-<area shape="rect" id="node4" href="$dc/da7/class_wator_controller.html#a8a5c6aa913ced9603c3a2064bf758e5e" title="WatorController.getNeighbors" alt="" coords="545,56,754,83"/>
-<area shape="rect" id="node5" href="$d6/d6e/class_sim_controller.html#a35fd128d12a001430bbf5e52c70f2742" title="SimController.contains" alt="" coords="803,31,970,57"/>
-<area shape="rect" id="node6" href="$d5/dda/class_boundary.html#aed4c1bccb93b927e5b052afc5122f72e" title="Boundary.makeCell" alt="" coords="815,81,959,108"/>
-</map>
