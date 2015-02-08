@@ -3,6 +3,6 @@
 
 public abstract class Boundary {
 	
-	public abstract Cell makeCell(Cell[][] grid, int row, int col);
+	public abstract Cell findCell(Cell[][] grid, int row, int col);
 	
 }

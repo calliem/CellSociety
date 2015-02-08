@@ -23,7 +23,7 @@ public class CellSociety {
 	private CellSocietyView myView;
 	private XMLParser myParser;
 	private int myFrameRate;
-	private SimController myController;
+	private Controller myController;
 	private Timeline myTimeline;
 	private Cell[][] myCells;
 	private int myNumFrames = 0;
@@ -139,7 +139,7 @@ public class CellSociety {
 		}
 		Constructor<?> constructor = currentClass.getConstructor(Map.class);
 		//System.out.println(constructor);
-		myController = (SimController) constructor.newInstance(myParser
+		myController = (Controller) constructor.newInstance(myParser
 				.getSimParamMap());
 
 

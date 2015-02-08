@@ -4,7 +4,7 @@
 import java.util.ArrayList;
 
 
-public abstract class CardinalSimController extends SimController{
+public abstract class CardinalSimController extends SimpleController{
 
 
 	protected ArrayList<Cell> getNeighbors(Cell[][] grid, int r, int c){

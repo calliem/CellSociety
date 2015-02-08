@@ -19,7 +19,7 @@ public class FullNeighbor extends Neighbor{
 				if(dr != 0 || dc != 0){
 					int nextRow = row + dr;
 					int nextCol = col + dc;
-					list.add(myBounds.makeCell(grid, nextRow, nextCol));
+					list.add(myBounds.findCell(grid, nextRow, nextCol));
 					/*
 					if(myBounds.inBounds(grid, nextRow, nextCol))
 					list.add(grid[nextRow][nextCol]);

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class SegregationController extends SimController{
+public class SegregationController extends SimpleController{
 	private double myHappyFraction;
 	private ArrayList<Integer[]> myEmptyList;
 	private ArrayList<Integer[]> updatedList;

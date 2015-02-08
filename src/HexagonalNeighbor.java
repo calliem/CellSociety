@@ -28,8 +28,8 @@ public class HexagonalNeighbor extends HalfNeighbor {
 
 	private Collection<? extends Cell> makeCorners(Cell[][] grid, int r, int c, int d) {
 		ArrayList<Cell> list = new ArrayList<Cell>();
-		list.add(myBounds.makeCell(grid, r-d, c+d));
-		list.add(myBounds.makeCell(grid, r+d, c+d));
+		list.add(myBounds.findCell(grid, r-d, c+d));
+		list.add(myBounds.findCell(grid, r+d, c+d));
 		list.removeAll(Collections.singleton(null));
 		return list;
 	}
