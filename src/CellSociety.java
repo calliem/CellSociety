@@ -57,9 +57,14 @@ public class CellSociety {
 				Class<?> className= Class.forName(state);
 				constructor = className.getConstructor(Map.class);
 			}
-			else{
+			else if (state.equals("Cell")){
 				constructor = Class.forName("Cell").getConstructor(Map.class);
+
 			}
+			else{
+		//		constructor = Class.forName("Cell").getConstructor(Map.class); //doing this here makes the code runnable still
+				throw new XMLParserException("Invalid cell state: %s", state); //duplicated code again :(; see a couple lines below
+			}	
 		}
 		catch (ClassNotFoundException e){ //null pointer as well?
 			System.out.println("I just threw an exception");

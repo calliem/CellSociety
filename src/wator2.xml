@@ -5,7 +5,7 @@
 		<author>Callie</author>
 		<xRows>50</xRows>
 		<yCols>50</yCols>
-		<fps>1</fps>
+		<fps>5</fps>
 		<gridLines>0</gridLines>
 	</initParam>
 	<cellParam>    
