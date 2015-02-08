@@ -1,5 +1,6 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ public abstract class ComplexController extends Controller{
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
 		List<Integer[]> updatedCoordinates = new ArrayList<Integer[]>();
-		List<String> triage = typeTriage();
+		List<String> triage = typeTriage(new ArrayList<String>());
 		Queue<Integer[]> myCoordinates= coordinatesTriage(grid, triage);
 
 		for(Integer[] coords : myCoordinates){
@@ -28,24 +29,24 @@ public abstract class ComplexController extends Controller{
 	}
 	protected abstract void cellUpdate(Cell[][] grid, int row, int col, Cell[][] newGrid, List<Integer[]> updatedCoordinates) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 
-	protected abstract List<String> typeTriage();
+	protected abstract List<String> typeTriage(List<String> list);
 
 	private Queue<Integer[]> coordinatesTriage(Cell[][] grid, List<String> strings) {
-		Queue<Integer[]> queue = new LinkedList<Integer[]>();
+		Queue<Integer[]> masterQueue = new LinkedList<Integer[]>();
 		for(String s : strings){
+			List<Integer[]> typeQueue = new LinkedList<Integer[]>();
 			for(int i = 0; i < grid.length; i++){
 				for(int j = 0; j < grid[0].length; j++){
 					String curName = grid[i][j].toString();
 					Integer[] curCoords = {i,j};
 					if(curName.equals(s)){
-						queue.add(curCoords);
+						typeQueue.add(curCoords);
 					}
 				}
 			}
+			Collections.shuffle(typeQueue);
+			masterQueue.addAll(typeQueue);
 		}
-		return queue;
+		return masterQueue;
 	}
-
-
-
 }

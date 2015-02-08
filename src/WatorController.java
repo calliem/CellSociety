@@ -121,8 +121,7 @@ public class WatorController extends ComplexController{
 	}
 
 	@Override
-	protected List<String> typeTriage() {
-		List<String> list = new ArrayList<String>();
+	protected List<String> typeTriage(List<String> list) {
 		list.add("SharkCell");
 		list.add("FishCell");
 		list.add("EmptyCell");
