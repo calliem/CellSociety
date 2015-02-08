@@ -6,6 +6,7 @@
 		<xRows>30</xRows>
 		<yCols>30</yCols>
 		<fps>6</fps>
+		<gridLines>0</gridLines>
 	</initParam>
 	<cellParam>    
 	     <cell state="EmptyCell" name="EmptyCell" color="Cyan" />  

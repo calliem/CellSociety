@@ -12,6 +12,7 @@ public abstract class SimpleController extends Controller{
 				List<Cell> neighbors = myNeighbor.getNeighbors(grid, r, c);
 				String neighborsState = getNeighborsState(neighbors);
 				Cell newCell = newState(newGrid, curCell, neighborsState, r, c);
+			//	newCell.setColor(myParser.get();
 				//newState(grid)
 				newGrid[r][c] = newCell;
 			}

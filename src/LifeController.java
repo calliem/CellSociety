@@ -2,6 +2,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.paint.Color;
+
 public class LifeController extends SimpleController{
 
 	//{S}
@@ -44,10 +46,13 @@ public class LifeController extends SimpleController{
 			SecurityException, ClassNotFoundException {
 		if(neighborsState.equals("two")){
 			//return new Cell(cell.myLabel);
+			System.out.println("makeCell" + cell.toString());
 			return makeCell(cell.toString());
 			//return (Cell) Class.forName(cell.toString()).getConstructor().newInstance();
 		}
 		//return new Cell(neighborsState);
 		return makeCell(neighborsState);
 	}
+
+
 }

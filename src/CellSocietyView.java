@@ -105,13 +105,14 @@ public class CellSocietyView {
 	public Button getSlowdownElement() {
 		return this.mySlowdownButton;
 	}
-	/*
-	public void openDialogBox(String s) {
-/*		Alert alert = new Alert(AlertType.INFORMATION);
+	
+/*	public void openDialogBox(String s) {
+		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Dialog Box");
 		alert.setHeaderText("Look, an Information Dialog");
 		alert.setContentText(s);
-		alert.showAndWait();*/
+		alert.showAndWait();
+		}*/
 
 	public void updateSimGrid(Cell[][] cellGrid) {
 		mySimGrid.getChildren().clear();
@@ -183,6 +184,15 @@ public class CellSocietyView {
 	public void updateChartLines(Cell[][] cells, int numFrames, String[] names){
 		
 		HashMap<String, Integer> cellCounts = new HashMap<String, Integer>();
+		
+		System.out.println("=========cell grid===============");
+		System.out.println(cells.length);
+		System.out.println(cells[0].length);
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[0].length; j++) {
+				System.out.println(cells[i][j].toString());
+			}
+		}
 		
 		for (int i = 0; i < names.length; i++) {
 			cellCounts.put(names[i], 0);

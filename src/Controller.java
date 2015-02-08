@@ -1,6 +1,8 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import javafx.scene.paint.Color;
+
 
 public abstract class Controller {
 	
@@ -8,6 +10,7 @@ public abstract class Controller {
 	protected Neighbor myNeighbor = new FullNeighbor(myBoundary);
 	
 	public abstract Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException ;
+	
 	protected boolean contains(List<Integer[]> updatedCoordinates,
 			Integer[] curCoordinates) {
 		int[] coords = new int[curCoordinates.length];
@@ -28,8 +31,14 @@ public abstract class Controller {
 		return false;
 	}
 	
-	public static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
-		return (Cell) Class.forName(s).getConstructor().newInstance();
+	//-----------inefficient cell ---------
+	protected static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		System.out.println("MAKECELLMETHOD: " + s);
+		if (s.equals("SharkCell") | s.equals("FishCell"))
+			return (Cell) Class.forName(s).getConstructor().newInstance(s);
+		else {//this is hardcoded but that is the actual "state" of the cell as oppposed to just its name{
+			return (Cell) Class.forName("Cell").getConstructor(String.class).newInstance(s);
+	}
 	}
 
 }

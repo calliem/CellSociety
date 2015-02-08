@@ -16,6 +16,7 @@ import org.xml.sax.SAXException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -50,9 +51,15 @@ public class CellSociety {
 			NoSuchMethodException, SecurityException, InvocationTargetException {
 
 		String state = cellParams.get("state");
-		Class<?> className; 
+		Constructor<?> constructor;
 		try{
-			className= Class.forName(state);
+			if (state.equals("SharkCell") | state.equals("FishCell")){
+				Class<?> className= Class.forName(state);
+				constructor = className.getConstructor(Map.class);
+			}
+			else{
+				constructor = Class.forName("Cell").getConstructor(Map.class);
+			}
 		}
 		catch (ClassNotFoundException e){ //null pointer as well?
 			System.out.println("I just threw an exception");
@@ -60,7 +67,8 @@ public class CellSociety {
 		}
 		//WRITE A CATCH NULL POINTER AND THAT MEANS THAT THE CELL STATE WAS ENTERED INCORRECTLY
 		//	System.out.println("ClassName:  " + className.toString());
-		Constructor<?> constructor = className.getConstructor(Map.class);
+		//this is a duplicated if statement; it appears in the code in the controllers i think
+
 		//	System.out.println(constructor);
 		return (Cell) constructor.newInstance(cellParams);
 	}
@@ -228,14 +236,35 @@ public class CellSociety {
 
 	private void updateGrid() {
 
+		System.out.println("=========1) cell grid in updateGrid()===============");
+		System.out.println(myCells.length);
+		System.out.println(myCells[0].length);
+		for (int i = 0; i < myCells.length; i++) {
+			for (int j = 0; j < myCells[0].length; j++) {
+				System.out.println(myCells[i][j].toString());
+			}
+		}
 		try {
-			myCells = myController.runOneSim(myCells);
+			myCells = myController.runOneSim(myCells); //THIS IS MAKING EVERYTHING NULL
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException
 				| ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("=========2) cell grid in updateGrid()===============");
+		System.out.println(myCells.length);
+		System.out.println(myCells[0].length);
+		for (int i = 0; i < myCells.length; i++) {
+			for (int j = 0; j < myCells[0].length; j++) {
+				System.out.println(myCells[i][j].toString());
+			}
+		}
+		
+		
+		updateColors();
+		
 		//System.out.println("Count: "+ count);
 		count++;
 		myView.updateSimGrid(myCells);
@@ -246,9 +275,24 @@ public class CellSociety {
 			Map<String, String> cur = cellParams.get(i);
 			cellNames[i] = cur.get("name");
 		}
-
+	
 		myView.updateChartLines(myCells, myNumFrames, cellNames);
 		myNumFrames++;
+	}
+	
+	//this is inefficient and sucks design-wise
+	private void updateColors(){
+		for (int i = 0; i < myCells.length; i++){
+			for (int j = 0; j < myCells[i].length; j++){
+				String cellName = myCells[i][j].toString();
+				List<HashMap<String, String>> cellList = myParser.getCellParamList();
+				for (HashMap<String, String> params: cellList){
+					if (params.get("name").equals(cellName))
+						myCells[i][j].setColor(Color.valueOf(params.get("color")));
+				}
+				
+			}
+		}
 	}
 
 	private void resumeAnimation() {

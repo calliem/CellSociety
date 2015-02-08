@@ -14,17 +14,16 @@ public class FishCell extends Cell implements ReproducingCell{
 	private int myCurrAge;
 	private static Color myColor;
 
-	public FishCell(){
-		super();
+	public FishCell(String name){
+		super(name);
 		myCurrAge = 0;
-
 		getShape().setFill(myColor);
 	//	getShape().setFill(Color.RED);
 
 	}
 
 	public FishCell(Map<String, String> params) {
-		super();
+		super(params);
 		myColor = Color.valueOf(params.get("color"));
 		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
 	//	getShape().setFill(Color.RED);
@@ -49,10 +48,10 @@ public class FishCell extends Cell implements ReproducingCell{
 	public Cell reproducingResult() {
 		if(myCurrAge >= myReproducingAge){
 			myCurrAge = 0;
-			return new FishCell();
+			return new FishCell("FishCell");
 		}
 		else{
-			return new EmptyCell();
+			return new Cell("EmptyCell");
 		}
 	}
 
