@@ -1,8 +1,0 @@
-<map id="CellSociety" name="CellSociety">
-<area shape="rect" id="node2" href="$dd/d11/class_cell.html" title="Cell" alt="" coords="393,39,439,65"/>
-<area shape="rect" id="node4" href="$d2/d95/class_x_m_l_parser.html" title="XMLParser" alt="" coords="372,152,460,179"/>
-<area shape="rect" id="node9" href="$df/df8/class_cell_society_view.html" title="CellSocietyView" alt="" coords="355,519,477,545"/>
-<area shape="rect" id="node21" href="$d6/d6e/class_sim_controller.html" title="SimController" alt="" coords="361,851,471,877"/>
-<area shape="rect" id="node22" href="$dd/ddd/class_neighbor.html" title="Neighbor" alt="" coords="53,851,133,877"/>
-<area shape="rect" id="node23" href="$d5/dda/class_boundary.html" title="Boundary" alt="" coords="52,901,135,928"/>
-</map>

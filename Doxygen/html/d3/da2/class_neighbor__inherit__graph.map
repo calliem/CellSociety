@@ -1,5 +1,0 @@
-<map id="Neighbor" name="Neighbor">
-<area shape="rect" id="node2" href="$d9/d94/class_full_neighbor.html" title="FullNeighbor" alt="" coords="5,80,104,107"/>
-<area shape="rect" id="node3" href="$d3/dcc/class_half_neighbor.html" title="HalfNeighbor" alt="" coords="129,80,233,107"/>
-<area shape="rect" id="node4" href="$df/d6f/class_hexagonal_neighbor.html" title="HexagonalNeighbor" alt="" coords="107,155,255,181"/>
-</map>
