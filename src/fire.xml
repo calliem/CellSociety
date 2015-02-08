@@ -15,7 +15,7 @@
 	        <loc></loc>
 	    </cell>
 	    <cell color="White" state="EmptyCell" name="EmptyCell">
-	    	<loc></loc></cell>
+	    	<loc>1</loc></cell>
 	    <cell name="FireCell" state="FireCell" color="Orange">
 	        <loc>55</loc>
 	    </cell>

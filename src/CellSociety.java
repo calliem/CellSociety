@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -27,6 +28,7 @@ public class CellSociety {
 	private Timeline myTimeline;
 	private Cell[][] myCells;
 	private int myNumFrames = 0;
+	private Random myRandom = new Random();
 
 	//Remove this
 	private int count = 0;
@@ -74,43 +76,29 @@ public class CellSociety {
 
 		myCells = new Cell[numRows][numCols];
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
-
+		System.out.println("sze" + cellStates.size());
+		if (cellStates.size() > 1){ //if there are at least 2 different cell types
+			if (cellStates.get(1).get("loc") == null && cellStates.get(1).get("locProbability") != null){
+				System.out.println("populateProbabilities");
+				populateProbabilities(cellStates, numCols, numRows);
+			}
+			else if (cellStates.get(1).get("loc") != null && cellStates.get(1).get("locProbability") == null){
+				populateLocations(cellStates, numCols, numRows);
+			}
+			else
+				throw new XMLParserException("Please specify cell locations or location probabilities");
+			//is this actually thrown and caught? LILA
+		}
+		
 		// instantiates cells for all states except for the first one (which
 		// will be automatically done below)
 
-		if (cellStates.size() > 0){
-			for (int i = 1; i < cellStates.size(); i++) {
-				HashMap<String, String> cellParams = cellStates.get(i);
-				int[] locations = stringToIntArray(cellParams.get("loc"));
-				List<Integer> invalidLocs = new ArrayList<Integer>();
-				//boolean isInvalid = false;
-				if (locations != null){
-					for (int j = 0; j < locations.length; j++) {
-						System.out.println(cellParams.get("state") + locations[j]);
-						if (locations[j] > numCols * numRows){
-							invalidLocs.add(locations[j]);
-						}
-						int row = locations[j] / numCols;
-						int col = locations[j] % numCols;
-						Cell cell = createCellInstance(cellParams);
-						try{
-							myCells[row][col] = cell;
-						}
-						catch (ArrayIndexOutOfBoundsException e){
-							throw new XMLParserException("Invalid cell locations: %s", invalidLocs);
-						}
-
-					}
-
-				}
-			}
-		}
+		
 
 		// sets all remaining cells (1st cell tag from the XML file)
 		for (int x = 0; x < numRows; x++) {
 			for (int y = 0; y < numCols; y++) {
 				if (myCells[x][y] == null) {
-
 					HashMap<String, String> remainingCellParams = cellStates
 							.get(0);
 					myCells[x][y] = createCellInstance(remainingCellParams);
@@ -118,6 +106,57 @@ public class CellSociety {
 			}
 		}
 		return myCells;
+	}
+		
+	private void populateProbabilities(
+		List<HashMap<String, String>> cellStates, int numCols, int numRows) throws InstantiationException, IllegalAccessException, IllegalArgumentException, NoSuchMethodException, SecurityException, InvocationTargetException {
+		for (int i = 1; i < cellStates.size(); i++) {
+			HashMap<String, String> cellParams = cellStates.get(i);
+			
+			double prob = Double.parseDouble(cellParams.get("locProbability"));
+			int numCells = (int) (numRows * numCols * prob); //number of cells to be randomly filled in
+			
+			for (int j = 0; j < numCells; j ++){ //specify number of cells to randomly select
+				int randomX; int randomY;
+				System.out.println(numRows * numCols);
+				System.out.println(myRandom.nextInt(100));
+				do{
+					int randomLoc = myRandom.nextInt(numRows * numCols);
+					randomX = randomLoc / numCols;
+					randomY = randomLoc % numCols;
+				} while (myCells[randomX][randomY] != null);
+					Cell cell = createCellInstance(cellParams);
+					myCells[randomX][randomY] = cell;
+				}
+			}
+	}
+				
+
+	private void populateLocations(List<HashMap<String, String>> cellStates, int numCols, int numRows) throws InstantiationException, IllegalAccessException, IllegalArgumentException, NoSuchMethodException, SecurityException, InvocationTargetException{
+		for (int i = 1; i < cellStates.size(); i++) { //this may be able to be written outside of this method
+			HashMap<String, String> cellParams = cellStates.get(i);
+			int[] locations = stringToIntArray(cellParams.get("loc"));
+			List<Integer> invalidLocs = new ArrayList<Integer>();
+			//boolean isInvalid = false;
+			if (locations != null){
+				for (int j = 0; j < locations.length; j++) {
+					System.out.println(cellParams.get("state") + locations[j]);
+					if (locations[j] > numCols * numRows){
+						invalidLocs.add(locations[j]);
+					}
+					int row = locations[j] / numCols;
+					int col = locations[j] % numCols;
+					Cell cell = createCellInstance(cellParams);
+					try{
+						myCells[row][col] = cell;
+					}
+					catch (ArrayIndexOutOfBoundsException e){
+						throw new XMLParserException("Invalid cell locations: %s", invalidLocs);
+					}
+
+				}
+			}
+		}
 	}
 
 	private void setupAnimation() {
@@ -151,7 +190,7 @@ public class CellSociety {
 		} catch (ClassNotFoundException e){
 			System.out.println("HALLO");
 			throw new XMLParserException("Invalid simulation: %s", simName); //LILA
-		}
+		} 
 		
 	}
 

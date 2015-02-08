@@ -227,7 +227,7 @@ public class CellSocietyView {
 	private XYChart<Number, Number> initializeChart() {
 		
 		Axis<Number> xAxis = new NumberAxis();
-		xAxis.setAutoRanging(false);
+		xAxis.setAutoRanging(true);
 		xAxis.setTickLabelsVisible(false);
 		
 		Axis<Number> yAxis = new NumberAxis();

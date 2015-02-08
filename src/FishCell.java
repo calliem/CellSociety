@@ -18,8 +18,8 @@ public class FishCell extends Cell implements ReproducingCell{
 		super();
 		myCurrAge = 0;
 
-		//getShape().setFill(myColor);
 		getShape().setFill(myColor);
+	//	getShape().setFill(Color.RED);
 
 	}
 
@@ -27,12 +27,13 @@ public class FishCell extends Cell implements ReproducingCell{
 		super();
 		myColor = Color.valueOf(params.get("color"));
 		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
+	//	getShape().setFill(Color.RED);
 
 		//setFill(myColor);
 		//setFill(Color.YELLOW);
 		//myCurrAge = 0;
 
-
+		
 		//getShape().setFill(myColor);
 		getShape().setFill(myColor);
 		myCurrAge = 0;
