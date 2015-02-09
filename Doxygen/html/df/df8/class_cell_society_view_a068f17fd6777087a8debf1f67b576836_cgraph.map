@@ -1,0 +1,4 @@
+<map id="CellSocietyView.setupInitialGrid" name="CellSocietyView.setupInitialGrid">
+<area shape="rect" id="node2" href="$d4/d92/class_grid_factory.html#a9bc3ce970ef2787f2474ae7bd6f79d83" title="GridFactory.createGrid" alt="" coords="272,5,435,32"/>
+<area shape="rect" id="node3" href="$d8/ddc/class_abstract_grid.html#a47b90d7ce407289123405378af0dd8cb" title="AbstractGrid.getGrid" alt="" coords="277,56,430,83"/>
+</map>

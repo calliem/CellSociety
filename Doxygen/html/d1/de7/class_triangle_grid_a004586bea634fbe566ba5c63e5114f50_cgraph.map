@@ -1,0 +1,6 @@
+<map id="TriangleGrid.update" name="TriangleGrid.update">
+<area shape="rect" id="node2" href="$d1/de7/class_triangle_grid.html#a87d13397aff674fad324547f32fea609" title="TriangleGrid.generateTriangle" alt="" coords="201,5,407,32"/>
+<area shape="rect" id="node3" href="$d1/de7/class_triangle_grid.html#a6ad8d77ab737d34950c7741545b610cd" title="TriangleGrid.setBack" alt="" coords="229,56,379,83"/>
+<area shape="rect" id="node5" href="$d1/de7/class_triangle_grid.html#a9325124627d99d47fbdf8844e547e4b7" title="TriangleGrid.setRed" alt="" coords="233,107,375,133"/>
+<area shape="rect" id="node4" href="$dd/d11/class_cell.html#a790b7140ab91d2b94677731a56b67b88" title="Cell.getColor" alt="" coords="457,56,559,83"/>
+</map>
