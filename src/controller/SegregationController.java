@@ -14,7 +14,8 @@ public class SegregationController extends SimpleController{
 	private ArrayList<Coordinate> myEmptyList;
 	private ArrayList<Coordinate> updatedList;
 
-	public SegregationController(Map<String, String> parameters){
+	public SegregationController(Map<String, String> parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		super(parameters);
 		myHappyFraction = Double.parseDouble(parameters.get("probHappy"));
 	}
 

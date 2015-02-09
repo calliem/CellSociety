@@ -16,7 +16,8 @@ import cellsociety.GridData;
 
 public abstract class ComplexController extends Controller{
 
-	public ComplexController(Map<String, String> parameters){
+	public ComplexController(Map<String, String> parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		super(parameters);
 	}
 
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
@@ -25,9 +26,11 @@ public abstract class ComplexController extends Controller{
 		List<String> triage = typeTriage(new ArrayList<String>());
 		Queue<Coordinate> myCoordinates= coordinatesTriage(grid, triage);
 
+
 		for(Coordinate coords : myCoordinates){
 			GridData data = new GridData(grid, coords.getX(), coords.getY(), newGrid, updatedCoordinates);
 			if(!updatedCoordinates.contains(coords)){
+
 				cellUpdate(data);
 			}
 		}

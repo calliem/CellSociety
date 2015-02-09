@@ -2,12 +2,20 @@ package controller;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
 import cell.Cell;
 import cellsociety.Coordinate;
 
 public abstract class SimpleController extends Controller{
 	
+	public SimpleController(Map<String, String> parameters)
+			throws InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException,
+			NoSuchMethodException, SecurityException, ClassNotFoundException {
+		super(parameters);
+	}
+
 	@Override
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];

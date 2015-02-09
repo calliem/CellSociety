@@ -36,7 +36,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import cell.Cell;
-
+/**
+ * Codes for the visuals and UI of the simulation
+ * @author Callie Mao
+ *
+ */
 public class CellSocietyView {
 
 	private Stage myStage;

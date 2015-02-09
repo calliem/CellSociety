@@ -18,7 +18,8 @@ public class LifeController extends SimpleController{
 	private int bornOn;
 	 
 
-	public LifeController(Map<String, String>parameters){
+	public LifeController(Map<String, String>parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		super(parameters);
 		stayOn = Integer.parseInt(parameters.get("stayOn"));
 		bornOn = Integer.parseInt(parameters.get("bornOn"));
 	}
