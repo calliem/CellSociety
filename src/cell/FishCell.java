@@ -6,8 +6,6 @@ import cellsociety.Strings;
 
 public class FishCell extends Cell implements ReproducingCell {
 
-	// private int reproductionAge; this should be passed into the controller
-
 	private static int myReproducingAge;
 	private int myCurrAge;
 
@@ -27,7 +25,6 @@ public class FishCell extends Cell implements ReproducingCell {
 		return myReproducingAge;
 	}
 
-	// REFACTOR!!!! make ReproducingCell interactive
 	@Override
 	public Cell reproducingResult() {
 		if (myCurrAge >= myReproducingAge) {
@@ -38,11 +35,13 @@ public class FishCell extends Cell implements ReproducingCell {
 		}
 	}
 
+	@Override
 	public Cell ageOneChronon() {
 		myCurrAge++;
 		return this;
 	}
 
+	@Override
 	public String toString() {
 		return Strings.FISH_CELL;
 	}

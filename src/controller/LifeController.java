@@ -21,6 +21,7 @@ public class LifeController extends SimpleController {
 		bornOn = Integer.parseInt(parameters.get(Strings.BORN_ON));
 	}
 
+	@Override
 	protected String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors) {
 		int count = 0;
 		for (Integer[] coords : neighbors) {

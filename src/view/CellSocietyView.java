@@ -51,30 +51,29 @@ public class CellSocietyView {
 	private Text myErrorMsg;
 	private HBox myTitleBox;
 	private GridPane myRoot;
-    private ResourceBundle myResources;
-    private LineChart<Number, Number> myChart;
-    private List<Series<Number, Number>> mySeries;
-    private AbstractGrid mySimGrid;
-    private Group myDefaultGrid;
+	private ResourceBundle myResources;
+	private LineChart<Number, Number> myChart;
+	private List<Series<Number, Number>> mySeries;
+	private AbstractGrid mySimGrid;
+	private Group myDefaultGrid;
 
-    private static final Font TITLE_FONT = Font.font("Helvetica", FontWeight.NORMAL, 32);
+	private static final Font TITLE_FONT = Font.font("Helvetica", FontWeight.NORMAL, 32);
 
-    public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	public static final int GRID_SIZE = 400;
 
 	// using Reflection makes us have a ton of throw errors. Is that okay?
 
-	public CellSocietyView(Stage s) throws ParserConfigurationException,
-			SAXException, IOException, InstantiationException,
-			IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, ClassNotFoundException,
+	public CellSocietyView(Stage s) throws ParserConfigurationException, SAXException,
+			IOException, InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException, ClassNotFoundException,
 			NoSuchMethodException, SecurityException {
 
 		myRoot = new GridPane();
 		myStage = s;
 		myDefaultGrid = new Group(new Rectangle(0, 0, GRID_SIZE, GRID_SIZE));
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "english");
-		
+
 		initializeButtons();
 		disableInitialButtons();
 		configureUI();
@@ -104,7 +103,7 @@ public class CellSocietyView {
 	public Button getSlowdownElement() {
 		return this.mySlowdownButton;
 	}
-	
+
 	public void openDialogBox(String message) {
 
 		Stage stage = new Stage();
@@ -112,7 +111,7 @@ public class CellSocietyView {
 		root.setAlignment(Pos.CENTER);
 		Text text = new Text(message);
 		root.getChildren().add(text);
-		
+
 		Scene scene = new Scene(root, 300, 100);
 
 		stage.setTitle("Error");
@@ -127,7 +126,7 @@ public class CellSocietyView {
 		mySimGrid = GridFactory.createGrid(shape, GRID_SIZE, cells);
 		myRoot.add(mySimGrid.getGrid(), 1, 1);
 	}
-	
+
 	public void updateSimGrid(Cell[][] cellGrid) {
 		mySimGrid.update(cellGrid);
 	}
@@ -140,10 +139,9 @@ public class CellSocietyView {
 	}
 
 	public void displayFrameRate(int frameRate) {
-		mySpeedTextField.setText(frameRate + " "
-				+ myResources.getString("FramesLabel"));
+		mySpeedTextField.setText(frameRate + " " + myResources.getString("FramesLabel"));
 	}
-	
+
 	public File displayXMLChooser() {
 		// TODO Auto-generated method stub
 		FileChooser fileChooser = new FileChooser();
@@ -159,65 +157,65 @@ public class CellSocietyView {
 		myStepButton.setDisable(disable);
 		myXMLButton.setDisable(disable);
 		mySpeedupButton.setDisable(disable);
-		mySlowdownButton.setDisable(disable);		
+		mySlowdownButton.setDisable(disable);
 	}
-	
-	public void updateChartLines(Cell[][] cells, int numFrames, String[] names){
-		
+
+	public void updateChartLines(Cell[][] cells, int numFrames, String[] names) {
+
 		HashMap<String, Integer> cellCounts = new HashMap<String, Integer>();
-		
+
 		for (int i = 0; i < names.length; i++) {
 			cellCounts.put(names[i], 0);
 		}
-		
+
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[0].length; j++) {
 				String cellName = cells[i][j].toString();
 				cellCounts.put(cellName, cellCounts.get(cellName) + 1);
-				
+
 			}
 		}
-		
-		for (int i = 0 ; i < mySeries.size(); i++) {
+
+		for (int i = 0; i < mySeries.size(); i++) {
 			Series<Number, Number> series = mySeries.get(i);
-			series.getData().add(new Data<Number, Number>(numFrames, cellCounts.get(names[i])));			
+			series.getData().add(
+					new Data<Number, Number>(numFrames, cellCounts.get(names[i])));
 		}
-		
-		
+
 	}
-	
+
 	public void generateChartLines(String[] cellNames) {
 
 		myChart.getData().clear();
 		mySeries = new ArrayList<Series<Number, Number>>();
-		
+
 		for (int i = 0; i < cellNames.length; i++) {
 			Series<Number, Number> series = new Series<Number, Number>();
 			series.setName(cellNames[i]);
 			mySeries.add(series);
 		}
-		
+
 		myChart.getData().addAll(mySeries);
-		
+
 	}
-	
+
 	private XYChart<Number, Number> initializeChart() {
-		
+
 		Axis<Number> xAxis = new NumberAxis();
 		xAxis.setAutoRanging(true);
 		xAxis.setTickLabelsVisible(false);
-		
+
 		Axis<Number> yAxis = new NumberAxis();
 		yAxis.setAutoRanging(true);
-		
+
 		myChart = new LineChart<Number, Number>(xAxis, yAxis);
 		myChart.setAnimated(false);
 		myChart.setCreateSymbols(false);
 		myChart.setPadding(new Insets(0, 50, 0, 25));
-		
+
 		return myChart;
 	}
-	
+
 	private void configureUI() {
 		myRoot.setAlignment(Pos.CENTER);
 		myRoot.setHgap(10);
@@ -231,7 +229,7 @@ public class CellSocietyView {
 		myRoot.add(initializeChart(), 2, 1);
 		myRoot.getColumnConstraints().add(new ColumnConstraints(50));
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -241,7 +239,7 @@ public class CellSocietyView {
 		myStage.setScene(myScene);
 		myStage.show();
 	}
-	
+
 	private void initializeButtons() {
 		myPlayButton = new Button(myResources.getString("PlayCommand"));
 		myPauseButton = new Button(myResources.getString("PauseCommand"));
@@ -324,7 +322,5 @@ public class CellSocietyView {
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
 	}
-
-
 
 }

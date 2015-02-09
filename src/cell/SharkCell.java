@@ -19,13 +19,12 @@ public class SharkCell extends Cell implements ReproducingCell {
 
 	public SharkCell(Map<String, String> params) {
 		super(params);
-		myMaxEnergy = Integer.parseInt(params.get("maxEnergy"));
-		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
+		myMaxEnergy = Integer.parseInt(params.get(Strings.MAX_ENERGY));
+		myReproducingAge = Integer.parseInt(params.get(Strings.REPRODUCTION_AGE));
 		myCurrAge = 0;
 		myCurrEnergy = myMaxEnergy;
 	}
 
-	// REFACTOR!!! make ReproducingCell abstract
 	@Override
 	public Cell reproducingResult() {
 		if (myCurrAge >= myReproducingAge) {
@@ -40,6 +39,7 @@ public class SharkCell extends Cell implements ReproducingCell {
 		return myCurrEnergy;
 	}
 
+	@Override
 	public Cell ageOneChronon() {
 		myCurrAge++;
 		myCurrEnergy--;
@@ -50,6 +50,7 @@ public class SharkCell extends Cell implements ReproducingCell {
 		return myCurrEnergy == 0;
 	}
 
+	@Override
 	public String toString() {
 		return Strings.SHARK_CELL;
 	}

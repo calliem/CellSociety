@@ -1,6 +1,5 @@
 package cellsociety;
 
-
-public class AntGround extends Ground{
+public class AntGround extends Ground {
 
 }

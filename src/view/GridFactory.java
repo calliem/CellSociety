@@ -1,4 +1,5 @@
 package view;
+
 import cell.Cell;
 
 public class GridFactory {

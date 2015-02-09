@@ -1,11 +1,13 @@
 package cellsociety;
+
 import java.util.List;
 
 import cell.Cell;
 
-
-
-// This is used to package Data to be passed around as parameters more efficiently
+/**
+ * This class is used to package Data and to pass parameters around more efficiently
+ * 
+ */
 public class GridData {
 
 	private Cell[][] myGrid;
@@ -14,7 +16,8 @@ public class GridData {
 	private Cell[][] myNewGrid;
 	private List<Integer[]> myList;
 
-	public GridData(Cell[][] grid, int row, int col, Cell[][] newGrid, List<Integer[]> list){
+	public GridData(Cell[][] grid, int row, int col, Cell[][] newGrid,
+			List<Integer[]> list) {
 		myGrid = grid;
 		myRow = row;
 		myCol = col;
@@ -27,20 +30,15 @@ public class GridData {
 		return myGrid;
 	}
 
-	public Cell curCell(){
+	public Cell curCell() {
 		return myGrid[myRow][myCol];
 	}
-	/*
-	public Cell newCell(){
-		return myNewGrid[myRow][myCol];
+
+	public Integer[] curCoord() {
+		Integer[] ret = { myRow, myCol };
+		return ret;
 	}
-*/
-	
-	public Integer[] curCoord(){
-		Integer[] ret = {myRow, myCol};
-			return ret;
-	}
-	
+
 	public int getRow() {
 		return myRow;
 	}
@@ -53,12 +51,11 @@ public class GridData {
 		return myNewGrid;
 	}
 
-
 	public List<Integer[]> getList() {
 		return myList;
 	}
-	
-	public void updateLocation(Cell cell){
+
+	public void updateLocation(Cell cell) {
 		myNewGrid[myRow][myCol] = cell;
 	}
 

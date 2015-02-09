@@ -1,14 +1,5 @@
 package cell;
 
-
-
-
-
-
-
-
-
-
 public interface ReproducingCell {
 	Cell reproducingResult();
 

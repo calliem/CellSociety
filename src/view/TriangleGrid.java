@@ -1,4 +1,5 @@
 package view;
+
 import cell.Cell;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
@@ -12,13 +13,12 @@ public class TriangleGrid extends AbstractGrid {
 	}
 
 	@Override
-	
 	protected Shape[][] populateGrid(double gridSize, Cell[][] cells) {
-		
+
 		Shape[][] triangles = new Polygon[cells.length][cells[0].length];
 		double hSpacing = gridSize / (0.5 * cells.length);
 		double vSpacing = gridSize / cells[0].length;
-		
+
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells.length; j++) {
 				Shape shape = generateTriangle(i, j, hSpacing, vSpacing);
@@ -26,29 +26,28 @@ public class TriangleGrid extends AbstractGrid {
 				triangles[i][j] = shape;
 			}
 		}
-		
+
 		return triangles;
-		
+
 	}
-		
+
 	private Shape generateTriangle(int i, int j, double hSpacing, double vSpacing) {
-				
-		double iDouble = (double) i;
-		double jDouble = (double) j;
+
+		double iDouble = i;
+		double jDouble = j;
 		double[] points;
-		
+
 		if ((i + j) % 2 == 0) {
-			points = new double[] {jDouble / 2 * hSpacing, iDouble * vSpacing,
-				(jDouble + 1) / 2 * hSpacing, (iDouble + 1) * vSpacing, 
-				(jDouble + 2) / 2 * hSpacing, iDouble * vSpacing};
+			points = new double[] { jDouble / 2 * hSpacing, iDouble * vSpacing,
+					(jDouble + 1) / 2 * hSpacing, (iDouble + 1) * vSpacing,
+					(jDouble + 2) / 2 * hSpacing, iDouble * vSpacing };
+		} else {
+			points = new double[] { (jDouble) / 2 * hSpacing, (iDouble + 1) * vSpacing,
+					(jDouble + 1) / 2 * hSpacing, iDouble * vSpacing,
+					(jDouble + 2) / 2 * hSpacing, (iDouble + 1) * vSpacing };
 		}
-		else {
-			points = new double[] {(jDouble) / 2 * hSpacing, (iDouble + 1) * vSpacing,
-				(jDouble + 1) / 2 * hSpacing, iDouble * vSpacing,
-				(jDouble + 2) / 2 * hSpacing, (iDouble + 1) * vSpacing};
-		}
-		
+
 		return new Polygon(points);
-		
+
 	}
 }

@@ -1,4 +1,5 @@
 package cell;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,29 +14,27 @@ public class GroundCell extends Cell implements Updatable {
 	private int curSugar;
 	private int curInterval;
 
-	
-	//public GroundCell()
+	// public GroundCell()
 
 	@Override
 	public void ageOneChronon(GridData data) {
 		update();
-		//Cell curCell = data.curCell();
+		// Cell curCell = data.curCell();
 		data.updateLocation(this);// = this;
-		//data.getNewGrid()[data.getRow()][data.getCol()] = this;
+		// data.getNewGrid()[data.getRow()][data.getCol()] = this;
 	}
-	
-	public void update(){
+
+	public void update() {
 		curInterval++;
-		if(sugarGrowBackInterval == curInterval){
-			curSugar = Math.min(curSugar+sugarGrowBackRate, maxSugar);
+		if (sugarGrowBackInterval == curInterval) {
+			curSugar = Math.min(curSugar + sugarGrowBackRate, maxSugar);
 		}
-		
+
 	}
-	public int harvest(){
+
+	public int harvest() {
 		int oldSugar = curSugar;
 		curSugar = 0;
 		return oldSugar;
 	}
 }
-
-
