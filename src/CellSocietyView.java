@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -20,18 +22,23 @@ import javafx.scene.chart.XYChart.Series;
 //import javafx.scene.control.Alert;
 //import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -83,6 +90,7 @@ public class CellSocietyView {
 		disableInitialButtons();
 		configureUI();
 		setupGameScene();
+		openDialogBox("HI");
 	}
 
 	public Button getPlayElement() {
@@ -116,6 +124,21 @@ public class CellSocietyView {
 		alert.setContentText(s);
 		alert.showAndWait();
 		}*/
+	
+	public void openDialogBox(String message) {
+
+		Stage stage = new Stage();
+		HBox root = new HBox();
+		root.setAlignment(Pos.CENTER);
+		Text text = new Text(message);
+		root.getChildren().add(text);
+		
+		Scene scene = new Scene(root, 300, 100);
+
+		stage.setTitle("Error");
+		stage.setScene(scene);
+		stage.show();
+	}
 
 	public void setupInitialGrid(Cell[][] cells, String shape) {
 		myDefaultGrid.getChildren().clear();

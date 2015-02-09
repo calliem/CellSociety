@@ -32,10 +32,10 @@ public class CellSociety {
 	private Random myRandom = new Random();
 
 	public CellSociety(Stage s) throws ParserConfigurationException,
-			SAXException, IOException, InstantiationException,
-			IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, ClassNotFoundException,
-			NoSuchMethodException, SecurityException {
+	SAXException, IOException, InstantiationException,
+	IllegalAccessException, IllegalArgumentException,
+	InvocationTargetException, ClassNotFoundException,
+	NoSuchMethodException, SecurityException {
 		myParser = new XMLParser();
 		myView = new CellSocietyView(s);
 		configureListeners();
@@ -59,14 +59,6 @@ public class CellSociety {
 				// Class.forName("Cell").getConstructor(Map.class); //doing this
 				// here makes the code runnable still
 				throw new XMLParserException("Invalid cell state: %s", state); // duplicated
-																				// code
-																				// again
-																				// :(;
-																				// see
-																				// a
-																				// couple
-																				// lines
-																				// below
 			}
 		} catch (ClassNotFoundException e) { // null pointer as well?
 			System.out.println("I just threw an exception");
@@ -82,9 +74,9 @@ public class CellSociety {
 	}
 
 	public Cell[][] createCellArray() throws InstantiationException,
-			IllegalAccessException, IllegalArgumentException,
-			ClassNotFoundException, NoSuchMethodException, SecurityException,
-			InvocationTargetException {
+	IllegalAccessException, IllegalArgumentException,
+	ClassNotFoundException, NoSuchMethodException, SecurityException,
+	InvocationTargetException {
 		Map<String, String> map = myParser.getInitParamMap();
 
 		int numCols = Integer.parseInt(map.get("yCols"));
@@ -94,7 +86,7 @@ public class CellSociety {
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
 		System.out.println("sze" + cellStates.size());
 		if (cellStates.size() > 1) { // if there are at least 2 different cell
-										// types
+			// types
 			if (cellStates.get(1).get("loc") == null
 					&& cellStates.get(1).get("locProbability") != null) {
 				System.out.println("populateProbabilities");
@@ -117,15 +109,15 @@ public class CellSociety {
 	// will be automatically done below)
 	private void populateProbabilities(
 			List<HashMap<String, String>> cellStates, int numCols, int numRows)
-			throws InstantiationException, IllegalAccessException,
-			IllegalArgumentException, NoSuchMethodException, SecurityException,
-			InvocationTargetException {
+					throws InstantiationException, IllegalAccessException,
+					IllegalArgumentException, NoSuchMethodException, SecurityException,
+					InvocationTargetException {
 		for (int i = 1; i < cellStates.size(); i++) {
 			HashMap<String, String> cellParams = cellStates.get(i);
 
 			double prob = Double.parseDouble(cellParams.get("locProbability"));
 			int numCells = (int) (numRows * numCols * prob); //number of cells to be randomly filled in
-			
+
 			for (int j = 0; j < numCells; j ++){ //specify number of cells to randomly select
 				int randomX; int randomY;
 				////System.out.println(numRows * numCols);
@@ -161,8 +153,8 @@ public class CellSociety {
 			IllegalAccessException, IllegalArgumentException,
 			NoSuchMethodException, SecurityException, InvocationTargetException {
 		for (int i = 1; i < cellStates.size(); i++) { // this may be able to be
-														// written outside of
-														// this method
+			// written outside of
+			// this method
 			HashMap<String, String> cellParams = cellStates.get(i);
 			int[] locations = stringToIntArray(cellParams.get("loc"));
 			List<Integer> invalidLocs = new ArrayList<Integer>();
@@ -201,9 +193,9 @@ public class CellSociety {
 	 */
 	private void populateRemainingState(
 			List<HashMap<String, String>> cellStates, int numCols, int numRows)
-			throws InstantiationException, IllegalAccessException,
-			IllegalArgumentException, NoSuchMethodException, SecurityException,
-			InvocationTargetException {
+					throws InstantiationException, IllegalAccessException,
+					IllegalArgumentException, NoSuchMethodException, SecurityException,
+					InvocationTargetException {
 		for (int x = 0; x < numRows; x++) {
 			for (int y = 0; y < numCols; y++) {
 				if (myCells[x][y] == null) {
@@ -243,12 +235,12 @@ public class CellSociety {
 			//System.out.println(constructor);
 			myController = (Controller) constructor.newInstance(myParser
 					.getSimParamMap());			
-		} catch (ClassNotFoundException e){
+		} catch (ClassNotFoundException e) {
 			//System.out.println("HALLO");
 			throw new XMLParserException("Invalid simulation: %s", simName); //LILA
 		}
 	}
-
+	
 	private void configureListeners() throws IOException {
 		myView.getPlayElement().setOnMouseClicked(e -> resumeAnimation());
 		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
@@ -269,7 +261,7 @@ public class CellSociety {
 		myFrameRate++;
 		reframeTimeline();
 	}
-
+	 
 	private void decreaseFrameRate() {
 		if (myFrameRate > 1)
 			myFrameRate--;
@@ -296,14 +288,14 @@ public class CellSociety {
 		}
 		try {
 			myCells = myController.runOneSim(myCells); // THIS IS MAKING
-														// EVERYTHING NULL
+			// EVERYTHING NULL
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException
 				| ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		//System.out.println("=========2) cell grid in updateGrid()===============");
 		//System.out.println(myCells.length);
 		//System.out.println(myCells[0].length);
@@ -364,9 +356,9 @@ public class CellSociety {
 			retrieveParserInfo();
 			Cell.setCellSize(
 					CellSocietyView.GRID_SIZE
-							/ Integer.parseInt(myParser.getInitParamMap().get(
-									"xRows")),
-					CellSocietyView.GRID_SIZE
+					/ Integer.parseInt(myParser.getInitParamMap().get(
+							"xRows")),
+							CellSocietyView.GRID_SIZE
 							/ Integer.parseInt(myParser.getInitParamMap().get(
 									"yCols")));
 			myCells = createCellArray();
@@ -414,7 +406,7 @@ public class CellSociety {
 			myView.setGridGap(Integer.parseInt(gridLines));
 		else
 			myView.setGridGap(1);
-		*/
+		 */
 	}
 
 	private int[] stringToIntArray(String string) {
@@ -423,15 +415,17 @@ public class CellSociety {
 		if (!string.equals(" ") && !string.equals("")) {
 			int[] intArray = new int[split.length];
 			for (int i = 0; i < split.length; i++) {
-					//System.out.println("split[i]" + split[i]);
-					if (!split[i].equals("") && !split[i].equals(" ")) {
-						//System.out.println("STR" + split[i]);
-						intArray[i] = Integer.parseInt(split[i]);
-					}
+				//System.out.println("split[i]" + split[i]);
+				if (!split[i].equals("") && !split[i].equals(" ")) {
+					//System.out.println("STR" + split[i]);
+					intArray[i] = Integer.parseInt(split[i]);
 				}
 			}
 			return intArray;
-		} else
-			return null;
+		}
+		
+	 else
+		return null;
+
 	}
 }
