@@ -17,7 +17,7 @@ public abstract class SimpleController extends Controller {
 
 	@Override
 	/**
-	 * Runes the simulation a single time
+	 * Runs the simulation a single time
 	 */
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
