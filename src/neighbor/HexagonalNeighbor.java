@@ -12,7 +12,6 @@ import cellsociety.Coordinate;
 public class HexagonalNeighbor extends HalfNeighbor {
 
 	public HexagonalNeighbor(Boundary bounds) {
-		// myBounds = bounds;
 		super(bounds);
 	}
 

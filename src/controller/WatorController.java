@@ -16,6 +16,7 @@ public class WatorController extends ComplexController{
 		super(parameters);
 	}
 
+
 	private boolean deadShark(Cell cell) {
 		if(cell instanceof SharkCell){
 			return ((SharkCell) cell).isDead();
