@@ -8,6 +8,7 @@ import cell.AquaticCell;
 import cell.Cell;
 import cell.SharkCell;
 import cellsociety.GridData;
+import cellsociety.Strings;
 import controller.ComplexController;
 
 public class WatorController extends ComplexController{
@@ -29,8 +30,8 @@ public class WatorController extends ComplexController{
 		if(deadShark(data.curCell())){
 			data.getNewGrid()[data.getRow()][data.getCol()] = ((SharkCell) data.curCell()).reproducingResult();
 		}
-		else if(data.curCell().toString().equals("EmptyCell")){
-			data.getNewGrid()[data.getRow()][data.getCol()] = makeCell("EmptyCell");
+		else if(data.curCell().toString().equals(Strings.EMPTY_CELL)){
+			data.getNewGrid()[data.getRow()][data.getCol()] = makeCell(Strings.EMPTY_CELL);
 		}
 		else{
 			((AquaticCell) data.curCell()).ageOneChronon(data, myNeighbor);
@@ -39,9 +40,9 @@ public class WatorController extends ComplexController{
 
 	@Override
 	protected List<String> typeTriage(List<String> list) {
-		list.add("SharkCell");
-		list.add("FishCell");
-		list.add("EmptyCell");
+		list.add(Strings.SHARK_CELL);
+		list.add(Strings.FISH_CELL);
+		list.add(Strings.EMPTY_CELL);
 		return list;
 	}
 }

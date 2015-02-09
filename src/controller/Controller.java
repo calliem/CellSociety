@@ -14,8 +14,6 @@ import neighbor.FullNeighbor;
 
 public abstract class Controller {
 
-
-
 	protected Boundary myBoundary;
 	protected Neighbor myNeighbor;
 
@@ -42,19 +40,12 @@ public abstract class Controller {
 		}
 	}
 
-
-//import javafx.scene.paint.Color;
-
-
-
-
-	//-----------inefficient cell ---------
 	protected static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
 		System.out.println("MAKECELLMETHOD: " + s);
-		if (s.equals("SharkCell") | s.equals("FishCell"))
+		if (s.equals(Strings.SHARK_CELL) | s.equals(Strings.FISH_CELL))
 			return (Cell) Class.forName(s).getConstructor().newInstance(s);
-		else {//this is hardcoded but that is the actual "state" of the cell as oppposed to just its name{
-			return (Cell) Class.forName(Strings.CELL_PACKAGE + "Cell").getConstructor(String.class).newInstance(s);
+		else {
+			return (Cell) Class.forName(Strings.CELL_PACKAGE + Strings.CELL).getConstructor(String.class).newInstance(s);
 		}
 	}
 

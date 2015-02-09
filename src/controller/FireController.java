@@ -29,7 +29,7 @@ public class FireController extends SimpleController{
 				break;
 			}
 		}
-		return "TreeCell";
+		return Strings.TREE_CELL;
 	}
 
 	@Override
@@ -43,6 +43,6 @@ public class FireController extends SimpleController{
 
 			return makeCell(hoodState);
 		}
-		return makeCell("EmptyCell");
+		return makeCell(Strings.EMPTY_CELL);
 	}
 }

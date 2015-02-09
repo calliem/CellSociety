@@ -6,6 +6,7 @@ import java.util.Map;
 
 import cell.Cell;
 import cellsociety.Coordinate;
+import cellsociety.Strings;
 import javafx.scene.paint.Color;
 
 public class LifeController extends SimpleController{
@@ -20,27 +21,27 @@ public class LifeController extends SimpleController{
 
 	public LifeController(Map<String, String>parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
 		super(parameters);
-		stayOn = Integer.parseInt(parameters.get("stayOn"));
-		bornOn = Integer.parseInt(parameters.get("bornOn"));
+		stayOn = Integer.parseInt(parameters.get(Strings.STAY_ON));
+		bornOn = Integer.parseInt(parameters.get(Strings.BORN_ON));
 	}
 
 	protected String getNeighborsState(Cell[][] grid, List<Coordinate> neighbors) {
 		int count = 0;
 		for(Coordinate coords: neighbors){
 			//if(c != null){
-				if(grid[coords.getX()][coords.getY()].toString().equals("LiveCell")){
+				if(grid[coords.getX()][coords.getY()].toString().equals(Strings.LIVE_CELL)){
 					count++;
 				}
 			//}
 		}
 		if (count == stayOn){
-			return "two";
+			return Strings.TWO;
 		}
 
 		else if (count == bornOn){
-			return "LiveCell";
+			return Strings.LIVE_CELL;
 		}
-		return "EmptyCell";
+		return Strings.EMPTY_CELL;
 	}
 
 	@Override
@@ -49,13 +50,9 @@ public class LifeController extends SimpleController{
 			IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException,
 			SecurityException, ClassNotFoundException {
-		if(neighborsState.equals("two")){
-			//return new Cell(cell.myLabel);
-			System.out.println("makeCell" + cell.toString());
-			return makeCell(cell.toString());
-			//return (Cell) Class.forName(cell.toString()).getConstructor().newInstance();
+		if(neighborsState.equals(Strings.TWO)){
+			return makeCell(cell.toString());	
 		}
-		//return new Cell(neighborsState);
 		return makeCell(neighborsState);
 	}
 
