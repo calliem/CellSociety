@@ -11,14 +11,14 @@
 	    <probHappy>0.5</probHappy>
 	</simParam>
 	<cellParam>    
-	    <cell state="EmptyCell" color="White" name="EmptyCell"/>
-	    <cell state="BlueCell" color="Blue" name="BlueCell">
+	    <cell state="Cell" color="White" name="EmptyCell"/>
+	    <cell state="Cell" color="Blue" name="BlueCell">
 	    	<loc>
 	    		5 8 11 22 23 24 29 34 35 38 39 40 41 42 46 49 56 58 59
 	    		63 64 65 68 69 72 75 77 78 79 80 81 83 84 98
 	    	</loc>
 	    </cell>
-	    <cell state="RedCell" color="Red" name="RedCell">
+	    <cell state="Cell" color="Red" name="RedCell">
 	    	<loc>
 	    		1 2 5 10 15 17 18 19 30 31 32 33 47 48 50 52 53 55 67 70
 	    		71 76 88 92 93 94 95 99

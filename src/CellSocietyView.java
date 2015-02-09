@@ -105,13 +105,14 @@ public class CellSocietyView {
 	public Button getSlowdownElement() {
 		return this.mySlowdownButton;
 	}
-	/*
-	public void openDialogBox(String s) {
-/*		Alert alert = new Alert(AlertType.INFORMATION);
+	
+/*	public void openDialogBox(String s) {
+		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Dialog Box");
 		alert.setHeaderText("Look, an Information Dialog");
 		alert.setContentText(s);
-		alert.showAndWait();*/
+		alert.showAndWait();
+		}*/
 
 	public void updateSimGrid(Cell[][] cellGrid) {
 		mySimGrid.getChildren().clear();
@@ -184,6 +185,15 @@ public class CellSocietyView {
 		
 		HashMap<String, Integer> cellCounts = new HashMap<String, Integer>();
 		
+		System.out.println("=========cell grid===============");
+		System.out.println(cells.length);
+		System.out.println(cells[0].length);
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[0].length; j++) {
+				System.out.println(cells[i][j].toString());
+			}
+		}
+		
 		for (int i = 0; i < names.length; i++) {
 			cellCounts.put(names[i], 0);
 		}
@@ -204,6 +214,7 @@ public class CellSocietyView {
 			Series<Number, Number> series = mySeries.get(i);
 			series.getData().add(new Data<Number, Number>(numFrames, cellCounts.get(names[i])));			
 		}
+		
 		
 	}
 	
@@ -226,7 +237,7 @@ public class CellSocietyView {
 	private XYChart<Number, Number> initializeChart() {
 		
 		Axis<Number> xAxis = new NumberAxis();
-		xAxis.setAutoRanging(false);
+		xAxis.setAutoRanging(true);
 		xAxis.setTickLabelsVisible(false);
 		
 		Axis<Number> yAxis = new NumberAxis();
