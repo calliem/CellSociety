@@ -7,7 +7,7 @@ import cell.Cell;
 
 public abstract class Neighbor {
 
-	private Boundary myBounds;
+	protected Boundary myBounds;
 
 	public Neighbor(Boundary b) {
 		myBounds = b;
