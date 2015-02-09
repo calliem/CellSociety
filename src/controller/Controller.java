@@ -11,6 +11,7 @@ import neighbor.Neighbor;
 import cell.Cell;
 import cellsociety.Strings;
 
+
 public abstract class Controller {
 
 	protected static final int X_COORD = 0;
