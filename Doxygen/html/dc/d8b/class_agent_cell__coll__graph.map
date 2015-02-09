@@ -1,5 +1,0 @@
-<map id="AgentCell" name="AgentCell">
-<area shape="rect" id="node2" href="$dd/d11/class_cell.html" title="Cell" alt="" coords="156,96,201,123"/>
-<area shape="rect" id="node6" href="$d7/dd7/class_ground_cell.html" title="GroundCell" alt="" coords="69,173,160,200"/>
-<area shape="rect" id="node5" href="$dd/dbc/interface_updatable.html" title="Updatable" alt="" coords="5,96,93,123"/>
-</map>
