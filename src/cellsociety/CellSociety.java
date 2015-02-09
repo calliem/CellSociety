@@ -50,7 +50,6 @@ public class CellSociety {
 		Constructor<?> constructor = null;
 		try {
 			if (state.equals("SharkCell") | state.equals("FishCell")) {
-				System.out.println("hi");
 				Class<?> className = Class.forName(Strings.CELL_PACKAGE + state);
 				constructor = className.getConstructor(Map.class);
 			} 
@@ -72,12 +71,10 @@ public class CellSociety {
 
 		myCells = new Cell[numRows][numCols];
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
-		//	System.out.println("sze" + cellStates.size());
 		if (cellStates.size() > 1) { // if there are at least 2 different cell
 			// types
 			if (cellStates.get(1).get("loc") == null
 					&& cellStates.get(1).get("locProbability") != null) {
-				System.out.println("populateProbabilities");
 				populateProbabilities(cellStates, numCols, numRows);
 			} else if (cellStates.get(1).get("loc") != null
 					&& cellStates.get(1).get("locProbability") == null) {
@@ -106,8 +103,6 @@ public class CellSociety {
 
 			for (int j = 0; j < numCells; j ++){ //specify number of cells to randomly select
 				int randomX; int randomY;
-				////System.out.println(numRows * numCols);
-				////System.out.println(myRandom.nextInt(100));
 				do{
 					int randomLoc = myRandom.nextInt(numRows * numCols);
 					randomX = randomLoc / numCols;
@@ -148,7 +143,6 @@ public class CellSociety {
 			// boolean isInvalid = false;
 			if (locations != null) {
 				for (int j = 0; j < locations.length; j++) {
-					//System.out.println(cellParams.get("state") + locations[j]);
 					if (locations[j] > numCols * numRows){
 						invalidLocs.add(locations[j]);
 					}
@@ -211,15 +205,17 @@ public class CellSociety {
 	 */
 	private void retrieveParserInfo() throws NoSuchMethodException, InstantiationException,
 	IllegalAccessException, InvocationTargetException {
-		//System.out.println("parser!");
+		System.out.println("-----");
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 
 		String simName = myParser.getInitParamMap().get("simName");
 		String className = simName + "Controller";
 		try {
+			System.out.println(Strings.CONTROLLER_PACKAGE + className);
 			Class<?> currentClass = Class.forName(Strings.CONTROLLER_PACKAGE + className);
+			System.out.println("ln 2");
 			Constructor<?> constructor = currentClass.getConstructor(Map.class);
-			System.out.println(constructor.getName());
+			System.out.println("const" + constructor.getName());
 			myController = (Controller) constructor.newInstance(myParser.getSimParamMap());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -260,13 +256,6 @@ public class CellSociety {
 	}
 
 	private void updateGrid() {
-
-		for (int i = 0; i < myCells.length; i++) {
-			for (int j = 0; j < myCells[0].length; j++) {
-				System.out.println(myCells[i][j].toString());
-				System.out.println(myCells[i][j].getColor());
-			}
-		}
 		try {
 			myCells = myController.runOneSim(myCells); // THIS IS MAKING
 			// EVERYTHING NULL
@@ -305,14 +294,6 @@ public class CellSociety {
 								.get("color")));
 					}
 				}
-			}
-		}
-
-		System.out.println("update colors --------");
-		for (int i = 0; i < myCells.length; i++) {
-			for (int j = 0; j < myCells[0].length; j++) {
-				System.out.println(myCells[i][j].toString());
-				System.out.println(myCells[i][j].getColor());
 			}
 		}
 	}
@@ -364,8 +345,6 @@ public class CellSociety {
 			cellColors[i] = cur.get("color");
 		}
 
-		//System.out.println(Arrays.toString(cellNames));
-
 		myNumFrames = 0;
 		myView.generateChartLines(cellNames);
 		myView.updateChartLines(myCells, myNumFrames, cellNames);
@@ -378,9 +357,7 @@ public class CellSociety {
 		if (!string.equals(" ") && !string.equals("")) {
 			int[] intArray = new int[split.length];
 			for (int i = 0; i < split.length; i++) {
-				//System.out.println("split[i]" + split[i]);
 				if (!split[i].equals("") && !split[i].equals(" ")) {
-					//System.out.println("STR" + split[i]);
 					intArray[i] = Integer.parseInt(split[i]);
 				}
 			}

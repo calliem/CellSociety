@@ -11,6 +11,7 @@
 	</initParam>
 	<simParam>
 	    <boundary>Toroidal</boundary>
+	    <neighbor>Full</neighbor>
 	</simParam>
 	<cellParam>    
 	     <cell state="Cell" name="EmptyCell" color="Cyan" />  

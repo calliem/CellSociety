@@ -11,10 +11,10 @@ import cell.Cell;
 
 public class FullNeighbor extends Neighbor{
 
-	private Boundary myBounds;
+	
 
 	public FullNeighbor(Boundary bounds){
-		myBounds = bounds;
+		super(bounds);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class FullNeighbor extends Neighbor{
 					if(dr != 0 || dc != 0){
 						int nextRow = row + dr*s;
 						int nextCol = col + dc*s;
-						list.add(myBounds.findCell(grid, nextRow, nextCol));
+						list.add(getBounds().findCell(grid, nextRow, nextCol));
 						/*
 					if(myBounds.inBounds(grid, nextRow, nextCol))
 					list.add(grid[nextRow][nextCol]);
@@ -39,8 +39,5 @@ public class FullNeighbor extends Neighbor{
 		return list;
 	}
 
-	public Boundary getBoundary(){
-		return myBounds;
-	}
 
 }

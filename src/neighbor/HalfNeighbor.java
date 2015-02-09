@@ -9,10 +9,9 @@ import cell.Cell;
 
 public class HalfNeighbor extends Neighbor{
 
-	protected Boundary myBounds;
 
 	public HalfNeighbor(Boundary bounds){
-		myBounds = bounds;
+		super(bounds);
 	}
 
 	@Override
@@ -20,9 +19,8 @@ public class HalfNeighbor extends Neighbor{
 		List<Integer[]> list = new ArrayList<Integer[]>();
 		for(int s = 1; s <= scalar; s++){
 			for(int d = -1; d <= 1; d++){
-				//addToList(grid, r, c, d);
-				list.add(myBounds.findCell(grid, r + d*s , c));
-				list.add(myBounds.findCell(grid, r, c + d*s));
+				list.add(getBounds().findCell(grid, r + d*s , c));
+				list.add(getBounds().findCell(grid, r, c + d*s));
 			}
 		}
 		list.removeAll(Collections.singleton(null));

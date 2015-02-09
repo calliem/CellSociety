@@ -41,7 +41,6 @@ public class XMLParser {
 		for (int i = 0; i < myNodeList.getLength(); i++) {
 			//parses <initParam> <cellParam> <simParam> and other first-level tags
              Node node = myNodeList.item(i);
-             System.out.println(node.getNodeName());
              if (node instanceof Element) {  
             	switch (node.getNodeName()) {
      			case "initParam":

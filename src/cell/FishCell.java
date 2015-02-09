@@ -11,7 +11,6 @@ public class FishCell extends Cell implements ReproducingCell{
 	public FishCell(String name){
 		super(name);
 		myCurrAge = 0;
-
 	}
 
 	public FishCell(Map<String, String> params) {

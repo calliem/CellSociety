@@ -6,6 +6,7 @@ import java.util.Map;
 import boundary.Boundary;
 import boundary.FiniteBoundary;
 import neighbor.FullNeighbor;
+import neighbor.HalfNeighbor;
 import neighbor.Neighbor;
 import cell.Cell;
 import cellsociety.Strings;
@@ -30,19 +31,30 @@ public abstract class Controller {
 			IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException {
 
-		// why are there so many throw/catches??
+		System.out.println("list");
+		for (String s: parameters.keySet()){
+			System.out.println(s);
+			System.out.println(parameters.get(s));
+		}
+		
+		//this part here broke the code
 		String boundary = parameters.get("boundary");
+		System.out.println(boundary);
 		if (boundary != null) {
 			setBoundary(boundary);
-		} else
+		} 
+		else{
 			myBoundary = new FiniteBoundary(); // defaulted to FiniteBoundary
+		}
 
-		String neighbors = parameters.get("neighbors");
-		if (neighbors != null) {
+		String neighbors = parameters.get("neighbor");
+		System.out.println(neighbors);
+		if (parameters.get("neighbor") != null) {
 			setNeighbors(neighbors);
-		} else
+		} else{
 			myNeighbor = new FullNeighbor(myBoundary); // defaulted to
 														// FullNeighbor
+		}
 	}
 
 	protected boolean contains(List<Integer[]> updatedCoordinates,
@@ -65,15 +77,13 @@ public abstract class Controller {
 		return false;
 	}
 
-	// -----------inefficient cell ---------
 	protected static Cell makeCell(String s) throws InstantiationException,
 			IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException,
 			SecurityException, ClassNotFoundException {
 		if (s.equals("SharkCell") | s.equals("FishCell"))
 			return (Cell) Class.forName(Strings.CELL_PACKAGE + s).getConstructor().newInstance(s);
-		else {// this is hardcoded but that is the actual "state" of the cell as
-				// oppposed to just its name{
+		else {
 			return (Cell) Class.forName(Strings.CELL_PACKAGE + "Cell").getConstructor(String.class)
 					.newInstance(s);
 		}
@@ -86,7 +96,7 @@ public abstract class Controller {
 		String boundary = s + "Boundary";
 		myBoundary = (Boundary) Class.forName(Strings.BOUNDARY_PACKAGE + boundary).getConstructor()
 				.newInstance();
-		// myNeighbor = new FullNeighbor(myBoundary); //is this necessary?
+		//myNeighbor = new HalfNeighbor(myBoundary); //is this necessary?
 	}
 
 	private void setNeighbors(String s) throws InstantiationException,
@@ -94,8 +104,10 @@ public abstract class Controller {
 			InvocationTargetException, NoSuchMethodException,
 			SecurityException, ClassNotFoundException {
 		String neighbor = s + "Neighbor";
-		myNeighbor = (Neighbor) Class.forName(Strings.NEIGHBOR_PACKAGE + neighbor).getConstructor()
+		System.out.println("NEIGHHHH" + neighbor);
+		myNeighbor = (Neighbor) Class.forName(Strings.NEIGHBOR_PACKAGE + neighbor).getConstructor(Boundary.class)
 				.newInstance(myBoundary);
+		System.out.println("neighbor created");
 	}
 
 	// protected abstract String getNeighborsState(Cell[][] grid,

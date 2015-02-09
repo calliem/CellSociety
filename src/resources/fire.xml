@@ -7,15 +7,16 @@
 		<yCols>9</yCols>
 		<fps>5</fps>
 		<gridLines>0</gridLines>
-		<shape>triangle</shape></initParam>
+		<shape>square</shape></initParam>
 	<simParam>
 	    <probCatch>100</probCatch>
 	    <neighbor>Half</neighbor>
+	    <boundary>Finite</boundary>
 	</simParam>
 	<cellParam>    
 	    <cell name="TreeCell" state="Cell" color="Black" />
 	    <cell name="EmptyCell" state="Cell" color="White">
-	    	<loc>19 22</loc>
+	    	<loc>19</loc>
 	    </cell>
 	    <cell name="FireCell" state="Cell" color="Orange">
 	        <loc>55</loc>

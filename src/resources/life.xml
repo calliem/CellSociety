@@ -13,7 +13,7 @@
 	    <stayOn>2</stayOn>
 	    <bornOn>3</bornOn>
 	    <boundary>Finite</boundary>
-	    <neighbor>Half</neighbor>
+	    <neighbor>Full</neighbor>
 	</simParam>
 	<cellParam>    
 	    <cell state="Cell" color="White" name="EmptyCell"/>

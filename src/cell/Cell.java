@@ -13,7 +13,6 @@ public class Cell{
 	}
 
 	public Cell(Map<String, String> params) {
-		//use reflection with shape, but right now it will simply be made into a rectangle.
 		myName = params.get("name");
 		myColor = Color.valueOf(params.get("color"));
 	}
