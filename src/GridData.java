@@ -24,7 +24,20 @@ public class GridData {
 		return myGrid;
 	}
 
-
+	public Cell curCell(){
+		return myGrid[myRow][myCol];
+	}
+	/*
+	public Cell newCell(){
+		return myNewGrid[myRow][myCol];
+	}
+*/
+	
+	public Integer[] curCoord(){
+		Integer[] ret = {myRow, myCol};
+			return ret;
+	}
+	
 	public int getRow() {
 		return myRow;
 	}

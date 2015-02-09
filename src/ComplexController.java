@@ -18,16 +18,17 @@ public abstract class ComplexController extends Controller{
 		Queue<Integer[]> myCoordinates= coordinatesTriage(grid, triage);
 
 		for(Integer[] coords : myCoordinates){
-			int row = coords[0];
-			int col = coords[1];
+			//int row = coords[0];
+			//int col = coords[1];
+			GridData data = new GridData(grid, coords[Controller.X_COORD], coords[Controller.Y_COORD], newGrid, updatedCoordinates);
 			//Integer[] curCoordinates = {r,c};
 			if(!contains(updatedCoordinates, coords)){
-				cellUpdate(grid, row, col, newGrid, updatedCoordinates);
+				cellUpdate(data);
 			}
 		}
 		return newGrid;
 	}
-	protected abstract void cellUpdate(Cell[][] grid, int row, int col, Cell[][] newGrid, List<Integer[]> updatedCoordinates) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
+	protected abstract void cellUpdate(GridData data) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 
 	protected abstract List<String> typeTriage(List<String> list);
 

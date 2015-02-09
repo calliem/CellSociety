@@ -8,7 +8,7 @@ public abstract class Controller {
 	public static final int Y_COORD = 1;
 	
 	protected Boundary myBoundary = new FiniteBoundary();
-	protected Neighbor myNeighbor = new FullNeighbor(myBoundary);
+	protected Neighbor myNeighbor = new HalfNeighbor(myBoundary);
 	
 	public abstract Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException ;
 	protected boolean contains(List<Integer[]> updatedCoordinates,

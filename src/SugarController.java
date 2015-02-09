@@ -10,15 +10,14 @@ public class SugarController extends ComplexController{
 	}
 
 	@Override
-	protected void cellUpdate(Cell[][] grid, int row, int col,
-			Cell[][] newGrid, List<Integer[]> updatedCoordinates)
+	protected void cellUpdate(GridData data)
 			throws InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		//Updatable curCell = (Updatable) grid[row][col];
 		Updatable curCell = (Updatable) data.curCell();
-		GridData data = new GridData(grid, row, col, newGrid, updatedCoordinates);
+		//GridData data = new GridData(grid, row, col, newGrid, updatedCoordinates);
 		curCell.ageOneChronon(data);
 	}
 
