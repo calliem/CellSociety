@@ -30,11 +30,8 @@ public abstract class ComplexController extends Controller {
 		Queue<Integer[]> myCoordinates = coordinatesTriage(grid, triage);
 
 		for (Integer[] coords : myCoordinates) {
-			// int row = coords[0];
-			// int col = coords[1];
 			GridData data = new GridData(grid, coords[Controller.X_COORD],
 					coords[Controller.Y_COORD], newGrid, updatedCoordinates);
-			// Integer[] curCoordinates = {r,c};
 			if (!contains(updatedCoordinates, coords)) {
 				cellUpdate(data);
 			}
