@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simulation>
+	<initParam>
+		<simName>Sugar</simName>
+		<author>Author</author>
+		<xRows>3</xRows>
+		<yCols>3</yCols>
+		<fps>5</fps>
+		<gridLines>0</gridLines>
+	</initParam>
+<!--
+	<simParam>
+	    <probCatch>100</probCatch>
+	    <neighbor>Half</neighbor>
+	</simParam>
+-->
+	<cellParam>    
+		<cell name="Patch1" state="PatchCell" color="Red" maxSugar="5" />		
+		<cell name="AgentCell" state="AgentCell" color="Black">
+			<loc>1 2 7</loc>
+	    	</cell>
+		<cell name="Patch2" state="PatchCell" color="Orange" maxSugar="4">
+			<loc>4 5 6</loc>
+		</cell>
+		<cell name="Patch3" state="PatchCell" color="Yellow" maxSugar="3">
+			<loc>7 8 9</loc>
+		</cell> 
+		
+
+<!-- <cell name="EmptyCell" state="Cell" color="White">
+	    	<loc>1 3 5 7 9</loc>
+	    </cell>
+	    <cell name="FireCell" state="Cell" color="Orange">
+	        <loc>55</loc>
+	    </cell>-->
+		
+	</cellParam>
+</simulation>

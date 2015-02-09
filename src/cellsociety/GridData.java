@@ -14,10 +14,12 @@ public class GridData {
 	private int myRow;
 	private int myCol;
 	private Cell[][] myNewGrid;
-	private List<Integer[]> myList;
+	private List<Coordinate> myList;
+
 
 	public GridData(Cell[][] grid, int row, int col, Cell[][] newGrid,
-			List<Integer[]> list) {
+			List<Coordinate> list) {
+
 		myGrid = grid;
 		myRow = row;
 		myCol = col;
@@ -34,9 +36,15 @@ public class GridData {
 		return myGrid[myRow][myCol];
 	}
 
-	public Integer[] curCoord() {
-		Integer[] ret = { myRow, myCol };
-		return ret;
+	/*
+	public Cell newCell(){
+		return myNewGrid[myRow][myCol];
+	}
+*/
+	
+	public Coordinate curCoord(){;
+		return new Coordinate(myRow, myCol);
+
 	}
 
 	public int getRow() {
@@ -51,12 +59,19 @@ public class GridData {
 		return myNewGrid;
 	}
 
-	public List<Integer[]> getList() {
+
+
+	public List<Coordinate> getList() {
+
 		return myList;
 	}
 
 	public void updateLocation(Cell cell) {
 		myNewGrid[myRow][myCol] = cell;
+	}
+
+	public boolean sameLocation(Coordinate newLocation) {
+		return myRow == newLocation.getX() && myCol == newLocation.getY();
 	}
 
 }

@@ -6,16 +6,15 @@ import java.util.Map;
 
 import boundary.Boundary;
 import boundary.FiniteBoundary;
-import neighbor.FullNeighbor;
 import neighbor.Neighbor;
 import cell.Cell;
 import cellsociety.Strings;
+import neighbor.FullNeighbor;
 
 
 public abstract class Controller {
 
-	protected static final int X_COORD = 0;
-	protected static final int Y_COORD = 1;
+
 
 	protected Boundary myBoundary;
 	protected Neighbor myNeighbor;
@@ -36,46 +35,29 @@ public abstract class Controller {
 
 		String neighbors = parameters.get(Strings.NEIGHBOR_PARAMETER);
 		if (neighbors != null) {
-
 			setNeighbors(neighbors);
-		} else {
-
-			myNeighbor = new FullNeighbor(myBoundary); // defaulted to
-														// FullNeighbor
+		}
+		else{
+			myNeighbor = new FullNeighbor(myBoundary);
 		}
 	}
 
-	protected boolean contains(List<Integer[]> updatedCoordinates,
-			Integer[] curCoordinates) {
-		int[] coords = new int[curCoordinates.length];
-		for (int i = 0; i < curCoordinates.length; i++) {
-			coords[i] = curCoordinates[i];
+
+//import javafx.scene.paint.Color;
+
+
+
+
+	//-----------inefficient cell ---------
+	protected static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		System.out.println("MAKECELLMETHOD: " + s);
+		if (s.equals("SharkCell") | s.equals("FishCell"))
+			return (Cell) Class.forName(s).getConstructor().newInstance(s);
+		else {//this is hardcoded but that is the actual "state" of the cell as oppposed to just its name{
+			return (Cell) Class.forName(Strings.CELL_PACKAGE + "Cell").getConstructor(String.class).newInstance(s);
 		}
-		for (int j = 0; j < updatedCoordinates.size(); j++) {
-			int count = 0;
-			for (int k = 0; k < coords.length; k++) {
-				if (coords[k] == updatedCoordinates.get(j)[k]) {
-					count++;
-				}
-			}
-			if (count == coords.length) {
-				return true;
-			}
-		}
-		return false;
 	}
 
-	protected static Cell makeCell(String s) throws InstantiationException,
-			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-			NoSuchMethodException, SecurityException, ClassNotFoundException {
-		if (s.equals(Strings.SHARK_CELL) | s.equals(Strings.FISH_CELL))
-			return (Cell) Class.forName(Strings.CELL_PACKAGE + s).getConstructor()
-					.newInstance(s);
-		else {
-			return (Cell) Class.forName(Strings.CELL_PACKAGE + Strings.CELL)
-					.getConstructor(String.class).newInstance(s);
-		}
-	}
 
 	private void setBoundary(String s) throws InstantiationException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
@@ -92,4 +74,5 @@ public abstract class Controller {
 		myNeighbor = (Neighbor) Class.forName(Strings.NEIGHBOR_PACKAGE + neighbor)
 				.getConstructor(Boundary.class).newInstance(myBoundary);
 	}
+
 }

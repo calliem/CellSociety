@@ -5,50 +5,59 @@ import java.util.List;
 import java.util.Map;
 
 import cell.Cell;
-import cellsociety.Strings;
+import cellsociety.Coordinate;
+import javafx.scene.paint.Color;
 
-public class LifeController extends SimpleController {
+public class LifeController extends SimpleController{
+
+	//{S}
+	//private static ArrayList<Integer> stayOn;
+	//{B}
 
 	private int stayOn;
 	private int bornOn;
+	 
 
-	public LifeController(Map<String, String> parameters) throws InstantiationException,
-			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-			NoSuchMethodException, SecurityException, ClassNotFoundException {
+	public LifeController(Map<String, String>parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
 		super(parameters);
-
-		stayOn = Integer.parseInt(parameters.get(Strings.STAY_ON));
-		bornOn = Integer.parseInt(parameters.get(Strings.BORN_ON));
+		stayOn = Integer.parseInt(parameters.get("stayOn"));
+		bornOn = Integer.parseInt(parameters.get("bornOn"));
 	}
 
-	@Override
-	protected String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors) {
+	protected String getNeighborsState(Cell[][] grid, List<Coordinate> neighbors) {
 		int count = 0;
-		for (Integer[] coords : neighbors) {
-			if (grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString()
-					.equals(Strings.LIVE_CELL)) {
-				count++;
-			}
+		for(Coordinate coords: neighbors){
+			//if(c != null){
+				if(grid[coords.getX()][coords.getY()].toString().equals("LiveCell")){
+					count++;
+				}
+			//}
 		}
-		if (count == stayOn) {
-			return Strings.TWO;
+		if (count == stayOn){
+			return "two";
 		}
 
-		else if (count == bornOn) {
-			return Strings.LIVE_CELL;
+		else if (count == bornOn){
+			return "LiveCell";
 		}
-		return Strings.EMPTY_CELL;
+		return "EmptyCell";
 	}
 
 	@Override
-	protected Cell newState(Cell[][] newGrid, Cell cell, String neighborsState, int r,
-			int c) throws InstantiationException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
+	protected Cell newState(Cell[][] newGrid, Cell cell, String neighborsState,
+			int r, int c) throws InstantiationException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException,
 			SecurityException, ClassNotFoundException {
-		if (neighborsState.equals(Strings.TWO)) {
+		if(neighborsState.equals("two")){
+			//return new Cell(cell.myLabel);
+			System.out.println("makeCell" + cell.toString());
 			return makeCell(cell.toString());
+			//return (Cell) Class.forName(cell.toString()).getConstructor().newInstance();
 		}
+		//return new Cell(neighborsState);
 		return makeCell(neighborsState);
 	}
+
 
 }

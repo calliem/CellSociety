@@ -11,7 +11,9 @@
 	<simParam>
 	    <probCatch>100</probCatch>
 	    <neighbor>Half</neighbor>
+
 	    <boundary>Finite</boundary>
+
 	</simParam>
 	<cellParam>    
 	    <cell name="TreeCell" state="Cell" color="Black" />

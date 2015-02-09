@@ -2,47 +2,45 @@ package cell;
 
 import java.util.Map;
 
-import cellsociety.Strings;
+import cellsociety.Coordinate;
+import cellsociety.GridData;
+import javafx.scene.paint.Color;
 
-public class FishCell extends Cell implements ReproducingCell {
+public class FishCell extends AquaticCell {
 
 	private static int myReproducingAge;
-	private int myCurrAge;
-
-	public FishCell(String name) {
+	private static Color myColor;
+	public FishCell(String name){
 		super(name);
-		myCurrAge = 0;
+		//getShape().setFill(myColor);
+
 	}
 
 	public FishCell(Map<String, String> params) {
 		super(params);
-		myReproducingAge = Integer.parseInt(params.get(Strings.REPRODUCTION_AGE));
-		myCurrAge = 0;
+		myColor = Color.valueOf(params.get("color"));
+		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
+		//getShape().setFill(myColor);
+
 	}
 
-	public int getAge() {
+	public int getAge(){
 		return myReproducingAge;
 	}
 
+	
 	@Override
-	public Cell reproducingResult() {
-		if (myCurrAge >= myReproducingAge) {
-			myCurrAge = 0;
-			return new FishCell(Strings.FISH_CELL);
-		} else {
-			return new Cell(Strings.EMPTY_CELL);
-		}
+	protected Cell instantiate(){
+		return new FishCell("FishCell");
+	}
+
+	public String toString(){
+		return "FishCell";
 	}
 
 	@Override
-	public Cell ageOneChronon() {
-		myCurrAge++;
-		return this;
-	}
+	protected void swapRole(GridData data, Coordinate dest) {
 
-	@Override
-	public String toString() {
-		return Strings.FISH_CELL;
 	}
 
 }

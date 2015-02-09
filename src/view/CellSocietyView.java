@@ -108,6 +108,7 @@ public class CellSocietyView {
 		return this.mySlowdownButton;
 	}
 
+
 	public void openDialogBox(String message) {
 
 		Stage stage = new Stage();
@@ -121,6 +122,7 @@ public class CellSocietyView {
 		stage.setTitle("Error");
 		stage.setScene(scene);
 		stage.show();
+
 	}
 
 	public void setupInitialGrid(Cell[][] cells, String shape) {
@@ -168,6 +170,7 @@ public class CellSocietyView {
 
 		HashMap<String, Integer> cellCounts = new HashMap<String, Integer>();
 
+
 		for (int i = 0; i < names.length; i++) {
 			cellCounts.put(names[i], 0);
 		}
@@ -175,6 +178,7 @@ public class CellSocietyView {
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[0].length; j++) {
 				String cellName = cells[i][j].toString();
+
 				cellCounts.put(cellName, cellCounts.get(cellName) + 1);
 
 			}

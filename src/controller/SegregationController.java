@@ -7,57 +7,47 @@ import java.util.Map;
 import java.util.Random;
 
 import cell.Cell;
-import cellsociety.Strings;
+import cellsociety.Coordinate;
 
-public class SegregationController extends SimpleController {
+public class SegregationController extends SimpleController{
 	private double myHappyFraction;
-	private ArrayList<Integer[]> myEmptyList;
-	private ArrayList<Integer[]> updatedList;
+	private ArrayList<Coordinate> myEmptyList;
+	private ArrayList<Coordinate> updatedList;
 
-	public SegregationController(Map<String, String> parameters)
-			throws InstantiationException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
-			SecurityException, ClassNotFoundException {
-		// this is duplicated :( could this be put into the super class
-		// constructor and then called with super();
+	public SegregationController(Map<String, String> parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
 		super(parameters);
-
-		myHappyFraction = Double.parseDouble(parameters.get(Strings.HAPPY_PROBABILITY));
+		myHappyFraction = Double.parseDouble(parameters.get("probHappy"));
 	}
 
 	@Override
-	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException,
-			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-			NoSuchMethodException, SecurityException, ClassNotFoundException {
-		updatedList = new ArrayList<Integer[]>();
+	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		updatedList = new ArrayList<Coordinate>();
 		makeEmptyList(grid);
 		return super.runOneSim(grid);
+
 	}
 
 	private void makeEmptyList(Cell[][] grid) {
-		myEmptyList = new ArrayList<Integer[]>();
-		for (int r = 0; r < grid.length; r++) {
-			for (int c = 0; c < grid[0].length; c++) {
+		myEmptyList = new ArrayList<Coordinate>();
+		for(int r = 0; r < grid.length; r++){
+			for(int c = 0; c < grid[0].length; c++){
 				String curString = grid[r][c].toString();
-				if (curString.toString().equals(Strings.EMPTY_CELL)) {
-					Integer[] coords = { r, c };
-					myEmptyList.add(coords);
+				if(curString.toString().equals("EmptyCell")){
+					myEmptyList.add(new Coordinate(r,c));
 				}
 			}
 		}
 	}
 
 	@Override
-	protected String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors) {
+	protected String getNeighborsState(Cell[][] grid, List<Coordinate> neighbors) {
 		double blueCount = 0;
 		double redCount = 0;
-		for (Integer[] coords : neighbors) {
-			if (grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString()
-					.toString().equals(Strings.BLUE_CELL)) {
+		for(Coordinate coords: neighbors){
+			if(grid[coords.getX()][coords.getY()].toString().toString().equals("BlueCell")){
 				blueCount++;
 			}
-			if (grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString()
-					.toString().equals(Strings.RED_CELL)) {
+			if(grid[coords.getX()][coords.getY()].toString().toString().equals("RedCell")){
 				redCount++;
 			}
 		}
@@ -66,43 +56,39 @@ public class SegregationController extends SimpleController {
 
 	private String selectNeighborsState(double bC, double rC) {
 		double total = bC + rC;
-		if (total == 0) {
-			return Strings.NONE;
+		if(total == 0){
+			return "none";
 		}
-		boolean blueHappy = bC / total > myHappyFraction;
-		boolean redHappy = rC / total > myHappyFraction;
-		if (blueHappy) {
-			if (redHappy) {
-				return Strings.BOTH;
+		boolean blueHappy = bC/total > myHappyFraction;
+		boolean redHappy = rC/total > myHappyFraction;
+		if(blueHappy){
+			if(redHappy){
+				return "both";
 			}
-			return Strings.BLUE_CELL;
+			return "BlueCell";
 		}
-		if (redHappy) {
-			return Strings.RED_CELL;
+		if(redHappy){
+			return "RedCell";
 		}
-		return Strings.NONE;
+		return "none";
 	}
 
 	@Override
-	protected Cell newState(Cell[][] newGrid, Cell cell, String neighborsState, int r,
-			int c) throws InstantiationException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
-			SecurityException, ClassNotFoundException {
-		Integer[] curCoord = { r, c };
-		if (!contains(updatedList, curCoord)) {
+	protected Cell newState(Cell[][] newGrid, Cell cell, String neighborsState, int r, int c) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		Coordinate curCoord = new Coordinate(r,c);
+		if(!updatedList.contains(curCoord)){
 			Random random = new Random();
-			if (cell.toString().equals(neighborsState)
-					|| neighborsState.equals(Strings.BOTH)) {
+			if(cell.toString().equals(neighborsState) || neighborsState.equals("both")){
 				return makeCell(cell.toString());
-			} else if (!cell.toString().equals(Strings.EMPTY_CELL)) {
-				Integer[] randCoord = myEmptyList.remove(random.nextInt(myEmptyList
-						.size()));
-				newGrid[randCoord[0]][randCoord[1]] = makeCell(cell.toString());
-				updatedList.add(randCoord);
-				Integer[] newCoord = { r, c };
-				myEmptyList.add(newCoord);
 			}
-			return makeCell(Strings.EMPTY_CELL);
+			else if(!cell.toString().equals("EmptyCell")){
+				Coordinate randCoord = myEmptyList.remove(random.nextInt(myEmptyList.size()));
+				newGrid[randCoord.getX()][randCoord.getY()] = makeCell(cell.toString());
+				updatedList.add(randCoord);
+				//Integer[] newCoord = {r,c};
+				myEmptyList.add(curCoord);
+			}
+			return makeCell("EmptyCell");
 		}
 		return newGrid[r][c];
 	}

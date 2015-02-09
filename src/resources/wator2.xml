@@ -10,8 +10,9 @@
 		<shape>square</shape>
 	</initParam>
 	<simParam>
+	    <neighbor>Half</neighbor>
 	    <boundary>Toroidal</boundary>
-	    <neighbor>Full</neighbor>
+
 	</simParam>
 	<cellParam>    
 	     <cell state="Cell" name="EmptyCell" color="Cyan" />  

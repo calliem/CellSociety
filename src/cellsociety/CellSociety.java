@@ -1,5 +1,4 @@
 package cellsociety;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -9,11 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.xml.sax.SAXException;
-
 import controller.Controller;
 import cell.Cell;
 import view.CellSocietyView;
@@ -25,7 +21,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class CellSociety {
-
 	private CellSocietyView myView;
 	private XMLParser myParser;
 	private int myFrameRate;
@@ -34,16 +29,14 @@ public class CellSociety {
 	private Cell[][] myCells;
 	private int myNumFrames = 0;
 	private Random myRandom = new Random();
-
 	public CellSociety(Stage s) throws ParserConfigurationException, SAXException,
-			IOException, InstantiationException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException, ClassNotFoundException,
-			NoSuchMethodException, SecurityException {
+	IOException, InstantiationException, IllegalAccessException,
+	IllegalArgumentException, InvocationTargetException, ClassNotFoundException,
+	NoSuchMethodException, SecurityException {
 		myParser = new XMLParser();
 		myView = new CellSocietyView(s);
 		configureListeners();
 	}
-
 	/**
 	 * Creates an instance of the a specific Cell class/subclass based on values passed in from cellParams
 	 * @param cellParams
@@ -71,9 +64,8 @@ public class CellSociety {
 		}
 		return (Cell) constructor.newInstance(cellParams);
 	}
-
 	/**
-	 * Creates an array of cells to populate the grid 
+	 * Creates an array of cells to populate the grid
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws IllegalArgumentException
@@ -82,13 +74,11 @@ public class CellSociety {
 	 * @throws NoSuchMethodException
 	 */
 	public Cell[][] createCellArray() throws InstantiationException,
-			IllegalAccessException, IllegalArgumentException, SecurityException,
-			InvocationTargetException, NoSuchMethodException {
+	IllegalAccessException, IllegalArgumentException, SecurityException,
+	InvocationTargetException, NoSuchMethodException {
 		Map<String, String> map = myParser.getInitParamMap();
-
 		int numCols = Integer.parseInt(map.get(Strings.COLUMNS));
 		int numRows = Integer.parseInt(map.get(Strings.ROWS));
-
 		myCells = new Cell[numRows][numCols];
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
 		if (cellStates.size() > 1) {
@@ -104,11 +94,10 @@ public class CellSociety {
 		populateRemainingState(cellStates, numCols, numRows);
 		return myCells;
 	}
-
 	/**
 	 * Instantiates cells for all states except for the first one (which will be
 	 * done in the populateRemainingState method) based on inputted probabilities
-	 * 
+	 *
 	 * @param cellStates
 	 * @param numCols and numRows (along with probability), determine the number of cells to be randomly filled in
 	 * @param numRows
@@ -121,12 +110,11 @@ public class CellSociety {
 			IllegalAccessException, InstantiationException {
 		for (int i = 1; i < cellStates.size(); i++) {
 			HashMap<String, String> cellParams = cellStates.get(i);
-
 			double prob = Double.parseDouble(cellParams
 					.get(Strings.CELL_LOCATION_PROBABILITY));
 			int numCells = (int) (numRows * numCols * prob);
 			//specify number of cells to be randomly selected
-			for (int j = 0; j < numCells; j++) { 
+			for (int j = 0; j < numCells; j++) {
 				int randomX;
 				int randomY;
 				do {
@@ -139,11 +127,9 @@ public class CellSociety {
 			}
 		}
 	}
-
-
 	/**
 	 * Populates a grid of cells with all given states except for the 1st.
-	 * 
+	 *
 	 * @param cellStates
 	 * @param numCols
 	 * @param numRows
@@ -181,11 +167,10 @@ public class CellSociety {
 			}
 		}
 	}
-
 	/**
 	 * Populates all remaining empty cells in the grid with the first cell state
 	 * given in the XML file
-	 * 
+	 *
 	 * @throws InvocationTargetException
 	 * @throws SecurityException
 	 * @throws NoSuchMethodException
@@ -207,14 +192,12 @@ public class CellSociety {
 			}
 		}
 	}
-
 	private void setupAnimation() {
 		KeyFrame frame = start(myFrameRate);
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
 		myTimeline.getKeyFrames().add(frame);
 	}
-
 	/**
 	 * @throws ClassNotFoundException
 	 * @throws NoSuchMethodException
@@ -223,10 +206,9 @@ public class CellSociety {
 	 * @throws InvocationTargetException
 	 */
 	private void retrieveParserInfo() throws NoSuchMethodException,
-			InstantiationException, IllegalAccessException, InvocationTargetException {
+	InstantiationException, IllegalAccessException, InvocationTargetException {
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get(
 				Strings.FRAMES_PER_SECOND));
-
 		String simName = myParser.getInitParamMap().get(Strings.SIMULATION_NAME);
 		String className = simName + Strings.CONTROLLER;
 		try {
@@ -239,7 +221,6 @@ public class CellSociety {
 			throw new XMLParserException(Strings.INVALID_SIMULATION_NAME_ERROR, simName);
 		}
 	}
-
 	private void configureListeners() throws IOException {
 		myView.getPlayElement().setOnMouseClicked(e -> resumeAnimation());
 		myView.getPauseElement().setOnMouseClicked(e -> pauseAnimation());
@@ -248,29 +229,23 @@ public class CellSociety {
 		myView.getSpeedupElement().setOnMouseClicked(e -> increaseFrameRate());
 		myView.getSlowdownElement().setOnMouseClicked(e -> decreaseFrameRate());
 	}
-
 	private KeyFrame start(int frameRate) {
 		return new KeyFrame(Duration.millis(1000 / frameRate), e -> updateGrid());
 	}
-
 	private void increaseFrameRate() {
 		myFrameRate++;
 		reframeTimeline();
 	}
-
 	private void decreaseFrameRate() {
 		if (myFrameRate > 1)
 			myFrameRate--;
 		reframeTimeline();
-
 	}
-
 	private void reframeTimeline() {
 		myView.displayFrameRate(myFrameRate);
 		myTimeline.getKeyFrames().clear();
 		myTimeline.getKeyFrames().add(start(myFrameRate));
 	}
-
 	private void updateGrid() {
 		try {
 			myCells = myController.runOneSim(myCells);
@@ -281,18 +256,15 @@ public class CellSociety {
 		}
 		updateColors();
 		myView.updateSimGrid(myCells);
-
 		String[] cellNames = new String[myParser.getCellParamList().size()];
 		List<HashMap<String, String>> cellParams = myParser.getCellParamList();
 		for (int i = 0; i < cellParams.size(); i++) {
 			Map<String, String> cur = cellParams.get(i);
 			cellNames[i] = cur.get(Strings.CELL_NAME);
 		}
-
 		myView.updateChartLines(myCells, myNumFrames, cellNames);
 		myNumFrames++;
 	}
-
 	private void updateColors() {
 		for (int i = 0; i < myCells.length; i++) {
 			for (int j = 0; j < myCells[i].length; j++) {
@@ -307,17 +279,14 @@ public class CellSociety {
 			}
 		}
 	}
-
 	private void resumeAnimation() {
 		myView.setButtonsPause(true);
 		myTimeline.play();
 	}
-
 	private void pauseAnimation() {
 		myView.setButtonsPause(false);
 		myTimeline.stop();
 	}
-
 	private void readNewXML() {
 		File newFile = myView.displayXMLChooser();
 		try {
@@ -328,7 +297,7 @@ public class CellSociety {
 				| ParserConfigurationException | SAXException | IOException
 				| NoSuchMethodException | InstantiationException | IllegalAccessException
 				| InvocationTargetException e) {
-			myView.openDialogBox(Strings.GENERAL_XML_FILE_ERROR); 													// message
+			myView.openDialogBox(Strings.GENERAL_XML_FILE_ERROR); // message
 			e.printStackTrace();
 			return;
 		} catch (XMLParserException e) {
@@ -342,7 +311,6 @@ public class CellSociety {
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get(
 				Strings.FRAMES_PER_SECOND));
 		myView.displayFrameRate(myFrameRate);
-
 		String[] cellNames = new String[myParser.getCellParamList().size()];
 		String[] cellColors = new String[myParser.getCellParamList().size()];
 		List<HashMap<String, String>> cellParams = myParser.getCellParamList();
@@ -351,19 +319,15 @@ public class CellSociety {
 			cellNames[i] = cur.get(Strings.CELL_NAME);
 			cellColors[i] = cur.get(Strings.CELL_COLOR);
 		}
-
 		myNumFrames = 0;
 		myView.generateChartLines(cellNames);
 		myView.updateChartLines(myCells, myNumFrames, cellNames);
-
 	}
-
 	/**
 	 * Converts a given string to an integer array
 	 * @param string
 	 * @return integer array
 	 */
-	 
 	private int[] stringToIntArray(String string) {
 		string = string.replaceAll(Strings.WHITESPACE_STRING, Strings.SPACE_STRING);
 		String[] split = string.split(Strings.SPACE_STRING);
@@ -377,9 +341,8 @@ public class CellSociety {
 			}
 			return intArray;
 		}
-
 		else
 			return null;
-
 	}
 }
+

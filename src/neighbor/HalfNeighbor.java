@@ -6,20 +6,26 @@ import java.util.List;
 
 import boundary.Boundary;
 import cell.Cell;
+import cellsociety.Coordinate;
 
-public class HalfNeighbor extends Neighbor {
 
-	public HalfNeighbor(Boundary bounds) {
+public class HalfNeighbor extends Neighbor{
+
+	protected Boundary myBounds;
+
+	public HalfNeighbor(Boundary bounds){
 		super(bounds);
+		myBounds = bounds;
 	}
 
 	@Override
-	public List<Integer[]> getNeighbors(Cell[][] grid, int r, int c, int scalar) {
-		List<Integer[]> list = new ArrayList<Integer[]>();
-		for (int s = 1; s <= scalar; s++) {
-			for (int d = -1; d <= 1; d++) {
-				list.add(getBounds().findCell(grid, r + d * s, c));
-				list.add(getBounds().findCell(grid, r, c + d * s));
+	public List<Coordinate> getNeighbors(Cell[][] grid, int r, int c, int scalar){
+		List<Coordinate> list = new ArrayList<Coordinate>();
+		for(int s = 1; s <= scalar; s++){
+			for(int d = -1; d <= 1; d++){
+				//addToList(grid, r, c, d);
+				list.add(myBounds.findCell(grid, r + d*s , c));
+				list.add(myBounds.findCell(grid, r, c + d*s));
 			}
 		}
 		list.removeAll(Collections.singleton(null));

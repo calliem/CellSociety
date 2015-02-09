@@ -4,35 +4,32 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
+import cell.GroundCell;
 import cellsociety.GridData;
-import cellsociety.Strings;
+import controller.ComplexController;
 
-public class SugarController extends ComplexController {
+public class SugarController extends ComplexController{
 
-	public SugarController(Map<String, String> parameters) throws InstantiationException,
-			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-			NoSuchMethodException, SecurityException, ClassNotFoundException {
+	public SugarController(Map<String, String> parameters) {
 		super(parameters);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	protected void cellUpdate(GridData data) throws InstantiationException,
-			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+	protected void cellUpdate(GridData data)
+			throws InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		// Updatable curCell = (Updatable) grid[row][col];
-		Updatable curCell = (Updatable) data.curCell();
-		// GridData data = new GridData(grid, row, col, newGrid,
-		// updatedCoordinates);
-		curCell.ageOneChronon(data);
+		GroundCell curCell = (GroundCell) data.curCell();
+		curCell.ageOneChronon(data, myNeighbor);
 	}
 
 	@Override
 	protected List<String> typeTriage(List<String> list) {
-		list.add(Strings.AGENT_CELL);
-		list.add(Strings.GROUND_CELL);
+		list.add("GroundCell");
 		return list;
 	}
 
 }
+
+
