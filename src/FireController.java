@@ -4,19 +4,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class FireController extends CardinalSimController{
+public class FireController extends SimpleController{
 
 	private int myProbCatch;
 
-	public FireController(Map<String, String> map){
-		super();
-		myProbCatch = Integer.parseInt(map.get("probCatch"));
+	public FireController(Map<String, String> parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		super(parameters);
+		myProbCatch = Integer.parseInt(parameters.get("probCatch"));
 	}	
 
 	@Override
-	protected String getNeighborsState(List<Cell> neighbors) {
-		for(Cell c: neighbors){
-			if(c.toString().equals("FireCell")){
+	protected String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors) {
+		for(Integer[] coords: neighbors){
+			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().equals("FireCell")){
 				if(new Random().nextInt(100) < myProbCatch){
 					return "FireCell";
 				}

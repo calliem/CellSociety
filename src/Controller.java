@@ -1,17 +1,31 @@
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
-import javafx.scene.paint.Color;
+//import javafx.scene.paint.Color;
 
 
 public abstract class Controller {
-	
-	protected Boundary myBoundary = new FiniteBoundary();
-	protected Neighbor myNeighbor = new FullNeighbor(myBoundary);
-	
+
+	public static final int X_COORD = 0;
+	public static final int Y_COORD = 1;
+
+	protected Boundary myBoundary = new FiniteBoundary(); //defaulted to finite
+	protected Neighbor myNeighbor = new FullNeighbor(myBoundary); //defaulted to full
+
 	public abstract Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException ;
-	
+
+	public Controller(Map<String, String>parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		
+		//why are there so many throw/catches??
+		//this is duplicated :(
+		String boundary = parameters.get("boundary");
+		if (boundary != null){
+			setBoundary(boundary);
+		}
+	}
+
 	protected boolean contains(List<Integer[]> updatedCoordinates,
 			Integer[] curCoordinates) {
 		int[] coords = new int[curCoordinates.length];
@@ -31,15 +45,21 @@ public abstract class Controller {
 		}
 		return false;
 	}
-	
+
 	//-----------inefficient cell ---------
 	protected static Cell makeCell(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
-		System.out.println("MAKECELLMETHOD: " + s);
 		if (s.equals("SharkCell") | s.equals("FishCell"))
 			return (Cell) Class.forName(s).getConstructor().newInstance(s);
 		else {//this is hardcoded but that is the actual "state" of the cell as oppposed to just its name{
 			return (Cell) Class.forName("Cell").getConstructor(String.class).newInstance(s);
+		}
 	}
+	
+	protected void setBoundary(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		String boundary = s + "Boundary";
+		myBoundary = (Boundary) Class.forName(boundary).getConstructor().newInstance();
+		myNeighbor = new FullNeighbor(myBoundary); //is this necessary?
 	}
 
+	//protected abstract String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors);
 }

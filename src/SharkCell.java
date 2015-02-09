@@ -52,10 +52,10 @@ public class SharkCell extends Cell implements ReproducingCell{
 	public Cell reproducingResult() {
 		if(myCurrAge >= myReproducingAge){
 			myCurrAge = 0;
-			return new SharkCell("SharkCell");
+			return new SharkCell(Strings.SHARK_CELL);
 		}
 		else{
-			return new Cell("EmptyCell");
+			return new Cell(Strings.EMPTY_CELL);
 		}
 	}
 	

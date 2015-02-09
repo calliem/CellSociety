@@ -15,9 +15,11 @@ public class Cell{
 	private static double myHeight;	
 //	private static Color myColor;
 	private Shape myShape;
+
 	private String myName;
 	//private Ground myGround;
 	private Color myColor;
+
 	
 	public Cell(String name) {
 		myShape = new Rectangle(myWidth, myHeight);

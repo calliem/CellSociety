@@ -6,7 +6,7 @@
 public class ToroidalBoundary extends Boundary{
 
 	@Override
-	public Cell findCell(Cell[][] grid, int row, int col) {
+	public Integer[] findCell(Cell[][] grid, int row, int col) {
 		if(row < 0){
 			row = grid.length - 1;//|| row >= grid.length || col < 0 || col >= grid[0].length){
 		}
@@ -19,7 +19,8 @@ public class ToroidalBoundary extends Boundary{
 		else if(col >= grid[0].length){
 			col = 0;
 		}
-		return grid[row][col];
+		Integer[] returnArr = {row, col};
+		return returnArr;
 	}
 
 }

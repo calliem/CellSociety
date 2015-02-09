@@ -10,7 +10,10 @@ public class SegregationController extends SimpleController{
 	private ArrayList<Integer[]> myEmptyList;
 	private ArrayList<Integer[]> updatedList;
 
-	public SegregationController(Map<String, String> parameters){
+	public SegregationController(Map<String, String> parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		//this is duplicated :( could this be put into the super class constructor and then called with super();
+		super(parameters);
+
 		myHappyFraction = Double.parseDouble(parameters.get("probHappy"));
 	}
 
@@ -19,7 +22,6 @@ public class SegregationController extends SimpleController{
 		updatedList = new ArrayList<Integer[]>();
 		makeEmptyList(grid);
 		return super.runOneSim(grid);
-
 	}
 
 	private void makeEmptyList(Cell[][] grid) {
@@ -36,14 +38,14 @@ public class SegregationController extends SimpleController{
 	}
 
 	@Override
-	protected String getNeighborsState(List<Cell> neighbors) {
+	protected String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors) {
 		double blueCount = 0;
 		double redCount = 0;
-		for(Cell c: neighbors){
-			if(c.toString().equals("BlueCell")){
+		for(Integer[] coords: neighbors){
+			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().toString().equals("BlueCell")){
 				blueCount++;
 			}
-			if(c.toString().equals("RedCell")){
+			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().toString().equals("RedCell")){
 				redCount++;
 			}
 		}

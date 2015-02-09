@@ -8,8 +8,11 @@
 		<fps>5</fps>
 		<gridLines>0</gridLines>
 	</initParam>
+	<simParam>
+	    <boundary>Finite</boundary>
+	</simParam>
 	<cellParam>    
-	     <cell state="EmptyCell" name="Cell" color="Cyan" />  
+	     <cell state="Cell" name="EmptyCell" color="Cyan" />  
 	     <cell state="SharkCell" name="SharkCell" color="Black">
 	        <locProbability>.2</locProbability>
 	        <reproductionAge>3</reproductionAge>

@@ -15,16 +15,25 @@ public class LifeController extends SimpleController{
 	private int bornOn;
 	 
 
-	public LifeController(Map<String, String>parameters){
+	public LifeController(Map<String, String>parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		super(parameters);
+		/*//why are there so many throw/catches??
+		//this is duplicated :(
+		String boundary = parameters.get("boundary");
+		if (boundary != null){
+			setBoundary(boundary);
+		}*/
+
+		
 		stayOn = Integer.parseInt(parameters.get("stayOn"));
 		bornOn = Integer.parseInt(parameters.get("bornOn"));
 	}
 
-	protected String getNeighborsState(List<Cell> neighbors) {
+	protected String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors) {
 		int count = 0;
-		for(Cell c: neighbors){
+		for(Integer[] coords: neighbors){
 			//if(c != null){
-				if(c.toString().equals("LiveCell")){
+				if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().equals("LiveCell")){
 					count++;
 				}
 			//}
