@@ -1,12 +1,12 @@
 import javafx.scene.Group;
 import javafx.scene.shape.Shape;
 
-public abstract class Grid {
+public abstract class AbstractGrid {
 
 	private Group myGrid;
 	private Shape[][] myShapes;
 	
-	public Grid(double gridSize, Cell[][] cells) {
+	public AbstractGrid(double gridSize, Cell[][] cells) {
 		myGrid = new Group();
 		myShapes = populateGrid(gridSize, cells);
 		System.out.println(myShapes.length);

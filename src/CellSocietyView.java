@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -19,26 +17,17 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
-//import javafx.scene.control.Alert;
-//import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -62,13 +51,10 @@ public class CellSocietyView {
     private ResourceBundle myResources;
     private LineChart<Number, Number> myChart;
     private List<Series<Number, Number>> mySeries;
-    private Grid mySimGrid;
+    private AbstractGrid mySimGrid;
     private Group myDefaultGrid;
 
-    
-    private static final Font ERROR_FONT = Font.font("Arial", FontWeight.NORMAL, 12);
     private static final Font TITLE_FONT = Font.font("Helvetica", FontWeight.NORMAL, 32);
-
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "";
 	public static final int GRID_SIZE = 400;
@@ -90,7 +76,6 @@ public class CellSocietyView {
 		disableInitialButtons();
 		configureUI();
 		setupGameScene();
-		openDialogBox("HI");
 	}
 
 	public Button getPlayElement() {
@@ -116,14 +101,6 @@ public class CellSocietyView {
 	public Button getSlowdownElement() {
 		return this.mySlowdownButton;
 	}
-	
-/*	public void openDialogBox(String s) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Dialog Box");
-		alert.setHeaderText("Look, an Information Dialog");
-		alert.setContentText(s);
-		alert.showAndWait();
-		}*/
 	
 	public void openDialogBox(String message) {
 
@@ -152,23 +129,6 @@ public class CellSocietyView {
 		mySimGrid.update(cellGrid);
 	}
 
-	public void setErrorText() {
-	/*	myErrorMsg.setFont(ERROR_FONT); 
-		myErrorMsg.setFill(Color.RED);
-		myErrorMsg.setText(myResources.getString("ErrorMessage"));*/
-		
-	}
-	
-	/*public void showError (String message) {
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("Warning Dialog");
-		alert.setHeaderText("Look, a Warning Dialog");
-		alert.setContentText("Careful with the next step!");
-
-		alert.showAndWait();
-        Dialogs.create().title(myResources.getString("ErrorTitle")).message(message).showError();
-    }*/
-
 	public void generateTitle(String s) {
 		Text title = new Text(s);
 		title.setFont(TITLE_FONT);
@@ -176,9 +136,6 @@ public class CellSocietyView {
 		myTitleBox.getChildren().add(title);
 	}
 
-	/**
-	 * 
-	 */
 	public void displayFrameRate(int frameRate) {
 		mySpeedTextField.setText(frameRate + " "
 				+ myResources.getString("FramesLabel"));
@@ -206,26 +163,13 @@ public class CellSocietyView {
 		
 		HashMap<String, Integer> cellCounts = new HashMap<String, Integer>();
 		
-		//System.out.println("=========cell grid===============");
-		//System.out.println(cells.length);
-		//System.out.println(cells[0].length);
-		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells[0].length; j++) {
-				//System.out.println(cells[i][j].toString());
-			}
-		}
-		
 		for (int i = 0; i < names.length; i++) {
 			cellCounts.put(names[i], 0);
 		}
 		
-		//System.out.println(cellCounts.toString());
-		
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[0].length; j++) {
 				String cellName = cells[i][j].toString();
-				//System.out.println("cellname" + cellName);
-				//System.out.println(cellCounts.get(cellName));
 				cellCounts.put(cellName, cellCounts.get(cellName) + 1);
 				
 			}
@@ -242,7 +186,6 @@ public class CellSocietyView {
 	public void generateChartLines(String[] cellNames) {
 
 		myChart.getData().clear();
-		
 		mySeries = new ArrayList<Series<Number, Number>>();
 		
 		for (int i = 0; i < cellNames.length; i++) {
@@ -315,33 +258,6 @@ public class CellSocietyView {
 		mySpeedupButton.setDisable(true);
 		mySlowdownButton.setDisable(true);
 	}
-
-	/**
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws InvocationTargetException
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 * @throws SecurityException
-	 * @throws NoSuchMethodException
-	 * @throws ClassNotFoundException
-	 */
-	private void generateGrid() throws ParserConfigurationException,
-			SAXException, IOException, InstantiationException,
-			IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, ClassNotFoundException,
-			NoSuchMethodException, SecurityException {
-
-	}
-	
-	/*
-	public void setGridGap(int gridLineGap){
-		mySimGrid.setHgap(gridLineGap);
-		mySimGrid.setVgap(gridLineGap);
-	}
-	*/
 
 	/**
 	 * @return

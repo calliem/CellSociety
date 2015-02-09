@@ -15,7 +15,7 @@
 	<cellParam>    
 	     <cell state="Cell" name="EmptyCell" color="Cyan" />  
 	     <cell state="SharkCell" name="SharkCell" color="Black">
-	        <loc>4 10 11 12 115 117 118 119 300 312 333 2 4 5</loc>
+	        <loc>4 10 11 12 115 117 118 119 500 587 300 312 333 2 4 5</loc>
 	        <reproductionAge>3</reproductionAge>
 			<maxEnergy>2</maxEnergy>
 	     </cell>  

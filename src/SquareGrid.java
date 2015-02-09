@@ -1,7 +1,7 @@
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-public class SquareGrid extends Grid {
+public class SquareGrid extends AbstractGrid {
 	
 	public SquareGrid(double gridSize, Cell[][] cells) {
 		super(gridSize, cells);
@@ -15,7 +15,7 @@ public class SquareGrid extends Grid {
 		
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells.length; j++) {
-				Shape shape = new Rectangle(i * spacing, j * spacing, spacing, spacing);
+				Shape shape = new Rectangle(j * spacing, i * spacing, spacing, spacing);
 				shape.setFill(cells[i][j].getColor());
 				rectangles[i][j] = shape;
 			}

@@ -9,7 +9,6 @@ public abstract class SimpleController extends Controller{
 		super(parameters);
 	}
 
-
 	@Override
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
@@ -27,7 +26,7 @@ public abstract class SimpleController extends Controller{
 		return newGrid;
 	}
 	
-	protected  abstract String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors);
+	protected abstract String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors);
 
 	protected abstract Cell newState(Cell[][] newGrid, Cell cell, String neighborsState, int r, int c) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 	

@@ -296,17 +296,14 @@ public class CellSociety {
 			e.printStackTrace();
 		}
 
-		//System.out.println("=========2) cell grid in updateGrid()===============");
-		//System.out.println(myCells.length);
-		//System.out.println(myCells[0].length);
-
+		updateColors();
+		/*
 		for (int i = 0; i < myCells.length; i++) {
 			for (int j = 0; j < myCells[0].length; j++) {
-				//System.out.println(myCells[i][j].toString());
+				System.out.println(myCells[i][j].getColor());
 			}
 		}
-
-		updateColors();
+		*/
 		myView.updateSimGrid(myCells);
 
 		String[] cellNames = new String[myParser.getCellParamList().size()];
@@ -328,9 +325,12 @@ public class CellSociety {
 				List<HashMap<String, String>> cellList = myParser
 						.getCellParamList();
 				for (HashMap<String, String> params : cellList) {
-					if (params.get("name").equals(cellName))
-						myCells[i][j].setColor(Color.valueOf(params
+					if (params.get("name").equals(cellName)) {
+						System.out.print(i + " " + j + " " + params.get("name").equals(cellName) + " ");
+						myCells[i][j].setColor(Color.web(params
 								.get("color")));
+						System.out.println(myCells[i][j].getColor());
+					}
 				}
 
 			}
@@ -354,13 +354,6 @@ public class CellSociety {
 		try {
 			myParser.parseXMLFile(newFile);
 			retrieveParserInfo();
-			Cell.setCellSize(
-					CellSocietyView.GRID_SIZE
-					/ Integer.parseInt(myParser.getInitParamMap().get(
-							"xRows")),
-							CellSocietyView.GRID_SIZE
-							/ Integer.parseInt(myParser.getInitParamMap().get(
-									"yCols")));
 			myCells = createCellArray();
 		} catch (IllegalArgumentException | ClassNotFoundException
 				| SecurityException | ParserConfigurationException

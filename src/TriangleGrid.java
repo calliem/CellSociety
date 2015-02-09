@@ -2,7 +2,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 
-public class TriangleGrid extends Grid {
+public class TriangleGrid extends AbstractGrid {
 
 	public TriangleGrid(double gridSize, Cell[][] cells) {
 		// TODO Auto-generated constructor stub
