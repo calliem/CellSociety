@@ -1,9 +1,9 @@
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,14 +67,14 @@ public class CellSociety {
 			}	
 		}
 		catch (ClassNotFoundException e){ //null pointer as well?
-			System.out.println("I just threw an exception");
+			////System.out.println("I just threw an exception");
 			throw new XMLParserException("Invalid cell state: %s", state);	
 		}
 		//WRITE A CATCH NULL POINTER AND THAT MEANS THAT THE CELL STATE WAS ENTERED INCORRECTLY
-		//	System.out.println("ClassName:  " + className.toString());
+		//	//System.out.println("ClassName:  " + className.toString());
 		//this is a duplicated if statement; it appears in the code in the controllers i think
 
-		//	System.out.println(constructor);
+		//	//System.out.println(constructor);
 		return (Cell) constructor.newInstance(cellParams);
 	}
 
@@ -89,10 +89,10 @@ public class CellSociety {
 
 		myCells = new Cell[numRows][numCols];
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
-		System.out.println("sze" + cellStates.size());
+		////System.out.println("sze" + cellStates.size());
 		if (cellStates.size() > 1){ //if there are at least 2 different cell types
 			if (cellStates.get(1).get("loc") == null && cellStates.get(1).get("locProbability") != null){
-				System.out.println("populateProbabilities");
+				////System.out.println("populateProbabilities");
 				populateProbabilities(cellStates, numCols, numRows);
 			}
 			else if (cellStates.get(1).get("loc") != null && cellStates.get(1).get("locProbability") == null){
@@ -131,8 +131,8 @@ public class CellSociety {
 			
 			for (int j = 0; j < numCells; j ++){ //specify number of cells to randomly select
 				int randomX; int randomY;
-				System.out.println(numRows * numCols);
-				System.out.println(myRandom.nextInt(100));
+				////System.out.println(numRows * numCols);
+				////System.out.println(myRandom.nextInt(100));
 				do{
 					int randomLoc = myRandom.nextInt(numRows * numCols);
 					randomX = randomLoc / numCols;
@@ -153,7 +153,7 @@ public class CellSociety {
 			//boolean isInvalid = false;
 			if (locations != null){
 				for (int j = 0; j < locations.length; j++) {
-					System.out.println(cellParams.get("state") + locations[j]);
+					////System.out.println(cellParams.get("state") + locations[j]);
 					if (locations[j] > numCols * numRows){
 						invalidLocs.add(locations[j]);
 					}
@@ -188,7 +188,7 @@ public class CellSociety {
 	 */
 	private void retrieveParserInfo() throws NoSuchMethodException, InstantiationException,
 	IllegalAccessException, InvocationTargetException {
-		System.out.println("parser!");
+		////System.out.println("parser!");
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 
 		String simName = myParser.getInitParamMap().get("simName");
@@ -197,11 +197,11 @@ public class CellSociety {
 		try{
 			Class <?> currentClass = Class.forName(className);
 			Constructor<?> constructor = currentClass.getConstructor(Map.class);
-			//System.out.println(constructor);
+			////System.out.println(constructor);
 			myController = (Controller) constructor.newInstance(myParser
 					.getSimParamMap());			
 		} catch (ClassNotFoundException e){
-			System.out.println("HALLO");
+			//System.out.println("HALLO");
 			throw new XMLParserException("Invalid simulation: %s", simName); //LILA
 		}
 	}
@@ -241,12 +241,12 @@ public class CellSociety {
 
 	private void updateGrid() {
 
-		System.out.println("=========1) cell grid in updateGrid()===============");
-		System.out.println(myCells.length);
-		System.out.println(myCells[0].length);
+		//System.out.println("=========1) cell grid in updateGrid()===============");
+		//System.out.println(myCells.length);
+		//System.out.println(myCells[0].length);
 		for (int i = 0; i < myCells.length; i++) {
 			for (int j = 0; j < myCells[0].length; j++) {
-				System.out.println(myCells[i][j].toString());
+				//System.out.println(myCells[i][j].toString());
 			}
 		}
 		try {
@@ -258,19 +258,19 @@ public class CellSociety {
 			e.printStackTrace();
 		}
 		
-		System.out.println("=========2) cell grid in updateGrid()===============");
-		System.out.println(myCells.length);
-		System.out.println(myCells[0].length);
+		//System.out.println("=========2) cell grid in updateGrid()===============");
+		//System.out.println(myCells.length);
+		//System.out.println(myCells[0].length);
 		for (int i = 0; i < myCells.length; i++) {
 			for (int j = 0; j < myCells[0].length; j++) {
-				System.out.println(myCells[i][j].toString());
+				//System.out.println(myCells[i][j].toString());
 			}
 		}
 		
 		
 		updateColors();
 		
-		//System.out.println("Count: "+ count);
+		////System.out.println("Count: "+ count);
 		count++;
 		myView.updateSimGrid(myCells);
 
@@ -333,13 +333,13 @@ public class CellSociety {
 				| InvocationTargetException e) {
 			e.printStackTrace();
 		} catch (XMLParserException e){
-			System.out.println("PRINTOUT 2");
-			System.out.println(e.getMessage()); //LILA this should not appear twice...?
+			//System.out.println("PRINTOUT 2");
+			//System.out.println(e.getMessage()); //LILA this should not appear twice...?
 		}
 		//if make above into one catch, then it will not printout all of the error messages but only the first one? LILA
 //move it to just make one try catch
 		setupAnimation();
-		myView.updateSimGrid(myCells);
+		myView.setupInitialGrid(myCells, myParser.getInitParamMap().get("shape"));
 		pauseAnimation();
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 		myView.displayFrameRate(myFrameRate);
@@ -350,13 +350,13 @@ public class CellSociety {
 		for (int i = 0; i < cellParams.size(); i++) {
 			Map<String, String> cur = cellParams.get(i);
 			for (String s : cur.keySet()) {
-				System.out.println(s + " : " + cur.get(s));
+				//System.out.println(s + " : " + cur.get(s));
 			}
 			cellNames[i] = cur.get("name");
 			cellColors[i] = cur.get("color");
 		}
 
-		System.out.println(Arrays.toString(cellNames));
+		//System.out.println(Arrays.toString(cellNames));
 
 		myNumFrames = 0;
 		myView.generateChartLines(cellNames);
@@ -364,10 +364,12 @@ public class CellSociety {
 
 
 				String gridLines = myParser.getInitParamMap().get("gridLines");
+		/*
 		if (gridLines != null)
 			myView.setGridGap(Integer.parseInt(gridLines));
 		else
 			myView.setGridGap(1);
+		*/
 	}
 
 	private int[] stringToIntArray(String string) {
@@ -376,9 +378,9 @@ public class CellSociety {
 		if (!string.equals(" ") && !string.equals("")){
 			int[] intArray = new int[split.length];
 			for (int i = 0; i < split.length; i++) {
-					System.out.println("split[i]" + split[i]);
+					//System.out.println("split[i]" + split[i]);
 					if (!split[i].equals("") && !split[i].equals(" ")) {
-						System.out.println("STR" + split[i]);
+						//System.out.println("STR" + split[i]);
 						intArray[i] = Integer.parseInt(split[i]);
 					}
 				}

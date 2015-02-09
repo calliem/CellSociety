@@ -1,45 +1,33 @@
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 
 public class TriangleGrid extends Grid {
 
-	private Group myGrid;
-	private Shape[][] myShapes;
-	private double myHSpacing;
-	private double myVSpacing;
-
 	public TriangleGrid(double gridSize, Cell[][] cells) {
 		// TODO Auto-generated constructor stub
-		myGrid = new Group();
-		myShapes = new Polygon[cells.length][cells[0].length];
-		myHSpacing = gridSize / (0.5 * cells.length + 0.5);
-		myVSpacing = gridSize / cells[0].length;
-		
-		update(cells);
-	
+		super(gridSize, cells);
+
 	}
 
 	@Override
-	public void update(Cell[][] cells) {
-		// TODO Auto-generated method stub
+	
+	protected Shape[][] populateGrid(double gridSize, Cell[][] cells) {
+		
+		Shape[][] triangles = new Polygon[cells.length][cells[0].length];
+		double hSpacing = gridSize / (0.5 * cells.length);
+		double vSpacing = gridSize / cells[0].length;
+		
 		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells[0].length; j++) {
-				Shape shape = generateTriangle(i, j);
-				Cell cell = cells[i][j];
+			for (int j = 0; j < cells.length; j++) {
+				Shape shape = generateTriangle(i, j, hSpacing, vSpacing);
 				shape.setFill(cells[i][j].getColor());
-				myGrid.getChildren().add(shape);
-				shape.setOnMouseEntered(e -> setRed(shape));
-				shape.setOnMouseExited(e -> setBack(shape, cell));
-				myShapes[i][j] = shape;
+				triangles[i][j] = shape;
 			}
 		}
 		
-	}
-	
-	public Group getGroup() {
-		return myGrid;
+		return triangles;
+		
 	}
 	
 	private void setBack(Shape s, Cell c) {
@@ -51,21 +39,21 @@ public class TriangleGrid extends Grid {
 		s.setFill(Color.RED);
 	}
 	
-	private Shape generateTriangle(int i, int j) {
+	private Shape generateTriangle(int i, int j, double hSpacing, double vSpacing) {
 				
 		double iDouble = (double) i;
 		double jDouble = (double) j;
 		double[] points;
 		
 		if ((i + j) % 2 == 0) {
-			points = new double[] {jDouble / 2 * myHSpacing, iDouble * myVSpacing,
-				(jDouble + 1) / 2 * myHSpacing, (iDouble + 1) * myVSpacing, 
-				(jDouble + 2) / 2 * myHSpacing, iDouble * myVSpacing};
+			points = new double[] {jDouble / 2 * hSpacing, iDouble * vSpacing,
+				(jDouble + 1) / 2 * hSpacing, (iDouble + 1) * vSpacing, 
+				(jDouble + 2) / 2 * hSpacing, iDouble * vSpacing};
 		}
 		else {
-			points = new double[] {(jDouble) / 2 * myHSpacing, (iDouble + 1) * myVSpacing,
-				(jDouble + 1) / 2 * myHSpacing, iDouble * myVSpacing,
-				(jDouble + 2) / 2 * myHSpacing, (iDouble + 1) * myVSpacing};
+			points = new double[] {(jDouble) / 2 * hSpacing, (iDouble + 1) * vSpacing,
+				(jDouble + 1) / 2 * hSpacing, iDouble * vSpacing,
+				(jDouble + 2) / 2 * hSpacing, (iDouble + 1) * vSpacing};
 		}
 		
 		return new Polygon(points);
