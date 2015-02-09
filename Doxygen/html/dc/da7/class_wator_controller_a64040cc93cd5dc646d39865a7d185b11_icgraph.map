@@ -1,0 +1,6 @@
+<map id="WatorController.neighborsFromTwoDirections" name="WatorController.neighborsFromTwoDirections">
+<area shape="rect" id="node2" href="$dc/da7/class_wator_controller.html#a8a5c6aa913ced9603c3a2064bf758e5e" title="WatorController.getNeighbors" alt="" coords="241,12,450,39"/>
+<area shape="rect" id="node3" href="$dc/da7/class_wator_controller.html#ad6ef17a774720254707f22d42c88c781" title="WatorController.makeEligible" alt="" coords="499,12,701,39"/>
+<area shape="rect" id="node4" href="$dc/da7/class_wator_controller.html#a8f10cc48fea8314d9ae89e397dac0c79" title="WatorController.manipulateCell" alt="" coords="749,12,968,39"/>
+<area shape="rect" id="node5" href="$dc/da7/class_wator_controller.html#a8487f7764316be081c820425dd43b86d" title="WatorController.cellUpdate" alt="" coords="1017,12,1207,39"/>
+</map>

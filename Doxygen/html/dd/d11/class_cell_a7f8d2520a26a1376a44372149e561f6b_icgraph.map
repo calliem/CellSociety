@@ -1,0 +1,24 @@
+<map id="Cell.toString" name="Cell.toString">
+<area shape="rect" id="node2" href="$de/d92/class_complex_controller.html#ae3e2ab6b8c7d3747f9aaa8f8d834094b" title="ComplexController.coordinates\lTriage" alt="" coords="155,5,373,46"/>
+<area shape="rect" id="node4" href="$dc/da7/class_wator_controller.html#a7b71e69d99808906a02cc6689d5e8c15" title="WatorController.getNeighbors" alt="" coords="159,71,369,97"/>
+<area shape="rect" id="node6" href="$dc/da7/class_wator_controller.html#ae00870133a4b1cfbfaeecf11ffd7b650" title="WatorController.manipulateCell" alt="" coords="685,96,904,123"/>
+<area shape="rect" id="node8" href="$d5/d1b/class_fire_controller.html#a19553b5521d167b6133d9a8f01c59742" title="FireController.getNeighbors\lState" alt="" coords="167,173,361,214"/>
+<area shape="rect" id="node9" href="$d9/da2/class_life_controller.html#ab7dc29f2a1f41d800aa9e2eac47d6944" title="LifeController.getNeighbors\lState" alt="" coords="167,238,361,279"/>
+<area shape="rect" id="node10" href="$db/df8/class_segregation_controller.html#a0c6f263ac0f413180279a835e66b6d03" title="SegregationController.get\lNeighborsState" alt="" coords="171,303,357,345"/>
+<area shape="rect" id="node11" href="$db/df8/class_segregation_controller.html#af3efcd7e96159364d9427fd7f4988bbe" title="SegregationController.make\lEmptyList" alt="" coords="163,369,365,410"/>
+<area shape="rect" id="node13" href="$df/df8/class_cell_society_view.html#a7ca77bdfdef97e9be9c9941c2f4d3513" title="CellSocietyView.updateChart\lLines" alt="" coords="162,486,366,527"/>
+<area shape="rect" id="node23" href="$d3/dff/class_cell_society.html#a64ebaee33d25e0e730024e67d5582c63" title="CellSociety.updateColors" alt="" coords="175,435,353,461"/>
+<area shape="rect" id="node3" href="$de/d92/class_complex_controller.html#a73007e4decc009d2913c7a1d56287e99" title="ComplexController.runOneSim" alt="" coords="422,12,637,39"/>
+<area shape="rect" id="node5" href="$dc/da7/class_wator_controller.html#a14e97f15d6937c3667feb85a2b5d896e" title="WatorController.makeEligible" alt="" coords="428,71,631,97"/>
+<area shape="rect" id="node7" href="$dc/da7/class_wator_controller.html#aff090131b0a6ebc6dc7a095a3dc2ea36" title="WatorController.cellUpdate" alt="" coords="957,96,1147,123"/>
+<area shape="rect" id="node12" href="$db/df8/class_segregation_controller.html#a30b50c98765e3b785eb4a7f853bfb407" title="SegregationController.run\lOneSim" alt="" coords="436,369,623,410"/>
+<area shape="rect" id="node14" href="$d3/dff/class_cell_society.html#a0ff19c30a1cc433d8ea8444f6a5617f1" title="CellSociety.updateGrid" alt="" coords="447,435,612,461"/>
+<area shape="rect" id="node19" href="$d3/dff/class_cell_society.html#af9f22af39a97a58b26126020ca6c8844" title="CellSociety.readNewXML" alt="" coords="1224,515,1400,541"/>
+<area shape="rect" id="node15" href="$d3/dff/class_cell_society.html#a656ff46d1459fb7f86b42e3c542506ee" title="CellSociety.configureListeners" alt="" coords="1472,439,1683,465"/>
+<area shape="rect" id="node17" href="$d3/dff/class_cell_society.html#abf13a64ee79f2cb063447b499c695c58" title="CellSociety.start" alt="" coords="733,435,857,461"/>
+<area shape="rect" id="node16" href="$d3/dff/class_cell_society.html#ac5e08680a3da358d402461bc25aa1727" title="CellSociety.CellSociety" alt="" coords="1731,439,1895,465"/>
+<area shape="rect" id="node18" href="$d3/dff/class_cell_society.html#ab9e56a2a70e210e021b51e898508329b" title="CellSociety.setupAnimation" alt="" coords="955,464,1149,491"/>
+<area shape="rect" id="node20" href="$d3/dff/class_cell_society.html#adc5feda3db5472cea4e092d463681033" title="CellSociety.reframeTimeline" alt="" coords="953,413,1151,440"/>
+<area shape="rect" id="node21" href="$d3/dff/class_cell_society.html#a8250bfacdaf51dabf6b9d1cafc0ce9b2" title="CellSociety.increaseFrameRate" alt="" coords="1203,413,1421,440"/>
+<area shape="rect" id="node22" href="$d3/dff/class_cell_society.html#a045267ba1843ca4a47891d7be73c2ac1" title="CellSociety.decreaseFrameRate" alt="" coords="1201,464,1423,491"/>
+</map>
