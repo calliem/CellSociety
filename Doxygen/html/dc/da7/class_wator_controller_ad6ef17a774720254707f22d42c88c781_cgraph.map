@@ -1,0 +1,6 @@
+<map id="WatorController.makeEligible" name="WatorController.makeEligible">
+<area shape="rect" id="node2" href="$dc/da7/class_wator_controller.html#a8a5c6aa913ced9603c3a2064bf758e5e" title="WatorController.getNeighbors" alt="" coords="257,35,466,61"/>
+<area shape="rect" id="node3" href="$d8/d87/class_controller.html#a2d1d78c34f5551304c3e0f2295766afb" title="Controller.contains" alt="" coords="537,5,679,32"/>
+<area shape="rect" id="node4" href="$dc/da7/class_wator_controller.html#a64040cc93cd5dc646d39865a7d185b11" title="WatorController.neighbors\lFromTwoDirections" alt="" coords="515,57,701,98"/>
+<area shape="rect" id="node5" href="$d5/dda/class_boundary.html#a5b4429164a4f0a293ab14f42f752a698" title="Boundary.findCell" alt="" coords="749,64,880,91"/>
+</map>
