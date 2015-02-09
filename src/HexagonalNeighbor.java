@@ -15,8 +15,8 @@ public class HexagonalNeighbor extends HalfNeighbor {
 	}
 
 	@Override
-	public List<Integer[]> getNeighbors(Cell[][] grid, int r, int c, int scalar){
-		List<Integer[]> list = new ArrayList<Integer[]>();
+	public List<Coordinate> getNeighbors(Cell[][] grid, int r, int c, int scalar){
+		List<Coordinate> list = new ArrayList<Coordinate>();
 		list.addAll(super.getNeighbors(grid, r, c, scalar));
 		if(r % 2 == 0) {
 			list.addAll(makeCorners(grid, r, c, -1, scalar));
@@ -27,8 +27,8 @@ public class HexagonalNeighbor extends HalfNeighbor {
 		return list;
 	}
 
-	private List<Integer[]> makeCorners(Cell[][] grid, int r, int c, int d, int scalar) {
-		ArrayList<Integer[]> list = new ArrayList<Integer[]>();
+	private Collection<? extends Coordinate> makeCorners(Cell[][] grid, int r, int c, int d, int scalar) {
+		List<Coordinate> list = new ArrayList<Coordinate>();
 		for(int s = 1; s <= scalar; s++){
 			list.add(myBounds.findCell(grid, r - d*s, c + d*s));
 			list.add(myBounds.findCell(grid, r + d*s, c + d*s));

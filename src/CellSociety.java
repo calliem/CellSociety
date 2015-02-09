@@ -267,8 +267,20 @@ public class CellSociety {
 			}
 		}
 		
+		for(Cell[] r: myCells){
+			for(Cell c : r){
+			System.out.println("!!!"+ c.getColor());
+			}
+		}
+		
 		
 		updateColors();
+		
+		for(Cell[] r: myCells){
+			for(Cell c : r){
+			System.out.println("###"+ c.getColor());
+			}
+		}
 		
 		//System.out.println("Count: "+ count);
 		count++;
@@ -285,15 +297,20 @@ public class CellSociety {
 		myNumFrames++;
 	}
 	
+
 	//this is inefficient and sucks design-wise
 	private void updateColors(){
+		//Cell[][] newCells = new Cell[myCells.length][myCells[0].length];
 		for (int i = 0; i < myCells.length; i++){
 			for (int j = 0; j < myCells[i].length; j++){
 				String cellName = myCells[i][j].toString();
 				List<HashMap<String, String>> cellList = myParser.getCellParamList();
 				for (HashMap<String, String> params: cellList){
-					if (params.get("name").equals(cellName))
+					String pName = params.get("name");
+					if (params.get("name").equals(cellName)){
+						String pColor = params.get("color").toString();
 						myCells[i][j].setColor(Color.valueOf(params.get("color")));
+					}
 				}
 				
 			}

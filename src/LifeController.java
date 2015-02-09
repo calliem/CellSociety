@@ -19,11 +19,11 @@ public class LifeController extends SimpleController{
 		bornOn = Integer.parseInt(parameters.get("bornOn"));
 	}
 
-	protected String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors) {
+	protected String getNeighborsState(Cell[][] grid, List<Coordinate> neighbors) {
 		int count = 0;
-		for(Integer[] coords: neighbors){
+		for(Coordinate coords: neighbors){
 			//if(c != null){
-				if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().equals("LiveCell")){
+				if(grid[coords.getX()][coords.getY()].toString().equals("LiveCell")){
 					count++;
 				}
 			//}

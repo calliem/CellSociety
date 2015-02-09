@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class SegregationController extends SimpleController{
 	private double myHappyFraction;
-	private ArrayList<Integer[]> myEmptyList;
-	private ArrayList<Integer[]> updatedList;
+	private ArrayList<Coordinate> myEmptyList;
+	private ArrayList<Coordinate> updatedList;
 
 	public SegregationController(Map<String, String> parameters){
 		myHappyFraction = Double.parseDouble(parameters.get("probHappy"));
@@ -15,34 +15,33 @@ public class SegregationController extends SimpleController{
 
 	@Override
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		updatedList = new ArrayList<Integer[]>();
+		updatedList = new ArrayList<Coordinate>();
 		makeEmptyList(grid);
 		return super.runOneSim(grid);
 
 	}
 
 	private void makeEmptyList(Cell[][] grid) {
-		myEmptyList = new ArrayList<Integer[]>();
+		myEmptyList = new ArrayList<Coordinate>();
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
 				String curString = grid[r][c].toString();
 				if(curString.toString().equals("EmptyCell")){
-					Integer[] coords = {r,c};
-					myEmptyList.add(coords);
+					myEmptyList.add(new Coordinate(r,c));
 				}
 			}
 		}
 	}
 
 	@Override
-	protected String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors) {
+	protected String getNeighborsState(Cell[][] grid, List<Coordinate> neighbors) {
 		double blueCount = 0;
 		double redCount = 0;
-		for(Integer[] coords: neighbors){
-			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().toString().equals("BlueCell")){
+		for(Coordinate coords: neighbors){
+			if(grid[coords.getX()][coords.getY()].toString().toString().equals("BlueCell")){
 				blueCount++;
 			}
-			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().toString().equals("RedCell")){
+			if(grid[coords.getX()][coords.getY()].toString().toString().equals("RedCell")){
 				redCount++;
 			}
 		}
@@ -70,18 +69,18 @@ public class SegregationController extends SimpleController{
 
 	@Override
 	protected Cell newState(Cell[][] newGrid, Cell cell, String neighborsState, int r, int c) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		Integer[] curCoord = {r,c};
-		if(!contains(updatedList, curCoord)){
+		Coordinate curCoord = new Coordinate(r,c);
+		if(!updatedList.contains(curCoord)){
 			Random random = new Random();
 			if(cell.toString().equals(neighborsState) || neighborsState.equals("both")){
 				return makeCell(cell.toString());
 			}
 			else if(!cell.toString().equals("EmptyCell")){
-				Integer[] randCoord = myEmptyList.remove(random.nextInt(myEmptyList.size()));
-				newGrid[randCoord[0]][randCoord[1]] = makeCell(cell.toString());
+				Coordinate randCoord = myEmptyList.remove(random.nextInt(myEmptyList.size()));
+				newGrid[randCoord.getX()][randCoord.getY()] = makeCell(cell.toString());
 				updatedList.add(randCoord);
-				Integer[] newCoord = {r,c};
-				myEmptyList.add(newCoord);
+				//Integer[] newCoord = {r,c};
+				myEmptyList.add(curCoord);
 			}
 			return makeCell("EmptyCell");
 		}

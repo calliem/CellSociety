@@ -13,8 +13,8 @@ public class FullNeighbor extends Neighbor{
 	}
 
 	@Override
-	public List<Integer[]> getNeighbors(Cell[][] grid, int row, int col, int scalar) {
-		List<Integer[]> list = new ArrayList<Integer[]>();
+	public List<Coordinate> getNeighbors(Cell[][] grid, int row, int col, int scalar) {
+		List<Coordinate> list = new ArrayList<Coordinate>();
 		for(int s = 1; s <= scalar; s++){
 			for(int dr = -1; dr <= 1; dr++){
 				for(int dc = -1; dc <= 1; dc++){

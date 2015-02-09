@@ -13,16 +13,16 @@ public abstract class ComplexController extends Controller{
 
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
-		List<Integer[]> updatedCoordinates = new ArrayList<Integer[]>();
+		List<Coordinate> updatedCoordinates = new ArrayList<Coordinate>();
 		List<String> triage = typeTriage(new ArrayList<String>());
-		Queue<Integer[]> myCoordinates= coordinatesTriage(grid, triage);
+		Queue<Coordinate> myCoordinates= coordinatesTriage(grid, triage);
 
-		for(Integer[] coords : myCoordinates){
+		for(Coordinate coords : myCoordinates){
 			//int row = coords[0];
 			//int col = coords[1];
-			GridData data = new GridData(grid, coords[Controller.X_COORD], coords[Controller.Y_COORD], newGrid, updatedCoordinates);
+			GridData data = new GridData(grid, coords.getX(), coords.getY(), newGrid, updatedCoordinates);
 			//Integer[] curCoordinates = {r,c};
-			if(!contains(updatedCoordinates, coords)){
+			if(!updatedCoordinates.contains(coords)){
 				cellUpdate(data);
 			}
 		}
@@ -32,16 +32,16 @@ public abstract class ComplexController extends Controller{
 
 	protected abstract List<String> typeTriage(List<String> list);
 
-	private Queue<Integer[]> coordinatesTriage(Cell[][] grid, List<String> strings) {
-		Queue<Integer[]> masterQueue = new LinkedList<Integer[]>();
+	private Queue<Coordinate> coordinatesTriage(Cell[][] grid, List<String> strings) {
+		Queue<Coordinate> masterQueue = new LinkedList<Coordinate>();
 		for(String s : strings){
-			List<Integer[]> typeQueue = new LinkedList<Integer[]>();
+			List<Coordinate> typeQueue = new LinkedList<Coordinate>();
 			for(int i = 0; i < grid.length; i++){
 				for(int j = 0; j < grid[0].length; j++){
 					String curName = grid[i][j].toString();
-					Integer[] curCoords = {i,j};
+					//Integer[] curCoords = {i,j};
 					if(curName.equals(s)){
-						typeQueue.add(curCoords);
+						typeQueue.add(new Coordinate(i,j));
 					}
 				}
 			}

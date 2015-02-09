@@ -11,9 +11,9 @@ public abstract class Neighbor {
 	}
 	*/
 	
-	public abstract List<Integer[]> getNeighbors(Cell[][] grid, int row, int col, int scalar);
+	public abstract List<Coordinate> getNeighbors(Cell[][] grid, int row, int col, int scalar);
 	
-	public List<Integer[]> getNeighbors(Cell[][] grid, int row, int col){
+	public List<Coordinate> getNeighbors(Cell[][] grid, int row, int col){
 		return getNeighbors(grid, row, col, 1);
 	}
 }

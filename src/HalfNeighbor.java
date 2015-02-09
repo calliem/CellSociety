@@ -12,8 +12,8 @@ public class HalfNeighbor extends Neighbor{
 	}
 
 	@Override
-	public List<Integer[]> getNeighbors(Cell[][] grid, int r, int c, int scalar){
-		List<Integer[]> list = new ArrayList<Integer[]>();
+	public List<Coordinate> getNeighbors(Cell[][] grid, int r, int c, int scalar){
+		List<Coordinate> list = new ArrayList<Coordinate>();
 		for(int s = 1; s <= scalar; s++){
 			for(int d = -1; d <= 1; d++){
 				//addToList(grid, r, c, d);

@@ -13,9 +13,9 @@ public class FireController extends SimpleController{
 	}	
 
 	@Override
-	protected String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors) {
-		for(Integer[] coords: neighbors){
-			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().equals("FireCell")){
+	protected String getNeighborsState(Cell[][] grid, List<Coordinate> neighbors) {
+		for(Coordinate coords: neighbors){
+			if(grid[coords.getX()][coords.getY()].toString().equals("FireCell")){
 				if(new Random().nextInt(100) < myProbCatch){
 					return "FireCell";
 				}

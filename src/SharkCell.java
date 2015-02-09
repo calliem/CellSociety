@@ -11,15 +11,15 @@ public class SharkCell extends Cell implements ReproducingCell{
 	
 	private static int myMaxEnergy;
 	private static int myReproducingAge;
-	private int myCurrAge;
-	private int myCurrEnergy;
+	private int myCurAge;
+	private int myCurEnergy;
 	//private static Color myColor;
 	private static Color myColor;
 		
 	public SharkCell(String name){
 		super(name);
-		myCurrAge = 0;
-		myCurrEnergy = myMaxEnergy;
+		myCurAge = 0;
+		myCurEnergy = myMaxEnergy;
 		//getShape().setFill(myColor);
 		getShape().setFill(myColor);	 
 	}
@@ -39,8 +39,8 @@ public class SharkCell extends Cell implements ReproducingCell{
 		System.out.println(myReproducingAge);
 		//getShape().setFill(myColor);
 		getShape().setFill(Color.BLACK);
-		myCurrAge = 0;
-		myCurrEnergy = myMaxEnergy;
+		myCurAge = 0;
+		myCurEnergy = myMaxEnergy;
 		//myEnergy = Integer.parseInt(params.get("fullEnergy"));
 	}
 
@@ -48,8 +48,8 @@ public class SharkCell extends Cell implements ReproducingCell{
 	//REFACTOR!!!  make ReproducingCell abstract
 	@Override
 	public Cell reproducingResult() {
-		if(myCurrAge >= myReproducingAge){
-			myCurrAge = 0;
+		if(myCurAge >= myReproducingAge){
+			myCurAge = 0;
 			return new SharkCell("SharkCell");
 		}
 		else{
@@ -58,17 +58,17 @@ public class SharkCell extends Cell implements ReproducingCell{
 	}
 	
 	public int getEnergy(){
-		return myCurrEnergy;
+		return myCurEnergy;
 	}
 	
 	public Cell ageOneChronon(){
-		myCurrAge++;
-		myCurrEnergy--;
+		myCurAge++;
+		myCurEnergy--;
 		return this;
 	}
 	
 	public boolean isDead(){
-		return myCurrEnergy == 0;
+		return myCurEnergy == 0;
 	}
 	
 	public String toString(){
@@ -76,7 +76,7 @@ public class SharkCell extends Cell implements ReproducingCell{
 	}
 
 	public void replenishEnergy() {
-		myCurrEnergy = myMaxEnergy;
+		myCurEnergy = myMaxEnergy;
 		
 	}
 }
