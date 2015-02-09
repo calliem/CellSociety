@@ -56,7 +56,8 @@ public class Cell{
 	}
 	
 	public void setColor(Color color){
-		myShape.setFill(color);
+		myColor = color;
+//		myShape.setFill(color);
 	}
 	
 	public static void setCellSize(double width, double height) {

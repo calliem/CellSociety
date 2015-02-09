@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -41,12 +40,9 @@ public class CellSociety {
 		configureListeners();
 	}
 
-	public Cell createCellInstance(Map<String, String> cellParams)
-			throws InstantiationException, IllegalAccessException,
-			IllegalArgumentException, NoSuchMethodException, SecurityException,
-			InvocationTargetException, ClassNotFoundException {
+	public Cell createCellInstance(Map<String, String> cellParams) throws InvocationTargetException, IllegalAccessException, InstantiationException {
 		String state = cellParams.get("state");
-		Constructor<?> constructor;
+		Constructor<?> constructor = null;
 		try {
 			if (state.equals("SharkCell") | state.equals("FishCell")) {
 				System.out.println("hi");
@@ -57,14 +53,13 @@ public class CellSociety {
 				constructor = Class.forName(state).getConstructor(Map.class);
 		} catch (ClassNotFoundException e) { // null pointer as well?
 			throw new XMLParserException("Invalid cell state: %s", state); //duplicated
+		} catch(IllegalArgumentException | NoSuchMethodException e){
+			e.printStackTrace();
 		}
 		return (Cell) constructor.newInstance(cellParams);
 	}
 
-	public Cell[][] createCellArray() throws InstantiationException,
-	IllegalAccessException, IllegalArgumentException,
-	ClassNotFoundException, NoSuchMethodException, SecurityException,
-	InvocationTargetException {
+	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, SecurityException, InvocationTargetException, NoSuchMethodException {
 		Map<String, String> map = myParser.getInitParamMap();
 
 		int numCols = Integer.parseInt(map.get("yCols"));
@@ -96,10 +91,8 @@ public class CellSociety {
 	// instantiates cells for all states except for the first one (which
 	// will be automatically done below)
 	private void populateProbabilities(
-			List<HashMap<String, String>> cellStates, int numCols, int numRows)
-					throws InstantiationException, IllegalAccessException,
-					IllegalArgumentException, NoSuchMethodException, SecurityException,
-					InvocationTargetException, ClassNotFoundException {
+			List<HashMap<String, String>> cellStates, int numCols, int numRows) throws InvocationTargetException, IllegalAccessException, InstantiationException
+					{
 		for (int i = 1; i < cellStates.size(); i++) {
 			HashMap<String, String> cellParams = cellStates.get(i);
 
@@ -140,7 +133,7 @@ public class CellSociety {
 	private void populateLocations(List<HashMap<String, String>> cellStates,
 			int numCols, int numRows) throws InstantiationException,
 			IllegalAccessException, IllegalArgumentException,
-			NoSuchMethodException, SecurityException, InvocationTargetException, ClassNotFoundException {
+			NoSuchMethodException, SecurityException, InvocationTargetException {
 		for (int i = 1; i < cellStates.size(); i++) { // this may be able to be
 			// written outside of
 			// this method
@@ -185,7 +178,7 @@ public class CellSociety {
 			List<HashMap<String, String>> cellStates, int numCols, int numRows)
 					throws InstantiationException, IllegalAccessException,
 					IllegalArgumentException, NoSuchMethodException, SecurityException,
-					InvocationTargetException, ClassNotFoundException {
+					InvocationTargetException {
 		for (int x = 0; x < numRows; x++) {
 			for (int y = 0; y < numCols; y++) {
 				if (myCells[x][y] == null) {
@@ -266,14 +259,16 @@ public class CellSociety {
 	}
 
 	private void updateGrid() {
+		updateColors();
 
-		//System.out.println("=========1) cell grid in updateGrid()===============");
-		//System.out.println(myCells.length);
-		//System.out.println(myCells[0].length);
+		System.out.println("=========1) cell grid in updateGrid()===============");
+		System.out.println(myCells.length);
+		System.out.println(myCells[0].length);
 
 		for (int i = 0; i < myCells.length; i++) {
 			for (int j = 0; j < myCells[0].length; j++) {
-				//System.out.println(myCells[i][j].toString());
+				System.out.println(myCells[i][j].toString());
+				System.out.println(myCells[i][j].getColor());
 			}
 		}
 		try {
@@ -295,8 +290,8 @@ public class CellSociety {
 				//System.out.println(myCells[i][j].toString());
 			}
 		}
-
 		updateColors();
+
 		myView.updateSimGrid(myCells);
 		
 
@@ -319,10 +314,21 @@ public class CellSociety {
 				List<HashMap<String, String>> cellList = myParser
 						.getCellParamList();
 				for (HashMap<String, String> params : cellList) {
-					if (params.get("name").equals(cellName))
+					if (params.get("name").equals(cellName)){
+					System.out.println("COLOURRR" + params.get("color"));
 						myCells[i][j].setColor(Color.valueOf(params
 								.get("color")));
+						System.out.println("AFTERUPDATECOLOR" + myCells[i][j].getColor());
+					}
 				}
+			}
+		}
+		
+		System.out.println("update colors --------");
+		for (int i = 0; i < myCells.length; i++) {
+			for (int j = 0; j < myCells[0].length; j++) {
+				System.out.println(myCells[i][j].toString());
+				System.out.println(myCells[i][j].getColor());
 			}
 		}
 	}
@@ -352,8 +358,7 @@ public class CellSociety {
 							/ Integer.parseInt(myParser.getInitParamMap().get(
 									"yCols")));
 			myCells = createCellArray();
-		} catch (IllegalArgumentException | ClassNotFoundException
-				| SecurityException | ParserConfigurationException
+		} catch (IllegalArgumentException | SecurityException | ParserConfigurationException
 				| SAXException | IOException | NoSuchMethodException
 				| InstantiationException | IllegalAccessException
 				| InvocationTargetException e) {
