@@ -1,7 +1,0 @@
-<map id="Boundary.findCell" name="Boundary.findCell">
-<area shape="rect" id="node2" href="$d3/dcc/class_half_neighbor.html#aca4b70fe2c0073ec583db6aa6892c00d" title="HalfNeighbor.getNeighbors" alt="" coords="205,5,400,32"/>
-<area shape="rect" id="node3" href="$d8/dc8/class_old_half_neighbor.html#acb4977e5c7541d299628f53dda0c067f" title="OldHalfNeighbor.getNeighbors" alt="" coords="195,56,410,83"/>
-<area shape="rect" id="node4" href="$d9/d94/class_full_neighbor.html#a1e853094e8ed505b5e6e5b73b075704e" title="FullNeighbor.getNeighbors" alt="" coords="208,107,397,133"/>
-<area shape="rect" id="node5" href="$df/d6f/class_hexagonal_neighbor.html#aa7d6ee8dbb3dc93b1e63b2cedf3bafba" title="HexagonalNeighbor.makeCorners" alt="" coords="184,157,421,184"/>
-<area shape="rect" id="node6" href="$df/d6f/class_hexagonal_neighbor.html#a244c4789117cbf0b27c8227549a8cf46" title="HexagonalNeighbor.getNeighbors" alt="" coords="469,157,707,184"/>
-</map>
