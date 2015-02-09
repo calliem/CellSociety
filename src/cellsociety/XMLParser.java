@@ -22,8 +22,6 @@ public class XMLParser {
     private Map<String, String> mySimParam = new HashMap<String, String>();
     private Map<String, String> myInitParam = new HashMap<String, String>();
     private List<HashMap<String, String>> myCellParamList = new ArrayList<HashMap<String, String>>(); 
-    
-    public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	    
 	public void parseXMLFile(File xmlFile) throws ParserConfigurationException,
     SAXException, IOException {
@@ -43,15 +41,15 @@ public class XMLParser {
              Node node = myNodeList.item(i);
              if (node instanceof Element) {  
             	switch (node.getNodeName()) {
-     			case "initParam":
+     			case Strings.INITIALIZATION_PARAMETERS:
                     NodeList initParamList = node.getChildNodes();              
      				myInitParam = makeParamMap(initParamList);
      				break;
-     			case "cellParam":
+     			case Strings.CELL_PARAMETERS:
      				NodeList cellList = node.getChildNodes();
      				myCellParamList = makeCellParamList(cellList);
      				break;
-     			case "simParam":
+     			case Strings.SIMULATION_PARAMETERS:
      				NodeList simParamList = node.getChildNodes();
      				mySimParam = makeParamMap(simParamList);
             	}
@@ -83,12 +81,12 @@ public class XMLParser {
 			if (node instanceof Element){
 				Element element = (Element) node;
 				//input essential (state + color) elements into the cellParamMap
-				String stateName = element.getAttribute("state"); 
-				cellParamMap.put("state", stateName); 
-				String color = element.getAttribute("color");
-				cellParamMap.put("color", color);
-				String name = element.getAttribute("name");
-				cellParamMap.put("name", name);
+				String stateName = element.getAttribute(Strings.CELL_STATE); 
+				cellParamMap.put(Strings.CELL_STATE, stateName); 
+				String color = element.getAttribute(Strings.CELL_COLOR);
+				cellParamMap.put(Strings.CELL_COLOR, color);
+				String name = element.getAttribute(Strings.CELL_NAME);
+				cellParamMap.put(Strings.CELL_NAME, name);
 			//if the cell has more properties (lower level nodes)
 			if (node.hasChildNodes()){
 				NodeList nodelist = node.getChildNodes();

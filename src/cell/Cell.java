@@ -1,10 +1,12 @@
 package cell;
+
 import java.util.Map;
 
+import cellsociety.Strings;
 import javafx.scene.paint.Color;
 
-public class Cell{
-	
+public class Cell {
+
 	private String myName;
 	private Color myColor;
 
@@ -13,22 +15,21 @@ public class Cell{
 	}
 
 	public Cell(Map<String, String> params) {
-		myName = params.get("name");
-		myColor = Color.valueOf(params.get("color"));
+		myName = params.get(Strings.CELL_NAME);
+		myColor = Color.valueOf(params.get(Strings.CELL_COLOR));
 	}
-	
-	public Color getColor(){
+
+	public Color getColor() {
 		return myColor;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return myName;
 	}
-	
-	public void setColor(Color color){
+
+	public void setColor(Color color) {
 		myColor = color;
 	}
-	
-}
 
+}

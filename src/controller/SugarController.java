@@ -26,8 +26,8 @@ public class SugarController extends ComplexController{
 
 	@Override
 	protected List<String> typeTriage(List<String> list) {
-		list.add("AgentCell");
-		list.add("GroundCell");
+		list.add(Strings.AGENT_CELL);
+		list.add(Strings.GROUND_CELL);
 		return list;
 	}
 

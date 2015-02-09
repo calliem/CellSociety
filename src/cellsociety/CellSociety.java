@@ -46,17 +46,17 @@ public class CellSociety {
 	}
 
 	public Cell createCellInstance(Map<String, String> cellParams) throws InvocationTargetException, IllegalAccessException, InstantiationException {
-		String state = cellParams.get("state");
+		String state = cellParams.get(Strings.CELL_STATE);
 		Constructor<?> constructor = null;
 		try {
-			if (state.equals("SharkCell") | state.equals("FishCell")) {
+			if (state.equals(Strings.SHARK_CELL) | state.equals(Strings.FISH_CELL)) {
 				Class<?> className = Class.forName(Strings.CELL_PACKAGE + state);
 				constructor = className.getConstructor(Map.class);
 			} 
 			else
 				constructor = Class.forName(Strings.CELL_PACKAGE + state).getConstructor(Map.class);
-		} catch (ClassNotFoundException e) { // null pointer as well?
-			throw new XMLParserException("Invalid cell state: %s", state); //duplicated
+		} catch (ClassNotFoundException e) { 
+			throw new XMLParserException(Strings.INVALID_CELL_STATE_ERROR, state);
 		} catch(IllegalArgumentException | NoSuchMethodException e){
 			e.printStackTrace();
 		}
@@ -66,22 +66,22 @@ public class CellSociety {
 	public Cell[][] createCellArray() throws InstantiationException, IllegalAccessException, IllegalArgumentException, SecurityException, InvocationTargetException, NoSuchMethodException {
 		Map<String, String> map = myParser.getInitParamMap();
 
-		int numCols = Integer.parseInt(map.get("yCols"));
-		int numRows = Integer.parseInt(map.get("xRows"));
+		int numCols = Integer.parseInt(map.get(Strings.COLUMNS));
+		int numRows = Integer.parseInt(map.get(Strings.ROWS));
 
 		myCells = new Cell[numRows][numCols];
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
 		if (cellStates.size() > 1) { // if there are at least 2 different cell
 			// types
-			if (cellStates.get(1).get("loc") == null
-					&& cellStates.get(1).get("locProbability") != null) {
+			if (cellStates.get(1).get(Strings.CELL_LOCATION) == null
+					&& cellStates.get(1).get(Strings.CELL_LOCATION_PROBABILITY) != null) {
 				populateProbabilities(cellStates, numCols, numRows);
-			} else if (cellStates.get(1).get("loc") != null
-					&& cellStates.get(1).get("locProbability") == null) {
+			} else if (cellStates.get(1).get(Strings.CELL_LOCATION) != null
+					&& cellStates.get(1).get(Strings.CELL_LOCATION_PROBABILITY) == null) {
 				populateLocations(cellStates, numCols, numRows);
 			} else
 				throw new XMLParserException(
-						"Please specify cell locations or location probabilities");
+						Strings.NO_CELL_LOCATION_ERROR);
 			// is this actually thrown and caught? LILA
 		}
 
@@ -98,7 +98,7 @@ public class CellSociety {
 		for (int i = 1; i < cellStates.size(); i++) {
 			HashMap<String, String> cellParams = cellStates.get(i);
 
-			double prob = Double.parseDouble(cellParams.get("locProbability"));
+			double prob = Double.parseDouble(cellParams.get(Strings.CELL_LOCATION_PROBABILITY));
 			int numCells = (int) (numRows * numCols * prob); //number of cells to be randomly filled in
 
 			for (int j = 0; j < numCells; j ++){ //specify number of cells to randomly select
@@ -138,7 +138,7 @@ public class CellSociety {
 			// written outside of
 			// this method
 			HashMap<String, String> cellParams = cellStates.get(i);
-			int[] locations = stringToIntArray(cellParams.get("loc"));
+			int[] locations = stringToIntArray(cellParams.get(Strings.CELL_LOCATION));
 			List<Integer> invalidLocs = new ArrayList<Integer>();
 			// boolean isInvalid = false;
 			if (locations != null) {
@@ -153,7 +153,7 @@ public class CellSociety {
 						myCells[row][col] = cell;
 					} catch (ArrayIndexOutOfBoundsException e) {
 						throw new XMLParserException(
-								"Invalid cell locations: %s", invalidLocs);
+								Strings.INVALID_CELL_LOCATIONS_ERROR, invalidLocs);
 					}
 
 				}
@@ -205,21 +205,17 @@ public class CellSociety {
 	 */
 	private void retrieveParserInfo() throws NoSuchMethodException, InstantiationException,
 	IllegalAccessException, InvocationTargetException {
-		System.out.println("-----");
-		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
+		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get(Strings.FRAMES_PER_SECOND));
 
-		String simName = myParser.getInitParamMap().get("simName");
-		String className = simName + "Controller";
+		String simName = myParser.getInitParamMap().get(Strings.SIMULATION_NAME);
+		String className = simName + Strings.CONTROLLER;
 		try {
-			System.out.println(Strings.CONTROLLER_PACKAGE + className);
 			Class<?> currentClass = Class.forName(Strings.CONTROLLER_PACKAGE + className);
-			System.out.println("ln 2");
 			Constructor<?> constructor = currentClass.getConstructor(Map.class);
-			System.out.println("const" + constructor.getName());
 			myController = (Controller) constructor.newInstance(myParser.getSimParamMap());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			throw new XMLParserException("Invalid simulation name: %s", simName); //LILA
+			throw new XMLParserException(Strings.INVALID_SIMULATION_NAME_ERROR, simName);
 		}
 	}
 
@@ -257,24 +253,21 @@ public class CellSociety {
 
 	private void updateGrid() {
 		try {
-			myCells = myController.runOneSim(myCells); // THIS IS MAKING
-			// EVERYTHING NULL
+			myCells = myController.runOneSim(myCells);
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException
 				| ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
 		updateColors();
 		myView.updateSimGrid(myCells);
-
 
 		String[] cellNames = new String[myParser.getCellParamList().size()];
 		List<HashMap<String, String>> cellParams = myParser.getCellParamList();
 		for (int i = 0; i < cellParams.size(); i++) {
 			Map<String, String> cur = cellParams.get(i);
-			cellNames[i] = cur.get("name");
+			cellNames[i] = cur.get(Strings.CELL_NAME);
 		}
 
 		myView.updateChartLines(myCells, myNumFrames, cellNames);
@@ -289,9 +282,9 @@ public class CellSociety {
 				List<HashMap<String, String>> cellList = myParser
 						.getCellParamList();
 				for (HashMap<String, String> params : cellList) {
-					if (params.get("name").equals(cellName)){
+					if (params.get(Strings.CELL_NAME).equals(cellName)){
 						myCells[i][j].setColor(Color.valueOf(params
-								.get("color")));
+								.get(Strings.CELL_COLOR)));
 					}
 				}
 			}
@@ -320,7 +313,7 @@ public class CellSociety {
 				| SAXException | IOException | NoSuchMethodException
 				| InstantiationException | IllegalAccessException
 				| InvocationTargetException e) {
-			myView.openDialogBox("Error in XML file syntax"); //general error message
+			myView.openDialogBox(Strings.XML_FILE_ERROR); //general error message
 			e.printStackTrace();
 			return;
 		} catch (XMLParserException e) {
@@ -331,9 +324,9 @@ public class CellSociety {
 		// error messages but only the first one? LILA
 		// move it to just make one try catch
 		setupAnimation();
-		myView.setupInitialGrid(myCells, myParser.getInitParamMap().get("shape"));
+		myView.setupInitialGrid(myCells, myParser.getInitParamMap().get(Strings.CELL_SHAPE));
 		pauseAnimation();
-		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
+		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get(Strings.FRAMES_PER_SECOND));
 		myView.displayFrameRate(myFrameRate);
 
 		String[] cellNames = new String[myParser.getCellParamList().size()];
@@ -341,8 +334,8 @@ public class CellSociety {
 		List<HashMap<String, String>> cellParams = myParser.getCellParamList();
 		for (int i = 0; i < cellParams.size(); i++) {
 			Map<String, String> cur = cellParams.get(i);
-			cellNames[i] = cur.get("name");
-			cellColors[i] = cur.get("color");
+			cellNames[i] = cur.get(Strings.CELL_NAME);
+			cellColors[i] = cur.get(Strings.CELL_COLOR);
 		}
 
 		myNumFrames = 0;
@@ -352,12 +345,12 @@ public class CellSociety {
 	}
 
 	private int[] stringToIntArray(String string) {
-		string = string.replaceAll("\\s+", " ");
-		String[] split = string.split(" ");
-		if (!string.equals(" ") && !string.equals("")) {
+		string = string.replaceAll(Strings.WHITESPACE_STRING, Strings.SPACE_STRING);
+		String[] split = string.split(Strings.SPACE_STRING);
+		if (!string.equals(Strings.SPACE_STRING) && !string.equals(Strings.EMPTY_STRING)) {
 			int[] intArray = new int[split.length];
 			for (int i = 0; i < split.length; i++) {
-				if (!split[i].equals("") && !split[i].equals(" ")) {
+				if (!split[i].equals(Strings.EMPTY_STRING) && !split[i].equals(Strings.SPACE_STRING)) {
 					intArray[i] = Integer.parseInt(split[i]);
 				}
 			}

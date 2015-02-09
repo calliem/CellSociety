@@ -9,6 +9,7 @@ import cell.Cell;
 import cell.ReproducingCell;
 import cell.SharkCell;
 import cellsociety.GridData;
+import cellsociety.Strings;
 
 public class WatorController extends ComplexController{
 
@@ -28,8 +29,8 @@ public class WatorController extends ComplexController{
 			data.getNewGrid()[dest[0]][dest[1]] = ((ReproducingCell) (data.curCell())).ageOneChronon();                       
 			//grid[dest[0]][dest[1]] = ((ReproducingCell) (grid[r][c])).ageOneChronon();                       
 			Integer[] currCoord = data.curCoord();
-			if(type.equals("SharkCell")){
-				if(data.getGrid()[dest[0]][dest[1]].toString().equals("FishCell")){
+			if(type.equals(Strings.SHARK_CELL)){
+				if(data.getGrid()[dest[0]][dest[1]].toString().equals(Strings.FISH_CELL)){
 					((SharkCell) data.getNewGrid()[dest[0]][dest[1]]).replenishEnergy();
 					//((SharkCell) grid[dest[0]][dest[1]]).replenishEnergy();
 				}
@@ -44,13 +45,13 @@ public class WatorController extends ComplexController{
 	/*
 	private List<Integer[]> makeEligible(GridData data, String type) {
 		List<Integer[]> list = new ArrayList<Integer[]>();
-		if(type.equals("FishCell")){                                                                                                             
-			list = getNeighbors(data, "EmptyCell");                                                        
+		if(type.equals(Strings.FISH_CELL)){                                                                                                             
+			list = getNeighbors(data, Strings.EMPTY_CELL);                                                        
 		}                                                                                                                                        
 		else{                                                                                                                                    
-			list = getNeighbors(data, "FishCell");                                                         
+			list = getNeighbors(data, Strings.FISH_CELL);                                                         
 			if(list.isEmpty()){                                                                                                      
-				list = getNeighbors(data, "EmptyCell");                                                        
+				list = getNeighbors(data, Strings.EMPTY_CELL);                                                        
 			}                                                                                                                                        
 		}                                                                                                                                        
 		return list;
@@ -76,13 +77,13 @@ public class WatorController extends ComplexController{
 	
 	private List<Integer[]> makeEligible(GridData data, String type) {
 		List<Integer[]> list = new ArrayList<Integer[]>();
-		if(type.equals("FishCell")){                                                                                                             
-			list = getNeighbors(data, "EmptyCell");                                                        
+		if(type.equals(Strings.FISH_CELL)){                                                                                                             
+			list = getNeighbors(data, Strings.EMPTY_CELL);                                                        
 		}                                                                                                                                        
 		else{                                                                                                                                    
-			list = getNeighbors(data, "FishCell");                                                         
+			list = getNeighbors(data, Strings.FISH_CELL);                                                         
 			if(list.isEmpty()){                                                                                                      
-				list = getNeighbors(data, "EmptyCell");                                                        
+				list = getNeighbors(data, Strings.EMPTY_CELL);                                                        
 			}                                                                                                                                        
 		}                                                                                                                                        
 		return list;
@@ -130,8 +131,8 @@ public class WatorController extends ComplexController{
 		if(deadShark(data.curCell())){
 			data.getNewGrid()[data.getRow()][data.getCol()] = ((SharkCell) data.curCell()).reproducingResult();
 		}
-		else if(data.curCell().toString().equals("EmptyCell")){
-			data.getNewGrid()[data.getRow()][data.getCol()] = makeCell("EmptyCell");
+		else if(data.curCell().toString().equals(Strings.EMPTY_CELL)){
+			data.getNewGrid()[data.getRow()][data.getCol()] = makeCell(Strings.EMPTY_CELL);
 		}
 		else{
 			manipulateCell(data); 
@@ -140,9 +141,9 @@ public class WatorController extends ComplexController{
 
 	@Override
 	protected List<String> typeTriage(List<String> list) {
-		list.add("SharkCell");
-		list.add("FishCell");
-		list.add("EmptyCell");
+		list.add(Strings.SHARK_CELL);
+		list.add(Strings.FISH_CELL);
+		list.add(Strings.EMPTY_CELL);
 		return list;
 	}
 

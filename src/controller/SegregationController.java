@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import cell.Cell;
+import cellsociety.Strings;
 
 public class SegregationController extends SimpleController{
 	private double myHappyFraction;
@@ -17,7 +18,7 @@ public class SegregationController extends SimpleController{
 		//this is duplicated :( could this be put into the super class constructor and then called with super();
 		super(parameters);
 
-		myHappyFraction = Double.parseDouble(parameters.get("probHappy"));
+		myHappyFraction = Double.parseDouble(parameters.get(Strings.HAPPY_PROBABILITY));
 	}
 
 	@Override
@@ -32,7 +33,7 @@ public class SegregationController extends SimpleController{
 		for(int r = 0; r < grid.length; r++){
 			for(int c = 0; c < grid[0].length; c++){
 				String curString = grid[r][c].toString();
-				if(curString.toString().equals("EmptyCell")){
+				if(curString.toString().equals(Strings.EMPTY_CELL)){
 					Integer[] coords = {r,c};
 					myEmptyList.add(coords);
 				}
@@ -45,10 +46,10 @@ public class SegregationController extends SimpleController{
 		double blueCount = 0;
 		double redCount = 0;
 		for(Integer[] coords: neighbors){
-			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().toString().equals("BlueCell")){
+			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().toString().equals(Strings.BLUE_CELL)){
 				blueCount++;
 			}
-			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().toString().equals("RedCell")){
+			if(grid[coords[Controller.X_COORD]][coords[Controller.Y_COORD]].toString().toString().equals(Strings.RED_CELL)){
 				redCount++;
 			}
 		}
@@ -58,20 +59,20 @@ public class SegregationController extends SimpleController{
 	private String selectNeighborsState(double bC, double rC) {
 		double total = bC + rC;
 		if(total == 0){
-			return "none";
+			return Strings.NONE;
 		}
 		boolean blueHappy = bC/total > myHappyFraction;
 		boolean redHappy = rC/total > myHappyFraction;
 		if(blueHappy){
 			if(redHappy){
-				return "both";
+				return Strings.BOTH;
 			}
-			return "BlueCell";
+			return Strings.BLUE_CELL;
 		}
 		if(redHappy){
-			return "RedCell";
+			return Strings.RED_CELL;
 		}
-		return "none";
+		return Strings.NONE;
 	}
 
 	@Override
@@ -79,17 +80,17 @@ public class SegregationController extends SimpleController{
 		Integer[] curCoord = {r,c};
 		if(!contains(updatedList, curCoord)){
 			Random random = new Random();
-			if(cell.toString().equals(neighborsState) || neighborsState.equals("both")){
+			if(cell.toString().equals(neighborsState) || neighborsState.equals(Strings.BOTH)){
 				return makeCell(cell.toString());
 			}
-			else if(!cell.toString().equals("EmptyCell")){
+			else if(!cell.toString().equals(Strings.EMPTY_CELL)){
 				Integer[] randCoord = myEmptyList.remove(random.nextInt(myEmptyList.size()));
 				newGrid[randCoord[0]][randCoord[1]] = makeCell(cell.toString());
 				updatedList.add(randCoord);
 				Integer[] newCoord = {r,c};
 				myEmptyList.add(newCoord);
 			}
-			return makeCell("EmptyCell");
+			return makeCell(Strings.EMPTY_CELL);
 		}
 		return newGrid[r][c];
 	}
