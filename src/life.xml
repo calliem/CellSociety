@@ -11,7 +11,8 @@
 	<simParam>
 	    <stayOn>2</stayOn>
 	    <bornOn>3</bornOn>
-	    <boundary>Toroidal</boundary>
+	    <boundary>Finite</boundary>
+	    <neighbor>Half</neighbor>
 	</simParam>
 	<cellParam>    
 	    <cell state="Cell" color="White" name="EmptyCell"/>

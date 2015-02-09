@@ -14,7 +14,7 @@
 	<cellParam>    
 	     <cell state="Cell" name="EmptyCell" color="Cyan" />  
 	     <cell state="SharkCell" name="SharkCell" color="Black">
-	        <locProbability>.2</locProbability>
+	        <locProbability>.1</locProbability>
 	        <reproductionAge>3</reproductionAge>
 			<maxEnergy>2</maxEnergy>
 	     </cell>

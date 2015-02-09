@@ -10,20 +10,30 @@ public abstract class Controller {
 	public static final int X_COORD = 0;
 	public static final int Y_COORD = 1;
 
-	protected Boundary myBoundary = new FiniteBoundary(); //defaulted to finite
-	protected Neighbor myNeighbor = new FullNeighbor(myBoundary); //defaulted to full
+	protected Boundary myBoundary;
+	protected Neighbor myNeighbor; 
 
 	public abstract Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException ;
 
 	public Controller(Map<String, String>parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
 		
 		//why are there so many throw/catches??
-		//this is duplicated :(
 		String boundary = parameters.get("boundary");
 		if (boundary != null){
 			setBoundary(boundary);
 		}
+		else
+			myBoundary = new FiniteBoundary(); // defaulted to FiniteBoundary
+		
+		String neighbors = parameters.get("neighbors");
+		if (neighbors != null){
+			setNeighbors(neighbors);
+		}
+		else
+			myNeighbor = new FullNeighbor(myBoundary); //defaulted to FullNeighbor
 	}
+
+
 
 	protected boolean contains(List<Integer[]> updatedCoordinates,
 			Integer[] curCoordinates) {
@@ -54,10 +64,15 @@ public abstract class Controller {
 		}
 	}
 	
-	protected void setBoundary(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+	private void setBoundary(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
 		String boundary = s + "Boundary";
 		myBoundary = (Boundary) Class.forName(boundary).getConstructor().newInstance();
-		myNeighbor = new FullNeighbor(myBoundary); //is this necessary?
+		//myNeighbor = new FullNeighbor(myBoundary); //is this necessary?
+	}
+	
+	private void setNeighbors(String s) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		String neighbor = s + "Neighbor";
+		myNeighbor = (Neighbor) Class.forName(neighbor).getConstructor().newInstance(myBoundary);
 	}
 
 	//protected abstract String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors);

@@ -8,7 +8,6 @@ public abstract class SimpleController extends Controller{
 		super(parameters);
 	}
 
-
 	@Override
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
