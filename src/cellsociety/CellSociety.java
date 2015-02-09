@@ -44,6 +44,14 @@ public class CellSociety {
 		configureListeners();
 	}
 
+	/**
+	 * Creates an instance of the a specific Cell class/subclass based on values passed in from cellParams
+	 * @param cellParams
+	 * @return
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 */
 	public Cell createCellInstance(Map<String, String> cellParams)
 			throws InvocationTargetException, IllegalAccessException,
 			InstantiationException {
@@ -64,6 +72,15 @@ public class CellSociety {
 		return (Cell) constructor.newInstance(cellParams);
 	}
 
+	/**
+	 * Creates an array of cells to populate the grid 
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws SecurityException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
 	public Cell[][] createCellArray() throws InstantiationException,
 			IllegalAccessException, IllegalArgumentException, SecurityException,
 			InvocationTargetException, NoSuchMethodException {
@@ -341,6 +358,12 @@ public class CellSociety {
 
 	}
 
+	/**
+	 * Converts a given string to an integer array
+	 * @param string
+	 * @return integer array
+	 */
+	 
 	private int[] stringToIntArray(String string) {
 		string = string.replaceAll(Strings.WHITESPACE_STRING, Strings.SPACE_STRING);
 		String[] split = string.split(Strings.SPACE_STRING);
