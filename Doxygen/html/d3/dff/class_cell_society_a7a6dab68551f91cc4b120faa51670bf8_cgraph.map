@@ -1,9 +1,0 @@
-<map id="CellSociety.createCellArray" name="CellSociety.createCellArray">
-<area shape="rect" id="node2" href="$d2/d95/class_x_m_l_parser.html#ac4e3257aed1deb9fe950149f706fce5b" title="XMLParser.getCellParamList" alt="" coords="259,5,458,32"/>
-<area shape="rect" id="node3" href="$d2/d95/class_x_m_l_parser.html#aea9b535964c91fa3c3d2b1c0b6a334c2" title="XMLParser.getInitParamMap" alt="" coords="259,56,458,83"/>
-<area shape="rect" id="node4" href="$d3/dff/class_cell_society.html#a5c0b747b2fbaaa317266890c48e0267f" title="CellSociety.populateLocations" alt="" coords="253,107,464,133"/>
-<area shape="rect" id="node7" href="$d3/dff/class_cell_society.html#a276d7f4c12da9d40e8720f762b47592a" title="CellSociety.populateProbabilities" alt="" coords="245,157,472,184"/>
-<area shape="rect" id="node8" href="$d3/dff/class_cell_society.html#a7ef59819b70a8f07c010bd2bb28b7740" title="CellSociety.populateRemaining\lState" alt="" coords="251,209,467,250"/>
-<area shape="rect" id="node5" href="$d3/dff/class_cell_society.html#a42451b17e2bca5fd025c8d4ea74310ca" title="CellSociety.stringToIntArray" alt="" coords="530,107,723,133"/>
-<area shape="rect" id="node6" href="$d3/dff/class_cell_society.html#a117f1698760a3f6bbe51bd7af16f79bb" title="CellSociety.createCellInstance" alt="" coords="521,157,733,184"/>
-</map>
