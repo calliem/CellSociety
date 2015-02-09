@@ -2,6 +2,11 @@ package cell;
 
 import java.util.Map;
 
+/**
+ * This class codes for the properties of all general cells 
+ * @author Callie Mao
+ */
+
 import cellsociety.Strings;
 import javafx.scene.paint.Color;
 

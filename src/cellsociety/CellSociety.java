@@ -74,8 +74,7 @@ public class CellSociety {
 
 		myCells = new Cell[numRows][numCols];
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
-		if (cellStates.size() > 1) { // if there are at least 2 different cell
-			// types
+		if (cellStates.size() > 1) {
 			if (cellStates.get(1).get(Strings.CELL_LOCATION) == null
 					&& cellStates.get(1).get(Strings.CELL_LOCATION_PROBABILITY) != null) {
 				populateProbabilities(cellStates, numCols, numRows);
@@ -84,16 +83,22 @@ public class CellSociety {
 				populateLocations(cellStates, numCols, numRows);
 			} else
 				throw new XMLParserException(Strings.NO_CELL_LOCATION_ERROR);
-			// is this actually thrown and caught? LILA
 		}
-
 		populateRemainingState(cellStates, numCols, numRows);
-
 		return myCells;
 	}
 
-	// instantiates cells for all states except for the first one (which
-	// will be automatically done below)
+	/**
+	 * Instantiates cells for all states except for the first one (which will be
+	 * done in the populateRemainingState method) based on inputted probabilities
+	 * 
+	 * @param cellStates
+	 * @param numCols and numRows (along with probability), determine the number of cells to be randomly filled in
+	 * @param numRows
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 */
 	private void populateProbabilities(List<HashMap<String, String>> cellStates,
 			int numCols, int numRows) throws InvocationTargetException,
 			IllegalAccessException, InstantiationException {
@@ -102,13 +107,9 @@ public class CellSociety {
 
 			double prob = Double.parseDouble(cellParams
 					.get(Strings.CELL_LOCATION_PROBABILITY));
-			int numCells = (int) (numRows * numCols * prob); // number of cells
-																// to be
-																// randomly
-																// filled in
-
-			for (int j = 0; j < numCells; j++) { // specify number of cells to
-													// randomly select
+			int numCells = (int) (numRows * numCols * prob);
+			//specify number of cells to be randomly selected
+			for (int j = 0; j < numCells; j++) { 
 				int randomX;
 				int randomY;
 				do {
@@ -122,8 +123,7 @@ public class CellSociety {
 		}
 	}
 
-	// instantiates cells for all states except for the first one (which
-	// will be automatically done below)
+
 	/**
 	 * Populates a grid of cells with all given states except for the 1st.
 	 * 
@@ -146,7 +146,6 @@ public class CellSociety {
 			HashMap<String, String> cellParams = cellStates.get(i);
 			int[] locations = stringToIntArray(cellParams.get(Strings.CELL_LOCATION));
 			List<Integer> invalidLocs = new ArrayList<Integer>();
-			// boolean isInvalid = false;
 			if (locations != null) {
 				for (int j = 0; j < locations.length; j++) {
 					if (locations[j] > numCols * numRows) {
@@ -161,7 +160,6 @@ public class CellSociety {
 						throw new XMLParserException(
 								Strings.INVALID_CELL_LOCATIONS_ERROR, invalidLocs);
 					}
-
 				}
 			}
 		}
@@ -278,7 +276,6 @@ public class CellSociety {
 		myNumFrames++;
 	}
 
-	// this is inefficient and sucks design-wise
 	private void updateColors() {
 		for (int i = 0; i < myCells.length; i++) {
 			for (int j = 0; j < myCells[i].length; j++) {
@@ -297,7 +294,6 @@ public class CellSociety {
 	private void resumeAnimation() {
 		myView.setButtonsPause(true);
 		myTimeline.play();
-
 	}
 
 	private void pauseAnimation() {
@@ -307,7 +303,6 @@ public class CellSociety {
 
 	private void readNewXML() {
 		File newFile = myView.displayXMLChooser();
-		// test
 		try {
 			myParser.parseXMLFile(newFile);
 			retrieveParserInfo();
@@ -316,17 +311,13 @@ public class CellSociety {
 				| ParserConfigurationException | SAXException | IOException
 				| NoSuchMethodException | InstantiationException | IllegalAccessException
 				| InvocationTargetException e) {
-			myView.openDialogBox(Strings.XML_FILE_ERROR); // general error
-															// message
+			myView.openDialogBox(Strings.GENERAL_XML_FILE_ERROR); 													// message
 			e.printStackTrace();
 			return;
 		} catch (XMLParserException e) {
 			myView.openDialogBox(e.getMessage()); // specific error message
 			return;
 		}
-		// if make above into one catch, then it will not printout all of the
-		// error messages but only the first one? LILA
-		// move it to just make one try catch
 		setupAnimation();
 		myView.setupInitialGrid(myCells,
 				myParser.getInitParamMap().get(Strings.CELL_SHAPE));

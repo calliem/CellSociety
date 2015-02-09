@@ -1,7 +1,7 @@
 package cellsociety;
 /**
  * This class contains a list of static String variables that are used throughout the program
- * @author Callie
+ * @author Callie Mao
  *
  */
 
@@ -44,7 +44,7 @@ public class Strings {
 
 	// error messages
 	public static final String INVALID_CELL_LOCATIONS_ERROR = "Invalid cell locations: %s";
-	public static final String XML_FILE_ERROR = "Error in XML file";
+	public static final String GENERAL_XML_FILE_ERROR = "Error in XML file";
 	public static final String INVALID_CELL_STATE_ERROR = "Invalid cell state: %s";
 	public static final String INVALID_SIMULATION_NAME_ERROR = "Invalid simulation name: %s";
 	public static final String NO_CELL_LOCATION_ERROR = "Please specify cell locations or location probabilities";
