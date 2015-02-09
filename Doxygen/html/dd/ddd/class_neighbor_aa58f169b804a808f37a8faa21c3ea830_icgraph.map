@@ -1,8 +1,0 @@
-<map id="Neighbor.getNeighbors" name="Neighbor.getNeighbors">
-<area shape="rect" id="node2" href="$dd/ddd/class_neighbor.html#a206a29535da1fbe19507f974c9cbe1fc" title="Neighbor.getNeighbors" alt="" coords="245,5,414,32"/>
-<area shape="rect" id="node3" href="$dc/da7/class_wator_controller.html#a7b71e69d99808906a02cc6689d5e8c15" title="WatorController.getNeighbors" alt="" coords="225,56,434,83"/>
-<area shape="rect" id="node7" href="$da/d56/class_simple_controller.html#a5e06ea3ebf9ae14fd8b0a69326cd6ffe" title="SimpleController.runOneSim" alt="" coords="228,107,431,133"/>
-<area shape="rect" id="node4" href="$dc/da7/class_wator_controller.html#a14e97f15d6937c3667feb85a2b5d896e" title="WatorController.makeEligible" alt="" coords="483,56,685,83"/>
-<area shape="rect" id="node5" href="$dc/da7/class_wator_controller.html#ae00870133a4b1cfbfaeecf11ffd7b650" title="WatorController.manipulateCell" alt="" coords="733,56,952,83"/>
-<area shape="rect" id="node6" href="$dc/da7/class_wator_controller.html#aff090131b0a6ebc6dc7a095a3dc2ea36" title="WatorController.cellUpdate" alt="" coords="1001,56,1191,83"/>
-</map>

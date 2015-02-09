@@ -1,6 +1,0 @@
-<map id="Cell.getShape" name="Cell.getShape">
-<area shape="rect" id="node2" href="$d2/ddc/class_fish_cell.html#ac13e6b6ecb127f4691535618d6741170" title="FishCell.FishCell" alt="" coords="179,5,299,32"/>
-<area shape="rect" id="node4" href="$d1/dd5/class_shark_cell.html#afd3aef1b16f3f512834ac1ad776f5647" title="SharkCell.SharkCell" alt="" coords="165,56,312,83"/>
-<area shape="rect" id="node3" href="$d2/ddc/class_fish_cell.html#a618c77b7ef60dbc7a6e1b9bb6a9e4ca6" title="FishCell.reproducingResult" alt="" coords="367,5,553,32"/>
-<area shape="rect" id="node5" href="$d1/dd5/class_shark_cell.html#a1ca5694156b3281592e9606fae51d9ac" title="SharkCell.reproducingResult" alt="" coords="360,56,560,83"/>
-</map>

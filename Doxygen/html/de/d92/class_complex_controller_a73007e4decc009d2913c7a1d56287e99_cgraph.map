@@ -1,7 +1,0 @@
-<map id="ComplexController.runOneSim" name="ComplexController.runOneSim">
-<area shape="rect" id="node2" href="$de/d92/class_complex_controller.html#ac2c960c31d7770310520c4a4bb304eb5" title="ComplexController.cellUpdate" alt="" coords="273,5,484,32"/>
-<area shape="rect" id="node3" href="$d8/d87/class_controller.html#a2d1d78c34f5551304c3e0f2295766afb" title="Controller.contains" alt="" coords="308,56,449,83"/>
-<area shape="rect" id="node4" href="$de/d92/class_complex_controller.html#ae3e2ab6b8c7d3747f9aaa8f8d834094b" title="ComplexController.coordinates\lTriage" alt="" coords="269,107,488,149"/>
-<area shape="rect" id="node6" href="$de/d92/class_complex_controller.html#a55a323d8a795ebdbfb2714d63defba78" title="ComplexController.typeTriage" alt="" coords="275,173,483,200"/>
-<area shape="rect" id="node5" href="$dd/d11/class_cell.html#a7f8d2520a26a1376a44372149e561f6b" title="Cell.toString" alt="" coords="537,115,637,141"/>
-</map>
