@@ -11,12 +11,10 @@ import neighbor.Neighbor;
 import cell.Cell;
 import cellsociety.Strings;
 
-//import javafx.scene.paint.Color;
-
 public abstract class Controller {
 
-	public static final int X_COORD = 0;
-	public static final int Y_COORD = 1;
+	protected static final int X_COORD = 0;
+	protected static final int Y_COORD = 1;
 
 	protected Boundary myBoundary;
 	protected Neighbor myNeighbor;
@@ -28,21 +26,19 @@ public abstract class Controller {
 	public Controller(Map<String, String> parameters) throws InstantiationException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException {
-		String boundary = parameters.get(Strings.BOUNDARY);
+		String boundary = parameters.get(Strings.BOUNDARY_PARAMETER);
+		System.out.println(boundary);
 		if (boundary != null) {
 			setBoundary(boundary);
 		} else {
 			myBoundary = new FiniteBoundary(); // defaulted to FiniteBoundary
 		}
-		System.out.println("hey");
 
-		String neighbors = parameters.get(Strings.NEIGHBOR_PARAM);
+		String neighbors = parameters.get(Strings.NEIGHBOR_PARAMETER);
 		if (neighbors != null) {
-			System.out.println("hey2");
 
 			setNeighbors(neighbors);
 		} else {
-			System.out.println("hey3");
 
 			myNeighbor = new FullNeighbor(myBoundary); // defaulted to
 														// FullNeighbor
@@ -85,9 +81,9 @@ public abstract class Controller {
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException {
 		String boundary = s + Strings.BOUNDARY;
+		System.out.println(boundary);
 		myBoundary = (Boundary) Class.forName(Strings.BOUNDARY_PACKAGE + boundary)
 				.getConstructor().newInstance();
-		// myNeighbor = new HalfNeighbor(myBoundary); //is this necessary?
 	}
 
 	private void setNeighbors(String s) throws InstantiationException,
@@ -98,7 +94,4 @@ public abstract class Controller {
 		myNeighbor = (Neighbor) Class.forName(Strings.NEIGHBOR_PACKAGE + neighbor)
 				.getConstructor(Boundary.class).newInstance(myBoundary);
 	}
-
-	// protected abstract String getNeighborsState(Cell[][] grid,
-	// List<Integer[]> neighbors);
 }

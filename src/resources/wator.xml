@@ -20,7 +20,7 @@
 			<maxEnergy>2</maxEnergy>
 	     </cell>
 	   	 <cell state="FishCell" name="FishCell" color="Yellow">
-	        <locProbability>.7</locProbability>
+	        <locProbability>.4</locProbability>
 	     	<reproductionAge>3</reproductionAge>
 	    </cell>
   </cellParam>

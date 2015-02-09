@@ -7,7 +7,7 @@
 		<yCols>50</yCols>
 		<fps>5</fps>
 		<gridLines>0</gridLines>
-		<shape>triangle</shape>
+		<shape>square</shape>
 	</initParam>
 	<simParam>
 	    <boundary>Toroidal</boundary>

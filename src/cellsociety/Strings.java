@@ -61,7 +61,8 @@ public class Strings {
 	public static final String BOUNDARY = "Boundary";
 	public static final String CATCH_PROBABILITY = "probCatch";
 	public static final String HAPPY_PROBABILITY = "probHappy";
-	public static final String NEIGHBOR_PARAM = "neighbor";
+	public static final String NEIGHBOR_PARAMETER = "neighbor";
+	public static final String BOUNDARY_PARAMETER = "boundary";
 	public static final String STAY_ON = "stayOn";
 	public static final String BORN_ON = "bornOn";
 

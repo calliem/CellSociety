@@ -23,10 +23,6 @@ public class FullNeighbor extends Neighbor {
 						int nextRow = row + dr * s;
 						int nextCol = col + dc * s;
 						list.add(getBounds().findCell(grid, nextRow, nextCol));
-						/*
-						 * if(myBounds.inBounds(grid, nextRow, nextCol))
-						 * list.add(grid[nextRow][nextCol]);
-						 */
 					}
 				}
 			}

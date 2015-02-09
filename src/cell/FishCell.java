@@ -18,7 +18,6 @@ public class FishCell extends Cell implements ReproducingCell {
 		super(params);
 		myReproducingAge = Integer.parseInt(params.get(Strings.REPRODUCTION_AGE));
 		myCurrAge = 0;
-
 	}
 
 	public int getAge() {
