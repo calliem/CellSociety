@@ -1,5 +1,0 @@
-<map id="AgentCell.harvest" name="AgentCell.harvest">
-<area shape="rect" id="node2" href="$db/dfe/class_agent_cell.html#a514c16390ad4ab5393ee6044baa360ca" title="AgentCell.cellSwap" alt="" coords="443,5,586,32"/>
-<area shape="rect" id="node4" href="$db/dfe/class_agent_cell.html#acbc24a5b4b9a1e4ea2236e992e8e36e5" title="AgentCell.leaveCurrentPatch" alt="" coords="190,31,394,57"/>
-<area shape="rect" id="node3" href="$db/dfe/class_agent_cell.html#a5f787fd7f5bc2db97f956fc36e2e4d91" title="AgentCell.ageOneChronon" alt="" coords="635,5,826,32"/>
-</map>

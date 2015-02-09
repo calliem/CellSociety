@@ -1,9 +1,0 @@
-<map id="CellSociety.updateGrid" name="CellSociety.updateGrid">
-<area shape="rect" id="node2" href="$d2/d95/class_x_m_l_parser.html#ac4e3257aed1deb9fe950149f706fce5b" title="XMLParser.getCellParamList" alt="" coords="489,32,687,59"/>
-<area shape="rect" id="node3" href="$d8/d87/class_controller.html#aa8f10b5f28542d34053a7e4d5f1d6013" title="Controller.runOneSim" alt="" coords="250,32,409,59"/>
-<area shape="rect" id="node4" href="$df/df8/class_cell_society_view.html#a7ca77bdfdef97e9be9c9941c2f4d3513" title="CellSocietyView.updateChart\lLines" alt="" coords="227,134,431,176"/>
-<area shape="rect" id="node6" href="$d3/dff/class_cell_society.html#a64ebaee33d25e0e730024e67d5582c63" title="CellSociety.updateColors" alt="" coords="240,83,419,110"/>
-<area shape="rect" id="node7" href="$df/df8/class_cell_society_view.html#a43ac2666d3a002024be53fe74028a576" title="CellSocietyView.updateSimGrid" alt="" coords="219,200,439,227"/>
-<area shape="rect" id="node5" href="$dd/d11/class_cell.html#a7f8d2520a26a1376a44372149e561f6b" title="Cell.toString" alt="" coords="538,112,638,139"/>
-<area shape="rect" id="node8" href="$dd/d11/class_cell.html#a1e0ece61fecc69a9b7986d17d925434a" title="Cell.getShape" alt="" coords="533,200,643,227"/>
-</map>
