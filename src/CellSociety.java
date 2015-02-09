@@ -68,22 +68,6 @@ public class CellSociety {
 																				// lines
 																				// below
 			}
-<<<<<<< HEAD
-			else{
-		//		constructor = Class.forName("Cell").getConstructor(Map.class); //doing this here makes the code runnable still
-				throw new XMLParserException("Invalid cell state: %s", state); //duplicated code again :(; see a couple lines below
-			}	
-		}
-		catch (ClassNotFoundException e){ //null pointer as well?
-			////System.out.println("I just threw an exception");
-			throw new XMLParserException("Invalid cell state: %s", state);	
-		}
-		//WRITE A CATCH NULL POINTER AND THAT MEANS THAT THE CELL STATE WAS ENTERED INCORRECTLY
-		//	//System.out.println("ClassName:  " + className.toString());
-		//this is a duplicated if statement; it appears in the code in the controllers i think
-
-		//	//System.out.println(constructor);
-=======
 		} catch (ClassNotFoundException e) { // null pointer as well?
 			System.out.println("I just threw an exception");
 			throw new XMLParserException("Invalid cell state: %s", state);
@@ -94,7 +78,6 @@ public class CellSociety {
 		// this is a duplicated if statement; it appears in the code in the
 		// controllers i think
 
->>>>>>> c061cc7dbafb0cdf4defe3a1842fe87e908684dc
 		return (Cell) constructor.newInstance(cellParams);
 	}
 
@@ -109,19 +92,12 @@ public class CellSociety {
 
 		myCells = new Cell[numRows][numCols];
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
-<<<<<<< HEAD
-		////System.out.println("sze" + cellStates.size());
-		if (cellStates.size() > 1){ //if there are at least 2 different cell types
-			if (cellStates.get(1).get("loc") == null && cellStates.get(1).get("locProbability") != null){
-				////System.out.println("populateProbabilities");
-=======
 		System.out.println("sze" + cellStates.size());
 		if (cellStates.size() > 1) { // if there are at least 2 different cell
 										// types
 			if (cellStates.get(1).get("loc") == null
 					&& cellStates.get(1).get("locProbability") != null) {
 				System.out.println("populateProbabilities");
->>>>>>> c061cc7dbafb0cdf4defe3a1842fe87e908684dc
 				populateProbabilities(cellStates, numCols, numRows);
 			} else if (cellStates.get(1).get("loc") != null
 					&& cellStates.get(1).get("locProbability") == null) {
@@ -148,7 +124,6 @@ public class CellSociety {
 			HashMap<String, String> cellParams = cellStates.get(i);
 
 			double prob = Double.parseDouble(cellParams.get("locProbability"));
-<<<<<<< HEAD
 			int numCells = (int) (numRows * numCols * prob); //number of cells to be randomly filled in
 			
 			for (int j = 0; j < numCells; j ++){ //specify number of cells to randomly select
@@ -156,20 +131,6 @@ public class CellSociety {
 				////System.out.println(numRows * numCols);
 				////System.out.println(myRandom.nextInt(100));
 				do{
-=======
-			int numCells = (int) (numRows * numCols * prob); // number of cells
-																// to be
-																// randomly
-																// filled in
-
-			for (int j = 0; j < numCells; j++) { // specify number of cells to
-													// randomly select
-				int randomX;
-				int randomY;
-				System.out.println(numRows * numCols);
-				System.out.println(myRandom.nextInt(100));
-				do {
->>>>>>> c061cc7dbafb0cdf4defe3a1842fe87e908684dc
 					int randomLoc = myRandom.nextInt(numRows * numCols);
 					randomX = randomLoc / numCols;
 					randomY = randomLoc % numCols;
@@ -208,13 +169,8 @@ public class CellSociety {
 			// boolean isInvalid = false;
 			if (locations != null) {
 				for (int j = 0; j < locations.length; j++) {
-<<<<<<< HEAD
-					////System.out.println(cellParams.get("state") + locations[j]);
+					//System.out.println(cellParams.get("state") + locations[j]);
 					if (locations[j] > numCols * numRows){
-=======
-					System.out.println(cellParams.get("state") + locations[j]);
-					if (locations[j] > numCols * numRows) {
->>>>>>> c061cc7dbafb0cdf4defe3a1842fe87e908684dc
 						invalidLocs.add(locations[j]);
 					}
 					int row = locations[j] / numCols;
