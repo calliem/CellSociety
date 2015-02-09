@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class SugarController extends ComplexController{
 
-	public SugarController(Map<String, String> parameters) {
+	public SugarController(Map<String, String> parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		super(parameters);
 		// TODO Auto-generated constructor stub
 	}

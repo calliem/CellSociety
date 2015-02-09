@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class WatorController extends ComplexController{
 
-	public WatorController(Map<String, String> parameters){
+	public WatorController(Map<String, String> parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
 		super(parameters);
 	}
 

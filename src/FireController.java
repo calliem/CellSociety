@@ -1,3 +1,4 @@
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
@@ -7,9 +8,9 @@ public class FireController extends SimpleController{
 
 	private int myProbCatch;
 
-	public FireController(Map<String, String> map){
-		super();
-		myProbCatch = Integer.parseInt(map.get("probCatch"));
+	public FireController(Map<String, String> parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		super(parameters);
+		myProbCatch = Integer.parseInt(parameters.get("probCatch"));
 	}	
 
 	@Override

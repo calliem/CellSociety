@@ -1,3 +1,4 @@
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,10 @@ public class SegregationController extends SimpleController{
 	private ArrayList<Coordinate> myEmptyList;
 	private ArrayList<Coordinate> updatedList;
 
-	public SegregationController(Map<String, String> parameters){
+	public SegregationController(Map<String, String> parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		//this is duplicated :( could this be put into the super class constructor and then called with super();
+		super(parameters);
+
 		myHappyFraction = Double.parseDouble(parameters.get("probHappy"));
 	}
 
@@ -18,7 +22,6 @@ public class SegregationController extends SimpleController{
 		updatedList = new ArrayList<Coordinate>();
 		makeEmptyList(grid);
 		return super.runOneSim(grid);
-
 	}
 
 	private void makeEmptyList(Cell[][] grid) {

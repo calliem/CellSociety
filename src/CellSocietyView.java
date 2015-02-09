@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -8,6 +9,7 @@ import java.util.ResourceBundle;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
@@ -15,21 +17,18 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
-//import javafx.scene.control.Alert;
-//import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -49,15 +48,13 @@ public class CellSocietyView {
 	private Text myErrorMsg;
 	private HBox myTitleBox;
 	private GridPane myRoot;
-	private GridPane mySimGrid;
     private ResourceBundle myResources;
     private LineChart<Number, Number> myChart;
     private List<Series<Number, Number>> mySeries;
+    private AbstractGrid mySimGrid;
+    private Group myDefaultGrid;
 
-    
-    private static final Font ERROR_FONT = Font.font("Arial", FontWeight.NORMAL, 12);
     private static final Font TITLE_FONT = Font.font("Helvetica", FontWeight.NORMAL, 32);
-
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "";
 	public static final int GRID_SIZE = 400;
@@ -72,12 +69,11 @@ public class CellSocietyView {
 
 		myRoot = new GridPane();
 		myStage = s;
+		myDefaultGrid = new Group(new Rectangle(0, 0, GRID_SIZE, GRID_SIZE));
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "english");
 		
 		initializeButtons();
 		disableInitialButtons();
-		generateGrid();
-		setBlankGrid();
 		configureUI();
 		setupGameScene();
 	}
@@ -106,46 +102,31 @@ public class CellSocietyView {
 		return this.mySlowdownButton;
 	}
 	
-/*	public void openDialogBox(String s) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Dialog Box");
-		alert.setHeaderText("Look, an Information Dialog");
-		alert.setContentText(s);
-		alert.showAndWait();
-		}*/
+	public void openDialogBox(String message) {
 
-	public void updateSimGrid(Cell[][] cellGrid) {
-		mySimGrid.getChildren().clear();
-		System.out.println(cellGrid.length);
-		for (int i = 0; i < cellGrid.length; i++) {
-			for (int j = 0; j < cellGrid[0].length; j++)
-				mySimGrid.add(cellGrid[i][j].getShape(), j, i);
-		}
+		Stage stage = new Stage();
+		HBox root = new HBox();
+		root.setAlignment(Pos.CENTER);
+		Text text = new Text(message);
+		root.getChildren().add(text);
+		
+		Scene scene = new Scene(root, 300, 100);
+
+		stage.setTitle("Error");
+		stage.setScene(scene);
+		stage.show();
 	}
 
-	public void setErrorText() {
-	/*	myErrorMsg.setFont(ERROR_FONT); 
-		myErrorMsg.setFill(Color.RED);
-		myErrorMsg.setText(myResources.getString("ErrorMessage"));*/
-		
+	public void setupInitialGrid(Cell[][] cells, String shape) {
+		myDefaultGrid.getChildren().clear();
+		if (mySimGrid != null)
+			mySimGrid.getGrid().getChildren().clear();
+		mySimGrid = GridFactory.createGrid(shape, GRID_SIZE, cells);
+		myRoot.add(mySimGrid.getGrid(), 1, 1);
 	}
 	
-	/*public void showError (String message) {
-		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("Warning Dialog");
-		alert.setHeaderText("Look, a Warning Dialog");
-		alert.setContentText("Careful with the next step!");
-
-		alert.showAndWait();
-        Dialogs.create().title(myResources.getString("ErrorTitle")).message(message).showError();
-    }*/
-
-	public void setBlankGrid() {
-		mySimGrid.getChildren().clear();
-		Rectangle r = new Rectangle();
-		r.setWidth(GRID_SIZE);
-		r.setHeight(GRID_SIZE);
-		mySimGrid.add(r, 0, 0);
+	public void updateSimGrid(Cell[][] cellGrid) {
+		mySimGrid.update(cellGrid);
 	}
 
 	public void generateTitle(String s) {
@@ -155,9 +136,6 @@ public class CellSocietyView {
 		myTitleBox.getChildren().add(title);
 	}
 
-	/**
-	 * 
-	 */
 	public void displayFrameRate(int frameRate) {
 		mySpeedTextField.setText(frameRate + " "
 				+ myResources.getString("FramesLabel"));
@@ -185,26 +163,13 @@ public class CellSocietyView {
 		
 		HashMap<String, Integer> cellCounts = new HashMap<String, Integer>();
 		
-		System.out.println("=========cell grid===============");
-		System.out.println(cells.length);
-		System.out.println(cells[0].length);
-		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells[0].length; j++) {
-				System.out.println(cells[i][j].toString());
-			}
-		}
-		
 		for (int i = 0; i < names.length; i++) {
 			cellCounts.put(names[i], 0);
 		}
 		
-		System.out.println(cellCounts.toString());
-		
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[0].length; j++) {
 				String cellName = cells[i][j].toString();
-				System.out.println("cellname" + cellName);
-				System.out.println(cellCounts.get(cellName));
 				cellCounts.put(cellName, cellCounts.get(cellName) + 1);
 				
 			}
@@ -221,7 +186,6 @@ public class CellSocietyView {
 	public void generateChartLines(String[] cellNames) {
 
 		myChart.getData().clear();
-		
 		mySeries = new ArrayList<Series<Number, Number>>();
 		
 		for (int i = 0; i < cellNames.length; i++) {
@@ -255,13 +219,14 @@ public class CellSocietyView {
 		myRoot.setAlignment(Pos.CENTER);
 		myRoot.setHgap(10);
 		myRoot.setVgap(10);
-		myRoot.add(createTitle(), 0, 0);
-		myRoot.add(mySimGrid, 0, 1);
-		myRoot.add(makeSimulationButtons(), 0, 2);
-		myRoot.add(makeFrameControlButtons(), 0, 3);
-		myRoot.add(makeSpeedDisplay(), 0, 4);
-		myRoot.add(createErrorLocation(), 0, 5);
-		myRoot.add(initializeChart(), 1, 1);
+		myRoot.add(createTitle(), 1, 0);
+		myRoot.add(myDefaultGrid, 1, 1);
+		myRoot.add(makeSimulationButtons(), 1, 2);
+		myRoot.add(makeFrameControlButtons(), 1, 3);
+		myRoot.add(makeSpeedDisplay(), 1, 4);
+		myRoot.add(createErrorLocation(), 1, 5);
+		myRoot.add(initializeChart(), 2, 1);
+		myRoot.getColumnConstraints().add(new ColumnConstraints(50));
 	}
 	
 	/**
@@ -292,34 +257,6 @@ public class CellSocietyView {
 		myStepButton.setDisable(true);
 		mySpeedupButton.setDisable(true);
 		mySlowdownButton.setDisable(true);
-	}
-
-	/**
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws InvocationTargetException
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 * @throws SecurityException
-	 * @throws NoSuchMethodException
-	 * @throws ClassNotFoundException
-	 */
-	private void generateGrid() throws ParserConfigurationException,
-			SAXException, IOException, InstantiationException,
-			IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, ClassNotFoundException,
-			NoSuchMethodException, SecurityException {
-		mySimGrid = new GridPane();	
-		mySimGrid.setPadding(new Insets(0, 25, 5, 50));
-		mySimGrid.setAlignment(Pos.CENTER);
-
-	}
-	
-	public void setGridGap(int gridLineGap){
-		mySimGrid.setHgap(gridLineGap);
-		mySimGrid.setVgap(gridLineGap);
 	}
 
 	/**
@@ -384,5 +321,7 @@ public class CellSocietyView {
 		bottomRow.setPadding(new Insets(0, 25, 15, 25));
 		return bottomRow;
 	}
+
+
 
 }

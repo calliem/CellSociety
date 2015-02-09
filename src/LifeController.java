@@ -1,3 +1,4 @@
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,16 @@ public class LifeController extends SimpleController{
 	private int bornOn;
 	 
 
-	public LifeController(Map<String, String>parameters){
+	public LifeController(Map<String, String>parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		super(parameters);
+		/*//why are there so many throw/catches??
+		//this is duplicated :(
+		String boundary = parameters.get("boundary");
+		if (boundary != null){
+			setBoundary(boundary);
+		}*/
+
+		
 		stayOn = Integer.parseInt(parameters.get("stayOn"));
 		bornOn = Integer.parseInt(parameters.get("bornOn"));
 	}

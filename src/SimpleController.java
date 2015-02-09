@@ -1,8 +1,14 @@
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
 public abstract class SimpleController extends Controller{
 	
+	public SimpleController(Map<String, String>parameters) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
+		super(parameters);
+	}
+
 	@Override
 	public Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		Cell[][] newGrid = new Cell[grid.length][grid[0].length];
@@ -20,7 +26,11 @@ public abstract class SimpleController extends Controller{
 		return newGrid;
 	}
 	
+<<<<<<< HEAD
 	protected  abstract String getNeighborsState(Cell[][] grid, List<Coordinate> neighbors);
+=======
+	protected abstract String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors);
+>>>>>>> 34117744d8d73640c88a35e5a94ed724ecbf7c73
 
 	protected abstract Cell newState(Cell[][] newGrid, Cell cell, String neighborsState, int r, int c) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 	
