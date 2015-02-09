@@ -250,7 +250,6 @@ public class CellSociety {
 			myController = (Controller) constructor.newInstance(myParser
 					.getSimParamMap());
 		} catch (ClassNotFoundException e) {
-			System.out.println("HALLO");
 			throw new XMLParserException("Invalid simulation: %s", simName); // LILA
 		}
 	}
@@ -384,9 +383,8 @@ public class CellSociety {
 				| InvocationTargetException e) {
 			e.printStackTrace();
 		} catch (XMLParserException e) {
-			System.out.println("PRINTOUT 2");
-			System.out.println(e.getMessage()); // LILA this should not appear
-												// twice...?
+			System.out.println(e.getMessage()); // LILA this should not appear												// twice...?
+			return; //test this LILA
 		}
 		// if make above into one catch, then it will not printout all of the
 		// error messages but only the first one? LILA
