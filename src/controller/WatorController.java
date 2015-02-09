@@ -86,14 +86,6 @@ public class WatorController extends ComplexController {
 	private List<Integer[]> getNeighbors(GridData data, String s) {
 		List<Integer[]> list = myNeighbor.getNeighbors(data.getGrid(), data.getRow(),
 				data.getCol());
-		/*
-		 * for(int d = -1; d <= 1; d += 2){
-		 * 
-		 * neighborsFromTwoDirections(grid, r+d, c, list);
-		 * neighborsFromTwoDirections(grid, r, c+d, list);
-		 * 
-		 * }
-		 */
 		for (Integer[] i : new ArrayList<Integer[]>(list)) {
 			if (!(data.getGrid()[i[0]][i[1]].toString().equals(s))
 					|| contains(data.getList(), i)) {
@@ -103,12 +95,6 @@ public class WatorController extends ComplexController {
 		return list;
 	}
 
-	/*
-	 * private void neighborsFromTwoDirections(Cell[][] grid, int newR, int
-	 * newC, List<Integer[]> list) { if(myBoundary.findCell(grid, newR, newC) !=
-	 * null){ Integer[] currArr = new Integer[2]; currArr[0] = newR; currArr[1]
-	 * = newC; list.add(currArr); } }
-	 */
 	private Integer[] getDestination(List<Integer[]> eligibleDestinations) {
 		return eligibleDestinations
 				.get(new Random().nextInt(eligibleDestinations.size()));

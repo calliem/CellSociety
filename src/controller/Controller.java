@@ -27,7 +27,6 @@ public abstract class Controller {
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException {
 		String boundary = parameters.get(Strings.BOUNDARY_PARAMETER);
-		System.out.println(boundary);
 		if (boundary != null) {
 			setBoundary(boundary);
 		} else {
@@ -81,7 +80,6 @@ public abstract class Controller {
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException {
 		String boundary = s + Strings.BOUNDARY;
-		System.out.println(boundary);
 		myBoundary = (Boundary) Class.forName(Strings.BOUNDARY_PACKAGE + boundary)
 				.getConstructor().newInstance();
 	}
@@ -90,7 +88,6 @@ public abstract class Controller {
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException {
 		String neighbor = s + Strings.NEIGHBOR;
-		System.out.println(neighbor);
 		myNeighbor = (Neighbor) Class.forName(Strings.NEIGHBOR_PACKAGE + neighbor)
 				.getConstructor(Boundary.class).newInstance(myBoundary);
 	}
