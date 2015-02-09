@@ -8,15 +8,8 @@ public abstract class Controller {
 /*
 	public static final int X_COORD = 0;
 	public static final int Y_COORD = 1;
-<<<<<<< HEAD
-*/
-	protected Boundary myBoundary = new FiniteBoundary();
-	protected Neighbor myNeighbor = new FullNeighbor(myBoundary);
 
-	public abstract Cell[][] runOneSim(Cell[][] grid) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException ;
-/*
-	public static boolean contains(List<Integer[]> updatedCoordinates,
-=======
+*/
 
 	protected Boundary myBoundary;
 	protected Neighbor myNeighbor;
@@ -46,8 +39,9 @@ public abstract class Controller {
 														// FullNeighbor
 	}
 
-	protected boolean contains(List<Integer[]> updatedCoordinates,
->>>>>>> 34117744d8d73640c88a35e5a94ed724ecbf7c73
+	//protected boolean contains(List<Integer[]> updatedCoordinates,
+/*
+
 			Integer[] curCoordinates) {
 		int[] coords = new int[curCoordinates.length];
 		for (int i = 0; i < curCoordinates.length; i++) {

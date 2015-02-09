@@ -26,11 +26,9 @@ public abstract class SimpleController extends Controller{
 		return newGrid;
 	}
 	
-<<<<<<< HEAD
+
 	protected  abstract String getNeighborsState(Cell[][] grid, List<Coordinate> neighbors);
-=======
-	protected abstract String getNeighborsState(Cell[][] grid, List<Integer[]> neighbors);
->>>>>>> 34117744d8d73640c88a35e5a94ed724ecbf7c73
+
 
 	protected abstract Cell newState(Cell[][] newGrid, Cell cell, String neighborsState, int r, int c) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 	

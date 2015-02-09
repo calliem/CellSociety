@@ -13,24 +13,17 @@
 	    <stayOn>2</stayOn>
 	    <bornOn>3</bornOn>
 	    <boundary>Finite</boundary>
-	    <neighbor>Half</neighbor>
+	    <neighbor>Full</neighbor>
 	</simParam>
 	<cellParam>    
-	    <cell state="lawl" color="White" name="EmptyCell"/>
-	    <cell state="Cell" color="Black" name="LiveCell">
-<<<<<<< HEAD
+	    <cell state="Cell" color="White" name="EmptyCell"/>
+	    <cell state="Cell" color="Black" name="LiveCell" >
+
 	    	<loc>
 	    	    14 15 16 25
 	    	</loc>
-	    	<!--  
-	    	<loc>
-	    		1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 17 18 19 30 31 32 33
-	    		41 42 43 44 45 47 48 50 55 67 88 92 93 94 95 99
-	    	</loc>
-	    	-->
-=======
-	    	<loc>2 5 7</loc>
->>>>>>> 34117744d8d73640c88a35e5a94ed724ecbf7c73
+
+
 	    </cell>
 	</cellParam>
 </simulation>

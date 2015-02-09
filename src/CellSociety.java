@@ -280,38 +280,11 @@ public class CellSociety {
 				| ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
-		
-		System.out.println("=========2) cell grid in updateGrid()===============");
-		System.out.println(myCells.length);
-		System.out.println(myCells[0].length);
-		for (int i = 0; i < myCells.length; i++) {
-			for (int j = 0; j < myCells[0].length; j++) {
-				System.out.println(myCells[i][j].toString());
-			}
-		}
-		
-		for(Cell[] r: myCells){
-			for(Cell c : r){
-			System.out.println("!!!"+ c.getColor());
-			}
-		}
-		
-		
-		updateColors();
-		
-		for(Cell[] r: myCells){
-			for(Cell c : r){
-			System.out.println("###"+ c.getColor());
-			}
-		}
-		
-		//System.out.println("Count: "+ count);
-		count++;
-=======
+
+
 
 		updateColors();
->>>>>>> 34117744d8d73640c88a35e5a94ed724ecbf7c73
+
 		myView.updateSimGrid(myCells);
 
 
@@ -325,22 +298,8 @@ public class CellSociety {
 		myView.updateChartLines(myCells, myNumFrames, cellNames);
 		myNumFrames++;
 	}
-<<<<<<< HEAD
-	
 
-	//this is inefficient and sucks design-wise
-	private void updateColors(){
-		//Cell[][] newCells = new Cell[myCells.length][myCells[0].length];
-		for (int i = 0; i < myCells.length; i++){
-			for (int j = 0; j < myCells[i].length; j++){
-				String cellName = myCells[i][j].toString();
-				List<HashMap<String, String>> cellList = myParser.getCellParamList();
-				for (HashMap<String, String> params: cellList){
-					String pName = params.get("name");
-					if (params.get("name").equals(cellName)){
-						String pColor = params.get("color").toString();
-						myCells[i][j].setColor(Color.valueOf(params.get("color")));
-=======
+	
 
 	// this is inefficient and sucks design-wise
 	private void updateColors() {
@@ -353,7 +312,7 @@ public class CellSociety {
 					if (params.get("name").equals(cellName)){
 						myCells[i][j].setColor(Color.valueOf(params
 								.get("color")));
->>>>>>> 34117744d8d73640c88a35e5a94ed724ecbf7c73
+
 					}
 				}
 			}
@@ -390,11 +349,11 @@ public class CellSociety {
 				| SAXException | IOException | NoSuchMethodException
 				| InstantiationException | IllegalAccessException
 				| InvocationTargetException e) {
-			myView.openDialogBox("Error in XML file syntax"); //general error message
+		//	myView.openDialogBox("Error in XML file syntax"); //general error message
 			e.printStackTrace();
 			return;
 		} catch (XMLParserException e) {
-			myView.openDialogBox(e.getMessage()); // specific error message
+		//	myView.openDialogBox(e.getMessage()); // specific error message
 			return;
 		}
 		// if make above into one catch, then it will not printout all of the
