@@ -10,11 +10,12 @@
 		<shape>square</shape></initParam>
 	<simParam>
 	    <probCatch>100</probCatch>
+	    <neighbor>Half</neighbor>
 	</simParam>
 	<cellParam>    
 	    <cell name="TreeCell" state="Cell" color="Black" />
 	    <cell name="EmptyCell" state="Cell" color="White">
-	    	<loc>1 3 5 7 9</loc>
+	    	<loc>19 22</loc>
 	    </cell>
 	    <cell name="FireCell" state="Cell" color="Orange">
 	        <loc>55</loc>
