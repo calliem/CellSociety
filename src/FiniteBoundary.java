@@ -1,4 +1,3 @@
-
 public class FiniteBoundary extends Boundary{
 
 	@Override

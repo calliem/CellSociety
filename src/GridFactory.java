@@ -7,8 +7,6 @@ public class GridFactory {
 			return new SquareGrid(gridSize, cells);
 		case "triangle":
 			return new TriangleGrid(gridSize, cells);
-		case "hexagon":
-			return new HexagonGrid(gridSize, cells);
 		default:
 			return null;
 		}

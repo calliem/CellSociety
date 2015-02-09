@@ -1,4 +1,8 @@
 
+
+
+//import Ground;
+
 import java.util.Map;
 
 import javafx.scene.paint.Color;
@@ -13,7 +17,7 @@ public class Cell{
 	private Shape myShape;
 
 	private String myName;
-	private Ground myGround;
+	//private Ground myGround;
 	private Color myColor;
 
 	

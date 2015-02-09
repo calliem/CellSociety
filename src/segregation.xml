@@ -6,7 +6,7 @@
 		<xRows>10</xRows>
 		<yCols>10</yCols>
 		<fps>5</fps>
-	</initParam>
+		<shape>square</shape></initParam>
 	<simParam>
 	    <probHappy>0.5</probHappy>
 	</simParam>
