@@ -116,7 +116,7 @@ public class CellSocietyView {
 
 	public void updateSimGrid(Cell[][] cellGrid) {
 		mySimGrid.getChildren().clear();
-		System.out.println(cellGrid.length);
+		////t.println(cellGrid.length);
 		for (int i = 0; i < cellGrid.length; i++) {
 			for (int j = 0; j < cellGrid[0].length; j++)
 				mySimGrid.add(cellGrid[i][j].getShape(), j, i);
@@ -185,12 +185,12 @@ public class CellSocietyView {
 		
 		HashMap<String, Integer> cellCounts = new HashMap<String, Integer>();
 		
-		System.out.println("=========cell grid===============");
-		System.out.println(cells.length);
-		System.out.println(cells[0].length);
+		////t.println("=========cell grid===============");
+		////t.println(cells.length);
+		////t.println(cells[0].length);
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[0].length; j++) {
-				System.out.println(cells[i][j].toString());
+				//t.println(cells[i][j].toString());
 			}
 		}
 		
@@ -198,13 +198,13 @@ public class CellSocietyView {
 			cellCounts.put(names[i], 0);
 		}
 		
-		System.out.println(cellCounts.toString());
+		////t.println(cellCounts.toString());
 		
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[0].length; j++) {
 				String cellName = cells[i][j].toString();
-				System.out.println("cellname" + cellName);
-				System.out.println(cellCounts.get(cellName));
+				////t.println("cellname" + cellName);
+				////t.println(cellCounts.get(cellName));
 				cellCounts.put(cellName, cellCounts.get(cellName) + 1);
 				
 			}

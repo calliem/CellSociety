@@ -14,15 +14,12 @@ public class SugarController extends ComplexController{
 			throws InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException {
-		//Updatable curCell = (Updatable) grid[row][col];
 		GroundCell curCell = (GroundCell) data.curCell();
-		//GridData data = new GridData(grid, row, col, newGrid, updatedCoordinates);
 		curCell.ageOneChronon(data, myNeighbor);
 	}
 
 	@Override
 	protected List<String> typeTriage(List<String> list) {
-		list.add("AgentCell");
 		list.add("GroundCell");
 		return list;
 	}

@@ -18,16 +18,14 @@ public abstract class ComplexController extends Controller{
 		Queue<Coordinate> myCoordinates= coordinatesTriage(grid, triage);
 
 		for(Coordinate coords : myCoordinates){
-			//int row = coords[0];
-			//int col = coords[1];
 			GridData data = new GridData(grid, coords.getX(), coords.getY(), newGrid, updatedCoordinates);
-			//Integer[] curCoordinates = {r,c};
 			if(!updatedCoordinates.contains(coords)){
 				cellUpdate(data);
 			}
 		}
 		return newGrid;
 	}
+	
 	protected abstract void cellUpdate(GridData data) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException;
 
 	protected abstract List<String> typeTriage(List<String> list);

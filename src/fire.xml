@@ -10,6 +10,7 @@
 	</initParam>
 	<simParam>
 	    <probCatch>100</probCatch>
+	    <neighbor>Half</neighbor>
 	</simParam>
 	<cellParam>    
 	    <cell name="TreeCell" state="Cell" color="Black" />

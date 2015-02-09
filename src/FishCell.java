@@ -6,19 +6,13 @@ import java.util.Map;
 
 import javafx.scene.paint.Color;
 
-public class FishCell extends Cell implements ReproducingCell{
-
-	// private int reproductionAge; this should be passed into the controller
+public class FishCell extends AquaticCell {
 
 	private static int myReproducingAge;
-	private int myCurrAge;
 	private static Color myColor;
-
 	public FishCell(String name){
 		super(name);
-		myCurrAge = 0;
 		getShape().setFill(myColor);
-	//	getShape().setFill(Color.RED);
 
 	}
 
@@ -26,16 +20,7 @@ public class FishCell extends Cell implements ReproducingCell{
 		super(params);
 		myColor = Color.valueOf(params.get("color"));
 		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
-	//	getShape().setFill(Color.RED);
-
-		//setFill(myColor);
-		//setFill(Color.YELLOW);
-		//myCurrAge = 0;
-
-		
-		//getShape().setFill(myColor);
 		getShape().setFill(myColor);
-		myCurrAge = 0;
 
 	}
 
@@ -43,25 +28,19 @@ public class FishCell extends Cell implements ReproducingCell{
 		return myReproducingAge;
 	}
 
-	//REFACTOR!!!! make ReproducingCell interactive
+	
 	@Override
-	public Cell reproducingResult() {
-		if(myCurrAge >= myReproducingAge){
-			myCurrAge = 0;
-			return new FishCell("FishCell");
-		}
-		else{
-			return new Cell("EmptyCell");
-		}
+	protected Cell instantiate(){
+		return new FishCell("FishCell");
 	}
 
-	public Cell ageOneChronon(){
-		myCurrAge++;
-		return this;
-	}
-	
 	public String toString(){
 		return "FishCell";
+	}
+
+	@Override
+	protected void swapRole(GridData data, Coordinate dest) {
+
 	}
 
 }

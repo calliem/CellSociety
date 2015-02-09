@@ -53,7 +53,7 @@ public class CellSociety {
 		String state = cellParams.get("state");
 		Constructor<?> constructor;
 		try{
-			if (state.equals("SharkCell") | state.equals("FishCell")){
+			if (state.equals("SharkCell") | state.equals("FishCell") | state.equals("PatchCell") | state.equals("AgentCell") | state.equals("GroundCell")){
 				Class<?> className= Class.forName(state);
 				constructor = className.getConstructor(Map.class);
 			}
@@ -67,7 +67,7 @@ public class CellSociety {
 			}	
 		}
 		catch (ClassNotFoundException e){ //null pointer as well?
-			System.out.println("I just threw an exception");
+			//System.out.println("I just threw an exception");
 			throw new XMLParserException("Invalid cell state: %s", state);	
 		}
 		//WRITE A CATCH NULL POINTER AND THAT MEANS THAT THE CELL STATE WAS ENTERED INCORRECTLY
@@ -89,10 +89,10 @@ public class CellSociety {
 
 		myCells = new Cell[numRows][numCols];
 		List<HashMap<String, String>> cellStates = myParser.getCellParamList();
-		System.out.println("sze" + cellStates.size());
+		//System.out.println("sze" + cellStates.size());
 		if (cellStates.size() > 1){ //if there are at least 2 different cell types
 			if (cellStates.get(1).get("loc") == null && cellStates.get(1).get("locProbability") != null){
-				System.out.println("populateProbabilities");
+				//System.out.println("populateProbabilities");
 				populateProbabilities(cellStates, numCols, numRows);
 			}
 			else if (cellStates.get(1).get("loc") != null && cellStates.get(1).get("locProbability") == null){
@@ -131,8 +131,8 @@ public class CellSociety {
 			
 			for (int j = 0; j < numCells; j ++){ //specify number of cells to randomly select
 				int randomX; int randomY;
-				System.out.println(numRows * numCols);
-				System.out.println(myRandom.nextInt(100));
+				//System.out.println(numRows * numCols);
+				//System.out.println(myRandom.nextInt(100));
 				do{
 					int randomLoc = myRandom.nextInt(numRows * numCols);
 					randomX = randomLoc / numCols;
@@ -150,16 +150,27 @@ public class CellSociety {
 			HashMap<String, String> cellParams = cellStates.get(i);
 			int[] locations = stringToIntArray(cellParams.get("loc"));
 			List<Integer> invalidLocs = new ArrayList<Integer>();
+			
 			//boolean isInvalid = false;
+			
 			if (locations != null){
 				for (int j = 0; j < locations.length; j++) {
-					System.out.println(cellParams.get("state") + locations[j]);
+					//System.out.println(cellParams.get("state") + locations[j]);
 					if (locations[j] > numCols * numRows){
 						invalidLocs.add(locations[j]);
 					}
 					int row = locations[j] / numCols;
 					int col = locations[j] % numCols;
 					Cell cell = createCellInstance(cellParams);
+					/*
+					Cell groundCell = createGroundInstance();
+					if(agent){
+						((GroundCell) groundCell).setAgent(createAgentInstance());
+					}
+					else{
+						((GroundCell) groundCell).setPatch(createPatchInstance());
+					}
+					*/
 					try{
 						myCells[row][col] = cell;
 					}
@@ -169,6 +180,7 @@ public class CellSociety {
 
 				}
 			}
+			
 		}
 	}
 
@@ -188,7 +200,7 @@ public class CellSociety {
 	 */
 	private void retrieveParserInfo() throws NoSuchMethodException, InstantiationException,
 	IllegalAccessException, InvocationTargetException {
-		System.out.println("parser!");
+		//System.out.println("parser!");
 		myFrameRate = Integer.parseInt(myParser.getInitParamMap().get("fps"));
 
 		String simName = myParser.getInitParamMap().get("simName");
@@ -201,7 +213,7 @@ public class CellSociety {
 			myController = (Controller) constructor.newInstance(myParser
 					.getSimParamMap());			
 		} catch (ClassNotFoundException e){
-			System.out.println("HALLO");
+			//System.out.println("HALLO");
 			throw new XMLParserException("Invalid simulation: %s", simName); //LILA
 		}
 	}
@@ -241,12 +253,12 @@ public class CellSociety {
 
 	private void updateGrid() {
 
-		System.out.println("=========1) cell grid in updateGrid()===============");
-		System.out.println(myCells.length);
-		System.out.println(myCells[0].length);
+		//System.out.println("=========1) cell grid in updateGrid()===============");
+		//System.out.println(myCells.length);
+		//System.out.println(myCells[0].length);
 		for (int i = 0; i < myCells.length; i++) {
 			for (int j = 0; j < myCells[0].length; j++) {
-				System.out.println(myCells[i][j].toString());
+				//System.out.println(myCells[i][j].toString());
 			}
 		}
 		try {
@@ -258,18 +270,18 @@ public class CellSociety {
 			e.printStackTrace();
 		}
 		
-		System.out.println("=========2) cell grid in updateGrid()===============");
-		System.out.println(myCells.length);
-		System.out.println(myCells[0].length);
+		//System.out.println("=========2) cell grid in updateGrid()===============");
+		//System.out.println(myCells.length);
+		//System.out.println(myCells[0].length);
 		for (int i = 0; i < myCells.length; i++) {
 			for (int j = 0; j < myCells[0].length; j++) {
-				System.out.println(myCells[i][j].toString());
+				//System.out.println(myCells[i][j].toString());
 			}
 		}
 		
 		for(Cell[] r: myCells){
 			for(Cell c : r){
-			System.out.println("!!!"+ c.getColor());
+			//System.out.println("!!!"+ c.getColor());
 			}
 		}
 		
@@ -278,7 +290,7 @@ public class CellSociety {
 		
 		for(Cell[] r: myCells){
 			for(Cell c : r){
-			System.out.println("###"+ c.getColor());
+			//System.out.println("###"+ c.getColor());
 			}
 		}
 		
@@ -303,6 +315,7 @@ public class CellSociety {
 		//Cell[][] newCells = new Cell[myCells.length][myCells[0].length];
 		for (int i = 0; i < myCells.length; i++){
 			for (int j = 0; j < myCells[i].length; j++){
+				//
 				String cellName = myCells[i][j].toString();
 				List<HashMap<String, String>> cellList = myParser.getCellParamList();
 				for (HashMap<String, String> params: cellList){
@@ -350,8 +363,8 @@ public class CellSociety {
 				| InvocationTargetException e) {
 			e.printStackTrace();
 		} catch (XMLParserException e){
-			System.out.println("PRINTOUT 2");
-			System.out.println(e.getMessage()); //LILA this should not appear twice...?
+			//System.out.println("PRINTOUT 2");
+			//System.out.println(e.getMessage()); //LILA this should not appear twice...?
 		}
 		//if make above into one catch, then it will not printout all of the error messages but only the first one? LILA
 //move it to just make one try catch
@@ -367,13 +380,13 @@ public class CellSociety {
 		for (int i = 0; i < cellParams.size(); i++) {
 			Map<String, String> cur = cellParams.get(i);
 			for (String s : cur.keySet()) {
-				System.out.println(s + " : " + cur.get(s));
+				//System.out.println(s + " : " + cur.get(s));
 			}
 			cellNames[i] = cur.get("name");
 			cellColors[i] = cur.get("color");
 		}
 
-		System.out.println(Arrays.toString(cellNames));
+		//System.out.println(Arrays.toString(cellNames));
 
 		myNumFrames = 0;
 		myView.generateChartLines(cellNames);
@@ -393,9 +406,9 @@ public class CellSociety {
 		if (!string.equals(" ") && !string.equals("")){
 			int[] intArray = new int[split.length];
 			for (int i = 0; i < split.length; i++) {
-					System.out.println("split[i]" + split[i]);
+					//System.out.println("split[i]" + split[i]);
 					if (!split[i].equals("") && !split[i].equals(" ")) {
-						System.out.println("STR" + split[i]);
+						//System.out.println("STR" + split[i]);
 						intArray[i] = Integer.parseInt(split[i]);
 					}
 				}
