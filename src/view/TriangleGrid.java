@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Le Qi
+
 package view;
 
 import cell.Cell;
@@ -7,7 +10,6 @@ import javafx.scene.shape.Shape;
 public class TriangleGrid extends AbstractGrid {
 
 	public TriangleGrid(double gridSize, Cell[][] cells) {
-		// TODO Auto-generated constructor stub
 		super(gridSize, cells);
 
 	}

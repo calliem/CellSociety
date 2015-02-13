@@ -1,23 +1,16 @@
 package view;
+import cellsociety.Strings;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.chart.Axis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
-import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -56,8 +49,8 @@ public class CellSocietyView {
 	private HBox myTitleBox;
 	private GridPane myRoot;
 	private ResourceBundle myResources;
-	private LineChart<Number, Number> myChart;
-	private List<Series<Number, Number>> mySeries;
+	private ChartView myChartView;
+	
 	private AbstractGrid mySimGrid;
 	private Group myDefaultGrid;
 
@@ -149,7 +142,6 @@ public class CellSocietyView {
 	}
 
 	public File displayXMLChooser() {
-		// TODO Auto-generated method stub
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open XML File");
 		fileChooser.getExtensionFilters().add(
@@ -167,61 +159,16 @@ public class CellSocietyView {
 	}
 
 	public void updateChartLines(Cell[][] cells, int numFrames, String[] names) {
-
-		HashMap<String, Integer> cellCounts = new HashMap<String, Integer>();
-
-
-		for (int i = 0; i < names.length; i++) {
-			cellCounts.put(names[i], 0);
-		}
-
-		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells[0].length; j++) {
-				String cellName = cells[i][j].toString();
-
-				cellCounts.put(cellName, cellCounts.get(cellName) + 1);
-
-			}
-		}
-
-		for (int i = 0; i < mySeries.size(); i++) {
-			Series<Number, Number> series = mySeries.get(i);
-			series.getData().add(
-					new Data<Number, Number>(numFrames, cellCounts.get(names[i])));
-		}
-
+		myChartView.updateChartLines(cells, numFrames, names);
 	}
 
 	public void generateChartLines(String[] cellNames) {
-
-		myChart.getData().clear();
-		mySeries = new ArrayList<Series<Number, Number>>();
-
-		for (int i = 0; i < cellNames.length; i++) {
-			Series<Number, Number> series = new Series<Number, Number>();
-			series.setName(cellNames[i]);
-			mySeries.add(series);
-		}
-
-		myChart.getData().addAll(mySeries);
-
+		myChartView.generateChartLines(cellNames);
 	}
 
 	private XYChart<Number, Number> initializeChart() {
-
-		Axis<Number> xAxis = new NumberAxis();
-		xAxis.setAutoRanging(true);
-		xAxis.setTickLabelsVisible(false);
-
-		Axis<Number> yAxis = new NumberAxis();
-		yAxis.setAutoRanging(true);
-
-		myChart = new LineChart<Number, Number>(xAxis, yAxis);
-		myChart.setAnimated(false);
-		myChart.setCreateSymbols(false);
-		myChart.setPadding(new Insets(0, 50, 0, 25));
-
-		return myChart;
+		myChartView = new ChartView();
+		return myChartView.getChart();
 	}
 
 	private void configureUI() {
@@ -249,12 +196,12 @@ public class CellSocietyView {
 	}
 
 	private void initializeButtons() {
-		myPlayButton = new Button(myResources.getString("PlayCommand"));
-		myPauseButton = new Button(myResources.getString("PauseCommand"));
-		myStepButton = new Button(myResources.getString("StepCommand"));
-		myXMLButton = new Button(myResources.getString("XMLCommand"));
-		mySpeedupButton = new Button(myResources.getString("SpeedupCommand"));
-		mySlowdownButton = new Button(myResources.getString("SlowdownCommand"));
+		myPlayButton = new Button(myResources.getString(Strings.PLAY_COMMAND));
+		myPauseButton = new Button(myResources.getString(Strings.PAUSE_COMMAND));
+		myStepButton = new Button(myResources.getString(Strings.STEP_COMMAND));
+		myXMLButton = new Button(myResources.getString(Strings.XML_COMMAND));
+		mySpeedupButton = new Button(myResources.getString(Strings.SPEEDUP_COMMAND));
+		mySlowdownButton = new Button(myResources.getString(Strings.SLOWDOWN_COMMAND));
 	}
 
 	/**

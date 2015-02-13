@@ -1,4 +1,7 @@
 package cellsociety;
+
+import javafx.scene.control.Button;
+
 /**
  * This class contains a list of static String variables that are used throughout the program
  * @author Callie Mao
@@ -73,5 +76,12 @@ public class Strings {
 	public static final String NONE = "none";
 	public static final String BOTH = "both";
 	public static final String TWO = "two";
+	
+	public static final String PLAY_COMMAND = "PlayCommand";
+	public static final String PAUSE_COMMAND = "PauseCommand";
+	public static final String STEP_COMMAND = "StepCommand";
+	public static final String XML_COMMAND = "XMLCommand";
+	public static final String SPEEDUP_COMMAND = "SpeedupCommand";
+	public static final String SLOWDOWN_COMMAND = "SlowdownCommand";
 
 }
