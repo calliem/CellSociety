@@ -1,4 +1,5 @@
-//This is my Code Masterpiece
+// This entire file is part of my masterpiece.
+// Callie Mao
 
 package cellsociety;
 
