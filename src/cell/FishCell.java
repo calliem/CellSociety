@@ -4,38 +4,30 @@ import java.util.Map;
 
 import cellsociety.Coordinate;
 import cellsociety.GridData;
+import cellsociety.Strings;
 import javafx.scene.paint.Color;
 
 public class FishCell extends AquaticCell {
 
 	private static int myReproducingAge;
-	private static Color myColor;
+	
 	public FishCell(String name){
 		super(name);
-		//getShape().setFill(myColor);
-
 	}
 
 	public FishCell(Map<String, String> params) {
 		super(params);
-		myColor = Color.valueOf(params.get("color"));
-		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
-		//getShape().setFill(myColor);
-
 	}
 
-	public int getAge(){
-		return myReproducingAge;
-	}
 
-	
+	//this below method is necessary in order for AquaticCell to work properly
 	@Override
 	protected Cell instantiate(){
-		return new FishCell("FishCell");
+		return new FishCell(Strings.FISH_CELL);
 	}
 
 	public String toString(){
-		return "FishCell";
+		return Strings.FISH_CELL;
 	}
 
 	@Override

@@ -24,17 +24,16 @@ public class Cell {
 		myColor = Color.valueOf(params.get(Strings.CELL_COLOR));
 	}
 
-	public Color getColor() {
-		return myColor;
-	}
-
 	@Override
 	public String toString() {
 		return myName;
 	}
-
-	public void setColor(Color color) {
+	
+	public Color getColor() {
+		return myColor;
+	}
+	
+	public void setColor(Color color){
 		myColor = color;
 	}
-
 }

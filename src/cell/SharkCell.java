@@ -6,34 +6,25 @@ import java.util.Map;
 import neighbor.Neighbor;
 import cellsociety.Coordinate;
 import cellsociety.GridData;
+import cellsociety.Strings;
 import javafx.scene.paint.Color;
 
 public class SharkCell extends AquaticCell {
 	
 	private static int myMaxEnergy;
-	private static int myReproducingAge;
 	private int myCurEnergy;
-	private static Color myColor;
 		
 	public SharkCell(String name){
 		super(name);
 		myCurEnergy = myMaxEnergy;
-		//getShape().setFill(myColor);	 
 	}
 
+	
 	public SharkCell(Map<String, String> params) {
 		super(params);
-		myColor = Color.valueOf(params.get("color"));
 		myMaxEnergy = Integer.parseInt(params.get("maxEnergy"));
-		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
-		//getShape().setFill(Color.BLACK);
-		myCurEnergy = myMaxEnergy;
 	}
 
-	protected Cell instantiate(){
-		return new SharkCell("SharkCell");
-	}
-	
 	public int getEnergy(){
 		return myCurEnergy;
 	}
@@ -44,18 +35,22 @@ public class SharkCell extends AquaticCell {
 	}
 	
 	protected void swapRole(GridData data, Coordinate dest){
-			if(data.getGrid()[dest.getX()][dest.getY()].toString().equals("FishCell")){
+			if(data.getGrid()[dest.getX()][dest.getY()].toString().equals(Strings.FISH_CELL)){
 				replenishEnergy();
 			}	
 	}
 	
 	protected List<Coordinate> findEligibleNeighbors(GridData data,
 			Neighbor neighbor) {
-		List<Coordinate> list = getNeighbors(data, neighbor, "FishCell");
+		List<Coordinate> list = getNeighbors(data, neighbor, Strings.FISH_CELL);
 		if(list.isEmpty()){
 			list = super.findEligibleNeighbors(data, neighbor);
 		}
 		return list;
+	}
+	
+	protected Cell instantiate(){
+		return new SharkCell(Strings.SHARK_CELL);
 	}
 	
 	public boolean isDead(){
@@ -63,7 +58,7 @@ public class SharkCell extends AquaticCell {
 	}
 	
 	public String toString(){
-		return "SharkCell";
+		return Strings.SHARK_CELL;
 	}
 
 	public void replenishEnergy() {

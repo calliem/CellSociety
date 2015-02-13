@@ -23,7 +23,6 @@ public abstract class AquaticCell extends Cell {
 	public AquaticCell(Map<String, String> params) {
 		super(params);
 		myReproducingAge = Integer.parseInt(params.get("reproductionAge"));
-		//getShape().setFill(Color.BLACK);
 		myCurAge = 0;
 	}
 	
@@ -83,6 +82,10 @@ public abstract class AquaticCell extends Cell {
 			}
 		}
 		return list;
+	}
+	
+	public int getAge(){
+		return myReproducingAge;
 	}
 
 	protected abstract void swapRole(GridData data, Coordinate dest);

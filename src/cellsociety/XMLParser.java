@@ -1,3 +1,5 @@
+//This is my Code Masterpiece
+
 package cellsociety;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,8 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/** 
- * This class reads and parses through tags and values from a given XML file 
+/**
+ * This class reads and parses through tags and values from a given XML file
+ * 
  * @author Callie Mao
  *
  */
@@ -34,105 +37,76 @@ public class XMLParser {
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(xmlFile);
 		doc.getDocumentElement().normalize();
-
-		// input data into nodes
 		myNodeList = doc.getDocumentElement().getChildNodes();
 		parseInitialTags();
 	}
 
 	/**
-	 * Parses <initParam> <cellParam> <simParam> and other first-level tags and stores them in instance variable lists
+	 * Parses <initParam> <cellParam> <simParam> and other first-level tags and
+	 * stores them in respective instance variable lists
 	 */
 	public void parseInitialTags() {
-		for (int i = 0; i < myNodeList.getLength(); i++) {	
+		for (int i = 0; i < myNodeList.getLength(); i++) {
 			Node node = myNodeList.item(i);
 			if (node instanceof Element) {
+				NodeList paramList = node.getChildNodes();
 				switch (node.getNodeName()) {
 				case Strings.INITIALIZATION_PARAMETERS:
-					NodeList initParamList = node.getChildNodes();
-					myInitParam = makeParamMap(initParamList);
+					myInitParam = makeParamMap(paramList);
 					break;
 				case Strings.CELL_PARAMETERS:
-					NodeList cellList = node.getChildNodes();
-					myCellParamList = makeCellParamList(cellList);
+					myCellParamList = makeListOfParamMaps(paramList);
 					break;
 				case Strings.SIMULATION_PARAMETERS:
-					NodeList simParamList = node.getChildNodes();
-					mySimParam = makeParamMap(simParamList);
+					mySimParam = makeParamMap(paramList);
 				}
 			}
 		}
 	}
 
 	/**
-	 * Creates a Map of parameters for a given list of nodes. 
+	 * Creates a HashMap of parameters for a given list of nodes.
+	 * 
 	 * @param paramList
-	 * @return a map of subnodes
+	 * @return paramMap (a map of node names and node values)
 	 */
-	private Map<String, String> makeParamMap(NodeList paramList) {
-		Map<String, String> paramMap = new HashMap<String, String>();
+	private HashMap<String, String> makeParamMap(NodeList paramList) {
+		HashMap<String, String> paramMap = new HashMap<String, String>();
 		for (int j = 0; j < paramList.getLength(); j++) {
-			Node node = paramList.item(j);
-			if (node instanceof Element) {
-				String paramName = node.getNodeName();
-				String content = node.getTextContent();
-				paramMap.put(paramName, content);
+			Node subnode = paramList.item(j);
+			if (subnode instanceof Element) {
+				paramMap.put(subnode.getNodeName(), subnode.getTextContent());
 			}
 		}
+
 		return paramMap;
 	}
-	
+
 	/**
-	 * Make a list of a cell's parameters and store it in a map. The key (the XML tag) will map to the value (the value within the XML tag)
-	 * @param paramList
-	 * @return
+	 * Makes a list of HashMaps containing properties within 2-levels of
+	 * subnodes.
+	 * 
+	 * @param NodeList
+	 * @return cellStates (A list of maps containing the properties (subnodes of cells) of
+	 *         cells (subnodes))
 	 */
-	private List<HashMap<String, String>> makeCellParamList(NodeList paramList) {
+	private List<HashMap<String, String>> makeListOfParamMaps(NodeList paramList) {
 		List<HashMap<String, String>> cellStates = new ArrayList<HashMap<String, String>>();
 		for (int j = 0; j < paramList.getLength(); j++) {
-			HashMap<String, String> cellParamMap = new HashMap<String, String>();
-			Node node = paramList.item(j);
-			if (node instanceof Element) {
-				Element element = (Element) node;
-				parseCellAttributes(cellParamMap, element);
-				parseChildNodes(cellParamMap, node); // if the cell has more properties (subnodes)			 
-				cellStates.add(cellParamMap);
+			Node subNode = paramList.item(j);
+			if (subNode instanceof Element) {
+				HashMap<String, String> cellStateMap = makeParamMap(subNode
+						.getChildNodes());
+				cellStates.add(cellStateMap);
 			}
 		}
 		return cellStates;
 	}
-	
-	/**
-	 * Parses through the attributes (essential values: state, color, and name) of a given element and stores them in cellParamMap
-	 * @param cellParamMap
-	 * @param element
-	 */
-	private void parseCellAttributes (HashMap<String, String> cellParamMap, Element element){
-		String stateName = element.getAttribute(Strings.CELL_STATE);
-		cellParamMap.put(Strings.CELL_STATE, stateName);
-		String color = element.getAttribute(Strings.CELL_COLOR);
-		cellParamMap.put(Strings.CELL_COLOR, color);
-		String name = element.getAttribute(Strings.CELL_NAME);
-		cellParamMap.put(Strings.CELL_NAME, name);
-	}
-	
-	/**
-	 * Parses the child nodes of a given node (if the node has any child nodes)
-	 * @param cellParamMap
-	 * @param node
-	 */
-	private void parseChildNodes(HashMap<String, String> cellParamMap, Node node){
-		if (node.hasChildNodes()) {
-			NodeList nodelist = node.getChildNodes();
-			for (int i = 0; i < nodelist.getLength(); i++) {
-				Node subNode = nodelist.item(i);
-				if (subNode instanceof Element) {
-					cellParamMap.put(subNode.getNodeName(), subNode.getTextContent());
-				}
-			}
-		}
-	}
 
+	/** The below methods allow CellSociety to access specific instance variables.
+	* The maps are separated to reduce the number properties that can be 
+	* accessed from any specific method(creation of grid, creation of cells, etc.)
+	*/ 
 	public Map<String, String> getSimParamMap() {
 		return mySimParam;
 	}

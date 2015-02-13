@@ -16,8 +16,15 @@
 	    <neighbor>Full</neighbor>
 	</simParam>
 	<cellParam>    
-	    <cell state="Cell" color="White" name="EmptyCell"/>
-	    <cell state="Cell" color="Black" name="LiveCell">
+	    <cell>
+	        <state>Cell</state>
+	        <color>White</color>
+	        <name>EmptyCell</name>
+	    </cell>
+	    <cell>
+	        <state>Cell</state>
+	        <color>Black</color>
+	        <name>LiveCell</name>
 	    	<loc>
 	    	    14 15 16 25
 	    	</loc>

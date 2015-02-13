@@ -2,6 +2,9 @@ package cellsociety;
 
 public class Coordinate {
 	
+	
+	private static int LARGE_PRIME_ONE = 709;
+	private static int LARGE_PRIME_TWO = 991;
 	int myX;
 	int myY;
 	
@@ -20,7 +23,7 @@ public class Coordinate {
 	
 	@Override
     public int hashCode() {
-        return 709*myX + 991*myY;
+        return LARGE_PRIME_ONE*myX + LARGE_PRIME_TWO*myY;
     }
 
     @Override
