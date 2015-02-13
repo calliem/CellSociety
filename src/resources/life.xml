@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simulation>
 	<initParam>
-		<simName>Life</simName>
 		<author>Author</author>
 		<xRows>10</xRows>
 		<yCols>10</yCols>

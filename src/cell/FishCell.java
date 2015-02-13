@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Kevin Delgado
+
 package cell;
 
 import java.util.Map;
