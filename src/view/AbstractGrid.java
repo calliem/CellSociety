@@ -3,6 +3,9 @@
 
 package view;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 import cell.Cell;
 import javafx.scene.Group;
 import javafx.scene.shape.Shape;
@@ -32,11 +35,7 @@ public abstract class AbstractGrid {
 
 	private void displayGrid(Shape[][] shapes) {
 		myGrid.getChildren().clear();
-		for (int i = 0; i < shapes.length; i++) {
-			for (int j = 0; j < shapes[0].length; j++) {
-				myGrid.getChildren().add(shapes[i][j]);
-			}
-		}
+		Arrays.stream(shapes).forEach(s -> Arrays.stream(s).forEach(m -> myGrid.getChildren().add(m)));
 	}
 
 	protected abstract Shape[][] populateGrid(double gridSize, Cell[][] cells);
